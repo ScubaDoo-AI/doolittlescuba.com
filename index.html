@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Doolittle Scuba</title>
+<meta name="description" content="diveplate by Doolittle Scuba: hand-drawn dive-site illustrations, screen-printed on tees. Based in Newnan, Georgia.">
+<link rel="canonical" href="https://doolittlescuba.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Doolittle Scuba">
+<meta property="og:title" content="Doolittle Scuba · Dive sites, drawn by hand">
+<meta property="og:description" content="Wrecks, springs and reefs drawn from real dives by two PADI Master Divers, screen-printed on tees. Based in Newnan, Georgia.">
+<meta property="og:url" content="https://doolittlescuba.com/">
+<meta property="og:image" content="https://doolittlescuba.com/img/og/home.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Eric and Allie Doolittle diving in open blue water, with the Doolittle Scuba logo">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="img/brand/icon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#122A55">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.min.css" crossorigin>
+<link rel="stylesheet" href="css/divemap.css?v=2">
+<!-- JSONLD:START --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Doolittle Scuba L.L.C.", "url": "https://doolittlescuba.com/", "logo": "https://doolittlescuba.com/img/brand/seal.png", "email": "hello@doolittlescuba.com", "address": {"@type": "PostalAddress", "addressLocality": "Newnan", "addressRegion": "GA", "addressCountry": "US"}, "founder": [{"@type": "Person", "name": "Eric Doolittle"}, {"@type": "Person", "name": "Allie Doolittle"}], "sameAs": ["https://instagram.com/doolittlescuba", "https://facebook.com/Doolittlescuba", "https://tiktok.com/@doolittlescuba", "https://x.com/DoolittleScuba"]}</script><!-- JSONLD:END -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Almendra:wght@400;700&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a chart sheet — title block across the top, plates laid out like survey sheets, coordinates running up the margin as on the shirt backs. */
+:root{
+  --paper:#EDF1F2; --panel:#F7F9F9; --text:#15223A; --muted:#56657A;
+  --ink:#122A55; --red:#C8202A; --blue:#1F4FA3; --rule:#C6D0D8; --contour:#CFD9DF;
+  --f-display:"Almendra", "Palatino Linotype", Palatino, Georgia, serif;
+  --f-body:"Alegreya Sans", "Gill Sans", "Trebuchet MS", system-ui, sans-serif;
+  --f-data:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --s-1:.8125rem; --s0:1.0625rem; --s1:1.3rem; --s2:1.75rem; --s3:2.5rem; --s4:clamp(2.6rem,6vw,4.4rem);
+  --wrap:1120px; --gut:clamp(16px,4vw,40px);
+  --deep:#122A55; --deep-2:#0E2147; --on-deep:#F3F6F9; --on-deep-muted:#A9B9CF; --brand-red:#C8202A;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0C1829; --panel:#11213A; --text:#E3EAF2; --muted:#94A4B9;
+  --ink:#DCE5F0; --red:#E5535A; --blue:#7FA6E8; --rule:#243650; --contour:#15284A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0C1829; --panel:#11213A; --text:#E3EAF2; --muted:#94A4B9;
+  --ink:#DCE5F0; --red:#E5535A; --blue:#7FA6E8; --rule:#243650; --contour:#15284A; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--text);font-family:var(--f-body);font-size:var(--s0);line-height:1.55;margin:0;padding-inline:var(--gut)}
+#sea{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.wrap{position:relative;z-index:1;max-width:var(--wrap);margin-inline:auto}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:2px}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;line-height:1.1;text-wrap:balance;margin:0}
+p{margin:0}
+.eyebrow{font-family:var(--f-data);font-size:var(--s-1);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--f-data);font-variant-numeric:tabular-nums}
+
+/* Title block */
+.deep{background:var(--deep);color:var(--on-deep);margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);position:relative;z-index:1}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 24px;padding-block:18px 16px;border-bottom:1px solid rgba(255,255,255,.14)}
+.brand{display:block;line-height:0}
+.brand img{height:clamp(38px,5vw,52px);width:auto;max-width:100%}
+.top nav{display:flex;gap:20px;flex-wrap:wrap}
+.top nav a{text-decoration:none;font-family:var(--f-data);font-size:var(--s-1);letter-spacing:.06em;text-transform:uppercase;color:var(--on-deep-muted)}
+.top nav a:hover{color:var(--on-deep)}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,5vw,64px);align-items:center;padding-block:clamp(36px,7vw,80px) clamp(32px,6vw,64px)}
+.hero-copy{display:flex;flex-direction:column;gap:20px;min-width:0}
+.hero-band{border-bottom:5px solid var(--brand-red)}
+.hero-band .eyebrow{color:var(--on-deep-muted)}
+.hero h1{font-size:var(--s4);color:var(--on-deep)}
+.hero .lede{font-size:var(--s1);line-height:1.5;max-width:34ch}
+.cta{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.btn{font:500 var(--s0)/1 var(--f-body);border:0;border-radius:3px;padding:13px 20px;background:var(--brand-red);color:#fff;cursor:pointer;text-decoration:none}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--on-deep);box-shadow:inset 0 0 0 1.5px var(--on-deep)}
+.status{font-family:var(--f-data);font-size:var(--s-1);color:var(--muted);min-height:1.4em}
+
+.sheet{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:stretch;min-width:0}
+.coord{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--f-data);font-weight:500;font-size:clamp(.75rem,1.4vw,.95rem);letter-spacing:.12em;color:var(--on-deep);text-align:center;border-left:1.5px solid var(--brand-red);padding-left:8px}
+.plate{width:100%;max-width:100%;background:var(--ink);-webkit-mask:var(--src) center/contain no-repeat;mask:var(--src) center/contain no-repeat}
+.hero .plate{aspect-ratio:1100/660}
+
+/* Section heads */
+section{padding-block:clamp(40px,7vw,72px);border-top:1px solid var(--rule)}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px 32px;margin-bottom:clamp(24px,4vw,40px)}
+.head h2{font-size:var(--s3);color:var(--ink)}
+.head p{max-width:52ch;color:var(--muted)}
+
+/* Plates */
+.plates{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(28px,4vw,48px) clamp(20px,4vw,48px)}
+.site{display:flex;flex-direction:column;gap:14px;min-width:0}
+.site .frame{background:var(--panel);border:1px solid var(--rule);padding:clamp(12px,2.4vw,24px);display:grid;place-items:center;aspect-ratio:4/3}
+.site .frame .plate{height:100%}
+.cap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;align-items:baseline}
+.cap h3{font-size:var(--s2);color:var(--ink)}
+.cap .where{grid-column:1/-1;color:var(--muted)}
+.cap .mono{grid-column:1/-1;font-size:var(--s-1);color:var(--text)}
+.cap .fact{grid-column:1/-1;margin-top:4px;max-width:56ch}
+.flag{display:inline-flex;align-items:center;gap:7px;font-family:var(--f-data);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.flag svg{width:26px;height:18px;flex:none;display:block}
+
+/* Index of the line */
+.index{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));border-top:1.5px solid var(--ink)}
+.index li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 4px;border-bottom:1px solid var(--rule)}
+.index .n{text-transform:none;letter-spacing:0;font-family:var(--f-display);font-size:var(--s1);color:var(--ink)}
+.index .tag{white-space:nowrap;font-family:var(--f-data);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.index li.shown .tag{color:var(--red)}
+.legend{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:18px}
+
+/* Provenance */
+.craft{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(24px,5vw,64px);align-items:start}
+.craft .body{display:flex;flex-direction:column;gap:18px;max-width:60ch}
+.craft .body p:first-child{font-size:var(--s1)}
+.specs{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);border-top:1.5px solid var(--ink)}
+.specs dt,.specs dd{margin:0;padding:11px 0;border-bottom:1px solid var(--rule)}
+.specs dt{font-family:var(--f-data);font-size:var(--s-1);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-right:20px}
+.facts{background:var(--panel);border:1px solid var(--rule);padding:clamp(18px,3vw,28px);display:flex;flex-direction:column;gap:14px}
+.facts h4{font-family:var(--f-display);font-weight:400;font-size:var(--s2);margin:0;color:var(--ink)}
+.facts ul{margin:0;padding-left:1.1em;font-style:italic;display:flex;flex-direction:column;gap:4px}
+.facts .note{font-family:var(--f-data);font-size:.75rem;color:var(--muted)}
+
+/* About */
+.about{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(24px,5vw,64px);align-items:start}
+.about .body{display:flex;flex-direction:column;gap:16px;max-width:60ch}
+.about .body p:first-child{font-size:var(--s1)}
+.cards{display:grid;gap:18px}
+.ccard{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 0 var(--rule)}
+.ccard-top{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1.5px solid var(--ink);padding-bottom:8px}
+.rating{font-family:var(--f-data);font-size:var(--s-1);letter-spacing:.08em;text-transform:uppercase;color:var(--red);font-weight:500}
+.cname{font-family:var(--f-display);font-weight:700;font-size:var(--s2);color:var(--ink);line-height:1.1}
+.ccard dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 16px}
+.ccard dt{font-family:var(--f-data);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);align-self:center}
+.ccard dd{margin:0}
+
+/* Logbook mosaic */
+.mosaic{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-rows:clamp(64px,10.5vw,122px);gap:10px}
+.t{position:relative;margin:0;overflow:hidden;background:var(--panel);border-radius:3px}
+.t img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.t:hover img{transform:scale(1.03)}
+@media (prefers-reduced-motion: reduce){.t img{transition:none}.t:hover img{transform:none}}
+.t figcaption{position:absolute;left:0;right:0;bottom:0;padding:22px 12px 9px;font-family:var(--f-data);font-size:.72rem;letter-spacing:.05em;color:#fff;background:linear-gradient(to top,rgba(6,14,28,.72),rgba(6,14,28,0))}
+.a7x4{grid-column:span 7;grid-row:span 4}.a12x4{grid-column:span 12;grid-row:span 4}.a6x3{grid-column:span 6;grid-row:span 3}.a5x2{grid-column:span 5;grid-row:span 2}
+.a4x2{grid-column:span 4;grid-row:span 2}.a3x2{grid-column:span 3;grid-row:span 2}.a3x4{grid-column:span 3;grid-row:span 4}
+.topside-h{margin-top:28px;margin-bottom:10px}
+.topside{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.topside .t{aspect-ratio:4/5;max-width:100%}
+.who{display:flex;align-items:center;gap:14px}
+.av{width:60px;height:60px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--ink)}
+@media (max-width:700px){
+  .mosaic{grid-auto-flow:row dense}
+  .mosaic .t.m-tall{grid-column:span 1;grid-row:span 2}
+  .mosaic .t.m-wide{grid-column:span 2;grid-row:span 1}
+  .mosaic .a6x2,.mosaic .a5x3,.mosaic .a4x3{grid-column:span 1;grid-row:span 1}
+  .mosaic .a4x4{grid-column:span 1;grid-row:span 2}
+  .mosaic .a7x3,.mosaic .a8x3{grid-column:span 2;grid-row:span 2}
+  .mosaic{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:150px}
+  .mosaic .t{grid-column:span 1;grid-row:span 1}
+  .mosaic .a7x4,.mosaic .a6x3,.mosaic .a12x4{grid-column:span 2;grid-row:span 2}
+  .topside{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .t figcaption{font-size:.64rem;letter-spacing:.03em;padding:16px 8px 7px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .mosaic .t:last-child:nth-child(odd){grid-column:span 2}
+}
+
+.hero-photo{width:100%;height:100%;max-width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:3px}
+.a6x2{grid-column:span 6;grid-row:span 2}.a7x3{grid-column:span 7;grid-row:span 3}.a5x3{grid-column:span 5;grid-row:span 3}.a8x3{grid-column:span 8;grid-row:span 3}.a4x3{grid-column:span 4;grid-row:span 3}.a4x4{grid-column:span 4;grid-row:span 4}
+.sitecards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:18px}
+.scard{background:var(--panel);border:1px solid var(--rule);border-top:3px solid var(--ink);padding:20px 22px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.scard .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.scard h3{font-size:var(--s2);color:var(--ink)}
+.scard .where{color:var(--muted)}
+.scard .mono{font-size:var(--s-1)}
+.scard .fact{margin-top:4px}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,4vw,48px)}
+.card{border:1.5px solid var(--ink);padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:14px;min-width:0}
+.card h3{font-size:var(--s2);color:var(--ink)}
+.addr{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.addr code{font-family:var(--f-data);font-size:var(--s0);color:var(--ink);background:var(--panel);border:1px solid var(--rule);padding:8px 10px;user-select:all;overflow-wrap:anywhere}
+.copy{font:500 var(--s-1)/1 var(--f-data);letter-spacing:.06em;text-transform:uppercase;background:transparent;color:var(--red);border:1.5px solid var(--red);border-radius:3px;padding:9px 12px;cursor:pointer}
+
+.foot-band{border-top:5px solid var(--brand-red);margin-top:clamp(24px,5vw,48px)}
+.foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px 40px;padding-block:clamp(32px,5vw,52px)}
+.foot-lockup{width:clamp(200px,26vw,280px);height:auto}
+.foot-meta{display:flex;flex-direction:column;gap:6px;color:var(--on-deep-muted);font-size:var(--s-1);text-align:right}
+.foot-meta .mono{color:var(--on-deep);overflow-wrap:anywhere}
+@media (max-width:640px){.foot-meta{text-align:left}}
+.seal-head{display:flex;align-items:center;gap:18px;min-width:0}
+.seal{width:clamp(64px,8vw,92px);height:auto;flex:none}
+
+@media (max-width:820px){
+  .hero,.craft,.about,.contact{grid-template-columns:minmax(0,1fr)}
+  .plates{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:480px){.top nav{gap:14px}.coord{letter-spacing:.06em}}
+
+/* Design gallery */
+.dz-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:20px}
+.chip{font:500 var(--s-1)/1 var(--f-data);letter-spacing:.05em;text-transform:uppercase;background:var(--panel);color:var(--ink);border:1.5px solid var(--rule);border-radius:999px;padding:9px 14px;cursor:pointer}
+.chip .mono{color:var(--muted);margin-left:4px}
+.chip.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.chip.on .mono{color:inherit;opacity:.75}
+.dz-sep{width:1px;height:22px;background:var(--rule);margin-inline:4px}
+.dz-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:18px}
+.dz{margin:0;display:flex;flex-direction:column;gap:8px;min-width:0}
+.dz[hidden]{display:none}
+.dz-img{position:relative;aspect-ratio:4/3;background:var(--panel);border:1px solid var(--rule);overflow:hidden;border-radius:3px;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.dz-img img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.pending{position:absolute;inset:0;display:grid;place-items:center;background:repeating-radial-gradient(circle at 30% 60%,transparent 0 14px,var(--contour) 14px 15px)}
+.pending span{font-family:var(--f-data);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--panel);padding:6px 10px;border:1px solid var(--rule)}
+.dz-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.pill{flex:none;margin-top:3px;font:500 .66rem/1 var(--f-data);letter-spacing:.06em;text-transform:uppercase;padding:5px 7px;border-radius:3px;color:#fff;background:var(--deep)}
+.pill.available{background:#1E7A4C}
+.pill.completed{background:var(--deep)}
+.pill.progress{background:var(--brand-red)}
+.dz figcaption{display:flex;flex-direction:column;gap:2px}
+.dz-t{font-family:var(--f-display);font-weight:700;font-size:var(--s1);color:var(--ink);line-height:1.15}
+.dz-s{font-size:var(--s-1);color:var(--muted)}
+@media (max-width:560px){.dz-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 10px}.dz-row{flex-direction:column;gap:4px}.pill{margin-top:0}.dz-t{font-size:var(--s0)}}
+.dz-note{margin-top:22px;font-size:var(--s-1);color:var(--muted);max-width:70ch}
+/* Request forms: they open a pre-filled email, since the host has no form backend */
+.req{display:grid;gap:10px;max-width:720px}
+.req .row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px}
+.req label{font-family:var(--f-data);font-size:var(--s-1);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px}
+.req label .opt{text-transform:none;letter-spacing:0}
+.req input,.req select,.req textarea{font:inherit;color:var(--text);background:var(--panel);border:1.5px solid var(--rule);border-radius:3px;padding:10px 12px;width:100%;min-width:0}
+.req textarea{min-height:92px;resize:vertical}
+.req input:focus-visible,.req select:focus-visible,.req textarea:focus-visible{outline:2px solid var(--red);outline-offset:1px;border-color:var(--ink)}
+.req [aria-invalid="true"]{border-color:var(--red)}
+.req .hint{font-size:var(--s-1);color:var(--muted);margin-top:4px}
+.req .go{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:6px}
+.req .send{font:500 var(--s0)/1 var(--f-body);border:0;border-radius:3px;padding:13px 20px;background:var(--red);color:#fff;cursor:pointer}
+.req .send:hover{filter:brightness(1.08)}
+.req .status{font-family:var(--f-data);font-size:var(--s-1);color:var(--muted);min-height:1.4em}
+@media (max-width:640px){.req .row2{grid-template-columns:minmax(0,1fr)}}
+.mini{margin-top:clamp(28px,4vw,40px);border:1.5px solid var(--ink);padding:clamp(18px,3vw,28px);display:grid;gap:14px}
+.mini h3{font-family:var(--f-display);font-size:var(--s2);color:var(--ink);margin:0}
+.mini > p{max-width:60ch;margin:0}
+.mini .send{justify-self:start}
+.mini{background:var(--panel)}
+.mini a.send{text-decoration:none;display:inline-block;font:500 var(--s0)/1 var(--f-body);border-radius:3px;padding:13px 20px;background:var(--red);color:#fff}
+.mini a.send:hover{filter:brightness(1.08)}
+/* Collections */
+.lines{display:grid;gap:clamp(20px,3vw,32px)}
+.line{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(18px,4vw,48px);align-items:center;background:var(--panel);border:1px solid var(--rule);border-top:3px solid var(--ink);padding:clamp(16px,3vw,28px)}
+.line:nth-child(even) .line-art{order:2}
+.line-art{margin:0;background:#F7F9F9;border:1px solid var(--rule);border-radius:3px;aspect-ratio:4/3;max-width:100%;overflow:hidden;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.line-art img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.line-body{display:flex;flex-direction:column;gap:12px;min-width:0;max-width:56ch}
+.line-body h3{font-size:var(--s3);color:var(--ink)}
+.line-body > p:not(.eyebrow):not(.line-links){font-size:var(--s1);line-height:1.45}
+.line-links{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin-top:6px}
+.line-links .txt{font:500 var(--s-1)/1 var(--f-data);letter-spacing:.06em;text-transform:uppercase;color:var(--red);text-decoration:none}
+.line-links .txt:hover{text-decoration:underline}
+@media (max-width:760px){.line{grid-template-columns:minmax(0,1fr)}.line:nth-child(even) .line-art{order:0}}
+/* Dive map */
+.anchor{position:relative;top:-12px;display:block}
+.map-jump{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.map-jump:empty{display:none}
+.divemap{height:clamp(320px,52vw,520px);border:1px solid var(--rule);border-radius:3px;background:var(--panel);position:relative;z-index:0}
+.map-nojs{padding:20px;color:var(--muted)}
+.list-h{margin:clamp(24px,4vw,36px) 0 10px}
+.index a{text-decoration:none}
+.index a:hover .n,.index a:focus-visible .n{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.index .tag.finished{color:var(--muted)}
+.index .tag.available{color:#1E7A4C}
+.index .tag.progress{color:var(--red)}
+.index .where{display:block;font-family:var(--f-body);font-size:var(--s-1);color:var(--muted);letter-spacing:0;text-transform:none}
+.index .nm{display:flex;flex-direction:column;gap:1px;min-width:0}
+#map .index{grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+#map .index li{padding-inline:4px 14px}
+/* Launch list */
+.signup{display:grid;gap:8px}
+.signup label{font-family:var(--f-data);font-size:var(--s-1);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.signup .opt{text-transform:none;letter-spacing:0}
+.signup input,.signup select{font:inherit;color:var(--text);background:var(--panel);border:1.5px solid var(--rule);border-radius:3px;padding:11px 12px;width:100%;min-width:0}
+.signup input:focus-visible,.signup select:focus-visible{outline:2px solid var(--red);outline-offset:1px;border-color:var(--ink)}
+.signup input[aria-invalid="true"]{border-color:var(--red)}
+.signup .btn{justify-self:start;margin-top:8px}
+.direct{font-size:var(--s-1);color:var(--muted);display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.direct code{font-family:var(--f-data);color:var(--ink)}
+.direct .copy{padding:6px 9px}
+/* Social */
+.social{display:flex;flex-wrap:wrap;gap:10px;margin:-8px 0 clamp(20px,3vw,28px)}
+.social a{display:inline-flex;align-items:center;gap:8px;font:500 var(--s-1)/1 var(--f-data);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--ink);border:1.5px solid var(--ink);border-radius:3px;padding:9px 12px}
+.social a:hover{background:var(--ink);color:var(--paper)}
+.social svg{width:16px;height:16px;fill:currentColor;flex:none}
+.foot-meta .social{margin:4px 0;justify-content:flex-end}
+.foot-meta .social a{color:var(--on-deep);border-color:rgba(255,255,255,.45)}
+.foot-meta .social a:hover{background:var(--on-deep);color:var(--deep)}
+@media (max-width:640px){.foot-meta .social{justify-content:flex-start}}
+
+/* The shirts */
+.sh-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr));gap:18px}
+.sh{margin:0;display:flex;flex-direction:column;gap:8px;min-width:0}
+
+.sh-img{display:block;width:100%;aspect-ratio:1;padding:0;border:1px solid var(--rule);border-radius:3px;background:var(--panel);overflow:hidden;cursor:zoom-in}
+.sh-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+.sh-img:hover img{transform:scale(1.03)}
+@media (prefers-reduced-motion: reduce){.sh-img img{transition:none}.sh-img:hover img{transform:none}}
+.sh figcaption{display:flex;flex-direction:column;gap:3px}
+.sh .dz-s a{color:var(--muted)}
+.sh-flip{display:inline-flex;gap:0;margin-top:4px;border:1.5px solid var(--rule);border-radius:999px;overflow:hidden;align-self:flex-start}
+.sh-flip button{font:500 .7rem/1 var(--f-data);letter-spacing:.06em;text-transform:uppercase;background:transparent;color:var(--muted);border:0;padding:6px 10px;cursor:pointer}
+.sh-flip button.on{background:var(--ink);color:var(--paper)}
+@media (max-width:560px){.sh-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 10px}.sh .dz-t{font-size:var(--s0)}}
+.lb{border:0;padding:0;background:transparent;max-width:min(96vw,1200px);max-height:96vh}
+.lb::backdrop{background:rgba(6,14,28,.86)}
+.lb figure{margin:0;display:flex;flex-direction:column;gap:10px;align-items:center}
+.lb img{max-width:min(96vw,1200px);max-height:84vh;width:auto;height:auto;border-radius:3px;background:var(--panel)}
+.lb figcaption{font-family:var(--f-data);font-size:var(--s-1);letter-spacing:.05em;color:#fff;text-align:center}
+.lb-x{position:fixed;top:12px;right:14px;font:400 2rem/1 var(--f-body);color:#fff;background:transparent;border:0;cursor:pointer}
+</style>
+</head>
+<body>
+
+
+<canvas id="sea" aria-hidden="true"></canvas>
+<div class="deep">
+  <div class="wrap">
+    <header class="top">
+      <a class="brand" data-umami-event="nav-logo" href="#top" id="top" aria-label="Doolittle Scuba L.L.C., Do - A - Little Scuba"><img src="img/brand/lockup-h-dark.png" alt="Doolittle Scuba L.L.C. — Do - A - Little Scuba" width="900" height="193"></a>
+      <nav aria-label="Sections"><a data-umami-event="nav-designs" href="#designs">Designs</a><a data-umami-event="nav-shirts" href="#shirts">Shirts</a><a data-umami-event="nav-map" href="#map">Dive map</a><a data-umami-event="nav-logbook" href="#logbook">Logbook</a><a data-umami-event="nav-about" href="/about/">About us</a><a data-umami-event="nav-workshop" href="/workshop/">Workshop</a><a data-umami-event="nav-contact" href="#contact">Contact</a></nav>
+    </header>
+  </div>
+</div>
+<main>
+  <div class="deep hero-band"><div class="wrap">
+    <div class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Doolittle Scuba &middot; Based in Newnan, Georgia</p>
+        <h1>Dive art, drawn by hand.</h1>
+        <p class="lede">Shirts drawn by two PADI Master Divers, from the sites we have dived and the courses we have taken.</p>
+        <div class="cta">
+          <a class="btn" data-umami-event="hero-launch-news" href="#contact">Get launch news</a>
+          <a class="btn ghost" data-umami-event="hero-see-shirts" href="#shirts">See the shirts</a>
+        </div>
+      </div>
+      <figure class="sheet" style="margin:0">
+        <div class="coord mono" aria-label="Home port coordinates, Newnan, Georgia: 33 degrees 22.84 minutes north, 84 degrees 47.98 minutes west">HOME PORT &nbsp; 33°22.84 N &nbsp; 084°47.98 W</div>
+        <img class="hero-photo" src="img/pair-blue.webp" alt="Eric and Allie Doolittle hovering together in open blue water" width="1400" height="1050">
+      </figure>
+    </div>
+  </div></div>
+  <div class="wrap">
+
+
+    <section id="lines" aria-labelledby="lines-h">
+      <div class="head">
+        <h2 id="lines-h">The collections</h2>
+        <p>Two lines, one hand. Pick a line to see every design in it.</p>
+      </div>
+      <div class="lines">
+        <article class="line" aria-labelledby="line-plates-h">
+          <figure class="line-art" oncontextmenu="return false"><img src="img/designs/blue-grotto.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Blue Grotto plate preview, watermarked"></figure>
+          <div class="line-body">
+            <p class="eyebrow">Signature Series &middot; <span data-count="plates">15</span> designs</p>
+            <h3 id="line-plates-h">Dive sites, drawn by hand</h3>
+            <p>Wrecks, springs and reefs drawn from real dives, labelled with depths and landmarks, and screen-printed in one colour on soft pastel tees.</p>
+            <p class="line-links"><a class="btn" href="#designs" data-show-line="plates" data-umami-event="line-open" data-umami-event-line="plates">See the dive-site plates</a><a class="txt" href="#map" data-umami-event="line-map">Find them on the map &rarr;</a></p>
+          </div>
+        </article>
+        <article class="line" aria-labelledby="line-cert-h">
+          <figure class="line-art" oncontextmenu="return false"><img src="img/designs/cert-night.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Night Diver Certified-ish preview, watermarked"></figure>
+          <div class="line-body">
+            <p class="eyebrow">Certified-ish &middot; <span data-count="certifiedish">20</span> designs</p>
+            <h3 id="line-cert-h">The courses, as they really feel</h3>
+            <p>One tongue-in-cheek diagram for each specialty in your logbook, from Open Water to Rebreather. Deep Diver charts narcosis one martini at a time; Night Diver labels everything that is watching you.</p>
+            <p class="line-links"><a class="btn" href="#designs" data-show-line="certifiedish" data-umami-event="line-open" data-umami-event-line="certifiedish">See the Certified-ish backs</a></p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="shirts" aria-labelledby="shirts-h">
+      <div class="head">
+        <h2 id="shirts-h">The shirts</h2>
+        <p>All fourteen sites, photographed on the shirt, front and back. Every site gets its own garment colour; the art is the same water-based black on all of them. Tap a shirt for the full photo, or flip it to see the back.</p>
+      </div>
+      <div class="sh-grid" id="sh-grid"><figure class="sh" data-line="plates"><button type="button" class="sh-img" data-front="img/shirts/black-bart-front.webp" data-back="img/shirts/black-bart-back.webp" data-cap="Black Bart · Light blue · Comfort Colors 1717" data-umami-event="shirt-open" data-umami-event-site="black-bart" aria-label="Open photo: Black Bart shirt, light blue"><img src="img/shirts/black-bart-front-t.webp" width="600" height="600" loading="lazy" decoding="async" alt="Black Bart shirt in light blue, worn: chest print with dive flag, site name and coordinates"></button><figcaption><span class="dz-row"><span class="dz-t">Black Bart</span><span class="pill available">Coming soon</span></span><span class="dz-s">Light blue · <a href="/sites/black-bart/" data-umami-event="shirt-site">site guide</a></span><span class="sh-flip" role="group" aria-label="Show front or back"><button type="button" class="on" data-side="front" aria-pressed="true">Front</button><button type="button" data-side="back" aria-pressed="false">Back</button></span></figcaption></figure><figure class="sh" data-line="plates"><button type="button" class="sh-img" data-front="img/shirts/bridge-span-14-front.webp" data-back="img/shirts/bridge-span-14-back.webp" data-cap="Bridge Span 14 · Caribbean blue · Comfort Colors 1717" data-umami-event="shirt-open" data-umami-event-site="bridge-span-14" aria-label="Open photo: Bridge Span 14 shirt, caribbean blue"><img src="img/shirts/bridge-span-14-front-t.webp" width="600" height="600" loading="lazy" decoding="async" alt="Bridge Span 14 shirt in caribbean blue, worn: chest print with dive flag, site name and coordinates"></button><figcaption><span class="dz-row"><span class="dz-t">Bridge Span 14</span><span class="pill available">Coming soon</span></span><span class="dz-s">Caribbean blue · <a href="/sites/bridge-span-14/" data-umami-event="shirt-site">site guide</a></span><span class="sh-flip" role="group" aria-label="Show front or back"><button type="button" class="on" data-side="front" aria-pressed="true">Front</button><button type="button" data-side="back" aria-pressed="false">Back</button></span></figcaption></figure><figure class="sh" data-line="plates"><button type="button" class="sh-img" data-front="img/shirts/blue-grotto-front.webp" data-back="img/shirts/blue-grotto-back.webp" data-cap="Blue Grotto · Mint · Comfort Colors 1717" data-umami-event="shirt-open" data-umami-event-site="blue-grotto" aria-label="Open photo: Blue Grotto shirt, mint"><img src="img/shirts/blue-grotto-front-t.webp" width="600" height="600" loading="lazy" decoding="async" alt="Blue Grotto shirt in mint, worn: chest print with dive flag, site name and coordinates"></button><figcaption><span class="dz-row"><span class="dz-t">Blue Grotto</span><span class="pill available">Coming soon</span></span><span class="dz-s">Mint · <a href="/sites/blue-grotto/" data-umami-event="shirt-site">site guide</a></span><span class="sh-flip" role="group" aria-label="Show front or back"><button type="button" class="on" data-side="front" aria-pressed="true">Front</button><button type="button" data-side="back" aria-pressed="false">Back</button></span></figcaption></figure><figure class="sh" data-line="plates"><button type="button" class="sh-img" data-front="img/shirts/blue-water-park-front.webp" data-back="img/shirts/blue-water-park-back.webp" data-cap="Blue Water Park · Teal · Comfort Colors 1717" data-umami-event="shirt-open" data-umami-event-site="blue-water-park" aria-label="Open photo: Blue Water Park shirt, teal"><img src="img/shirts/blue-water-park-front-t.webp" width="600" height="600" loading="lazy" decoding="async" alt="Blue Water Park shirt in teal, worn: chest print with dive flag, site name and coordinates"></button><figcaption><span class="dz-row"><span class="dz-t">Blue Water Park</span><span class="pill available">Coming soon</span></span><span class="dz-s">Teal · <a href="/sites/blue-water-park/" data-umami-event="shirt-site">site guide</a></span><span class="sh-flip" role="group" aria-label="Show front or back"><button type="button" class="on" data-side="front" aria-pressed="true">Front</button><button type="button" data-side="back" aria-pressed="false">Back</button></span></figcaption></figure><figure class="sh" data-line="plates"><button type="button" class="sh-img" data-front="img/shirts/dampier-strait-front.webp" data-back="img/shirts/dampier-strait-back.webp" data-cap="Dampier Strait · Butter · Comfort Colors 1717" data-umami-event="shirt-open" data-umami-event-site="dampier-strait" aria-label="Open photo: Dampier Strait shirt, butter"><img src="img/shirts/dampier-strait-front-t.webp" width="600" height="600" loading="lazy" decoding="async" alt="Dampier Strait shirt in butter, worn: chest print with dive flag, site name and coordinates"></button><figcaption><span class="dz-row"><span class="dz-t">Dampier Strait</span><span class="pill available">Coming soon</span></span><span class="dz-s">Butter · <a href="/sites/dampier-strait/" data-umami-event="shirt-site">site guide</a></span><span class="sh-flip" role="group" aria-label="Show front or back"><button type="button" class="on" data-side="front" aria-pressed="true">Front</button><button type="button" data-side="back" aria-pressed="false">Back</button></span></figcaption></figure><figure class="sh" data-line="plates"><button type="button" class="sh-img" data-front="img/shirts/bali-front.webp" data-back="img/shirts/bali-back.webp" data-cap="Bali · Terracotta · Comfort Colors 1717" data-umami-event="shirt-open" data-umami-event-site="bali" aria-label="Open photo: Bali shirt, terracotta"><img src="img/shirts/bali-front-t.webp" width="600" height="600" loading="lazy" decoding="async" alt="Bali shirt in terracotta, worn: chest print with dive flag, site name and coordinates"></button><figcaption><span class="dz-row"><span class="dz-t">Bali</span><span class="pill available">Coming soon</span></span><span class="dz-s">Terracotta · <a href="/sites/bali/" data-umami-event="shirt-site">site guide</a></span><span class="sh-flip" role="group" aria-label="Show front or back"><button type="button" class="on" data-side="front" aria-pressed="true">Front</button><button type="button" data-side="back" aria-pressed="false">Back</button></span></figcaption></figure><figure class="sh" data-line="plates"><button type="button" class="sh-img" data-front="img/shirts/rainbow-river-front.webp" data-back="img/shirts/rainbow-river-back.webp" data-cap="Rainbow River · Sage · Comfort Colors 1717" data-umami-event="shirt-open" data-umami-event-site="rainbow-river" aria-label="Open photo: Rainbow River shirt, sage"><img src="img/shirts/rainbow-river-front-t.webp" width="600" height="600" loading="lazy" decoding="async" alt="Rainbow River shirt in sage, worn: chest print with dive flag, site name and coordinates"></button><figcaption><span class="dz-row"><span class="dz-t">Rainbow River</span><span class="pill completed">Sample print</span></span><span class="dz-s">Sage · <a href="/sites/rainbow-river/" data-umami-event="shirt-site">site guide</a></span><span class="sh-flip" role="group" aria-label="Show front or back"><button type="button" class="on" data-side="front" aria-pressed="true">Front</button><button type="button" data-side="back" aria-pressed="false">Back</button></span></figcaption></figure><figure class="sh" data-line="plates"><button type="button" class="sh-img" data-front="img/shirts/navy-llcat-front.webp" data-back="img/shirts/navy-llcat-back.webp" data-cap="Navy LLCAT · Mustard · Comfort Colors 1717" data-umami-event="shirt-open" data-umami-event-site="navy-llcat" aria-label="Open photo: Navy LLCAT shirt, mustard"><img src="img/shirts/navy-llcat-front-t.webp" width="600" height="600" loading="lazy" decoding="async" alt="Navy LLCAT shirt in mustard, worn: chest print with dive flag, site name and coordinates"></button><figcaption><span class="dz-row"><span class="dz-t">Navy LLCAT</span><span class="pill completed">Sample print</span></span><span class="dz-s">Mustard · <a href="/sites/navy-llcat/" data-umami-event="shirt-site">site guide</a></span><span class="sh-flip" role="group" aria-label="Show front or back"><button type="button" class="on" data-side="front" aria-pressed="true">Front</button><button type="button" data-side="back" aria-pressed="false">Back</button></span></figcaption></figure><figure class="sh" data-line="plates"><button type="button" class="sh-img" data-front="img/shirts/dive-land-park-front.webp" data-back="img/shirts/dive-land-park-back.webp" data-cap="Dive Land Park · Aqua · Comfort Colors 1717" data-umami-event="shirt-open" data-umami-event-site="dive-land-park" aria-label="Open photo: Dive Land Park shirt, aqua"><img src="img/shirts/dive-land-park-front-t.webp" width="600" height="600" loading="lazy" decoding="async" alt="Dive Land Park shirt in aqua, worn: chest print with dive flag, site name and coordinates"></button><figcaption><span class="dz-row"><span class="dz-t">Dive Land Park</span><span class="pill completed">Sample print</span></span><span class="dz-s">Aqua · <a href="/sites/dive-land-park/" data-umami-event="shirt-site">site guide</a></span><span class="sh-flip" role="group" aria-label="Show front or back"><button type="button" class="on" data-side="front" aria-pressed="true">Front</button><button type="button" data-side="back" aria-pressed="false">Back</button></span></figcaption></figure><figure class="sh" data-line="plates"><button type="button" class="sh-img" data-front="img/shirts/thurmond-dam-front.webp" data-back="img/shirts/thurmond-dam-back.webp" data-cap="Thurmond Dam · Ivory · Comfort Colors 1717" data-umami-event="shirt-open" data-umami-event-site="thurmond-dam" aria-label="Open photo: Thurmond Dam shirt, ivory"><img src="img/shirts/thurmond-dam-front-t.webp" width="600" height="600" loading="lazy" decoding="async" alt="Thurmond Dam shirt in ivory, worn: chest print with dive flag, site name and coordinates"></button><figcaption><span class="dz-row"><span class="dz-t">Thurmond Dam</span><span class="pill completed">Sample print</span></span><span class="dz-s">Ivory · <a href="/sites/thurmond-dam/" data-umami-event="shirt-site">site guide</a></span><span class="sh-flip" role="group" aria-label="Show front or back"><button type="button" class="on" data-side="front" aria-pressed="true">Front</button><button type="button" data-side="back" aria-pressed="false">Back</button></span></figcaption></figure><figure class="sh" data-line="plates"><button type="button" class="sh-img" data-front="img/shirts/thistlegorm-front.webp" data-back="img/shirts/thistlegorm-back.webp" data-cap="The Thistlegorm · Berry pink · Comfort Colors 1717" data-umami-event="shirt-open" data-umami-event-site="thistlegorm" aria-label="Open photo: The Thistlegorm shirt, berry pink"><img src="img/shirts/thistlegorm-front-t.webp" width="600" height="600" loading="lazy" decoding="async" alt="The Thistlegorm shirt in berry pink, worn: chest print with dive flag, site name and coordinates"></button><figcaption><span class="dz-row"><span class="dz-t">The Thistlegorm</span><span class="pill completed">Sample print</span></span><span class="dz-s">Berry pink · <a href="/sites/thistlegorm/" data-umami-event="shirt-site">site guide</a></span><span class="sh-flip" role="group" aria-label="Show front or back"><button type="button" class="on" data-side="front" aria-pressed="true">Front</button><button type="button" data-side="back" aria-pressed="false">Back</button></span></figcaption></figure><figure class="sh" data-line="plates"><button type="button" class="sh-img" data-front="img/shirts/somosomo-strait-front.webp" data-back="img/shirts/somosomo-strait-back.webp" data-cap="Somosomo Strait · Coral · Comfort Colors 1717" data-umami-event="shirt-open" data-umami-event-site="somosomo-strait" aria-label="Open photo: Somosomo Strait shirt, coral"><img src="img/shirts/somosomo-strait-front-t.webp" width="600" height="600" loading="lazy" decoding="async" alt="Somosomo Strait shirt in coral, worn: chest print with dive flag, site name and coordinates"></button><figcaption><span class="dz-row"><span class="dz-t">Somosomo Strait</span><span class="pill completed">Sample print</span></span><span class="dz-s">Coral · <a href="/sites/somosomo-strait/" data-umami-event="shirt-site">site guide</a></span><span class="sh-flip" role="group" aria-label="Show front or back"><button type="button" class="on" data-side="front" aria-pressed="true">Front</button><button type="button" data-side="back" aria-pressed="false">Back</button></span></figcaption></figure><figure class="sh" data-line="plates"><button type="button" class="sh-img" data-front="img/shirts/rainbow-reef-front.webp" data-back="img/shirts/rainbow-reef-back.webp" data-cap="Rainbow Reef · Lavender · Comfort Colors 1717" data-umami-event="shirt-open" data-umami-event-site="rainbow-reef" aria-label="Open photo: Rainbow Reef shirt, lavender"><img src="img/shirts/rainbow-reef-front-t.webp" width="600" height="600" loading="lazy" decoding="async" alt="Rainbow Reef shirt in lavender, worn: chest print with dive flag, site name and coordinates"></button><figcaption><span class="dz-row"><span class="dz-t">Rainbow Reef</span><span class="pill completed">Sample print</span></span><span class="dz-s">Lavender · <a href="/sites/rainbow-reef/" data-umami-event="shirt-site">site guide</a></span><span class="sh-flip" role="group" aria-label="Show front or back"><button type="button" class="on" data-side="front" aria-pressed="true">Front</button><button type="button" data-side="back" aria-pressed="false">Back</button></span></figcaption></figure><figure class="sh" data-line="plates"><button type="button" class="sh-img" data-front="img/shirts/vuna-reef-front.webp" data-back="img/shirts/vuna-reef-back.webp" data-cap="Vuna Reef · Pink · Comfort Colors 1717" data-umami-event="shirt-open" data-umami-event-site="vuna-reef" aria-label="Open photo: Vuna Reef shirt, pink"><img src="img/shirts/vuna-reef-front-t.webp" width="600" height="600" loading="lazy" decoding="async" alt="Vuna Reef shirt in pink, worn: chest print with dive flag, site name and coordinates"></button><figcaption><span class="dz-row"><span class="dz-t">Vuna Reef</span><span class="pill completed">Sample print</span></span><span class="dz-s">Pink · <a href="/sites/vuna-reef/" data-umami-event="shirt-site">site guide</a></span><span class="sh-flip" role="group" aria-label="Show front or back"><button type="button" class="on" data-side="front" aria-pressed="true">Front</button><button type="button" data-side="back" aria-pressed="false">Back</button></span></figcaption></figure></div>
+      <p class="dz-note">Colours are the garment colours each site was printed on; the final run may add or swap a colour per site. <a href="#contact" data-umami-event="shirts-contact">Get the launch email</a> to hear when yours ships.</p>
+    </section>
+
+    <section id="designs" aria-labelledby="designs-h">
+      <div class="head">
+        <h2 id="designs-h">The designs</h2>
+        <p>Every plate and Certified-ish back, drawn by hand. Previews are the watermarked copyright filings at low resolution; the shirts carry the full art.</p>
+      </div>
+      <div class="dz-bar" role="group" aria-label="Filter designs">
+        <button type="button" class="chip on" data-f="all" data-umami-event="designs-filter" data-umami-event-filter="all" aria-pressed="true">All <span class="mono">36</span></button>
+        <button type="button" class="chip" data-f="available" data-umami-event="designs-filter" data-umami-event-filter="available" aria-pressed="false">Coming soon <span class="mono">6</span></button>
+        <button type="button" class="chip" data-f="completed" data-umami-event="designs-filter" data-umami-event-filter="completed" aria-pressed="false">Art finished <span class="mono">28</span></button>
+        <button type="button" class="chip" data-f="progress" data-umami-event="designs-filter" data-umami-event-filter="progress" aria-pressed="false">In progress <span class="mono">2</span></button>
+        <span class="dz-sep" aria-hidden="true"></span>
+        <button type="button" class="chip" data-l="plates" data-umami-event="designs-line" data-umami-event-line="plates" aria-pressed="false">Dive-site plates</button>
+        <button type="button" class="chip" data-l="certifiedish" data-umami-event="designs-line" data-umami-event-line="certifiedish" aria-pressed="false">Certified-ish</button>
+      </div>
+      <div class="dz-grid" id="dz-grid">
+        <figure class="dz" data-status="available" data-line="plates"><div class="dz-img"><img src="img/designs/black-bart.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Black Bart plate, watermarked preview of the filed artwork"></div><figcaption><span class="dz-row"><span class="dz-t">Black Bart</span><span class="pill available">Coming soon</span></span><span class="dz-s">Panama City Beach, FL</span></figcaption></figure><figure class="dz" data-status="available" data-line="plates"><div class="dz-img"><img src="img/designs/bridge-span-14.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Bridge Span 14 plate, watermarked preview of the filed artwork"></div><figcaption><span class="dz-row"><span class="dz-t">Bridge Span 14</span><span class="pill available">Coming soon</span></span><span class="dz-s">Panama City Beach, FL</span></figcaption></figure><figure class="dz" data-status="available" data-line="plates"><div class="dz-img"><img src="img/designs/blue-grotto.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Blue Grotto plate, watermarked preview of the filed artwork"></div><figcaption><span class="dz-row"><span class="dz-t">Blue Grotto</span><span class="pill available">Coming soon</span></span><span class="dz-s">Williston, FL</span></figcaption></figure><figure class="dz" data-status="available" data-line="plates"><div class="dz-img"><img src="img/designs/blue-water-park.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Blue Water Park plate, watermarked preview of the filed artwork"></div><figcaption><span class="dz-row"><span class="dz-t">Blue Water Park</span><span class="pill available">Coming soon</span></span><span class="dz-s">Pelham, AL</span></figcaption></figure><figure class="dz" data-status="available" data-line="plates"><div class="dz-img"><img src="img/designs/dampier-strait.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Dampier Strait plate, watermarked preview of the filed artwork"></div><figcaption><span class="dz-row"><span class="dz-t">Dampier Strait</span><span class="pill available">Coming soon</span></span><span class="dz-s">Raja Ampat, Indonesia</span></figcaption></figure><figure class="dz" data-status="available" data-line="plates"><div class="dz-img"><img src="img/designs/bali.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Bali plate, watermarked preview of the filed artwork"></div><figcaption><span class="dz-row"><span class="dz-t">Bali</span><span class="pill available">Coming soon</span></span><span class="dz-s">Tulamben, Indonesia</span></figcaption></figure><figure class="dz" data-status="completed" data-line="plates"><div class="dz-img"><img src="img/designs/rainbow-river.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Rainbow River plate, watermarked preview of the filed artwork"></div><figcaption><span class="dz-row"><span class="dz-t">Rainbow River</span><span class="pill completed">Art finished</span></span><span class="dz-s">Dunnellon, FL</span></figcaption></figure><figure class="dz" data-status="completed" data-line="plates"><div class="dz-img"><img src="img/designs/navy-llcat.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Navy LLCAT plate, watermarked preview of the filed artwork"></div><figcaption><span class="dz-row"><span class="dz-t">Navy LLCAT</span><span class="pill completed">Art finished</span></span><span class="dz-s">Panama City Beach, FL</span></figcaption></figure><figure class="dz" data-status="completed" data-line="plates"><div class="dz-img"><img src="img/designs/dive-land-park.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Dive Land Park plate, watermarked preview of the filed artwork"></div><figcaption><span class="dz-row"><span class="dz-t">Dive Land Park</span><span class="pill completed">Art finished</span></span><span class="dz-s">Ider, AL</span></figcaption></figure><figure class="dz" data-status="completed" data-line="plates"><div class="dz-img"><img src="img/designs/thurmond-dam.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Thurmond Dam plate, watermarked preview of the filed artwork"></div><figcaption><span class="dz-row"><span class="dz-t">Thurmond Dam</span><span class="pill completed">Art finished</span></span><span class="dz-s">Lake Thurmond, GA</span></figcaption></figure><figure class="dz" data-status="completed" data-line="plates"><div class="dz-img"><img src="img/designs/thistlegorm.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="The Thistlegorm plate, watermarked preview of the filed artwork"></div><figcaption><span class="dz-row"><span class="dz-t">The Thistlegorm</span><span class="pill completed">Art finished</span></span><span class="dz-s">Red Sea, Egypt</span></figcaption></figure><figure class="dz" data-status="completed" data-line="plates"><div class="dz-img"><img src="img/designs/somosomo-strait.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Somosomo Strait plate, watermarked preview of the filed artwork"></div><figcaption><span class="dz-row"><span class="dz-t">Somosomo Strait</span><span class="pill completed">Art finished</span></span><span class="dz-s">Taveuni, Fiji</span></figcaption></figure><figure class="dz" data-status="completed" data-line="plates"><div class="dz-img"><img src="img/designs/rainbow-reef.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Rainbow Reef plate, watermarked preview of the filed artwork"></div><figcaption><span class="dz-row"><span class="dz-t">Rainbow Reef</span><span class="pill completed">Art finished</span></span><span class="dz-s">Taveuni, Fiji</span></figcaption></figure><figure class="dz" data-status="completed" data-line="plates"><div class="dz-img"><img src="img/designs/vuna-reef.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Vuna Reef plate, watermarked preview of the filed artwork"></div><figcaption><span class="dz-row"><span class="dz-t">Vuna Reef</span><span class="pill completed">Art finished</span></span><span class="dz-s">Taveuni, Fiji</span></figcaption></figure><figure class="dz" data-status="progress" data-line="plates"><div class="dz-img"><div class="pending" aria-hidden="true"><span>Preview coming</span></div></div><figcaption><span class="dz-row"><span class="dz-t">Kioa Island</span><span class="pill progress">In progress</span></span><span class="dz-s">Fiji</span></figcaption></figure><figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-advanced-open-water.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Advanced Open Water Diver design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">Advanced Open Water Diver</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure><figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-altitude.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Altitude Diver design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">Altitude Diver</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure><figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-boat.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Boat Diver design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">Boat Diver</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure><figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-buoyancy.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Buoyancy design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">Buoyancy</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure>
+        <figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-cave.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Cave Diver design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">Cave Diver</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure><figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-deep.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Deep Diver design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">Deep Diver</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure><figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-dpv.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="DPV Diver design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">DPV Diver</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure><figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-drift.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Drift Diver design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">Drift Diver</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure><figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-fish-id.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Fish ID design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">Fish ID</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure><figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-ice.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Ice Diver design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">Ice Diver</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure><figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-night.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Night Diver design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">Night Diver</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure><figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-nitrox.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Nitrox design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">Nitrox</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure><figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-open-water.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Open Water Diver design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">Open Water Diver</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure><figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-rebreather.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Rebreather Diver design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">Rebreather Diver</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure><figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-search-recovery.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Search and Recovery design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">Search and Recovery</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure><figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-self-reliant.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Self-Reliant Diver design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">Self-Reliant Diver</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure><figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-sidemount.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Sidemount Diver design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">Sidemount Diver</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure><figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-smb.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Surface Marker Buoy design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">Surface Marker Buoy</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure>
+        <figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-tech.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Tech Diver design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">Tech Diver</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure><figure class="dz" data-status="completed" data-line="certifiedish"><div class="dz-img"><img src="img/designs/cert-uw-photo.webp" width="520" height="390" loading="lazy" decoding="async" draggable="false" alt="Underwater Photographer design preview, watermarked"></div><figcaption><span class="dz-row"><span class="dz-t">Underwater Photographer</span><span class="pill completed">Art finished</span></span><span class="dz-s">Certified-ish</span></figcaption></figure><figure class="dz" data-status="progress" data-line="other"><div class="dz-img"><div class="pending" aria-hidden="true"><span>Preview coming</span></div></div><figcaption><span class="dz-row"><span class="dz-t">Hand Signals</span><span class="pill progress">In progress</span></span><span class="dz-s">New design</span></figcaption></figure>
+      </div>
+      <p class="dz-note">All artwork &copy; 2026 Doolittle Scuba L.L.C. Copying, printing or reuse of any design without written permission is prohibited. Shops interested in a design: <a href="#contact" data-umami-event="designs-contact">get in touch</a>.</p>
+    </section>
+
+    <section id="map" aria-labelledby="map-h">
+      <span id="sites" class="anchor"></span><span id="line" class="anchor"></span>
+      <div class="head">
+        <h2 id="map-h">The dive map</h2>
+        <p>Every plate is a site we have dived. Tap a flag for the coordinates and one fact from the plate, or open a site guide for our photos and field notes.</p>
+      </div>
+      <div class="map-jump" id="map-jump" role="group" aria-label="Zoom the map to a region"></div>
+      <div id="divemap" class="divemap" role="region" aria-label="Map of the dive sites in the line"><noscript><p class="map-nojs">The map needs JavaScript. Every site is listed below.</p></noscript></div>
+      <h3 class="eyebrow list-h">Every site in the line</h3>
+<!-- SITELIST:START -->
+      <ul class="index">
+        <li><a href="sites/black-bart/" class="flag" data-umami-event="list-guide" data-umami-event-site="black-bart"><svg viewBox="0 0 26 18" aria-hidden="true"><rect width="26" height="18" fill="#C8202A"/><path d="M0 0h4.5L26 14.5V18h-4.5L0 3.5z" fill="#fff"/></svg><span class="nm"><span class="n">Black Bart</span><span class="where">Panama City Beach, Florida</span></span></a><span class="tag available">Coming soon</span></li>
+        <li><a href="sites/bridge-span-14/" class="flag" data-umami-event="list-guide" data-umami-event-site="bridge-span-14"><svg viewBox="0 0 26 18" aria-hidden="true"><rect width="26" height="18" fill="#C8202A"/><path d="M0 0h4.5L26 14.5V18h-4.5L0 3.5z" fill="#fff"/></svg><span class="nm"><span class="n">Bridge Span 14</span><span class="where">Panama City Beach, Florida</span></span></a><span class="tag available">Coming soon</span></li>
+        <li><a href="sites/blue-grotto/" class="flag" data-umami-event="list-guide" data-umami-event-site="blue-grotto"><svg viewBox="0 0 26 18" aria-hidden="true"><rect width="26" height="18" fill="#C8202A"/><path d="M0 0h4.5L26 14.5V18h-4.5L0 3.5z" fill="#fff"/></svg><span class="nm"><span class="n">Blue Grotto</span><span class="where">Williston, Florida</span></span></a><span class="tag available">Coming soon</span></li>
+        <li><a href="sites/blue-water-park/" class="flag" data-umami-event="list-guide" data-umami-event-site="blue-water-park"><svg viewBox="0 0 26 18" aria-hidden="true"><rect width="26" height="18" fill="#C8202A"/><path d="M0 0h4.5L26 14.5V18h-4.5L0 3.5z" fill="#fff"/></svg><span class="nm"><span class="n">Blue Water Park</span><span class="where">Pelham, Alabama</span></span></a><span class="tag available">Coming soon</span></li>
+        <li><a href="sites/dampier-strait/" class="flag" data-umami-event="list-guide" data-umami-event-site="dampier-strait"><svg viewBox="0 0 26 18" aria-hidden="true"><path d="M0 0h13v18H0z" fill="#fff" stroke="#8a97a8" stroke-width=".6"/><path d="M13 0h13l-6 9 6 9H13z" fill="#1F4FA3"/></svg><span class="nm"><span class="n">Dampier Strait</span><span class="where">Kri, Raja Ampat, Indonesia</span></span></a><span class="tag available">Coming soon</span></li>
+        <li><a href="sites/bali/" class="flag" data-umami-event="list-guide" data-umami-event-site="bali"><svg viewBox="0 0 26 18" aria-hidden="true"><path d="M0 0h13v18H0z" fill="#fff" stroke="#8a97a8" stroke-width=".6"/><path d="M13 0h13l-6 9 6 9H13z" fill="#1F4FA3"/></svg><span class="nm"><span class="n">Bali</span><span class="where">Tulamben, Bali, Indonesia</span></span></a><span class="tag available">Coming soon</span></li>
+        <li><a href="sites/rainbow-river/" class="flag" data-umami-event="list-guide" data-umami-event-site="rainbow-river"><svg viewBox="0 0 26 18" aria-hidden="true"><rect width="26" height="18" fill="#C8202A"/><path d="M0 0h4.5L26 14.5V18h-4.5L0 3.5z" fill="#fff"/></svg><span class="nm"><span class="n">Rainbow River</span><span class="where">Dunnellon, Florida</span></span></a><span class="tag finished">Art finished</span></li>
+        <li><a href="sites/navy-llcat/" class="flag" data-umami-event="list-guide" data-umami-event-site="navy-llcat"><svg viewBox="0 0 26 18" aria-hidden="true"><rect width="26" height="18" fill="#C8202A"/><path d="M0 0h4.5L26 14.5V18h-4.5L0 3.5z" fill="#fff"/></svg><span class="nm"><span class="n">Navy LLCAT</span><span class="where">Panama City Beach, Florida</span></span></a><span class="tag finished">Art finished</span></li>
+        <li><a href="sites/dive-land-park/" class="flag" data-umami-event="list-guide" data-umami-event-site="dive-land-park"><svg viewBox="0 0 26 18" aria-hidden="true"><rect width="26" height="18" fill="#C8202A"/><path d="M0 0h4.5L26 14.5V18h-4.5L0 3.5z" fill="#fff"/></svg><span class="nm"><span class="n">Dive Land Park</span><span class="where">Ider, Alabama</span></span></a><span class="tag finished">Art finished</span></li>
+        <li><a href="sites/thurmond-dam/" class="flag" data-umami-event="list-guide" data-umami-event-site="thurmond-dam"><svg viewBox="0 0 26 18" aria-hidden="true"><rect width="26" height="18" fill="#C8202A"/><path d="M0 0h4.5L26 14.5V18h-4.5L0 3.5z" fill="#fff"/></svg><span class="nm"><span class="n">Thurmond Dam</span><span class="where">Lake Thurmond, Georgia</span></span></a><span class="tag finished">Art finished</span></li>
+        <li><a href="sites/thistlegorm/" class="flag" data-umami-event="list-guide" data-umami-event-site="thistlegorm"><svg viewBox="0 0 26 18" aria-hidden="true"><path d="M0 0h13v18H0z" fill="#fff" stroke="#8a97a8" stroke-width=".6"/><path d="M13 0h13l-6 9 6 9H13z" fill="#1F4FA3"/></svg><span class="nm"><span class="n">The Thistlegorm</span><span class="where">Red Sea, Egypt</span></span></a><span class="tag finished">Art finished</span></li>
+        <li><a href="sites/somosomo-strait/" class="flag" data-umami-event="list-guide" data-umami-event-site="somosomo-strait"><svg viewBox="0 0 26 18" aria-hidden="true"><path d="M0 0h13v18H0z" fill="#fff" stroke="#8a97a8" stroke-width=".6"/><path d="M13 0h13l-6 9 6 9H13z" fill="#1F4FA3"/></svg><span class="nm"><span class="n">Somosomo Strait</span><span class="where">Taveuni, Fiji</span></span></a><span class="tag finished">Art finished</span></li>
+        <li><a href="sites/rainbow-reef/" class="flag" data-umami-event="list-guide" data-umami-event-site="rainbow-reef"><svg viewBox="0 0 26 18" aria-hidden="true"><path d="M0 0h13v18H0z" fill="#fff" stroke="#8a97a8" stroke-width=".6"/><path d="M13 0h13l-6 9 6 9H13z" fill="#1F4FA3"/></svg><span class="nm"><span class="n">Rainbow Reef</span><span class="where">Taveuni, Fiji</span></span></a><span class="tag finished">Art finished</span></li>
+        <li><a href="sites/vuna-reef/" class="flag" data-umami-event="list-guide" data-umami-event-site="vuna-reef"><svg viewBox="0 0 26 18" aria-hidden="true"><path d="M0 0h13v18H0z" fill="#fff" stroke="#8a97a8" stroke-width=".6"/><path d="M13 0h13l-6 9 6 9H13z" fill="#1F4FA3"/></svg><span class="nm"><span class="n">Vuna Reef</span><span class="where">Taveuni, Fiji</span></span></a><span class="tag finished">Art finished</span></li>
+        <li><a href="sites/kioa-island/" class="flag" data-umami-event="list-guide" data-umami-event-site="kioa-island"><svg viewBox="0 0 26 18" aria-hidden="true"><path d="M0 0h13v18H0z" fill="#fff" stroke="#8a97a8" stroke-width=".6"/><path d="M13 0h13l-6 9 6 9H13z" fill="#1F4FA3"/></svg><span class="nm"><span class="n">Kioa Island</span><span class="where">Kioa Island, Fiji</span></span></a><span class="tag progress">In progress</span></li>
+      </ul>
+<!-- SITELIST:END -->
+      <div class="legend">
+        <span class="flag"><svg viewBox="0 0 26 18" aria-hidden="true"><rect width="26" height="18" fill="#C8202A"/><path d="M0 0h4.5L26 14.5V18h-4.5L0 3.5z" fill="#fff"/></svg> Diver-down flag &middot; US waters</span>
+        <span class="flag"><svg viewBox="0 0 26 18" aria-hidden="true"><path d="M0 0h13v18H0z" fill="#fff" stroke="#8a97a8" stroke-width=".6"/><path d="M13 0h13l-6 9 6 9H13z" fill="#1F4FA3"/></svg> Alpha flag &middot; international</span>
+      </div>
+      <div class="mini" id="suggest">
+        <h3>Suggest the next site</h3>
+        <p>Every plate starts with a dive. Tell us a site you love and why, and it goes on the list for the next drawings.</p>
+        <form class="req" id="suggest-form" novalidate data-to="hello@doolittlescuba.com" data-subject="Site suggestion">
+          <div class="row2">
+            <div><label for="sg-site">Site name</label><input id="sg-site" required data-k="Site" data-subj></div>
+            <div><label for="sg-where">Where it is</label><input id="sg-where" required placeholder="e.g. Destin, Florida" data-k="Where"></div>
+          </div>
+          <div><label for="sg-why">Why it deserves a plate <span class="opt">(optional)</span></label><textarea id="sg-why" placeholder="What you see there, what makes it special." data-k="Why"></textarea></div>
+          <div class="row2">
+            <div><label for="sg-name">Your name <span class="opt">(optional)</span></label><input id="sg-name" autocomplete="name" data-k="From"></div>
+            <div><label for="sg-email">Your email <span class="opt">(optional, to hear if we draw it)</span></label><input id="sg-email" type="email" autocomplete="email" data-k="Email"></div>
+          </div>
+          <div class="go"><button class="send" type="submit" data-umami-event="suggest-submit">Send my suggestion</button><p class="status" role="status" aria-live="polite"></p></div>
+        </form>
+      </div>
+    </section>
+
+    <section id="craft" aria-labelledby="craft-h">
+      <div class="head"><h2 id="craft-h">Every mark by hand</h2></div>
+      <div class="craft">
+        <div class="body">
+          <p>Each design starts with a dive. The site is drawn line by line by a PADI Master Diver who has been there, then checked against published charts, reef records and the dive log before it goes to press.</p>
+          <p>No stock art and no generated images. The signature shark on the sleeve, the images on the chest and every label on the back all come from the same hand.</p>
+        </div>
+        <aside class="facts" aria-label="What each shirt carries">
+          <p class="eyebrow">On every shirt</p>
+          <dl class="specs">
+            <dt>Back</dt><dd>Full site illustration with facts, species and water conditions</dd>
+            <dt>Chest</dt><dd>Site name, dive flag and GPS coordinates</dd>
+            <dt>Sleeve</dt><dd>Signature shark mark</dd>
+            <dt>Shirt</dt><dd>Comfort Colors 1717, garment-dyed, one colourway per site</dd>
+            <dt>Ink</dt><dd>Water-based black, printed by hand</dd>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about" aria-labelledby="about-h">
+      <div class="head">
+        <div class="seal-head"><img class="seal" src="img/brand/seal.png" alt="Doolittle Scuba L.L.C. seal" width="560" height="560" loading="lazy"><h2 id="about-h">Two Master Divers, raised in Augusta</h2></div>
+        <p>Doolittle Scuba is Eric and Allie Doolittle, a husband and wife who both hold PADI Master Diver ratings. Eric draws every plate by hand; Allie runs operations and checks every plate before it prints.</p>
+      </div>
+      <p><a class="btn" href="/about/" data-umami-event="home-about-more">Meet Eric &amp; Allie</a></p>
+    </section>
+
+    <section id="logbook" aria-labelledby="log-h">
+      <div class="head">
+        <h2 id="log-h">From the logbook</h2>
+        <p>Wrecks, walls, quarries and blue water. The dives behind the drawings, shot by the two of us.</p>
+      </div>
+      <div class="mosaic">
+        <figure class="t a7x4"><img src="img/selfie.webp" alt="Eric and Allie taking a selfie over the plate coral of the Cabbage Patch on Rainbow Reef, Fiji" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Eric &amp; Allie · Cabbage Patch, Rainbow Reef, Fiji</figcaption></figure>
+        <figure class="t a5x2"><img src="img/allie-cat.webp" alt="Allie in a pink cat-ear mask hood giving a shaka in the Red Sea off Sharm el-Sheikh" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Allie, pink mask and all · Red Sea, Sharm el-Sheikh</figcaption></figure>
+        <figure class="t a5x2"><img src="img/pair-reef.webp" alt="Eric and Allie giving hand signals at the Cabbage Patch on Rainbow Reef, Fiji" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Cabbage Patch, Rainbow Reef, Fiji</figcaption></figure>
+        <figure class="t a12x4"><img src="img/wreck.webp" alt="Eric above the deck of the SS Thistlegorm with the ship's gun behind him" style="object-position:50% 45%" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Eric on the SS Thistlegorm, Red Sea</figcaption></figure>
+        <figure class="t a3x4"><img src="img/ladder.webp" alt="Eric climbing the exit ladder at Dive Land Park with the quarry cliffs behind" loading="lazy" decoding="async" width="933" height="1400"><figcaption>Eric · Dive Land Park</figcaption></figure>
+        <figure class="t a5x2"><img src="img/allie-wall.webp" alt="Allie giving a shaka beside the soft corals of the Great White Wall, Fiji" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Allie · Great White Wall, Rainbow Reef, Fiji</figcaption></figure>
+        <figure class="t a4x2"><img src="img/reefswim.webp" alt="Eric swimming low over a coral reef in the Red Sea" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Eric over the reef · Red Sea</figcaption></figure>
+        <figure class="t a3x2"><img src="img/can.webp" alt="Eric drinking from a can at the 80-foot underwater dive bar in Fiji" loading="lazy" decoding="async" width="972" height="548"><figcaption>Fiji’s 80-foot dive bar</figcaption></figure>
+        <figure class="t a3x2"><img src="img/murky.webp" alt="Eric in green water beside the sunken Cessna cockpit at Thurmond Dam" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Cessna cockpit · Thurmond Dam</figcaption></figure>
+        <figure class="t a3x2"><img style="object-position:22% 50%" src="img/wall-ok.webp" alt="An OK sign in the foreground with a diver descending the Great White Wall, Fiji" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>OK from the Great White Wall</figcaption></figure>
+        <figure class="t a7x3"><img src="img/cabbage.webp" alt="Fields of cabbage coral off Taveuni, Fiji" loading="lazy" decoding="async" width="1400" height="788"><figcaption>Cabbage coral · Taveuni, Fiji</figcaption></figure>
+        <figure class="t a5x3"><img style="object-position:55% 50%" src="img/eel.webp" alt="A blue ribbon eel rising from its burrow in the reef off Taveuni, Fiji" loading="lazy" decoding="async" width="1400" height="788"><figcaption>Ribbon eel · Taveuni, Fiji</figcaption></figure>
+        <figure class="t a4x2"><img src="img/bommie.webp" alt="A coral bommie covered in red and purple soft corals off Taveuni, Fiji" loading="lazy" decoding="async" width="1400" height="788"><figcaption>Soft-coral bommie · Taveuni</figcaption></figure>
+        <figure class="t a4x2"><img src="img/bommie-soft.webp" alt="Looking down on soft corals and table corals off Taveuni, Fiji" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Table and soft corals · Taveuni</figcaption></figure>
+        <figure class="t a4x2"><img src="img/hardcoral.webp" alt="Branching hard corals with blue chromis off Taveuni, Fiji" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Hard coral garden · Taveuni</figcaption></figure>
+        <figure class="t a6x3"><img src="img/allie-pink.webp" alt="Allie in pink fins giving OK signs beside a reef wall in blue water" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Allie, peak performance buoyancy!</figcaption></figure>
+        <figure class="t a6x3"><img src="img/eric-shaka.webp" alt="Eric giving shakas over a sloping coral reef" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Shakas over the reef</figcaption></figure>
+        <figure class="t a6x3"><img style="object-position:50% 35%" src="img/eric-green.webp" alt="Eric giving a shaka in green Gulf water beside a sunken structure" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Eric in the Gulf</figcaption></figure>
+        <figure class="t a6x3"><img src="img/eric-wreck.webp" alt="Eric in a yellow rash guard swimming over the deck of the Black Bart wreck" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Eric over the Black Bart wreck deck</figcaption></figure>
+        <figure class="t a4x3"><img src="img/carrier.webp" alt="Eric hovering over a tracked carrier in the hold of the SS Thistlegorm" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Eric over a tracked carrier · SS Thistlegorm</figcaption></figure>
+        <figure class="t a4x3"><img src="img/sharks.webp" alt="A diver beside Bridge Span 14 with sharks and a bait ball overhead" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Sharks over Bridge Span 14</figcaption></figure>
+        <figure class="t a4x3"><img src="img/prop.webp" alt="Eric beside the giant propeller of the SS Thistlegorm" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Eric at the propeller · SS Thistlegorm</figcaption></figure>
+        <figure class="t a4x3"><img src="img/eelgrass.webp" alt="Eric following the dive marker line over eelgrass in the Rainbow River" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Walking the dive marker over the eelgrass · Rainbow River</figcaption></figure>
+        <figure class="t a4x3"><img src="img/barrel.webp" alt="Eric pointing at encrusted old railroad ties at the pickup sticks" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Eric at the pickup sticks · old railroad ties</figcaption></figure>
+        <figure class="t a4x3"><img style="object-position:40% 40%" src="img/eric-teal.webp" alt="Eric swimming through green water in the Gulf of America" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Eric in green water · Gulf of America</figcaption></figure>
+        <figure class="t a6x2"><img src="img/allie-blue.webp" alt="Allie swimming in blue water off Sharm el-Sheikh, Egypt, giving a shaka" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Allie in the blue · Sharm el-Sheikh, Egypt</figcaption></figure>
+        <figure class="t a6x2"><img src="img/surface.webp" alt="Eric smiling at the surface in the green water of Dive Land Park" loading="lazy" decoding="async" width="1283" height="677"><figcaption>Surfacing · Dive Land Park</figcaption></figure>
+      </div>
+      <p class="eyebrow topside-h">Topside &middot; between dives</p>
+      <div class="mosaic topside-grid">
+        <figure class="t a8x3 m-wide"><img src="img/aerial.webp" alt="Aerial view of green ridges and reef-fringed bays on Vanua Levu, Fiji" loading="lazy" decoding="async" width="1400" height="968"><figcaption>From the air · Vanua Levu, Fiji</figcaption></figure>
+        <figure class="t a4x3"><img style="object-position:55% 30%" src="img/boat.webp" alt="Eric and Allie smiling on the deck of a dive boat among the tanks in Taveuni, Fiji" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Eric &amp; Allie on the dive boat · Taveuni</figcaption></figure>
+        <figure class="t a4x4"><img src="img/kioa.webp" alt="Eric and Allie sitting on a beach mat under palms, looking out at the dive boat off Kioa Island, Fiji" loading="lazy" decoding="async" width="1050" height="1400"><figcaption>Surface interval · Kioa Island, Fiji</figcaption></figure>
+        <figure class="t a4x4"><img src="img/falls.webp" alt="A rainforest waterfall pouring into a green pool on Taveuni, Fiji" loading="lazy" decoding="async" width="1050" height="1400"><figcaption>Rainforest falls · Taveuni</figcaption></figure>
+        <figure class="t a4x4"><img src="img/palm.webp" alt="A single palm silhouetted against the sunset with dive boats moored offshore, Taveuni, Fiji" loading="lazy" decoding="async" width="1050" height="1400"><figcaption>Sunset over the moorings · Taveuni</figcaption></figure>
+        <figure class="t a4x2"><img style="object-position:50% 30%" src="img/bula.webp" alt="Eric and Allie in front of the Bula Taveuni mosaic sign" loading="lazy" decoding="async" width="1400" height="1385"><figcaption>Bula Taveuni!</figcaption></figure>
+        <figure class="t a4x2 m-wide"><img src="img/dusk.webp" alt="Dive boats and a catamaran at anchor under a crescent moon at dusk, Taveuni, Fiji" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Moonrise · Taveuni</figcaption></figure>
+        <figure class="t a4x2"><img src="img/fiji.webp" alt="Palm-lined volcanic shoreline of Paradise Resort on Taveuni, Fiji" loading="lazy" decoding="async" width="1400" height="1050"><figcaption>Paradise Resort shoreline, Taveuni, Fiji</figcaption></figure>
+        <figure class="t a4x4 m-tall"><img style="object-position:50% 57%" src="img/canyon.webp" alt="Eric and Allie in the Colored Canyon on the Sinai Peninsula, Egypt" loading="lazy" decoding="async" width="1050" height="1400"><figcaption>Colored Canyon, Sinai, Egypt</figcaption></figure>
+        <figure class="t a4x4 m-wide"><img style="object-position:10% 50%" src="img/camels.webp" alt="Eric and Allie on camels in front of the Giza pyramids" loading="lazy" decoding="async" width="1400" height="1114"><figcaption>Giza, Egypt</figcaption></figure>
+        <figure class="t a4x4 m-tall"><img style="object-position:62% 64%" src="img/giza.webp" alt="Eric and Allie smiling in front of the Great Pyramid" loading="lazy" decoding="async" width="1050" height="1400"><figcaption>Giza, Egypt</figcaption></figure>
+        <figure class="t a6x3"><img style="object-position:50% 35%" src="img/family-wake.webp" alt="Eric, Allie and family smiling on the back of a dive boat off Tampa, Florida" loading="lazy" decoding="async" width="1400" height="1119"><figcaption>Family dive day · Tampa, FL</figcaption></figure>
+        <figure class="t a6x3"><img src="img/eric-son-boat.webp" alt="Eric and family giving shakas on a dive boat among the gear off Tampa, Florida" loading="lazy" decoding="async" width="1400" height="1090"><figcaption>Family dive day · Tampa, FL</figcaption></figure>
+      </div>
+    </section>
+
+    <section id="wear-it" aria-labelledby="wear-h">
+      <div class="mini" style="margin-top:0">
+        <h3 id="wear-h">Wear it where you dove</h3>
+        <p>Got a Doolittle Scuba shirt on a boat, at a quarry or on the dock of the site it shows? Send us the photo with the site name and we may feature it here, with your first name if you like.</p>
+        <a class="send" href="mailto:hello@doolittlescuba.com?subject=Wear%20it%20where%20you%20dove&amp;body=Site%3A%0AYour%20first%20name%20(optional)%3A%0AOK%20to%20show%20on%20the%20site%3A%20yes%0A%0A(Attach%20your%20photo)" data-umami-event="wear-it-send">Email us your photo</a>
+        <p class="hint" style="font-size:var(--s-1);color:var(--muted)">Or write to hello@doolittlescuba.com.</p>
+      </div>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-h">
+      <div class="head">
+        <h2 id="contact-h">Surface interval</h2>
+        <p>The first run is in the works. Send a note and you will hear when the shirts are ready.</p>
+      </div>
+<!-- SOCIAL:START --><nav class="social" aria-label="Doolittle Scuba on social media"><a href="https://instagram.com/doolittlescuba" target="_blank" rel="me noopener" data-umami-event="social" data-umami-event-net="instagram"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3h9v9h-2V6.4l-7.3 7.3-1.4-1.4L9.6 5H4z"/></svg>Instagram</a><a href="https://facebook.com/Doolittlescuba" target="_blank" rel="me noopener" data-umami-event="social" data-umami-event-net="facebook"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3h9v9h-2V6.4l-7.3 7.3-1.4-1.4L9.6 5H4z"/></svg>Facebook</a><a href="https://tiktok.com/@doolittlescuba" target="_blank" rel="me noopener" data-umami-event="social" data-umami-event-net="tiktok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3h9v9h-2V6.4l-7.3 7.3-1.4-1.4L9.6 5H4z"/></svg>TikTok</a><a href="https://x.com/DoolittleScuba" target="_blank" rel="me noopener" data-umami-event="social" data-umami-event-net="x"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3h9v9h-2V6.4l-7.3 7.3-1.4-1.4L9.6 5H4z"/></svg>X</a></nav><!-- SOCIAL:END -->
+      <div class="contact">
+        <div class="card">
+          <h3>Divers</h3>
+          <p>Get one email when your site drops. No newsletter, no sharing your address.</p>
+          <form class="signup" id="signup" data-endpoint="" novalidate>
+            <label for="su-email">Email</label>
+            <input id="su-email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="you@example.com">
+            <label for="su-site">Waiting on a site? <span class="opt">(optional)</span></label>
+            <select id="su-site" name="site">
+              <option value="">All of them</option>
+<!-- SITEOPTS:START -->
+              <option value="black-bart">Black Bart</option>
+              <option value="bridge-span-14">Bridge Span 14</option>
+              <option value="blue-grotto">Blue Grotto</option>
+              <option value="blue-water-park">Blue Water Park</option>
+              <option value="dampier-strait">Dampier Strait</option>
+              <option value="bali">Bali</option>
+              <option value="rainbow-river">Rainbow River</option>
+              <option value="navy-llcat">Navy LLCAT</option>
+              <option value="dive-land-park">Dive Land Park</option>
+              <option value="thurmond-dam">Thurmond Dam</option>
+              <option value="thistlegorm">The Thistlegorm</option>
+              <option value="somosomo-strait">Somosomo Strait</option>
+              <option value="rainbow-reef">Rainbow Reef</option>
+              <option value="vuna-reef">Vuna Reef</option>
+<!-- SITEOPTS:END -->
+              <option value="suggest">I want to suggest a new site</option>
+            </select>
+            <button class="btn" type="submit" data-umami-event="signup-submit">Put me on the launch list</button>
+            <p class="status" id="su-status" role="status" aria-live="polite"></p>
+          </form>
+          <p class="direct">Or write to us: <code id="mail-divers">hello@doolittlescuba.com</code> <button class="copy" type="button" data-copy="mail-divers" data-umami-event="copy-email" data-umami-event-which="mail-divers">Copy</button></p>
+          <p class="status" id="mail-divers-status" role="status"></p>
+        </div>
+        <div class="card">
+          <h3>Dive shops</h3>
+          <p>Wholesale and consignment for shops near the sites we draw. Email is the quickest way to reach us. For a custom plate or a build, use the <a href="/workshop/#commission" data-umami-event="contact-commission">custom request form</a>.</p>
+          <div class="addr"><code id="mail-shops">orders@doolittlescuba.com</code><button class="copy" type="button" data-copy="mail-shops" data-umami-event="copy-email" data-umami-event-which="mail-shops">Copy</button></div>
+          <p class="status" id="mail-shops-status" role="status"></p>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="deep foot-band">
+  <div class="wrap foot">
+    <img class="foot-lockup" src="img/brand/lockup-stack-dark.png" alt="Doolittle Scuba L.L.C. — Do - A - Little Scuba" width="760" height="485" loading="lazy">
+    <div class="foot-meta">
+      <p>Based in Newnan, Georgia</p>
+<!-- SOCIAL:START --><nav class="social" aria-label="Doolittle Scuba on social media"><a href="https://instagram.com/doolittlescuba" target="_blank" rel="me noopener" data-umami-event="social" data-umami-event-net="instagram"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3h9v9h-2V6.4l-7.3 7.3-1.4-1.4L9.6 5H4z"/></svg>Instagram</a><a href="https://facebook.com/Doolittlescuba" target="_blank" rel="me noopener" data-umami-event="social" data-umami-event-net="facebook"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3h9v9h-2V6.4l-7.3 7.3-1.4-1.4L9.6 5H4z"/></svg>Facebook</a><a href="https://tiktok.com/@doolittlescuba" target="_blank" rel="me noopener" data-umami-event="social" data-umami-event-net="tiktok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3h9v9h-2V6.4l-7.3 7.3-1.4-1.4L9.6 5H4z"/></svg>TikTok</a><a href="https://x.com/DoolittleScuba" target="_blank" rel="me noopener" data-umami-event="social" data-umami-event-net="x"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3h9v9h-2V6.4l-7.3 7.3-1.4-1.4L9.6 5H4z"/></svg>X</a></nav><!-- SOCIAL:END -->
+      <p class="mono">hello@doolittlescuba.com &middot; orders@doolittlescuba.com</p>
+      <p>diveplate designs &copy; 2026 Doolittle Scuba L.L.C. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Copy buttons
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var el=document.getElementById(b.dataset.copy), st=document.getElementById(b.dataset.copy+'-status'), t=el.textContent;
+      function sel(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);st.textContent='Selected. Press Ctrl+C or ⌘C to copy.';}
+      try{navigator.clipboard.writeText(t).then(function(){st.textContent='Copied '+t;},sel);}catch(e){sel();}
+    });
+  });
+
+  // Bathymetric contour background: smooth noise field traced with marching squares.
+  var cv=document.getElementById('sea'), cx=cv.getContext('2d');
+  function rnd(seed){return function(){seed=(seed*16807)%2147483647;return (seed-1)/2147483646;};}
+  var R=rnd(20260930), G=48, grid=[];
+  for(var i=0;i<(G+1)*(G+1);i++)grid.push(R());
+  function smooth(t){return t*t*(3-2*t);}
+  function vn(x,y){var xi=Math.floor(x)%G, yi=Math.floor(y)%G, xf=x-Math.floor(x), yf=y-Math.floor(y);
+    var a=grid[yi*(G+1)+xi],b=grid[yi*(G+1)+xi+1],c=grid[(yi+1)*(G+1)+xi],d=grid[(yi+1)*(G+1)+xi+1];
+    var u=smooth(xf),v=smooth(yf);return a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v;}
+  function field(x,y){return vn(x*.9,y*.9)*.6+vn(x*2.1+7,y*2.1+3)*.3+vn(x*4.3+11,y*4.3+5)*.1;}
+  function draw(){
+    var dpr=Math.min(window.devicePixelRatio||1,2), w=innerWidth, h=innerHeight;
+    cv.width=w*dpr; cv.height=h*dpr; cx.setTransform(dpr,0,0,dpr,0,0); cx.clearRect(0,0,w,h);
+    var col=getComputedStyle(document.documentElement).getPropertyValue('--contour').trim()||'#ccc';
+    cx.strokeStyle=col; cx.lineWidth=1.1;
+    var step=14, cols=Math.ceil(w/step)+1, rows=Math.ceil(h/step)+1, sc=1/260, vals=[];
+    for(var y=0;y<rows;y++)for(var x=0;x<cols;x++)vals.push(field(x*step*sc,y*step*sc));
+    for(var lv=.2;lv<.85;lv+=.045){
+      cx.beginPath();
+      for(var y=0;y<rows-1;y++)for(var x=0;x<cols-1;x++){
+        var a=vals[y*cols+x],b=vals[y*cols+x+1],c=vals[(y+1)*cols+x+1],d=vals[(y+1)*cols+x];
+        var k=(a>lv?8:0)|(b>lv?4:0)|(c>lv?2:0)|(d>lv?1:0); if(k===0||k===15)continue;
+        var X=x*step,Y=y*step;
+        function L(p,q){return (lv-p)/(q-p);}
+        var T=[X+step*L(a,b),Y], Rr=[X+step,Y+step*L(b,c)], B=[X+step*L(d,c),Y+step], Lf=[X,Y+step*L(a,d)];
+        var segs={1:[Lf,B],2:[B,Rr],3:[Lf,Rr],4:[T,Rr],5:[Lf,T,B,Rr],6:[T,B],7:[Lf,T],8:[Lf,T],9:[T,B],10:[Lf,B,T,Rr],11:[T,Rr],12:[Lf,Rr],13:[B,Rr],14:[Lf,B]}[k];
+        for(var s=0;s<segs.length;s+=2){cx.moveTo(segs[s][0],segs[s][1]);cx.lineTo(segs[s+1][0],segs[s+1][1]);}
+      }
+      cx.stroke();
+    }
+  }
+  var t; function later(){clearTimeout(t);t=setTimeout(draw,150);}
+  draw(); addEventListener('resize',later);
+  if(window.matchMedia){var mq=matchMedia('(prefers-color-scheme: dark)'); (mq.addEventListener?mq.addEventListener('change',draw):mq.addListener(draw));}
+  new MutationObserver(draw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+})();
+</script>
+
+
+<script>
+// Request forms: check the required fields, then open a pre-filled email to the address in data-to.
+(function(){
+  document.querySelectorAll('form.req').forEach(function(f){
+    var st=f.querySelector('.status');
+    f.addEventListener('submit',function(e){
+      e.preventDefault();
+      var bad=null;
+      f.querySelectorAll('[required]').forEach(function(el){
+        var v=el.value.trim(), ok=v.length>0;
+        if(ok && el.type==='email') ok=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+        el.setAttribute('aria-invalid', ok?'false':'true');
+        if(!ok && !bad) bad=el;
+      });
+      if(bad){ var l=f.querySelector('label[for="'+bad.id+'"]'); st.textContent='Please fill in: '+(l?l.firstChild.textContent.trim():'the highlighted field')+'.'; bad.focus(); return; }
+      var lines=[];
+      f.querySelectorAll('[data-k]').forEach(function(el){
+        var v=el.value.trim(); if(v) lines.push(el.getAttribute('data-k')+':\n'+v+'\n');
+      });
+      var note=f.getAttribute('data-note'); if(note) lines.push(note);
+      var subj=f.getAttribute('data-subject'), key=f.querySelector('[data-subj]');
+      if(key && key.value.trim()) subj+=': '+key.value.trim();
+      try{ window.umami && umami.track(f.id+'-send'); }catch(err){}
+      location.href='mailto:'+f.getAttribute('data-to')+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(lines.join('\n'));
+      st.textContent='Your email app should open with everything filled in. '+(note?'Attach your files, then press send.':'Just press send.');
+    });
+  });
+})();
+</script>
+<!-- SITEDATA:START --><script type="application/json" id="sites-data">[{"slug": "black-bart", "name": "Black Bart", "status": "available", "flag": "us", "place": "Panama City Beach, Florida", "water": "Gulf of America", "coords": "30°03.650 N  085°49.430 W", "fact": "Named for Capt. Charles \"Black Bart\" Bartholomew, Navy Supervisor of Salvage. Sunk on purpose as a reef ship, six miles off the beach.", "lat": 30.06083, "lng": -85.82383, "approx": false}, {"slug": "bridge-span-14", "name": "Bridge Span 14", "status": "available", "flag": "us", "place": "Panama City Beach, Florida", "water": "Gulf of America", "coords": "30°04.291 N  085°48.876 W", "fact": "Built in 1929 as a low-level drawbridge. Sixty years over the water, and every gusset is still a rivet field.", "lat": 30.07152, "lng": -85.8146, "approx": false}, {"slug": "blue-grotto", "name": "Blue Grotto", "status": "available", "flag": "us", "place": "Williston, Florida", "water": "freshwater spring", "coords": "29°23.274 N  082°29.191 W", "fact": "A limestone cavern held at 72°F from top to bottom, home to Virgil the softshell turtle.", "lat": 29.3879, "lng": -82.48652, "approx": false}, {"slug": "blue-water-park", "name": "Blue Water Park", "status": "available", "flag": "us", "place": "Pelham, Alabama", "water": "spring-fed quarry", "coords": "33°17.782 N  086°49.032 W", "fact": "A 26-acre limestone quarry with three distinct thermoclines and a fire truck at 38 feet.", "lat": 33.29637, "lng": -86.8172, "approx": false}, {"slug": "dampier-strait", "name": "Dampier Strait", "status": "available", "flag": "intl", "place": "Kri, Raja Ampat, Indonesia", "water": "Ceram Sea", "coords": "00°32.929 S  130°37.905 E", "fact": "374 fish species counted on one 90-minute dive at Cape Kri, in the heart of the Coral Triangle.", "lat": -0.54882, "lng": 130.63175, "approx": false}, {"slug": "bali", "name": "Bali", "status": "available", "flag": "intl", "place": "Tulamben, Bali, Indonesia", "water": "Bali Sea", "coords": "08°16.500 S  115°35.600 E", "fact": "The USAT Liberty was torpedoed in 1942 and beached at Tulamben. Mount Agung pushed her into the sea in 1963.", "lat": -8.275, "lng": 115.59333, "approx": false}, {"slug": "rainbow-river", "name": "Rainbow River", "status": "finished", "flag": "us", "place": "Dunnellon, Florida", "water": "spring-fed river", "coords": "29°06.160 N  082°26.223 W", "fact": "", "lat": 29.10267, "lng": -82.43705, "approx": true}, {"slug": "navy-llcat", "name": "Navy LLCAT", "status": "finished", "flag": "us", "place": "Panama City Beach, Florida", "water": "Gulf of America", "coords": "30°04.249 N  085°48.725 W", "fact": "A 100-foot hovercraft, sunk as an artificial reef off Panama City Beach in 1995.", "lat": 30.07082, "lng": -85.81208, "approx": false}, {"slug": "dive-land-park", "name": "Dive Land Park", "status": "finished", "flag": "us", "place": "Ider, Alabama", "water": "quarry", "coords": "34°42.855 N  085°40.848 W", "fact": "", "lat": 34.71425, "lng": -85.6808, "approx": true}, {"slug": "thurmond-dam", "name": "Thurmond Dam", "status": "finished", "flag": "us", "place": "Lake Thurmond, Georgia", "water": "reservoir", "coords": "33°39.650 N  082°11.983 W", "fact": "", "lat": 33.66083, "lng": -82.19972, "approx": true}, {"slug": "thistlegorm", "name": "The Thistlegorm", "status": "finished", "flag": "intl", "place": "Red Sea, Egypt", "water": "", "coords": "27°48.800 N  033°55.250 E", "fact": "", "lat": 27.81333, "lng": 33.92083, "approx": false}, {"slug": "somosomo-strait", "name": "Somosomo Strait", "status": "finished", "flag": "intl", "place": "Taveuni, Fiji", "water": "", "coords": "16°46.800 S  179°58.200 E", "fact": "", "lat": -16.78, "lng": 179.97, "approx": true}, {"slug": "rainbow-reef", "name": "Rainbow Reef", "status": "finished", "flag": "intl", "place": "Taveuni, Fiji", "water": "Somosomo Strait", "coords": "16°46.620 S  179°55.932 E", "fact": "", "lat": -16.777, "lng": 179.9322, "approx": true}, {"slug": "vuna-reef", "name": "Vuna Reef", "status": "finished", "flag": "intl", "place": "Taveuni, Fiji", "water": "", "coords": "16°58.800 S  179°52.800 E", "fact": "", "lat": -16.98, "lng": 179.88, "approx": true}, {"slug": "kioa-island", "name": "Kioa Island", "status": "progress", "flag": "intl", "place": "Kioa Island, Fiji", "water": "", "coords": "16°39.000 S  179°55.000 E", "fact": "", "lat": -16.65, "lng": 179.91667, "approx": true}]</script><!-- SITEDATA:END -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" crossorigin></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.min.js" crossorigin></script>
+<script src="js/divemap.js?v=2"></script>
+<script>
+DiveMap.all(document.getElementById('divemap'), document.getElementById('map-jump'));
+
+// Launch list. With no endpoint set it opens a pre-filled email; with one it posts there.
+(function(){
+  var f=document.getElementById('signup'); if(!f) return;
+  var em=f.querySelector('#su-email'), sel=f.querySelector('#su-site'), st=f.querySelector('#su-status');
+  var q=new URLSearchParams(location.search).get('site');
+  if(q && sel.querySelector('option[value="'+q.replace(/[^a-z0-9-]/g,'')+'"]')) sel.value=q;
+  function track(n,d){ try{ window.umami && umami.track(n,d); }catch(e){} }
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var v=em.value.trim(), ok=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+    em.setAttribute('aria-invalid', ok?'false':'true');
+    if(!ok){ st.textContent='That email address doesn\u2019t look right.'; em.focus(); return; }
+    var siteName=sel.value ? sel.options[sel.selectedIndex].text : 'All of them';
+    var ep=f.getAttribute('data-endpoint');
+    track('signup', {site: sel.value||'all', via: ep?'form':'email'});
+    if(ep){
+      st.textContent='Sending\u2026';
+      fetch(ep,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(f)})
+        .then(function(r){ if(!r.ok) throw 0; f.reset(); st.textContent='You\u2019re on the list. We\u2019ll email you when it ships.'; })
+        .catch(function(){ st.textContent='That didn\u2019t go through. Email hello@doolittlescuba.com and we\u2019ll add you.'; });
+      return;
+    }
+    var subj=sel.value==='suggest' ? 'Site suggestion' : 'Launch list: '+siteName;
+    var body=(sel.value==='suggest' ? 'Site I\u2019d like you to draw:\n\n' : 'Please let me know when this ships: '+siteName+'\n\n')+'My email: '+v;
+    location.href='mailto:hello@doolittlescuba.com?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+    st.textContent='Your email app should open with the note ready. Just press send.';
+  });
+})();
+</script>
+
+
+<dialog class="lb" id="sh-lb" aria-label="Shirt photo viewer">
+  <button class="lb-x" type="button" aria-label="Close" data-umami-event="shirt-close">&times;</button>
+  <figure><img id="sh-lb-img" alt=""><figcaption id="sh-lb-cap"></figcaption></figure>
+</dialog>
+
+<script>
+(function(){
+  var grid=document.getElementById('sh-grid'); if(!grid) return;
+  var lb=document.getElementById('sh-lb'), im=document.getElementById('sh-lb-img'), cap=document.getElementById('sh-lb-cap');
+  grid.querySelectorAll('.sh-flip button').forEach(function(b){
+    b.addEventListener('click',function(){
+      var fig=b.closest('.sh'), btn=fig.querySelector('.sh-img'), img=btn.querySelector('img'), side=b.dataset.side;
+      var full=btn.dataset[side]; if(!full) return;
+      img.src=full.replace('.webp','-t.webp'); btn.dataset.side=side;
+      img.alt=img.alt.replace(/: (chest|back) print[^]*$/, side==='back' ? ': back print with the full site illustration, facts, species and water notes' : ': chest print with dive flag, site name and coordinates');
+      fig.querySelectorAll('.sh-flip button').forEach(function(x){var on=x===b;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on);});
+    });
+  });
+  grid.querySelectorAll('.sh-img').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var side=btn.dataset.side||'front', full=btn.dataset[side]||btn.dataset.front;
+      im.src=full; im.alt=btn.querySelector('img').alt; cap.textContent=btn.dataset.cap+(btn.dataset.back?(side==='back'?' · back':' · front'):'');
+      if(lb.showModal) lb.showModal(); else window.open(full,'_blank');
+    });
+  });
+  lb.querySelector('.lb-x').addEventListener('click',function(){lb.close();});
+  lb.addEventListener('click',function(e){ if(e.target===lb) lb.close(); });
+  lb.addEventListener('close',function(){ im.removeAttribute('src'); });
+  grid.addEventListener('contextmenu',function(e){ if(e.target.closest('.sh-img')) e.preventDefault(); });
+})();
+</script>
+
+<!-- Umami visitor analytics (cookie-free). Runs only on the live domain. -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="97eb29ce-9e01-43d7-8047-5d59024eeea7" data-domains="doolittlescuba.com,www.doolittlescuba.com"></script>
+
+<script>
+(function(){
+  var grid=document.getElementById('dz-grid'); if(!grid) return;
+  var st='all', ln='';
+  function apply(){
+    grid.querySelectorAll('.dz').forEach(function(f){
+      f.hidden=!((st==='all'||f.dataset.status===st)&&(!ln||f.dataset.line===ln));
+    });
+  }
+  document.querySelectorAll('.dz-bar .chip').forEach(function(b){
+    b.addEventListener('click',function(){
+      if(b.dataset.f){ st=b.dataset.f; document.querySelectorAll('.dz-bar [data-f]').forEach(function(x){var on=x===b;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on);}); }
+      else { ln=(ln===b.dataset.l)?'':b.dataset.l; document.querySelectorAll('.dz-bar [data-l]').forEach(function(x){var on=x.dataset.l===ln;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on);}); }
+      apply();
+    });
+  });
+  grid.addEventListener('contextmenu',function(e){e.preventDefault();});
+  document.querySelectorAll('[data-count]').forEach(function(n){
+    var c=grid.querySelectorAll('.dz[data-line="'+n.getAttribute('data-count')+'"]').length; if(c) n.textContent=c;
+  });
+  document.querySelectorAll('[data-show-line]').forEach(function(a){
+    a.addEventListener('click',function(){
+      var want=a.getAttribute('data-show-line');
+      var all=document.querySelector('.dz-bar [data-f="all"]'); if(all && st!=='all') all.click();
+      var chip=document.querySelector('.dz-bar [data-l="'+want+'"]'); if(chip && ln!==want) chip.click();
+    });
+  });
+  grid.addEventListener('dragstart',function(e){e.preventDefault();});
+})();
+</script>
+</body>
+</html>

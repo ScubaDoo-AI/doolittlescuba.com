@@ -1,0 +1,33 @@
+/* Dive map pins and popups. Colours come from the page's own tokens. */
+.leaflet-container{font-family:var(--f-body);background:var(--panel)}
+.pin{background:none;border:0}
+.pin-flag{display:block;width:30px;height:22px;padding:2px;background:#fff;border-radius:2px;box-shadow:0 1px 3px rgba(6,14,28,.45);transition:transform .15s ease}
+.pin-flag svg{display:block;width:26px;height:18px}
+.pin:hover .pin-flag,.pin:focus .pin-flag{transform:translateY(-2px) scale(1.08)}
+@media (prefers-reduced-motion: reduce){.pin-flag{transition:none}}
+.leaflet-popup-content-wrapper{border-radius:4px;background:var(--panel);color:var(--text);box-shadow:0 3px 14px rgba(6,14,28,.3);border-top:3px solid var(--ink)}
+.leaflet-popup-tip{background:var(--panel)}
+.leaflet-popup-content{margin:14px 16px}
+.leaflet-container a.leaflet-popup-close-button{color:var(--muted)}
+.pop{display:flex;flex-direction:column;gap:5px}
+.pop h3{font-family:var(--f-display);font-weight:700;font-size:1.35rem;line-height:1.1;color:var(--ink);margin:0}
+.pop p{margin:0}
+.pop-st{font:500 .66rem/1 var(--f-data);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.pop-st.pop-available{color:#1E7A4C}
+.pop-st.pop-progress{color:var(--red)}
+.pop-where{color:var(--muted);font-size:.9rem}
+.pop-c{font-family:var(--f-data);font-size:.78rem;font-variant-numeric:tabular-nums}
+.pop-f{font-size:.92rem;line-height:1.4}
+.pop-a{margin-top:4px;font:500 .78rem/1 var(--f-data);letter-spacing:.05em;text-transform:uppercase;color:var(--red)!important;text-decoration:none}
+.pop-a:hover{text-decoration:underline}
+.leaflet-control-attribution{font-size:10px}
+.leaflet-bar a{background:var(--panel);color:var(--ink);border-color:var(--rule)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .leaflet-control-attribution{background:rgba(12,24,41,.8);color:var(--muted)}}
+:root[data-theme="dark"] .leaflet-control-attribution{background:rgba(12,24,41,.8);color:var(--muted)}
+.pin-cluster{background:none;border:0}
+.pin-cluster span{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--brand-red,#C8202A);color:#fff;font:500 .85rem/1 var(--f-data);border:3px solid #fff;box-shadow:0 1px 4px rgba(6,14,28,.45);cursor:pointer}
+/* Tone the street map down to the site's chart palette; flip it for dark mode. */
+.leaflet-tile-pane{filter:saturate(.35) contrast(.92) brightness(1.03)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .leaflet-tile-pane{filter:invert(1) hue-rotate(185deg) saturate(.45) brightness(.82) contrast(.9)}}
+:root[data-theme="dark"] .leaflet-tile-pane{filter:invert(1) hue-rotate(185deg) saturate(.45) brightness(.82) contrast(.9)}
+.pop-ap{font-family:var(--f-body);font-size:.78rem;color:var(--muted)}

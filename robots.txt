@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://doolittlescuba.com/sitemap.xml
