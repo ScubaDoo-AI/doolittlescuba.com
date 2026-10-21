@@ -194,7 +194,7 @@ p{margin:0}
       <p><b>Chest blocks</b> (site name, flag and coordinates) go on the chest.</p>
       <p><b>The seal</b> goes on the chest or a sleeve. <b>DS marks</b> go anywhere.</p>
       <p><b>Your line or logo</b> can take the chest, a sleeve or the upper back.</p>
-      <p><b>Every piece carries the shark mark or the DS mark</b> somewhere. If you take the last one off, it moves to the sleeve (or the side of a cap). On a shirt the sleeve mark sits at the bottom of the sleeve, along the arm hole.</p>
+      <p><b>The shark mark is for Signature Series shirts only</b>: a tee with a dive-site plate on the back can carry the shark mark, the DS mark, or both. <b>Everything else carries the DS mark</b>, wherever you put it. If you take the last mark off, it comes back on the sleeve (or the side of a cap). On a shirt the sleeve mark sits at the bottom of the sleeve, along the arm hole.</p>
     </div>
   </div>
 </div>
@@ -284,36 +284,36 @@ p{margin:0}
 
       <div class="step" id="st-chest" data-for="shirt">
         <div class="step-h"><span class="n"></span><h2>Chest</h2><span class="sub">left chest is the catalog standard</span></div>
-        <div class="row" id="chest-what"><span class="lbl">Print</span><button type="button" class="chip on" data-chest="site">Site block</button><button type="button" class="chip" data-chest="seal">Seal</button><button type="button" class="chip" data-chest="dsmark">DS mark</button><button type="button" class="chip" data-chest="shark">Shark mark</button><button type="button" class="chip" data-chest="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-chest="none">None</button></div>
+        <div class="row" id="chest-what"><span class="lbl">Print</span><button type="button" class="chip on" data-chest="site">Site block</button><button type="button" class="chip" data-chest="seal">Seal</button><button type="button" class="chip" data-chest="dsmark">DS mark</button><button type="button" class="chip" data-chest="shark" data-needs-plate>Shark mark</button><button type="button" class="chip" data-chest="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-chest="none">None</button></div>
         <div class="row" id="chest-site-row"><label class="lbl" for="chest-site">Site</label><select id="chest-site" class="chip" style="padding-right:28px"></select></div>
         <div class="row"><span class="lbl">Where</span><button type="button" class="chip on" data-cpos="left">Left chest</button><button type="button" class="chip" data-cpos="center">Centre chest</button></div>
       </div>
 
       <div class="step" id="st-sleeve" data-for="shirt">
         <div class="step-h"><span class="n"></span><h2>Sleeve</h2><span class="sub">along the arm hole at the bottom of the sleeve; right sleeve is the standard</span></div>
-        <div class="row"><span class="lbl">Print</span><button type="button" class="chip on" data-sleeve="shark">Shark mark</button><button type="button" class="chip" data-sleeve="seal">Seal</button><button type="button" class="chip" data-sleeve="dsmark">DS mark</button><button type="button" class="chip" data-sleeve="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-sleeve="none">None</button></div>
+        <div class="row"><span class="lbl">Print</span><button type="button" class="chip on" data-sleeve="shark" data-needs-plate>Shark mark</button><button type="button" class="chip" data-sleeve="seal">Seal</button><button type="button" class="chip" data-sleeve="dsmark">DS mark</button><button type="button" class="chip" data-sleeve="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-sleeve="none">None</button></div>
         <div class="row"><span class="lbl">Which</span><button type="button" class="chip on" data-spos="right">Right sleeve</button><button type="button" class="chip" data-spos="left">Left sleeve</button></div>
       </div>
 
       <div class="step" id="st-upper" data-for="shirt">
         <div class="step-h"><span class="n"></span><h2>Upper back</h2><span class="sub">a small mark above the back print</span></div>
-        <div class="row"><span class="lbl">Print</span><button type="button" class="chip on" data-upper="none">None</button><button type="button" class="chip" data-upper="dsmark">DS mark</button><button type="button" class="chip" data-upper="shark">Shark mark</button><button type="button" class="chip" data-upper="logo" data-needs-logo disabled>Your logo</button></div>
+        <div class="row"><span class="lbl">Print</span><button type="button" class="chip on" data-upper="none">None</button><button type="button" class="chip" data-upper="dsmark">DS mark</button><button type="button" class="chip" data-upper="shark" data-needs-plate>Shark mark</button><button type="button" class="chip" data-upper="logo" data-needs-logo disabled>Your logo</button></div>
       </div>
 
 
       <div class="step" id="st-cfront" data-for="cap" hidden>
         <div class="step-h"><span class="n"></span><h2>Front</h2><span class="sub">the front panels of the cap</span></div>
-        <div class="row"><span class="lbl">Print</span><button type="button" class="chip on" data-cf="site">Site block</button><button type="button" class="chip" data-cf="stack">DS stack</button><button type="button" class="chip" data-cf="wordmark">Wordmark</button><button type="button" class="chip" data-cf="dsmark">DS mark</button><button type="button" class="chip" data-cf="seal">Seal</button><button type="button" class="chip" data-cf="shark">Shark mark</button><button type="button" class="chip" data-cf="line">Your line</button><button type="button" class="chip" data-cf="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-cf="none">None</button></div>
+        <div class="row"><span class="lbl">Print</span><button type="button" class="chip on" data-cf="site">Site block</button><button type="button" class="chip" data-cf="stack">DS stack</button><button type="button" class="chip" data-cf="wordmark">Wordmark</button><button type="button" class="chip" data-cf="dsmark">DS mark</button><button type="button" class="chip" data-cf="seal">Seal</button><button type="button" class="chip" data-cf="line">Your line</button><button type="button" class="chip" data-cf="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-cf="none">None</button></div>
         <div class="row" id="cap-site-row"><label class="lbl" for="cap-site">Site</label><select id="cap-site" class="chip" style="padding-right:28px"></select></div>
       </div>
       <div class="step" id="st-cside" data-for="cap" hidden>
         <div class="step-h"><span class="n"></span><h2>Side</h2><span class="sub">a small mark on a side panel</span></div>
-        <div class="row"><span class="lbl">Print</span><button type="button" class="chip on" data-cs="shark">Shark mark</button><button type="button" class="chip" data-cs="dsmark">DS mark</button><button type="button" class="chip" data-cs="seal">Seal</button><button type="button" class="chip" data-cs="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-cs="none">None</button></div>
+        <div class="row"><span class="lbl">Print</span><button type="button" class="chip on" data-cs="dsmark">DS mark</button><button type="button" class="chip" data-cs="seal">Seal</button><button type="button" class="chip" data-cs="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-cs="none">None</button></div>
         <div class="row"><span class="lbl">Which</span><button type="button" class="chip on" data-csp="left">Left side</button><button type="button" class="chip" data-csp="right">Right side</button></div>
       </div>
       <div class="step" id="st-cback" data-for="cap" hidden>
         <div class="step-h"><span class="n"></span><h2>Back</h2><span class="sub">the arch above the strap</span></div>
-        <div class="row"><span class="lbl">Print</span><button type="button" class="chip on" data-cb="tagline">Do - A - Little Scuba</button><button type="button" class="chip" data-cb="line">Your line</button><button type="button" class="chip" data-cb="dsmark">DS mark</button><button type="button" class="chip" data-cb="shark">Shark mark</button><button type="button" class="chip" data-cb="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-cb="none">None</button></div>
+        <div class="row"><span class="lbl">Print</span><button type="button" class="chip on" data-cb="tagline">Do - A - Little Scuba</button><button type="button" class="chip" data-cb="line">Your line</button><button type="button" class="chip" data-cb="dsmark">DS mark</button><button type="button" class="chip" data-cb="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-cb="none">None</button></div>
       </div>
       <div class="step" id="st-text">
         <div class="step-h"><span class="n"></span><h2>Your line</h2><span class="sub">a boat, a club, a trip, a name</span></div>
@@ -366,7 +366,7 @@ p{margin:0}
   var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
   var SVGNS='http://www.w3.org/2000/svg', XL='http://www.w3.org/1999/xlink';
   var FONTS={hand:'"Almendra","Palatino Linotype",Palatino,Georgia,serif',plain:'"Alegreya Sans","Gill Sans","Trebuchet MS",system-ui,sans-serif',mono:'"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace'};
-  var S={product:'shirt',colour:'light-blue',tab:'plates',back:'black-bart',bsize:'full',chest:'site',site:'black-bart',cpos:'left',sleeve:'shark',spos:'right',upper:'none',text:'',font:'hand',tpos:'chest',logo:null,view:'front',qty:{},capqty:0,cf:'site',cs:'shark',csp:'left',cb:'tagline'};
+  var S={product:'shirt',colour:'light-blue',tab:'plates',back:'black-bart',bsize:'full',chest:'site',site:'black-bart',cpos:'left',sleeve:'shark',spos:'right',upper:'none',text:'',font:'hand',tpos:'chest',logo:null,view:'front',qty:{},capqty:0,cf:'site',cs:'dsmark',csp:'left',cb:'tagline'};
   var byId={}; D.plates.forEach(function(p){byId[p.slug]=p}); D.certs.forEach(function(c){byId[c.slug]=c}); (D.extra||[]).forEach(function(p){byId[p.slug]=p});
   var MARKS={shark:{src:'art/mark.webp',wsrc:'art/mark-w.webp',w:D.marks.mark[0],h:D.marks.mark[1],blend:true,name:'Shark signature mark'},dsmark:{src:'art/ds-mark.webp',wsrc:'art/ds-mark-w.webp',w:D.marks['ds-mark'][0],h:D.marks['ds-mark'][1],blend:false,name:'DS mark'},seal:{src:'art/seal.webp',w:D.marks.seal[0],h:D.marks.seal[1],blend:false,name:'Seal'},stack:{src:'art/stack.webp',wsrc:'art/stack-w.webp',w:D.marks.stack[0],h:D.marks.stack[1],blend:false,name:'DS stacked lockup'},wordmark:{src:'art/wordmark.webp',wsrc:'art/wordmark-w.webp',w:D.marks.wordmark[0],h:D.marks.wordmark[1],blend:false,name:'Wordmark'}};
   function colour(){ return D.colours.filter(function(x){return x.slug===S.colour})[0]; }
@@ -377,7 +377,8 @@ p{margin:0}
     if(!location.hash || location.hash.length<3) return;
     var q=new URLSearchParams(location.hash.slice(1)), keys=['product','colour','tab','back','bsize','chest','site','cpos','sleeve','spos','upper','text','font','tpos','view','cf','cs','csp','cb'];
     keys.forEach(function(k){ if(q.has(k)) S[k]=q.get(k); });
-    if(S.chest==='logo') S.chest='site'; if(S.sleeve==='logo') S.sleeve='shark'; if(S.upper==='logo') S.upper='none'; if(S.cf==='logo') S.cf='site'; if(S.cs==='logo') S.cs='shark'; if(S.cb==='logo') S.cb='tagline';
+    if(S.chest==='logo') S.chest='site'; if(S.sleeve==='logo') S.sleeve='shark'; if(S.upper==='logo') S.upper='none'; if(S.cf==='logo') S.cf='site'; if(S.cs==='logo') S.cs='dsmark'; if(S.cb==='logo') S.cb='tagline';
+    if(S.cf==='shark') S.cf='dsmark'; if(S.cs==='shark') S.cs='dsmark'; if(S.cb==='shark') S.cb='dsmark';
     if(S.product!=='cap') S.product='shirt';
     if(S.back!=='none' && !byId[S.back]) S.back='black-bart';
     if(!byId[S.site]) S.site='black-bart';
@@ -426,7 +427,7 @@ p{margin:0}
     if(f.size>6*1024*1024){ $('#form-status').textContent='That file is over 6 MB; a smaller export of the logo works better here.'; logoIn.value=''; return; }
     var r=new FileReader(); r.onload=function(){ var im=new Image(); im.onload=function(){ S.logo={src:r.result,w:im.naturalWidth||1,h:im.naturalHeight||1,name:f.name}; logoPrev.src=r.result; logoPrev.classList.add('show'); logoClear.hidden=false; if(S.product==='cap'){ if(S.cf!=='logo'&&S.cs!=='logo'&&S.cb!=='logo') S.cf='logo'; } else if(S.chest!=='logo'&&S.sleeve!=='logo'&&S.upper!=='logo'){ S.chest='logo'; } render(); track('custom-logo'); }; im.src=r.result; }; r.readAsDataURL(f);
   });
-  logoClear.addEventListener('click',function(){ S.logo=null; logoIn.value=''; logoPrev.classList.remove('show'); logoClear.hidden=true; if(S.chest==='logo') S.chest='site'; if(S.sleeve==='logo') S.sleeve='shark'; if(S.upper==='logo') S.upper='none'; if(S.cf==='logo') S.cf='site'; if(S.cs==='logo') S.cs='shark'; if(S.cb==='logo') S.cb='tagline'; render(); });
+  logoClear.addEventListener('click',function(){ S.logo=null; logoIn.value=''; logoPrev.classList.remove('show'); logoClear.hidden=true; if(S.chest==='logo') S.chest='site'; if(S.sleeve==='logo') S.sleeve='shark'; if(S.upper==='logo') S.upper='none'; if(S.cf==='logo') S.cf='site'; if(S.cs==='logo') S.cs='dsmark'; if(S.cb==='logo') S.cb='tagline'; render(); });
 
   /* ---------- the mockup ---------- */
   function el(n,a){ var e=document.createElementNS(SVGNS,n); for(var k in a){ if(k==='href') e.setAttributeNS(XL,'xlink:href',a[k]); else e.setAttribute(k,a[k]); } return e; }
@@ -508,20 +509,29 @@ p{margin:0}
     shrink($('#cap'));
   }
 
-  var BRAND={shark:1,dsmark:1,seal:1,stack:1};   /* the seal and the stack carry the DS mark inside them */
+  var DS={dsmark:1,seal:1,stack:1};   /* the seal and the stacked lockup carry the DS mark inside them */
+  function plateBack(){ return S.product!=='cap' && S.back!=='none' && !!(byId[S.back]&&byId[S.back].flag); }
   function ensureMark(){
     var note=$('#mark-note'); note.textContent='';
     if(S.product==='cap'){
-      if(BRAND[S.cf]||BRAND[S.cs]||BRAND[S.cb]) return;
-      if(S.cs==='none'){ S.cs='shark'; note.textContent='Every piece carries the shark mark or the DS mark: the shark mark went on the side.'; }
-      else if(S.cb==='none'){ S.cb='shark'; note.textContent='Every piece carries the shark mark or the DS mark: the shark mark went on the back.'; }
-      else { S.cs='shark'; note.textContent='Every piece carries the shark mark or the DS mark: the side is now the shark mark.'; }
-    } else {
-      if(BRAND[S.chest]||BRAND[S.sleeve]||BRAND[S.upper]) return;
-      if(S.sleeve==='none'){ S.sleeve='shark'; note.textContent='Every piece carries the shark mark or the DS mark: the shark mark went on the sleeve.'; }
-      else if(S.upper==='none'){ S.upper='shark'; note.textContent='Every piece carries the shark mark or the DS mark: the shark mark went on the upper back.'; }
-      else { S.sleeve='shark'; note.textContent='Every piece carries the shark mark or the DS mark: the sleeve is now the shark mark.'; }
+      if(DS[S.cf]||DS[S.cs]||DS[S.cb]) return;
+      if(S.cs==='none'){ S.cs='dsmark'; note.textContent='Every cap carries the DS mark: it went on the side.'; }
+      else if(S.cb==='none'){ S.cb='dsmark'; note.textContent='Every cap carries the DS mark: it went on the back.'; }
+      else { S.cs='dsmark'; note.textContent='Every cap carries the DS mark: the side is now the DS mark.'; }
+      return;
     }
+    /* the shark mark belongs to Signature Series shirts only (a plate on the back) */
+    if(!plateBack()){
+      var swapped=false;
+      ['chest','sleeve','upper'].forEach(function(k){ if(S[k]==='shark'){ S[k]='dsmark'; swapped=true; } });
+      if(swapped) note.textContent='The shark mark is for Signature Series backs; the DS mark took its place.';
+    }
+    var has=function(k){ return S[k]==='shark'||DS[S[k]]; };
+    if(has('chest')||has('sleeve')||has('upper')) return;
+    var m=plateBack()?'shark':'dsmark', nm=m==='shark'?'the shark mark':'the DS mark';
+    if(S.sleeve==='none'){ S.sleeve=m; note.textContent='Every shirt carries '+nm+': it went on the sleeve.'; }
+    else if(S.upper==='none'){ S.upper=m; note.textContent='Every shirt carries '+nm+': it went on the upper back.'; }
+    else { S.sleeve=m; note.textContent='Every shirt carries '+nm+': the sleeve is now '+nm+'.'; }
   }
 
   function render(){
@@ -542,6 +552,7 @@ p{margin:0}
     });
     $('#cap-site-row').style.display=S.cf==='site'?'':'none'; $('#cap-site').value=S.site; $('#cap-qty').value=S.capqty||'';
     $$('[data-needs-logo]').forEach(function(b){ b.disabled=!S.logo; });
+    $$('[data-needs-plate]').forEach(function(b){ b.disabled=!plateBack(); b.title=plateBack()?'':'The shark mark is for Signature Series backs'; });
     suggest(c);
     $('#chest-site-row').style.display=S.chest==='site'?'':'none'; $('#chest-site').value=S.site;
     $('#line').value=S.text;
@@ -573,7 +584,7 @@ p{margin:0}
       L.push('Front: '+label(S.cf)); L.push('Side: '+label(S.cs)+(S.cs==='none'?'':', '+S.csp+' side')); L.push('Back: '+label(S.cb));
       if(S.text.trim()&&(S.cf==='line'||S.cb==='line')) L.push('Lettering: '+{hand:'hand-lettered',plain:'plain',mono:'mono'}[S.font]);
       if(S.logo) L.push('Logo: '+S.logo.name+' (attached to this email)');
-      L.push('Brand mark: '+(BRAND[S.cf]?label(S.cf)+' on the front':BRAND[S.cs]?label(S.cs)+' on the side':label(S.cb)+' on the back'));
+      L.push('Brand mark: '+(DS[S.cf]?label(S.cf)+' on the front':DS[S.cs]?label(S.cs)+' on the side':label(S.cb)+' on the back'));
       L.push('Quantity: '+(S.capqty>0?S.capqty+' cap'+(S.capqty>1?'s':''):'(not filled in yet)'));
       L.push('Mockup link: '+link()); return L;
     }
@@ -582,7 +593,8 @@ p{margin:0}
     L.push('Chest: '+label(S.chest)+(S.chest==='none'?'':', '+(S.cpos==='left'?'left chest':'centre chest')));
     L.push('Sleeve: '+label(S.sleeve)+(S.sleeve==='none'?'':', '+S.spos+' sleeve, along the arm hole'));
     L.push('Upper back: '+label(S.upper));
-    L.push('Brand mark: '+(BRAND[S.chest]?label(S.chest)+' on the chest':BRAND[S.sleeve]?label(S.sleeve)+' on the sleeve':label(S.upper)+' on the upper back'));
+    var isB=function(k){ return S[k]==='shark'||DS[S[k]]; };
+    L.push('Brand mark: '+(isB('chest')?label(S.chest)+' on the chest':isB('sleeve')?label(S.sleeve)+' on the sleeve':label(S.upper)+' on the upper back'));
     if(S.text.trim()) L.push('Your line: "'+S.text.trim()+'" in '+{hand:'hand-lettered',plain:'plain',mono:'mono'}[S.font]+' lettering, '+{chest:'under the chest print',upper:'upper back',sleeve:'on the other sleeve'}[S.tpos]);
     if(S.logo) L.push('Logo: '+S.logo.name+' (attached to this email)');
     var q=D.sizes.filter(function(z){return S.qty[z]>0}).map(function(z){return z+' x '+S.qty[z]});
