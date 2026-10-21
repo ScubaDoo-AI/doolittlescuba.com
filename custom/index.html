@@ -190,7 +190,7 @@ p{margin:0}
       <a class="back" href="/#shirts" data-umami-event="custom-back">&larr; Back to the shirts</a>
     </div>
     <div class="rules" aria-label="How the placements work">
-      <p><b>Back designs</b> go on the back: the dive-site plates and the Certified-ish backs.</p>
+      <p><b>Back designs</b> go on the back: the dive-site plates and the Certified-ish backs. A Certified-ish design can go on the chest of a shirt as well.</p>
       <p><b>Chest blocks</b> (site name, flag and coordinates) go on the chest.</p>
       <p><b>The seal</b> goes on the chest or a sleeve. <b>DS marks</b> go anywhere.</p>
       <p><b>Your line or logo</b> can take the chest, a sleeve or the upper back.</p>
@@ -284,8 +284,9 @@ p{margin:0}
 
       <div class="step" id="st-chest" data-for="shirt">
         <div class="step-h"><span class="n"></span><h2>Chest</h2><span class="sub">left chest is the catalog standard</span></div>
-        <div class="row" id="chest-what"><span class="lbl">Print</span><button type="button" class="chip on" data-chest="site">Site block</button><button type="button" class="chip" data-chest="seal">Seal</button><button type="button" class="chip" data-chest="dsmark">DS mark</button><button type="button" class="chip" data-chest="shark" data-needs-plate>Shark mark</button><button type="button" class="chip" data-chest="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-chest="none">None</button></div>
+        <div class="row" id="chest-what"><span class="lbl">Print</span><button type="button" class="chip on" data-chest="site">Site block</button><button type="button" class="chip" data-chest="cert">Certified-ish</button><button type="button" class="chip" data-chest="seal">Seal</button><button type="button" class="chip" data-chest="dsmark">DS mark</button><button type="button" class="chip" data-chest="shark" data-needs-plate>Shark mark</button><button type="button" class="chip" data-chest="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-chest="none">None</button></div>
         <div class="row" id="chest-site-row"><label class="lbl" for="chest-site">Site</label><select id="chest-site" class="chip" style="padding-right:28px"></select></div>
+        <div class="row" id="chest-cert-row"><label class="lbl" for="chest-cert">Design</label><select id="chest-cert" class="chip" style="padding-right:28px"></select></div>
         <div class="row"><span class="lbl">Where</span><button type="button" class="chip on" data-cpos="left">Left chest</button><button type="button" class="chip" data-cpos="center">Centre chest</button></div>
       </div>
 
@@ -366,7 +367,7 @@ p{margin:0}
   var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
   var SVGNS='http://www.w3.org/2000/svg', XL='http://www.w3.org/1999/xlink';
   var FONTS={hand:'"Almendra","Palatino Linotype",Palatino,Georgia,serif',plain:'"Alegreya Sans","Gill Sans","Trebuchet MS",system-ui,sans-serif',mono:'"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace'};
-  var S={product:'shirt',colour:'light-blue',tab:'plates',back:'black-bart',bsize:'full',chest:'site',site:'black-bart',cpos:'left',sleeve:'shark',spos:'right',upper:'none',text:'',font:'hand',tpos:'chest',logo:null,view:'front',qty:{},capqty:0,cf:'site',cs:'dsmark',csp:'left',cb:'tagline'};
+  var S={product:'shirt',colour:'light-blue',tab:'plates',back:'black-bart',bsize:'full',chest:'site',site:'black-bart',cpos:'left',sleeve:'shark',spos:'right',upper:'none',text:'',font:'hand',tpos:'chest',logo:null,view:'front',qty:{},ccert:'cert-night',capqty:0,cf:'site',cs:'dsmark',csp:'left',cb:'tagline'};
   var byId={}; D.plates.forEach(function(p){byId[p.slug]=p}); D.certs.forEach(function(c){byId[c.slug]=c}); (D.extra||[]).forEach(function(p){byId[p.slug]=p});
   var MARKS={shark:{src:'art/mark.webp',wsrc:'art/mark-w.webp',w:D.marks.mark[0],h:D.marks.mark[1],blend:true,name:'Shark signature mark'},dsmark:{src:'art/ds-mark.webp',wsrc:'art/ds-mark-w.webp',w:D.marks['ds-mark'][0],h:D.marks['ds-mark'][1],blend:false,name:'DS mark'},seal:{src:'art/seal.webp',w:D.marks.seal[0],h:D.marks.seal[1],blend:false,name:'Seal'},stack:{src:'art/stack.webp',wsrc:'art/stack-w.webp',w:D.marks.stack[0],h:D.marks.stack[1],blend:false,name:'DS stacked lockup'},wordmark:{src:'art/wordmark.webp',wsrc:'art/wordmark-w.webp',w:D.marks.wordmark[0],h:D.marks.wordmark[1],blend:false,name:'Wordmark'}};
   function colour(){ return D.colours.filter(function(x){return x.slug===S.colour})[0]; }
@@ -375,13 +376,14 @@ p{margin:0}
   /* ---------- state from the link, if any ---------- */
   function fromHash(){
     if(!location.hash || location.hash.length<3) return;
-    var q=new URLSearchParams(location.hash.slice(1)), keys=['product','colour','tab','back','bsize','chest','site','cpos','sleeve','spos','upper','text','font','tpos','view','cf','cs','csp','cb'];
+    var q=new URLSearchParams(location.hash.slice(1)), keys=['product','colour','tab','back','bsize','chest','site','cpos','sleeve','spos','upper','text','font','tpos','view','cf','cs','csp','cb','ccert'];
     keys.forEach(function(k){ if(q.has(k)) S[k]=q.get(k); });
     if(S.chest==='logo') S.chest='site'; if(S.sleeve==='logo') S.sleeve='shark'; if(S.upper==='logo') S.upper='none'; if(S.cf==='logo') S.cf='site'; if(S.cs==='logo') S.cs='dsmark'; if(S.cb==='logo') S.cb='tagline';
     if(S.cf==='shark') S.cf='dsmark'; if(S.cs==='shark') S.cs='dsmark'; if(S.cb==='shark') S.cb='dsmark';
     if(S.product!=='cap') S.product='shirt';
     if(S.back!=='none' && !byId[S.back]) S.back='black-bart';
     if(!byId[S.site]) S.site='black-bart';
+    if(!D.certs.some(function(c){return c.slug===S.ccert})) S.ccert='cert-night';
     if(!D.colours.some(function(c){return c.slug===S.colour})) S.colour='light-blue';
     S.text=(S.text||'').slice(0,28);
   }
@@ -393,6 +395,7 @@ p{margin:0}
   D.colours.forEach(function(c){ var b=document.createElement('button'); b.type='button'; b.className='sw'; b.setAttribute('data-colour',c.slug); b.setAttribute('aria-pressed','false'); b.innerHTML='<i style="background:'+c.hex+'"></i><span>'+c.name+'</span>'; b.addEventListener('click',function(){S.colour=c.slug; render(); track('custom-colour',{colour:c.slug});}); sw.appendChild(b); });
   var sel=$('#chest-site'), sel2=$('#cap-site'); D.plates.forEach(function(p){ [sel,sel2].forEach(function(x){ var o=document.createElement('option'); o.value=p.slug; o.textContent=p.name; x.appendChild(o); }); }); (D.extra||[]).forEach(function(p){ var o=document.createElement('option'); o.value=p.slug; o.textContent=p.name+' (Newnan)'; sel2.appendChild(o); });
   sel.addEventListener('change',function(){ S.site=sel.value; render(); }); sel2.addEventListener('change',function(){ S.site=sel2.value; render(); });
+  var selc=$('#chest-cert'); D.certs.forEach(function(c){ var o=document.createElement('option'); o.value=c.slug; o.textContent=c.name; selc.appendChild(o); }); selc.addEventListener('change',function(){ S.ccert=selc.value; render(); });
   $('#cap-qty').addEventListener('input',function(e){ S.capqty=parseInt(e.target.value,10)||0; summary(); });
   var sizes=$('#sizes'); D.sizes.forEach(function(z){ var d=document.createElement('div'); d.className='size'; d.innerHTML='<span>'+z+'</span><input type="number" min="0" max="500" inputmode="numeric" placeholder="0" aria-label="Quantity, size '+z+'" data-size="'+z+'">'; sizes.appendChild(d); });
   $$('#sizes input').forEach(function(i){ i.addEventListener('input',function(){ S.qty[i.getAttribute('data-size')]=parseInt(i.value,10)||0; summary(); }); });
@@ -472,10 +475,11 @@ p{margin:0}
     /* chest */
     var cn=null;
     if(S.chest==='site') cn=siteBlock(byId[S.site],chest.cx,chest.cy,S.cpos==='left'?100:170);
+    else if(S.chest==='cert'){ var cd=byId[S.ccert]; cn=img('art/'+cd.slug+'.webp',cd.w,cd.h,chest.cx,chest.cy,chest.w,chest.h,true,0); }
     else if(S.chest!=='none') cn=markNode(S.chest,chest.cx,chest.cy,chest.w,chest.h,0);
     if(cn) F.appendChild(cn);
     /* text under the chest print */
-    if(S.tpos==='chest'){ var ty=S.cpos==='left'?(S.chest==='none'?248:S.chest==='site'?292:chest.cy+chest.h/2+16):(S.chest==='none'?300:chest.cy+chest.h/2+22); var tn=textNode(chest.cx,ty,S.cpos==='left'?116:220,S.cpos==='left'?11:16,0); if(tn) F.appendChild(tn); }
+    if(S.tpos==='chest'){ var fh=S.chest==='cert'?fit(byId[S.ccert].w,byId[S.ccert].h,chest.w,chest.h)[1]:chest.h; var ty=S.cpos==='left'?(S.chest==='none'?248:S.chest==='site'?292:chest.cy+fh/2+16):(S.chest==='none'?300:chest.cy+fh/2+22); var tn=textNode(chest.cx,ty,S.cpos==='left'?116:220,S.cpos==='left'?11:16,0); if(tn) F.appendChild(tn); }
     /* sleeve */
     var sf=sleeveFront[S.spos], sb=sleeveBack[S.spos];
     if(S.sleeve!=='none'){ var sn=markNode(S.sleeve,sf.cx,sf.cy,58,36,sf.rot); if(sn) F.appendChild(sn); var sn2=markNode(S.sleeve,sb.cx,sb.cy,58,36,sb.rot); if(sn2) B.appendChild(sn2); }
@@ -555,6 +559,7 @@ p{margin:0}
     $$('[data-needs-plate]').forEach(function(b){ b.disabled=!plateBack(); b.title=plateBack()?'':'The shark mark is for Signature Series backs'; });
     suggest(c);
     $('#chest-site-row').style.display=S.chest==='site'?'':'none'; $('#chest-site').value=S.site;
+    $('#chest-cert-row').style.display=S.chest==='cert'?'':'none'; $('#chest-cert').value=S.ccert;
     $('#line').value=S.text;
     $('#tee-front').style.display=S.view==='front'?'':'none'; $('#tee-back').style.display=S.view==='back'?'':'none';
     $('#cap-front').style.display=S.view==='front'?'':'none'; $('#cap-back').style.display=S.view==='back'?'':'none';
@@ -576,7 +581,7 @@ p{margin:0}
 
   /* ---------- the request ---------- */
   function cname(){ return colour().name; }
-  function label(k){ return k==='none'?'none':k==='site'?'Site block, '+byId[S.site].name:k==='logo'?'your logo'+(S.logo?' ('+S.logo.name+')':''):k==='tagline'?'Do - A - Little Scuba':k==='line'?'your line "'+S.text.trim()+'"':MARKS[k]?MARKS[k].name:k; }
+  function label(k){ return k==='none'?'none':k==='site'?'Site block, '+byId[S.site].name:k==='cert'?'Certified-ish, '+byId[S.ccert].name:k==='logo'?'your logo'+(S.logo?' ('+S.logo.name+')':''):k==='tagline'?'Do - A - Little Scuba':k==='line'?'your line "'+S.text.trim()+'"':MARKS[k]?MARKS[k].name:k; }
   function lines(){
     var L=[];
     if(S.product==='cap'){
@@ -603,7 +608,7 @@ p{margin:0}
     return L;
   }
   function link(){
-    var q=new URLSearchParams(); (S.product==='cap'?['product','colour','site','cf','cs','csp','cb','text','font']:['colour','tab','back','bsize','chest','site','cpos','sleeve','spos','upper','text','font','tpos']).forEach(function(k){ if(S[k]!==undefined&&S[k]!==null&&S[k]!=='') q.set(k,S[k]); });
+    var q=new URLSearchParams(); (S.product==='cap'?['product','colour','site','cf','cs','csp','cb','text','font']:['colour','tab','back','bsize','chest','site','ccert','cpos','sleeve','spos','upper','text','font','tpos']).forEach(function(k){ if(S[k]!==undefined&&S[k]!==null&&S[k]!=='') q.set(k,S[k]); });
     return location.origin+location.pathname+'#'+q.toString();
   }
   function summary(){ $('#summary').textContent=lines().join('\n'); }
