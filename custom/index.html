@@ -194,7 +194,7 @@ p{margin:0}
       <p><b>Chest blocks</b> (site name, flag and coordinates) go on the chest.</p>
       <p><b>The seal</b> goes on the chest or a sleeve. <b>DS marks</b> go anywhere.</p>
       <p><b>Your line or logo</b> can take the chest, a sleeve or the upper back.</p>
-      <p><b>Every piece carries the shark mark or the DS mark</b> somewhere. If you take the last one off, it moves to the sleeve (or the side of a cap). On a long sleeve the sleeve mark sits at the cuff.</p>
+      <p><b>Every piece carries the shark mark or the DS mark</b> somewhere. If you take the last one off, it moves to the sleeve (or the side of a cap). On a shirt the sleeve mark sits at the bottom of the sleeve, along the arm hole.</p>
     </div>
   </div>
 </div>
@@ -203,7 +203,7 @@ p{margin:0}
   <div class="builder">
     <section class="stage" aria-label="Shirt preview">
       <div class="stage-top">
-        <div class="segs"><div class="seg" role="group" aria-label="Shirt or cap"><button type="button" class="on" data-product="shirt" aria-pressed="true">Tee</button><button type="button" data-product="long" aria-pressed="false">Long sleeve</button><button type="button" data-product="cap" aria-pressed="false">Cap</button></div><div class="seg" role="group" aria-label="Show front or back"><button type="button" class="on" data-view="front" aria-pressed="true">Front</button><button type="button" data-view="back" aria-pressed="false">Back</button></div></div>
+        <div class="segs"><div class="seg" role="group" aria-label="Shirt or cap"><button type="button" class="on" data-product="shirt" aria-pressed="true">Shirt</button><button type="button" data-product="cap" aria-pressed="false">Cap</button></div><div class="seg" role="group" aria-label="Show front or back"><button type="button" class="on" data-view="front" aria-pressed="true">Front</button><button type="button" data-view="back" aria-pressed="false">Back</button></div></div>
         <span class="swatch-name" id="sw-name">Light blue</span>
       </div>
       <div class="tee-wrap">
@@ -290,7 +290,7 @@ p{margin:0}
       </div>
 
       <div class="step" id="st-sleeve" data-for="shirt">
-        <div class="step-h"><span class="n"></span><h2>Sleeve</h2><span class="sub" id="sleeve-sub">right sleeve is the catalog standard</span></div>
+        <div class="step-h"><span class="n"></span><h2>Sleeve</h2><span class="sub">along the arm hole at the bottom of the sleeve; right sleeve is the standard</span></div>
         <div class="row"><span class="lbl">Print</span><button type="button" class="chip on" data-sleeve="shark">Shark mark</button><button type="button" class="chip" data-sleeve="seal">Seal</button><button type="button" class="chip" data-sleeve="dsmark">DS mark</button><button type="button" class="chip" data-sleeve="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-sleeve="none">None</button></div>
         <div class="row"><span class="lbl">Which</span><button type="button" class="chip on" data-spos="right">Right sleeve</button><button type="button" class="chip" data-spos="left">Left sleeve</button></div>
       </div>
@@ -378,7 +378,7 @@ p{margin:0}
     var q=new URLSearchParams(location.hash.slice(1)), keys=['product','colour','tab','back','bsize','chest','site','cpos','sleeve','spos','upper','text','font','tpos','view','cf','cs','csp','cb'];
     keys.forEach(function(k){ if(q.has(k)) S[k]=q.get(k); });
     if(S.chest==='logo') S.chest='site'; if(S.sleeve==='logo') S.sleeve='shark'; if(S.upper==='logo') S.upper='none'; if(S.cf==='logo') S.cf='site'; if(S.cs==='logo') S.cs='shark'; if(S.cb==='logo') S.cb='tagline';
-    if(S.product!=='cap'&&S.product!=='long') S.product='shirt';
+    if(S.product!=='cap') S.product='shirt';
     if(S.back!=='none' && !byId[S.back]) S.back='black-bart';
     if(!byId[S.site]) S.site='black-bart';
     if(!D.colours.some(function(c){return c.slug===S.colour})) S.colour='light-blue';
@@ -465,8 +465,8 @@ p{margin:0}
   function draw(){
     var F=$('#front-prints'), B=$('#back-prints'); F.innerHTML=''; B.innerHTML='';
     /* sleeves: wearer's right = viewer's left on the front view */
-    var longS=S.product==='long';
-    var sleeveFront=longS?{right:{cx:68,cy:540,rot:-3},left:{cx:532,cy:540,rot:3}}:{right:{cx:112,cy:212,rot:-32},left:{cx:488,cy:212,rot:32}}, sleeveBack=longS?{right:{cx:532,cy:540,rot:3},left:{cx:68,cy:540,rot:-3}}:{right:{cx:488,cy:212,rot:32},left:{cx:112,cy:212,rot:-32}};
+    /* the mark sits along the arm hole: just inside the sleeve hem, turned to follow it */
+    var sleeveFront={right:{cx:96,cy:236,rot:63},left:{cx:504,cy:236,rot:-63}}, sleeveBack={right:{cx:504,cy:236,rot:-63},left:{cx:96,cy:236,rot:63}};
     var chest={left:{cx:383,cy:248,w:104,h:104},center:{cx:300,cy:296,w:180,h:150}}[S.cpos];
     /* chest */
     var cn=null;
@@ -477,9 +477,9 @@ p{margin:0}
     if(S.tpos==='chest'){ var ty=S.cpos==='left'?(S.chest==='none'?248:S.chest==='site'?292:chest.cy+chest.h/2+16):(S.chest==='none'?300:chest.cy+chest.h/2+22); var tn=textNode(chest.cx,ty,S.cpos==='left'?116:220,S.cpos==='left'?11:16,0); if(tn) F.appendChild(tn); }
     /* sleeve */
     var sf=sleeveFront[S.spos], sb=sleeveBack[S.spos];
-    if(S.sleeve!=='none'){ var sn=markNode(S.sleeve,sf.cx,sf.cy,54,46,sf.rot); if(sn) F.appendChild(sn); var sn2=markNode(S.sleeve,sb.cx,sb.cy,54,46,sb.rot); if(sn2) B.appendChild(sn2); }
+    if(S.sleeve!=='none'){ var sn=markNode(S.sleeve,sf.cx,sf.cy,58,36,sf.rot); if(sn) F.appendChild(sn); var sn2=markNode(S.sleeve,sb.cx,sb.cy,58,36,sb.rot); if(sn2) B.appendChild(sn2); }
     /* text on the other sleeve */
-    if(S.tpos==='sleeve'){ var o=S.spos==='right'?'left':'right', of=sleeveFront[o], ob=sleeveBack[o]; var t1=textNode(of.cx,of.cy+3,64,9.5,of.rot); if(t1) F.appendChild(t1); var t2=textNode(ob.cx,ob.cy+3,64,9.5,ob.rot); if(t2) B.appendChild(t2); }
+    if(S.tpos==='sleeve'){ var o=S.spos==='right'?'left':'right', of=sleeveFront[o], ob=sleeveBack[o]; var t1=textNode(of.cx,of.cy+3,60,9,of.rot); if(t1) F.appendChild(t1); var t2=textNode(ob.cx,ob.cy+3,60,9,ob.rot); if(t2) B.appendChild(t2); }
     /* upper back mark or line */
     var hasUpper=(S.upper!=='none'&&(S.upper!=='logo'||S.logo))||(S.tpos==='upper'&&S.text.trim());
     if(S.upper!=='none'){ var un=markNode(S.upper,300,S.tpos==='upper'&&S.text.trim()?172:188,150,62,0); if(un) B.appendChild(un); }
@@ -531,13 +531,10 @@ p{margin:0}
     $('#tee').style.setProperty('--tee',c.hex); $('#cap').style.setProperty('--cap',c.hex); $('#sw-name').textContent=c.name+(cap?' cap':'');
     $('#tee').style.display=cap?'none':''; $('#cap').style.display=cap?'':'none';
     $$('[data-for]').forEach(function(n){ n.hidden=n.getAttribute('data-for')!==(cap?'cap':'shirt'); });
-    var longS=S.product==='long', SHORT='M238 104 L165 126 L54 208 L92 282 L170 250 L166 640 Q300 656 434 640 L430 250 L508 282 L546 208 L435 126 L362 104 Q300 112 238 104 Z', LONG='M238 104 L165 126 L46 214 L22 592 L112 600 L170 250 L166 640 Q300 656 434 640 L430 250 L488 600 L578 592 L554 214 L435 126 L362 104 Q300 112 238 104 Z';
-    $$('.tee-body').forEach(function(pth){ pth.setAttribute('d',longS?LONG:SHORT); });
-    $$('.tee-seams').forEach(function(pth){ pth.setAttribute('d',(longS?'M165 126 L170 250 M435 126 L430 250 M28 570 L116 578 M572 570 L484 578 M172 628 Q300 644 428 628':'M165 126 L170 250 M435 126 L430 250 M62 214 L100 276 M538 214 L500 276 M172 628 Q300 644 428 628')+(pth.getAttribute('data-back')?' M300 112 L300 160':'')); });
+
     $$('.sw').forEach(function(b){ var col=D.colours.filter(function(x){return x.slug===b.getAttribute('data-colour')})[0]; b.hidden=!cap&&!!col.dark; });
-    $('#colour-h').textContent=cap?'Cap colour':'Garment colour'; $('#colour-sub').textContent=cap?'pigment-dyed dad cap, adjustable strap':longS?'Comfort Colors long sleeve, garment-dyed':'Comfort Colors 1717, garment-dyed';
+    $('#colour-h').textContent=cap?'Cap colour':'Garment colour'; $('#colour-sub').textContent=cap?'pigment-dyed dad cap, adjustable strap':'Comfort Colors 1717, garment-dyed';
     $('#order-h').textContent=cap?'How many, and the request':'Sizes and the request';
-    $('#sleeve-sub').textContent=longS?'at the cuff on a long sleeve; right sleeve is the standard':'right sleeve is the catalog standard';
     $('#stage-note').textContent=cap?'The mockup is to scale but not a proof: the site block is set in type here, the real one is embroidered from the hand-drawn art. We send a real proof before anything is stitched.':'The mockup is to scale but not a proof: the chest block is set in type here, the real one is hand-drawn, and the art carries the preview watermark. We send a real proof before anything prints.';
     $$('.sw').forEach(function(b){ var on=b.getAttribute('data-colour')===S.colour; b.classList.toggle('on',on); b.setAttribute('aria-pressed',on); });
     [['data-dtab','tab'],['data-bsize','bsize'],['data-chest','chest'],['data-cpos','cpos'],['data-sleeve','sleeve'],['data-spos','spos'],['data-upper','upper'],['data-font','font'],['data-tpos','tpos'],['data-view','view'],['data-cf','cf'],['data-cs','cs'],['data-csp','csp'],['data-cb','cb'],['data-product','product']].forEach(function(pair){
@@ -580,10 +577,10 @@ p{margin:0}
       L.push('Quantity: '+(S.capqty>0?S.capqty+' cap'+(S.capqty>1?'s':''):'(not filled in yet)'));
       L.push('Mockup link: '+link()); return L;
     }
-    L.push('Garment: '+(S.product==='long'?'Comfort Colors long sleeve, ':'Comfort Colors 1717, ')+cname());
+    L.push('Garment: Comfort Colors 1717, '+cname());
     L.push('Back: '+(S.back==='none'?'no back print':byId[S.back].name+(byId[S.back].flag?' plate':' (Certified-ish)')+', '+(S.bsize==='full'?'full back':'upper back, smaller')));
     L.push('Chest: '+label(S.chest)+(S.chest==='none'?'':', '+(S.cpos==='left'?'left chest':'centre chest')));
-    L.push('Sleeve: '+label(S.sleeve)+(S.sleeve==='none'?'':', '+S.spos+' sleeve'+(S.product==='long'?', at the cuff':'')));
+    L.push('Sleeve: '+label(S.sleeve)+(S.sleeve==='none'?'':', '+S.spos+' sleeve, along the arm hole'));
     L.push('Upper back: '+label(S.upper));
     L.push('Brand mark: '+(BRAND[S.chest]?label(S.chest)+' on the chest':BRAND[S.sleeve]?label(S.sleeve)+' on the sleeve':label(S.upper)+' on the upper back'));
     if(S.text.trim()) L.push('Your line: "'+S.text.trim()+'" in '+{hand:'hand-lettered',plain:'plain',mono:'mono'}[S.font]+' lettering, '+{chest:'under the chest print',upper:'upper back',sleeve:'on the other sleeve'}[S.tpos]);
@@ -594,7 +591,7 @@ p{margin:0}
     return L;
   }
   function link(){
-    var q=new URLSearchParams(); (S.product==='cap'?['product','colour','site','cf','cs','csp','cb','text','font']:['product','colour','tab','back','bsize','chest','site','cpos','sleeve','spos','upper','text','font','tpos']).forEach(function(k){ if(S[k]!==undefined&&S[k]!==null&&S[k]!=='') q.set(k,S[k]); });
+    var q=new URLSearchParams(); (S.product==='cap'?['product','colour','site','cf','cs','csp','cb','text','font']:['colour','tab','back','bsize','chest','site','cpos','sleeve','spos','upper','text','font','tpos']).forEach(function(k){ if(S[k]!==undefined&&S[k]!==null&&S[k]!=='') q.set(k,S[k]); });
     return location.origin+location.pathname+'#'+q.toString();
   }
   function summary(){ $('#summary').textContent=lines().join('\n'); }
@@ -607,10 +604,10 @@ p{margin:0}
     e.preventDefault(); var bad=null;
     $$('[required]',form).forEach(function(elm){ var v=elm.value.trim(), ok=v.length>0; if(ok&&elm.type==='email') ok=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); elm.setAttribute('aria-invalid',ok?'false':'true'); if(!ok&&!bad) bad=elm; });
     if(bad){ st.textContent='Please fill in '+(bad.id==='c-email'?'your email':'your name')+'.'; bad.focus(); return; }
-    var body=['Custom '+(S.product==='cap'?'cap':S.product==='long'?'long sleeve':'shirt')+' request from '+$('#c-name').value.trim()+' <'+$('#c-email').value.trim()+'>',''].concat(lines());
+    var body=['Custom '+(S.product==='cap'?'cap':'shirt')+' request from '+$('#c-name').value.trim()+' <'+$('#c-email').value.trim()+'>',''].concat(lines());
     var notes=$('#c-notes').value.trim(); if(notes) body.push('','Notes:',notes);
     if(S.logo) body.push('','(Logo file attached: '+S.logo.name+')');
-    var subj=S.product==='cap'?'Custom cap: '+label(S.cf)+' on '+cname():(S.product==='long'?'Custom long sleeve: ':'Custom shirt: ')+(S.back==='none'?label(S.chest):byId[S.back].name)+' on '+cname();
+    var subj=S.product==='cap'?'Custom cap: '+label(S.cf)+' on '+cname():'Custom shirt: '+(S.back==='none'?label(S.chest):byId[S.back].name)+' on '+cname();
     track('custom-send',{design:S.back,colour:S.colour});
     location.href='mailto:'+form.getAttribute('data-to')+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body.join('\n'));
     st.textContent='Your email app should open with everything filled in. '+(S.logo?'Attach your logo file, then press send.':'Just press send.');
