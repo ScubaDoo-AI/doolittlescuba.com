@@ -190,7 +190,7 @@ p{margin:0}
       <a class="back" href="/#shirts" data-umami-event="custom-back">&larr; Back to the shirts</a>
     </div>
     <div class="rules" aria-label="How the placements work">
-      <p><b>Back designs</b> go on the back: the dive-site plates and the Certified-ish backs. A Certified-ish design can go on the front of a shirt as well, full front only, not on the pocket.</p>
+      <p><b>Back designs</b> go on the back: the dive-site plates and the Certified-ish backs. A Certified-ish design can go on the front of a shirt as well. Either way it runs full size: full front or full back, never the pocket or the upper back.</p>
       <p><b>Chest blocks</b> (site name, flag and coordinates) go on the chest.</p>
       <p><b>The seal</b> goes on the chest or a sleeve. <b>DS marks</b> go anywhere.</p>
       <p><b>Your line or logo</b> can take the chest, a sleeve or the upper back.</p>
@@ -279,7 +279,7 @@ p{margin:0}
         <div class="step-h"><span class="n"></span><h2>Back</h2><span class="sub">a dive-site plate or a Certified-ish back</span></div>
         <div class="row"><span class="lbl">Show</span><button type="button" class="chip on" data-dtab="plates">Dive-site plates</button><button type="button" class="chip" data-dtab="certs">Certified-ish</button><button type="button" class="chip" data-dtab="none">No back print</button></div>
         <div class="dgrid" id="dgrid" role="listbox" aria-label="Back designs"></div>
-        <div class="row"><span class="lbl">Size</span><button type="button" class="chip on" data-bsize="full">Full back</button><button type="button" class="chip" data-bsize="upper">Upper back, smaller</button></div>
+        <div class="row"><span class="lbl">Size</span><button type="button" class="chip on" data-bsize="full">Full back</button><button type="button" class="chip" data-bsize="upper" id="bsize-upper">Upper back, smaller</button></div>
       </div>
 
       <div class="step" id="st-chest" data-for="shirt">
@@ -538,9 +538,11 @@ p{margin:0}
     else { S.sleeve=m; note.textContent='Every shirt carries '+nm+': the sleeve is now '+nm+'.'; }
   }
 
+  function certBack(){ return S.product!=='cap' && S.back!=='none' && !!(byId[S.back]&&!byId[S.back].flag); }
   function render(){
     ensureMark();
     if(S.chest==='cert') S.cpos='center';
+    if(certBack()) S.bsize='full';   /* a Certified-ish design is full front or full back, nothing smaller */
     var cap=S.product==='cap', c=colour();
     if(!cap&&c.dark){ S.colour='light-blue'; c=colour(); }
     $('#tee').style.setProperty('--tee',c.hex); $('#cap').style.setProperty('--cap',c.hex); $('#sw-name').textContent=c.name+(cap?' cap':'');
@@ -561,6 +563,7 @@ p{margin:0}
     suggest(c);
     $('#chest-site-row').style.display=S.chest==='site'?'':'none'; $('#chest-site').value=S.site;
     $('#chest-cert-row').style.display=S.chest==='cert'?'':'none'; $('#chest-cert').value=S.ccert;
+    $('#bsize-upper').disabled=certBack(); $('#bsize-upper').title=certBack()?'A Certified-ish design goes full back, not smaller':'';
     $('#cpos-left').disabled=S.chest==='cert'; $('#cpos-left').title=S.chest==='cert'?'A Certified-ish design goes full front, not on the pocket':'';
     $('#line').value=S.text;
     $('#tee-front').style.display=S.view==='front'?'':'none'; $('#tee-back').style.display=S.view==='back'?'':'none';
