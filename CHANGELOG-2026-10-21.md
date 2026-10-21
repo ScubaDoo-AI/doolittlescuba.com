@@ -17,8 +17,13 @@ Deployed from the `main` branch of `ScubaDoo-AI/doolittlescuba.com` via Porkbun 
   - Mockup art: the 34 back designs, the shark mark, the DS mark and the seal under `custom/art/` as transparent WebP (5 MB) made from the watermarked previews, so the watermark travels with the art; thumbnails under `custom/t/` (0.5 MB). The mockup carries a "not a proof" label. Umami events: `custom-colour`, `custom-back`, `custom-logo`, `custom-copy-link`, `custom-copy-summary`, `custom-send`.
 - "Custom" in the nav of all 19 pages (after Shirts); the note under the shirts grid links to it ("make your own"); `img/og/custom.jpg` (four mockups); sitemap entry.
 
+## Added later the same day
+- **The hats** (`#hats` on the home page, "Hats" in the nav of all 19 pages): a line of 20 pigment-dyed dad caps built from the front designs, the marks and the tagline. 14 site caps (the site's chest block on the front panels, the shark mark on the side, "Do - A - Little Scuba" across the back arch, in the site's catalog colour) and six brand caps: The Mark (navy, DS mark in white and red), The Stack (ivory, the stacked lockup), The Wordmark (mint), The Seal (sage, DS mark on the side), The Shark (Caribbean blue, shark mark front), Home Port (teal, a Newnan block with the dive flag and the home-port coordinates). Cards flip front/back and open in the lightbox like the shirts; every card links to its own set-up on the Make it yours page. All labelled "Coming soon". Mockups, not photographs: 80 images in `img/hats/` (0.7 MB), rendered from the cap mockup.
+- **Make it yours — Shirt | Cap switch.** The cap mockup (front and back) with its own steps: Front (site block, DS stack, wordmark, DS mark, seal, shark mark, your line, your logo), Side (left/right; shark, DS mark, seal, logo), Back (the tagline, your line, DS mark, shark mark, logo). Navy is a cap-only colour and switches the marks and lettering to white. Quantity instead of sizes; the request email says "cap". A "Home Port" block (Newnan, 33°22.84 N 084°47.98 W) is available on caps. New art: `stack`, `wordmark`, `lockup-h` in navy/red and in white, `mark-w`, `ds-mark-w`.
+- Back print on the shirt mockup scaled to the torso (top edge ~4 in. below the collar).
+
 ## Verified
-- All 19 pages at 1440 px and 390 px: 0 broken links or assets, no console errors, no horizontal overflow. Home checks unchanged (flip, lightbox, filters 20/20 and 15).
+- All 19 pages at 1440 px and 390 px: 0 broken links or assets, no console errors, no horizontal overflow. Home checks unchanged (flip, lightbox, filters 20/20 and 15); the hats grid flips and opens the lightbox.
 - Custom page exercised in a headless browser at both widths: colour, design, placements, line, logo upload (enables the logo chips, lands on the chest), sizes, summary, and the mockup link restoring the same state in a fresh page.
 
 ## Still open

@@ -123,7 +123,20 @@ p{margin:0}
 #tee .collar{stroke:rgba(0,0,0,.20);stroke-width:8;stroke-linecap:round;fill:none}
 #tee .collar-in{stroke:rgba(0,0,0,.12);stroke-width:4;fill:none}
 #tee .seam{stroke:rgba(0,0,0,.14);stroke-width:1.5;fill:none}
-#tee .mock-label{font-family:var(--f-data);font-size:9px;letter-spacing:.08em;text-transform:uppercase;fill:var(--muted)}
+#tee .mock-label,#cap .mock-label{font-family:var(--f-data);font-size:9px;letter-spacing:.08em;text-transform:uppercase;fill:var(--muted)}
+#cap .crown{fill:var(--cap,#C9DCEC)}
+#cap .brim{fill:var(--cap,#C9DCEC)}
+#cap .seam{stroke:rgba(0,0,0,.16);stroke-width:1.5;fill:none}
+#cap .band{stroke:rgba(0,0,0,.22);stroke-width:3;fill:none}
+#cap .strap{fill:rgba(0,0,0,.16)}
+#cap .buckle{fill:#B08D3C;stroke:rgba(0,0,0,.25);stroke-width:1}
+#cap .eyelet{fill:rgba(0,0,0,.28)}
+#cap .opening{fill:var(--panel)}
+.stage-top .segs{display:flex;flex-wrap:wrap;gap:8px}
+.panel{counter-reset:step}
+.step:not([hidden]){counter-increment:step}
+.step-h .n::before{content:counter(step)}
+.step[hidden]{display:none}
 .dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px;max-height:380px;overflow:auto;padding:2px;border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
 .dz{display:flex;flex-direction:column;gap:5px;background:transparent;border:0;padding:4px;cursor:pointer;font:inherit;color:var(--text);text-align:left;border-radius:3px}
 .dz img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;border:1px solid var(--rule);background:#fff}
@@ -163,7 +176,7 @@ p{margin:0}
   <div class="wrap">
     <header class="top">
       <a class="brand" href="/" data-umami-event="nav-home" aria-label="Doolittle Scuba home"><img src="../img/brand/lockup-h-dark.png" alt="Doolittle Scuba L.L.C. — Do - A - Little Scuba" width="900" height="193"></a>
-      <nav aria-label="Site"><a href="/#designs" data-umami-event="nav-designs">Designs</a><a href="/#shirts" data-umami-event="nav-shirts">Shirts</a><a href="/custom/" data-umami-event="nav-custom">Custom</a><a href="/#map" data-umami-event="nav-map">Dive map</a><a href="/#logbook" data-umami-event="nav-logbook">Logbook</a><a href="/about/" data-umami-event="nav-about">About us</a><a href="/workshop/" data-umami-event="nav-workshop">Workshop</a><a href="/#contact" data-umami-event="nav-contact">Contact</a></nav>
+      <nav aria-label="Site"><a href="/#designs" data-umami-event="nav-designs">Designs</a><a href="/#shirts" data-umami-event="nav-shirts">Shirts</a><a href="/#hats" data-umami-event="nav-hats">Hats</a><a href="/custom/" data-umami-event="nav-custom">Custom</a><a href="/#map" data-umami-event="nav-map">Dive map</a><a href="/#logbook" data-umami-event="nav-logbook">Logbook</a><a href="/about/" data-umami-event="nav-about">About us</a><a href="/workshop/" data-umami-event="nav-workshop">Workshop</a><a href="/#contact" data-umami-event="nav-contact">Contact</a></nav>
     </header>
   </div>
 </div>
@@ -189,7 +202,7 @@ p{margin:0}
   <div class="builder">
     <section class="stage" aria-label="Shirt preview">
       <div class="stage-top">
-        <div class="seg" role="group" aria-label="Show front or back"><button type="button" class="on" data-view="front" aria-pressed="true">Front</button><button type="button" data-view="back" aria-pressed="false">Back</button></div>
+        <div class="segs"><div class="seg" role="group" aria-label="Shirt or cap"><button type="button" class="on" data-product="shirt" aria-pressed="true">Shirt</button><button type="button" data-product="cap" aria-pressed="false">Cap</button></div><div class="seg" role="group" aria-label="Show front or back"><button type="button" class="on" data-view="front" aria-pressed="true">Front</button><button type="button" data-view="back" aria-pressed="false">Back</button></div></div>
         <span class="swatch-name" id="sw-name">Light blue</span>
       </div>
       <div class="tee-wrap">
@@ -216,6 +229,35 @@ p{margin:0}
           </g>
           <text x="300" y="704" text-anchor="middle" class="mock-label">Mockup · not a proof · © 2026 Doolittle Scuba L.L.C.</text>
         </svg>
+        <svg id="cap" viewBox="0 0 600 520" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="Cap mockup" style="display:none">
+          <defs>
+            <radialGradient id="cglow" cx=".5" cy=".3" r=".65"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+            <linearGradient id="cside" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".16"/><stop offset=".3" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".16"/></linearGradient>
+            <linearGradient id="cbrim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".10"/><stop offset="1" stop-color="#000" stop-opacity=".26"/></linearGradient>
+            <path id="arch" d="M186 268 A114 114 0 0 1 414 268" fill="none"/>
+          </defs>
+          <g id="cap-front">
+            <path class="brim" d="M84 298 C140 312 220 320 300 320 C380 320 460 312 516 298 L530 314 C482 356 392 378 300 378 C208 378 118 356 70 314 Z"/>
+            <path d="M84 298 C140 312 220 320 300 320 C380 320 460 312 516 298 L530 314 C482 356 392 378 300 378 C208 378 118 356 70 314 Z" fill="url(#cbrim)"/>
+            <path class="crown" d="M108 300 C108 192 190 116 300 116 C410 116 492 192 492 300 Z"/><path d="M108 300 C108 192 190 116 300 116 C410 116 492 192 492 300 Z" fill="url(#cside)"/><path d="M108 300 C108 192 190 116 300 116 C410 116 492 192 492 300 Z" fill="url(#cglow)"/>
+            <path class="seam" d="M300 123 L300 300 M172 146 C148 200 134 250 134 300 M428 146 C452 200 466 250 466 300"/>
+            <circle class="eyelet" cx="170" cy="205" r="3"/><circle class="eyelet" cx="430" cy="205" r="3"/>
+            <circle cx="300" cy="118" r="7" fill="rgba(0,0,0,.18)"/>
+            <path class="band" d="M108 300 Q300 318 492 300"/>
+            <g id="cap-front-prints"></g>
+          </g>
+          <g id="cap-back" style="display:none">
+            <path class="crown" d="M108 300 C108 192 190 116 300 116 C410 116 492 192 492 300 Z"/><path d="M108 300 C108 192 190 116 300 116 C410 116 492 192 492 300 Z" fill="url(#cside)"/><path d="M108 300 C108 192 190 116 300 116 C410 116 492 192 492 300 Z" fill="url(#cglow)"/>
+            <path class="seam" d="M300 123 L300 258 M172 146 C148 200 134 250 134 300 M428 146 C452 200 466 250 466 300"/>
+            <circle class="eyelet" cx="170" cy="205" r="3"/><circle class="eyelet" cx="430" cy="205" r="3"/>
+            <circle cx="300" cy="118" r="7" fill="rgba(0,0,0,.18)"/>
+            <path class="opening" d="M252 302 L252 290 C252 262 274 250 300 250 C326 250 348 262 348 290 L348 302 Z"/>
+            <rect class="strap" x="236" y="280" width="128" height="18" rx="2"/><rect class="buckle" x="330" y="277" width="22" height="24" rx="2"/>
+            <path class="band" d="M108 300 Q300 318 492 300"/>
+            <g id="cap-back-prints"></g>
+          </g>
+          <text x="300" y="505" text-anchor="middle" class="mock-label">Mockup · not a proof · © 2026 Doolittle Scuba L.L.C.</text>
+        </svg>
       </div>
       <p class="stage-note" id="stage-note">The mockup is to scale but not a proof: the chest block is set in type here, the real one is hand-drawn, and the art carries the preview watermark. We send a real proof before anything prints.</p>
       <div class="stage-actions">
@@ -226,52 +268,69 @@ p{margin:0}
 
     <section class="panel" aria-label="Your choices">
       <div class="step" id="st-colour">
-        <div class="step-h"><span class="n">1</span><h2>Garment colour</h2><span class="sub">Comfort Colors 1717, garment-dyed</span></div>
+        <div class="step-h"><span class="n"></span><h2 id="colour-h">Garment colour</h2><span class="sub" id="colour-sub">Comfort Colors 1717, garment-dyed</span></div>
         <div class="swatches" id="swatches"></div>
         <p class="sug-note" id="sug-note"></p>
       </div>
 
-      <div class="step" id="st-back">
-        <div class="step-h"><span class="n">2</span><h2>Back</h2><span class="sub">a dive-site plate or a Certified-ish back</span></div>
+      <div class="step" id="st-back" data-for="shirt">
+        <div class="step-h"><span class="n"></span><h2>Back</h2><span class="sub">a dive-site plate or a Certified-ish back</span></div>
         <div class="row"><span class="lbl">Show</span><button type="button" class="chip on" data-dtab="plates">Dive-site plates</button><button type="button" class="chip" data-dtab="certs">Certified-ish</button><button type="button" class="chip" data-dtab="none">No back print</button></div>
         <div class="dgrid" id="dgrid" role="listbox" aria-label="Back designs"></div>
         <div class="row"><span class="lbl">Size</span><button type="button" class="chip on" data-bsize="full">Full back</button><button type="button" class="chip" data-bsize="upper">Upper back, smaller</button></div>
       </div>
 
-      <div class="step" id="st-chest">
-        <div class="step-h"><span class="n">3</span><h2>Chest</h2><span class="sub">left chest is the catalog standard</span></div>
+      <div class="step" id="st-chest" data-for="shirt">
+        <div class="step-h"><span class="n"></span><h2>Chest</h2><span class="sub">left chest is the catalog standard</span></div>
         <div class="row" id="chest-what"><span class="lbl">Print</span><button type="button" class="chip on" data-chest="site">Site block</button><button type="button" class="chip" data-chest="seal">Seal</button><button type="button" class="chip" data-chest="dsmark">DS mark</button><button type="button" class="chip" data-chest="shark">Shark mark</button><button type="button" class="chip" data-chest="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-chest="none">None</button></div>
         <div class="row" id="chest-site-row"><label class="lbl" for="chest-site">Site</label><select id="chest-site" class="chip" style="padding-right:28px"></select></div>
         <div class="row"><span class="lbl">Where</span><button type="button" class="chip on" data-cpos="left">Left chest</button><button type="button" class="chip" data-cpos="center">Centre chest</button></div>
       </div>
 
-      <div class="step" id="st-sleeve">
-        <div class="step-h"><span class="n">4</span><h2>Sleeve</h2><span class="sub">right sleeve is the catalog standard</span></div>
+      <div class="step" id="st-sleeve" data-for="shirt">
+        <div class="step-h"><span class="n"></span><h2>Sleeve</h2><span class="sub">right sleeve is the catalog standard</span></div>
         <div class="row"><span class="lbl">Print</span><button type="button" class="chip on" data-sleeve="shark">Shark mark</button><button type="button" class="chip" data-sleeve="seal">Seal</button><button type="button" class="chip" data-sleeve="dsmark">DS mark</button><button type="button" class="chip" data-sleeve="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-sleeve="none">None</button></div>
         <div class="row"><span class="lbl">Which</span><button type="button" class="chip on" data-spos="right">Right sleeve</button><button type="button" class="chip" data-spos="left">Left sleeve</button></div>
       </div>
 
-      <div class="step" id="st-upper">
-        <div class="step-h"><span class="n">5</span><h2>Upper back</h2><span class="sub">a small mark above the back print</span></div>
+      <div class="step" id="st-upper" data-for="shirt">
+        <div class="step-h"><span class="n"></span><h2>Upper back</h2><span class="sub">a small mark above the back print</span></div>
         <div class="row"><span class="lbl">Print</span><button type="button" class="chip on" data-upper="none">None</button><button type="button" class="chip" data-upper="dsmark">DS mark</button><button type="button" class="chip" data-upper="shark">Shark mark</button><button type="button" class="chip" data-upper="logo" data-needs-logo disabled>Your logo</button></div>
       </div>
 
+
+      <div class="step" id="st-cfront" data-for="cap" hidden>
+        <div class="step-h"><span class="n"></span><h2>Front</h2><span class="sub">the front panels of the cap</span></div>
+        <div class="row"><span class="lbl">Print</span><button type="button" class="chip on" data-cf="site">Site block</button><button type="button" class="chip" data-cf="stack">DS stack</button><button type="button" class="chip" data-cf="wordmark">Wordmark</button><button type="button" class="chip" data-cf="dsmark">DS mark</button><button type="button" class="chip" data-cf="seal">Seal</button><button type="button" class="chip" data-cf="shark">Shark mark</button><button type="button" class="chip" data-cf="line">Your line</button><button type="button" class="chip" data-cf="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-cf="none">None</button></div>
+        <div class="row" id="cap-site-row"><label class="lbl" for="cap-site">Site</label><select id="cap-site" class="chip" style="padding-right:28px"></select></div>
+      </div>
+      <div class="step" id="st-cside" data-for="cap" hidden>
+        <div class="step-h"><span class="n"></span><h2>Side</h2><span class="sub">a small mark on a side panel</span></div>
+        <div class="row"><span class="lbl">Print</span><button type="button" class="chip on" data-cs="shark">Shark mark</button><button type="button" class="chip" data-cs="dsmark">DS mark</button><button type="button" class="chip" data-cs="seal">Seal</button><button type="button" class="chip" data-cs="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-cs="none">None</button></div>
+        <div class="row"><span class="lbl">Which</span><button type="button" class="chip on" data-csp="left">Left side</button><button type="button" class="chip" data-csp="right">Right side</button></div>
+      </div>
+      <div class="step" id="st-cback" data-for="cap" hidden>
+        <div class="step-h"><span class="n"></span><h2>Back</h2><span class="sub">the arch above the strap</span></div>
+        <div class="row"><span class="lbl">Print</span><button type="button" class="chip on" data-cb="tagline">Do - A - Little Scuba</button><button type="button" class="chip" data-cb="line">Your line</button><button type="button" class="chip" data-cb="dsmark">DS mark</button><button type="button" class="chip" data-cb="shark">Shark mark</button><button type="button" class="chip" data-cb="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-cb="none">None</button></div>
+      </div>
       <div class="step" id="st-text">
-        <div class="step-h"><span class="n">6</span><h2>Your line</h2><span class="sub">a boat, a club, a trip, a name</span></div>
+        <div class="step-h"><span class="n"></span><h2>Your line</h2><span class="sub">a boat, a club, a trip, a name</span></div>
+        <p class="hint" data-for="cap" hidden>On a cap your line goes where you put it: choose "Your line" in Front or Back.</p>
         <div class="field"><label for="line">Text <span style="text-transform:none;letter-spacing:0">(up to 28 characters)</span></label><input id="line" maxlength="28" placeholder="e.g. Fiji 2024 · Taveuni" autocomplete="off"></div>
         <div class="row"><span class="lbl">Lettering</span><button type="button" class="chip on" data-font="hand">Hand-lettered</button><button type="button" class="chip" data-font="plain">Plain</button><button type="button" class="chip" data-font="mono">Mono</button></div>
-        <div class="row"><span class="lbl">Where</span><button type="button" class="chip on" data-tpos="chest">Under the chest print</button><button type="button" class="chip" data-tpos="upper">Upper back</button><button type="button" class="chip" data-tpos="sleeve">Other sleeve</button></div>
+        <div class="row" data-for="shirt"><span class="lbl">Where</span><button type="button" class="chip on" data-tpos="chest">Under the chest print</button><button type="button" class="chip" data-tpos="upper">Upper back</button><button type="button" class="chip" data-tpos="sleeve">Other sleeve</button></div>
       </div>
 
       <div class="step" id="st-logo">
-        <div class="step-h"><span class="n">7</span><h2>Your logo</h2><span class="sub">optional</span></div>
+        <div class="step-h"><span class="n"></span><h2>Your logo</h2><span class="sub">optional</span></div>
         <div class="filebox"><input type="file" id="logo" accept="image/png,image/jpeg,image/svg+xml,image/webp"><img class="logo-prev" id="logo-prev" alt=""><button type="button" class="chip" id="logo-clear" hidden>Remove</button></div>
         <p class="hint">Your file stays in your browser; nothing is uploaded. Once it is on the mockup, "Your logo" becomes available in steps 3, 4 and 5. Attach the file to the request email. One-colour artwork prints best.</p>
       </div>
 
       <div class="step" id="st-order">
-        <div class="step-h"><span class="n">8</span><h2>Sizes and the request</h2></div>
-        <div class="sizes" id="sizes"></div>
+        <div class="step-h"><span class="n"></span><h2 id="order-h">Sizes and the request</h2></div>
+        <div class="sizes" id="sizes" data-for="shirt"></div>
+        <div class="field" data-for="cap" hidden style="max-width:220px"><label for="cap-qty">Caps <span style="text-transform:none;letter-spacing:0">(one size, adjustable strap)</span></label><input id="cap-qty" type="number" min="0" max="500" inputmode="numeric" placeholder="0"></div>
         <form class="req" id="custom-form" novalidate data-to="orders@doolittlescuba.com" data-subject="Custom shirt">
           <div class="row2">
             <div><label for="c-name">Your name</label><input id="c-name" required autocomplete="name"></div>
@@ -298,23 +357,26 @@ p{margin:0}
     </div>
   </div>
 </footer>
-<script type="application/json" id="custom-data">{"colours":[{"slug":"light-blue","name":"Light blue","hex":"#C9DCEC","tone":"cool"},{"slug":"caribbean-blue","name":"Caribbean blue","hex":"#4FA3D8","tone":"cool"},{"slug":"mint","name":"Mint","hex":"#9FDCC8","tone":"cool"},{"slug":"teal","name":"Teal","hex":"#4F8F8C","tone":"cool"},{"slug":"aqua","name":"Aqua","hex":"#7FCFD1","tone":"cool"},{"slug":"sage","name":"Sage","hex":"#B8BFB0","tone":"cool"},{"slug":"lavender","name":"Lavender","hex":"#D5C2E0","tone":"cool"},{"slug":"ivory","name":"Ivory","hex":"#F2EBD9","tone":"neutral"},{"slug":"butter","name":"Butter","hex":"#F5E9A8","tone":"warm"},{"slug":"mustard","name":"Mustard","hex":"#E5B33A","tone":"warm"},{"slug":"terracotta","name":"Terracotta","hex":"#D8865B","tone":"warm"},{"slug":"coral","name":"Coral","hex":"#E8716C","tone":"warm"},{"slug":"berry-pink","name":"Berry pink","hex":"#E0527A","tone":"warm"},{"slug":"pink","name":"Pink","hex":"#F1C8D6","tone":"warm"}],"plates":[{"slug":"black-bart","name":"Black Bart","place":"Panama City Beach, FL","flag":"us","coords":"30\u00b003.650 N  085\u00b049.430 W","w":900,"h":569},{"slug":"bridge-span-14","name":"Bridge Span 14","place":"Panama City Beach, FL","flag":"us","coords":"30\u00b004.291 N  085\u00b048.876 W","w":900,"h":644},{"slug":"blue-grotto","name":"Blue Grotto","place":"Williston, FL","flag":"us","coords":"29\u00b023.274 N  082\u00b029.191 W","w":900,"h":518},{"slug":"blue-water-park","name":"Blue Water Park","place":"Pelham, AL","flag":"us","coords":"33\u00b017.782 N  086\u00b049.032 W","w":900,"h":694},{"slug":"dampier-strait","name":"Dampier Strait","place":"Raja Ampat, Indonesia","flag":"intl","coords":"00\u00b032.929 S  130\u00b037.905 E","w":900,"h":641},{"slug":"bali","name":"Bali","place":"Bali, Indonesia","flag":"intl","coords":"08\u00b016.500 S  115\u00b035.600 E","w":900,"h":699},{"slug":"rainbow-river","name":"Rainbow River","place":"Dunnellon, FL","flag":"us","coords":"29\u00b006.160 N  082\u00b026.223 W","w":900,"h":578},{"slug":"navy-llcat","name":"Navy LLCAT","place":"Panama City Beach, FL","flag":"us","coords":"30\u00b004.249 N  085\u00b048.725 W","w":900,"h":500},{"slug":"dive-land-park","name":"Dive Land Park","place":"Ider, AL","flag":"us","coords":"34\u00b042.855 N  085\u00b040.848 W","w":900,"h":708},{"slug":"thurmond-dam","name":"Thurmond Dam","place":"Lake Thurmond, GA","flag":"us","coords":"33\u00b039.650 N  082\u00b011.983 W","w":900,"h":721},{"slug":"thistlegorm","name":"The Thistlegorm","place":"Red Sea, Egypt","flag":"intl","coords":"27\u00b048.800 N  033\u00b055.250 E","w":900,"h":507},{"slug":"somosomo-strait","name":"Somosomo Strait","place":"Taveuni, Fiji","flag":"intl","coords":"16\u00b046.800 S  179\u00b058.200 E","w":900,"h":727},{"slug":"rainbow-reef","name":"Rainbow Reef","place":"Taveuni, Fiji","flag":"intl","coords":"16\u00b046.620 S  179\u00b055.932 E","w":900,"h":579},{"slug":"vuna-reef","name":"Vuna Reef","place":"Taveuni, Fiji","flag":"intl","coords":"16\u00b058.800 S  179\u00b052.800 E","w":900,"h":657}],"certs":[{"slug":"cert-open-water","name":"Open Water Diver","w":900,"h":692},{"slug":"cert-advanced-open-water","name":"Advanced Open Water Diver","w":900,"h":692},{"slug":"cert-altitude","name":"Altitude Diver","w":900,"h":692},{"slug":"cert-boat","name":"Boat Diver","w":900,"h":651},{"slug":"cert-buoyancy","name":"Buoyancy","w":900,"h":692},{"slug":"cert-cave","name":"Cave Diver","w":900,"h":698},{"slug":"cert-deep","name":"Deep Diver","w":900,"h":796},{"slug":"cert-dpv","name":"DPV Diver","w":900,"h":691},{"slug":"cert-drift","name":"Drift Diver","w":900,"h":692},{"slug":"cert-fish-id","name":"Fish ID","w":900,"h":636},{"slug":"cert-ice","name":"Ice Diver","w":900,"h":692},{"slug":"cert-night","name":"Night Diver","w":900,"h":692},{"slug":"cert-nitrox","name":"Nitrox","w":900,"h":692},{"slug":"cert-rebreather","name":"Rebreather Diver","w":900,"h":692},{"slug":"cert-search-recovery","name":"Search and Recovery","w":900,"h":692},{"slug":"cert-self-reliant","name":"Self-Reliant Diver","w":900,"h":720},{"slug":"cert-sidemount","name":"Sidemount Diver","w":900,"h":815},{"slug":"cert-smb","name":"Surface Marker Buoy","w":900,"h":692},{"slug":"cert-tech","name":"Tech Diver","w":900,"h":675},{"slug":"cert-uw-photo","name":"Underwater Photographer","w":900,"h":689}],"marks":{"mark":[400,262],"ds-mark":[551,600],"seal":[560,560]},"sizes":["S","M","L","XL","2XL","3XL"]}</script>
+<script type="application/json" id="custom-data">{"colours":[{"slug":"light-blue","name":"Light blue","hex":"#C9DCEC","tone":"cool"},{"slug":"caribbean-blue","name":"Caribbean blue","hex":"#4FA3D8","tone":"cool"},{"slug":"mint","name":"Mint","hex":"#9FDCC8","tone":"cool"},{"slug":"teal","name":"Teal","hex":"#4F8F8C","tone":"cool"},{"slug":"aqua","name":"Aqua","hex":"#7FCFD1","tone":"cool"},{"slug":"sage","name":"Sage","hex":"#B8BFB0","tone":"cool"},{"slug":"lavender","name":"Lavender","hex":"#D5C2E0","tone":"cool"},{"slug":"ivory","name":"Ivory","hex":"#F2EBD9","tone":"neutral"},{"slug":"butter","name":"Butter","hex":"#F5E9A8","tone":"warm"},{"slug":"mustard","name":"Mustard","hex":"#E5B33A","tone":"warm"},{"slug":"terracotta","name":"Terracotta","hex":"#D8865B","tone":"warm"},{"slug":"coral","name":"Coral","hex":"#E8716C","tone":"warm"},{"slug":"berry-pink","name":"Berry pink","hex":"#E0527A","tone":"warm"},{"slug":"pink","name":"Pink","hex":"#F1C8D6","tone":"warm"},{"slug":"navy","name":"Navy","hex":"#122A55","tone":"cool","dark":true}],"plates":[{"slug":"black-bart","name":"Black Bart","place":"Panama City Beach, FL","flag":"us","coords":"30\u00b003.650 N  085\u00b049.430 W","w":900,"h":569},{"slug":"bridge-span-14","name":"Bridge Span 14","place":"Panama City Beach, FL","flag":"us","coords":"30\u00b004.291 N  085\u00b048.876 W","w":900,"h":644},{"slug":"blue-grotto","name":"Blue Grotto","place":"Williston, FL","flag":"us","coords":"29\u00b023.274 N  082\u00b029.191 W","w":900,"h":518},{"slug":"blue-water-park","name":"Blue Water Park","place":"Pelham, AL","flag":"us","coords":"33\u00b017.782 N  086\u00b049.032 W","w":900,"h":694},{"slug":"dampier-strait","name":"Dampier Strait","place":"Raja Ampat, Indonesia","flag":"intl","coords":"00\u00b032.929 S  130\u00b037.905 E","w":900,"h":641},{"slug":"bali","name":"Bali","place":"Bali, Indonesia","flag":"intl","coords":"08\u00b016.500 S  115\u00b035.600 E","w":900,"h":699},{"slug":"rainbow-river","name":"Rainbow River","place":"Dunnellon, FL","flag":"us","coords":"29\u00b006.160 N  082\u00b026.223 W","w":900,"h":578},{"slug":"navy-llcat","name":"Navy LLCAT","place":"Panama City Beach, FL","flag":"us","coords":"30\u00b004.249 N  085\u00b048.725 W","w":900,"h":500},{"slug":"dive-land-park","name":"Dive Land Park","place":"Ider, AL","flag":"us","coords":"34\u00b042.855 N  085\u00b040.848 W","w":900,"h":708},{"slug":"thurmond-dam","name":"Thurmond Dam","place":"Lake Thurmond, GA","flag":"us","coords":"33\u00b039.650 N  082\u00b011.983 W","w":900,"h":721},{"slug":"thistlegorm","name":"The Thistlegorm","place":"Red Sea, Egypt","flag":"intl","coords":"27\u00b048.800 N  033\u00b055.250 E","w":900,"h":507},{"slug":"somosomo-strait","name":"Somosomo Strait","place":"Taveuni, Fiji","flag":"intl","coords":"16\u00b046.800 S  179\u00b058.200 E","w":900,"h":727},{"slug":"rainbow-reef","name":"Rainbow Reef","place":"Taveuni, Fiji","flag":"intl","coords":"16\u00b046.620 S  179\u00b055.932 E","w":900,"h":579},{"slug":"vuna-reef","name":"Vuna Reef","place":"Taveuni, Fiji","flag":"intl","coords":"16\u00b058.800 S  179\u00b052.800 E","w":900,"h":657}],"certs":[{"slug":"cert-open-water","name":"Open Water Diver","w":900,"h":692},{"slug":"cert-advanced-open-water","name":"Advanced Open Water Diver","w":900,"h":692},{"slug":"cert-altitude","name":"Altitude Diver","w":900,"h":692},{"slug":"cert-boat","name":"Boat Diver","w":900,"h":651},{"slug":"cert-buoyancy","name":"Buoyancy","w":900,"h":692},{"slug":"cert-cave","name":"Cave Diver","w":900,"h":698},{"slug":"cert-deep","name":"Deep Diver","w":900,"h":796},{"slug":"cert-dpv","name":"DPV Diver","w":900,"h":691},{"slug":"cert-drift","name":"Drift Diver","w":900,"h":692},{"slug":"cert-fish-id","name":"Fish ID","w":900,"h":636},{"slug":"cert-ice","name":"Ice Diver","w":900,"h":692},{"slug":"cert-night","name":"Night Diver","w":900,"h":692},{"slug":"cert-nitrox","name":"Nitrox","w":900,"h":692},{"slug":"cert-rebreather","name":"Rebreather Diver","w":900,"h":692},{"slug":"cert-search-recovery","name":"Search and Recovery","w":900,"h":692},{"slug":"cert-self-reliant","name":"Self-Reliant Diver","w":900,"h":720},{"slug":"cert-sidemount","name":"Sidemount Diver","w":900,"h":815},{"slug":"cert-smb","name":"Surface Marker Buoy","w":900,"h":692},{"slug":"cert-tech","name":"Tech Diver","w":900,"h":675},{"slug":"cert-uw-photo","name":"Underwater Photographer","w":900,"h":689}],"marks":{"mark":[400,262],"ds-mark":[551,600],"seal":[560,560],"stack":[760,485],"wordmark":[760,176]},"sizes":["S","M","L","XL","2XL","3XL"],"extra":[{"slug":"home-port","name":"Home Port","place":"Newnan, GA","flag":"us","coords":"33\u00b022.84 N  084\u00b047.98 W"}]}</script>
 <script>
 (function(){
   var D=JSON.parse(document.getElementById('custom-data').textContent);
   var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
   var SVGNS='http://www.w3.org/2000/svg', XL='http://www.w3.org/1999/xlink';
   var FONTS={hand:'"Almendra","Palatino Linotype",Palatino,Georgia,serif',plain:'"Alegreya Sans","Gill Sans","Trebuchet MS",system-ui,sans-serif',mono:'"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace'};
-  var S={colour:'light-blue',tab:'plates',back:'black-bart',bsize:'full',chest:'site',site:'black-bart',cpos:'left',sleeve:'shark',spos:'right',upper:'none',text:'',font:'hand',tpos:'chest',logo:null,view:'front',qty:{}};
-  var byId={}; D.plates.forEach(function(p){byId[p.slug]=p}); D.certs.forEach(function(c){byId[c.slug]=c});
-  var MARKS={shark:{src:'art/mark.webp',w:D.marks.mark[0],h:D.marks.mark[1],blend:true,name:'Shark signature mark'},dsmark:{src:'art/ds-mark.webp',w:D.marks['ds-mark'][0],h:D.marks['ds-mark'][1],blend:false,name:'DS mark'},seal:{src:'art/seal.webp',w:D.marks.seal[0],h:D.marks.seal[1],blend:false,name:'Seal'}};
+  var S={product:'shirt',colour:'light-blue',tab:'plates',back:'black-bart',bsize:'full',chest:'site',site:'black-bart',cpos:'left',sleeve:'shark',spos:'right',upper:'none',text:'',font:'hand',tpos:'chest',logo:null,view:'front',qty:{},capqty:0,cf:'site',cs:'shark',csp:'left',cb:'tagline'};
+  var byId={}; D.plates.forEach(function(p){byId[p.slug]=p}); D.certs.forEach(function(c){byId[c.slug]=c}); (D.extra||[]).forEach(function(p){byId[p.slug]=p});
+  var MARKS={shark:{src:'art/mark.webp',wsrc:'art/mark-w.webp',w:D.marks.mark[0],h:D.marks.mark[1],blend:true,name:'Shark signature mark'},dsmark:{src:'art/ds-mark.webp',wsrc:'art/ds-mark-w.webp',w:D.marks['ds-mark'][0],h:D.marks['ds-mark'][1],blend:false,name:'DS mark'},seal:{src:'art/seal.webp',w:D.marks.seal[0],h:D.marks.seal[1],blend:false,name:'Seal'},stack:{src:'art/stack.webp',wsrc:'art/stack-w.webp',w:D.marks.stack[0],h:D.marks.stack[1],blend:false,name:'DS stacked lockup'},wordmark:{src:'art/wordmark.webp',wsrc:'art/wordmark-w.webp',w:D.marks.wordmark[0],h:D.marks.wordmark[1],blend:false,name:'Wordmark'}};
+  function colour(){ return D.colours.filter(function(x){return x.slug===S.colour})[0]; }
+  function dark(){ return !!colour().dark; }
 
   /* ---------- state from the link, if any ---------- */
   function fromHash(){
     if(!location.hash || location.hash.length<3) return;
-    var q=new URLSearchParams(location.hash.slice(1)), keys=['colour','tab','back','bsize','chest','site','cpos','sleeve','spos','upper','text','font','tpos','view'];
+    var q=new URLSearchParams(location.hash.slice(1)), keys=['product','colour','tab','back','bsize','chest','site','cpos','sleeve','spos','upper','text','font','tpos','view','cf','cs','csp','cb'];
     keys.forEach(function(k){ if(q.has(k)) S[k]=q.get(k); });
-    if(S.chest==='logo'||S.sleeve==='logo'||S.upper==='logo'){ if(S.chest==='logo') S.chest='site'; if(S.sleeve==='logo') S.sleeve='shark'; if(S.upper==='logo') S.upper='none'; }
+    if(S.chest==='logo') S.chest='site'; if(S.sleeve==='logo') S.sleeve='shark'; if(S.upper==='logo') S.upper='none'; if(S.cf==='logo') S.cf='site'; if(S.cs==='logo') S.cs='shark'; if(S.cb==='logo') S.cb='tagline';
+    if(S.product!=='cap') S.product='shirt';
     if(S.back!=='none' && !byId[S.back]) S.back='black-bart';
     if(!byId[S.site]) S.site='black-bart';
     if(!D.colours.some(function(c){return c.slug===S.colour})) S.colour='light-blue';
@@ -326,8 +388,9 @@ p{margin:0}
   /* ---------- build the choice widgets ---------- */
   var sw=$('#swatches');
   D.colours.forEach(function(c){ var b=document.createElement('button'); b.type='button'; b.className='sw'; b.setAttribute('data-colour',c.slug); b.setAttribute('aria-pressed','false'); b.innerHTML='<i style="background:'+c.hex+'"></i><span>'+c.name+'</span>'; b.addEventListener('click',function(){S.colour=c.slug; render(); track('custom-colour',{colour:c.slug});}); sw.appendChild(b); });
-  var sel=$('#chest-site'); D.plates.forEach(function(p){ var o=document.createElement('option'); o.value=p.slug; o.textContent=p.name; sel.appendChild(o); });
-  sel.addEventListener('change',function(){ S.site=sel.value; render(); });
+  var sel=$('#chest-site'), sel2=$('#cap-site'); D.plates.forEach(function(p){ [sel,sel2].forEach(function(x){ var o=document.createElement('option'); o.value=p.slug; o.textContent=p.name; x.appendChild(o); }); }); (D.extra||[]).forEach(function(p){ var o=document.createElement('option'); o.value=p.slug; o.textContent=p.name+' (Newnan)'; sel2.appendChild(o); });
+  sel.addEventListener('change',function(){ S.site=sel.value; render(); }); sel2.addEventListener('change',function(){ S.site=sel2.value; render(); });
+  $('#cap-qty').addEventListener('input',function(e){ S.capqty=parseInt(e.target.value,10)||0; summary(); });
   var sizes=$('#sizes'); D.sizes.forEach(function(z){ var d=document.createElement('div'); d.className='size'; d.innerHTML='<span>'+z+'</span><input type="number" min="0" max="500" inputmode="numeric" placeholder="0" aria-label="Quantity, size '+z+'" data-size="'+z+'">'; sizes.appendChild(d); });
   $$('#sizes input').forEach(function(i){ i.addEventListener('input',function(){ S.qty[i.getAttribute('data-size')]=parseInt(i.value,10)||0; summary(); }); });
 
@@ -344,10 +407,11 @@ p{margin:0}
   }
 
   /* chip groups: one attribute each */
-  [['data-dtab','tab'],['data-bsize','bsize'],['data-chest','chest'],['data-cpos','cpos'],['data-sleeve','sleeve'],['data-spos','spos'],['data-upper','upper'],['data-font','font'],['data-tpos','tpos']].forEach(function(pair){
+  [['data-dtab','tab'],['data-bsize','bsize'],['data-chest','chest'],['data-cpos','cpos'],['data-sleeve','sleeve'],['data-spos','spos'],['data-upper','upper'],['data-font','font'],['data-tpos','tpos'],['data-cf','cf'],['data-cs','cs'],['data-csp','csp'],['data-cb','cb'],['data-product','product']].forEach(function(pair){
     $$('['+pair[0]+']').forEach(function(b){ b.addEventListener('click',function(){
       if(b.disabled) return; S[pair[1]]=b.getAttribute(pair[0]);
       if(pair[1]==='tab'){ if(S.tab==='none') S.back='none'; else if(S.back==='none'||(S.tab==='plates')!==!!(byId[S.back]&&byId[S.back].flag)) S.back=(S.tab==='plates'?D.plates:D.certs)[0].slug; }
+      if(pair[1]==='product'){ if(S.product==='shirt'&&dark()) S.colour='light-blue'; if(S.product==='shirt'&&!D.plates.some(function(x){return x.slug===S.site})) S.site='black-bart'; track('custom-product',{product:S.product}); }
       render(); }); });
   });
   $$('[data-view]').forEach(function(b){ b.addEventListener('click',function(){ S.view=b.getAttribute('data-view'); render(); }); });
@@ -358,9 +422,9 @@ p{margin:0}
   logoIn.addEventListener('change',function(){
     var f=logoIn.files&&logoIn.files[0]; if(!f) return;
     if(f.size>6*1024*1024){ $('#form-status').textContent='That file is over 6 MB; a smaller export of the logo works better here.'; logoIn.value=''; return; }
-    var r=new FileReader(); r.onload=function(){ var im=new Image(); im.onload=function(){ S.logo={src:r.result,w:im.naturalWidth||1,h:im.naturalHeight||1,name:f.name}; logoPrev.src=r.result; logoPrev.classList.add('show'); logoClear.hidden=false; if(S.chest!=='logo'&&S.sleeve!=='logo'&&S.upper!=='logo'){ S.chest='logo'; } render(); track('custom-logo'); }; im.src=r.result; }; r.readAsDataURL(f);
+    var r=new FileReader(); r.onload=function(){ var im=new Image(); im.onload=function(){ S.logo={src:r.result,w:im.naturalWidth||1,h:im.naturalHeight||1,name:f.name}; logoPrev.src=r.result; logoPrev.classList.add('show'); logoClear.hidden=false; if(S.product==='cap'){ if(S.cf!=='logo'&&S.cs!=='logo'&&S.cb!=='logo') S.cf='logo'; } else if(S.chest!=='logo'&&S.sleeve!=='logo'&&S.upper!=='logo'){ S.chest='logo'; } render(); track('custom-logo'); }; im.src=r.result; }; r.readAsDataURL(f);
   });
-  logoClear.addEventListener('click',function(){ S.logo=null; logoIn.value=''; logoPrev.classList.remove('show'); logoClear.hidden=true; if(S.chest==='logo') S.chest='site'; if(S.sleeve==='logo') S.sleeve='shark'; if(S.upper==='logo') S.upper='none'; render(); });
+  logoClear.addEventListener('click',function(){ S.logo=null; logoIn.value=''; logoPrev.classList.remove('show'); logoClear.hidden=true; if(S.chest==='logo') S.chest='site'; if(S.sleeve==='logo') S.sleeve='shark'; if(S.upper==='logo') S.upper='none'; if(S.cf==='logo') S.cf='site'; if(S.cs==='logo') S.cs='shark'; if(S.cb==='logo') S.cb='tagline'; render(); });
 
   /* ---------- the mockup ---------- */
   function el(n,a){ var e=document.createElementNS(SVGNS,n); for(var k in a){ if(k==='href') e.setAttributeNS(XL,'xlink:href',a[k]); else e.setAttribute(k,a[k]); } return e; }
@@ -373,23 +437,24 @@ p{margin:0}
   }
   function markNode(key,cx,cy,maxW,maxH,rot){
     if(key==='logo'){ if(!S.logo) return null; return img(S.logo.src,S.logo.w,S.logo.h,cx,cy,maxW,maxH,false,rot); }
-    var m=MARKS[key]; if(!m) return null; return img(m.src,m.w,m.h,cx,cy,maxW,maxH,m.blend,rot);
+    var m=MARKS[key]; if(!m) return null; var white=dark()&&m.wsrc; return img(white?m.wsrc:m.src,m.w,m.h,cx,cy,maxW,maxH,m.blend&&!white,rot);
   }
+  function ink(){ return dark()?'#fff':'#111'; }
   function siteBlock(p,cx,cy,width){
     /* chest block: flag over the site name and coordinates; set in type here, hand-drawn on the real shirt */
     var g=el('g',{transform:'translate('+cx+' '+cy+') scale('+(width/120)+')'}), fl=el('g',{transform:'translate(-26 -46)'});
     if(p.flag==='us'){ fl.appendChild(el('path',{d:'M2 3 L50 0 L52 28 L4 33 Z',fill:'#C8202A',stroke:'#1a1a1a','stroke-width':'1.2','stroke-linejoin':'round'})); fl.appendChild(el('path',{d:'M6 4 L46 26 L42 29 L4 8 Z',fill:'#fff'})); }
     else { fl.appendChild(el('path',{d:'M2 2 L26 1 L26 31 L3 32 Z',fill:'#fff',stroke:'#1a1a1a','stroke-width':'1.2','stroke-linejoin':'round'})); fl.appendChild(el('path',{d:'M26 1 L52 0 L42 16 L52 30 L26 31 Z',fill:'#1F4FA3',stroke:'#1a1a1a','stroke-width':'1.2','stroke-linejoin':'round'})); }
     g.appendChild(fl);
-    var t=el('text',{x:0,y:2,'text-anchor':'middle','font-family':FONTS.hand,'font-weight':'700','font-size':'13',fill:'#111'}); t.textContent=p.name; g.appendChild(t);
+    var t=el('text',{x:0,y:2,'text-anchor':'middle','font-family':FONTS.hand,'font-weight':'700','font-size':'13',fill:ink()}); t.textContent=p.name; g.appendChild(t);
     var c=p.coords.split('  ');
-    var t2=el('text',{x:0,y:13,'text-anchor':'middle','font-family':FONTS.mono,'font-size':'5.6',fill:'#111'}); t2.textContent=c[0]; g.appendChild(t2);
-    var t3=el('text',{x:0,y:20,'text-anchor':'middle','font-family':FONTS.mono,'font-size':'5.6',fill:'#111'}); t3.textContent=c[1]||''; g.appendChild(t3);
+    var t2=el('text',{x:0,y:13,'text-anchor':'middle','font-family':FONTS.mono,'font-size':'5.6',fill:ink()}); t2.textContent=c[0]; g.appendChild(t2);
+    var t3=el('text',{x:0,y:20,'text-anchor':'middle','font-family':FONTS.mono,'font-size':'5.6',fill:ink()}); t3.textContent=c[1]||''; g.appendChild(t3);
     return g;
   }
   function textNode(cx,cy,maxW,size,rot){
     if(!S.text.trim()) return null;
-    var t=el('text',{x:cx,y:cy,'text-anchor':'middle','font-family':FONTS[S.font],'font-weight':S.font==='hand'?'700':'500','font-size':size,fill:'#111'}); t.textContent=S.text.trim();
+    var t=el('text',{x:cx,y:cy,'text-anchor':'middle','font-family':FONTS[S.font],'font-weight':S.font==='hand'?'700':'500','font-size':size,fill:ink()}); t.textContent=S.text.trim();
     if(rot) t.setAttribute('transform','rotate('+rot+' '+cx+' '+cy+')');
     t.setAttribute('data-maxw',maxW); return t;
   }
@@ -421,24 +486,52 @@ p{margin:0}
     shrink($('#tee'));
   }
 
+  function drawCap(){
+    var F=$('#cap-front-prints'), B=$('#cap-back-prints'); F.innerHTML=''; B.innerHTML='';
+    /* front panel */
+    var fn=null;
+    if(S.cf==='site') fn=siteBlock(byId[S.site],300,214,150);
+    else if(S.cf==='line') fn=textNode(300,222,170,18,0);
+    else if(S.cf!=='none') fn=markNode(S.cf,300,212,{stack:150,wordmark:170}[S.cf]||120,{stack:115,wordmark:60}[S.cf]||95,0);
+    if(fn) F.appendChild(fn);
+    /* side panel: wearer's left = viewer's right on the front view */
+    var sideF={left:{cx:432,cy:240},right:{cx:168,cy:240}}[S.csp], sideB={left:{cx:168,cy:240},right:{cx:432,cy:240}}[S.csp];
+    if(S.cs!=='none'){ var a=markNode(S.cs,sideF.cx,sideF.cy,52,40,0); if(a) F.appendChild(a); var b=markNode(S.cs,sideB.cx,sideB.cy,52,40,0); if(b) B.appendChild(b); }
+    /* back arch */
+    if(S.cb==='tagline'||S.cb==='line'){
+      var tx=S.cb==='tagline'?'DO - A - LITTLE SCUBA':S.text.trim();
+      if(tx){ var t=el('text',{'font-family':S.cb==='tagline'?FONTS.hand:FONTS[S.font],'font-weight':'700','font-size':S.cb==='tagline'?15:16,'letter-spacing':S.cb==='tagline'?'2':'0',fill:ink()}); var tp=el('textPath',{href:'#arch',startOffset:'50%','text-anchor':'middle'}); tp.textContent=tx; t.appendChild(tp); B.appendChild(t); }
+    } else if(S.cb!=='none'){ var bn=markNode(S.cb,300,208,110,64,0); if(bn) B.appendChild(bn); }
+    shrink($('#cap'));
+  }
+
   function render(){
-    var c=D.colours.filter(function(x){return x.slug===S.colour})[0];
-    $('#tee').style.setProperty('--tee',c.hex); $('#sw-name').textContent=c.name;
+    var cap=S.product==='cap', c=colour();
+    if(!cap&&c.dark){ S.colour='light-blue'; c=colour(); }
+    $('#tee').style.setProperty('--tee',c.hex); $('#cap').style.setProperty('--cap',c.hex); $('#sw-name').textContent=c.name+(cap?' cap':'');
+    $('#tee').style.display=cap?'none':''; $('#cap').style.display=cap?'':'none';
+    $$('[data-for]').forEach(function(n){ n.hidden=n.getAttribute('data-for')!==S.product; });
+    $$('.sw').forEach(function(b){ var col=D.colours.filter(function(x){return x.slug===b.getAttribute('data-colour')})[0]; b.hidden=!cap&&!!col.dark; });
+    $('#colour-h').textContent=cap?'Cap colour':'Garment colour'; $('#colour-sub').textContent=cap?'pigment-dyed dad cap, adjustable strap':'Comfort Colors 1717, garment-dyed';
+    $('#order-h').textContent=cap?'How many, and the request':'Sizes and the request';
+    $('#stage-note').textContent=cap?'The mockup is to scale but not a proof: the site block is set in type here, the real one is embroidered from the hand-drawn art. We send a real proof before anything is stitched.':'The mockup is to scale but not a proof: the chest block is set in type here, the real one is hand-drawn, and the art carries the preview watermark. We send a real proof before anything prints.';
     $$('.sw').forEach(function(b){ var on=b.getAttribute('data-colour')===S.colour; b.classList.toggle('on',on); b.setAttribute('aria-pressed',on); });
-    [['data-dtab','tab'],['data-bsize','bsize'],['data-chest','chest'],['data-cpos','cpos'],['data-sleeve','sleeve'],['data-spos','spos'],['data-upper','upper'],['data-font','font'],['data-tpos','tpos'],['data-view','view']].forEach(function(pair){
+    [['data-dtab','tab'],['data-bsize','bsize'],['data-chest','chest'],['data-cpos','cpos'],['data-sleeve','sleeve'],['data-spos','spos'],['data-upper','upper'],['data-font','font'],['data-tpos','tpos'],['data-view','view'],['data-cf','cf'],['data-cs','cs'],['data-csp','csp'],['data-cb','cb'],['data-product','product']].forEach(function(pair){
       $$('['+pair[0]+']').forEach(function(b){ var on=b.getAttribute(pair[0])===S[pair[1]]; b.classList.toggle('on',on); b.setAttribute('aria-pressed',on); });
     });
+    $('#cap-site-row').style.display=S.cf==='site'?'':'none'; $('#cap-site').value=S.site; $('#cap-qty').value=S.capqty||'';
     $$('[data-needs-logo]').forEach(function(b){ b.disabled=!S.logo; });
     suggest(c);
     $('#chest-site-row').style.display=S.chest==='site'?'':'none'; $('#chest-site').value=S.site;
     $('#line').value=S.text;
     $('#tee-front').style.display=S.view==='front'?'':'none'; $('#tee-back').style.display=S.view==='back'?'':'none';
-    grid(); draw(); summary();
+    $('#cap-front').style.display=S.view==='front'?'':'none'; $('#cap-back').style.display=S.view==='back'?'':'none';
+    grid(); if(cap) drawCap(); else draw(); summary();
   }
 
   /* ---------- colour suggestion: the red diver-down flag sits better on cool colours, the blue alpha flag on warm ones ---------- */
   function suggest(c){
-    var note=$('#sug-note'), flag=S.chest==='site'?byId[S.site].flag:null;
+    var note=$('#sug-note'), flag=(S.product==='cap'?S.cf==='site':S.chest==='site')?byId[S.site].flag:null;
     $$('.sw').forEach(function(b){ b.classList.remove('sug'); });
     if(!flag){ note.innerHTML=''; return; }
     var want=flag==='us'?'cool':'warm', flagName=flag==='us'?'red diver-down flag':'blue alpha flag', tone=flag==='us'?'cooler':'warmer';
@@ -450,10 +543,18 @@ p{margin:0}
   }
 
   /* ---------- the request ---------- */
-  function cname(){ return D.colours.filter(function(x){return x.slug===S.colour})[0].name; }
-  function label(k){ return k==='none'?'none':k==='site'?'Site block, '+byId[S.site].name:k==='logo'?'your logo'+(S.logo?' ('+S.logo.name+')':''):MARKS[k]?MARKS[k].name:k; }
+  function cname(){ return colour().name; }
+  function label(k){ return k==='none'?'none':k==='site'?'Site block, '+byId[S.site].name:k==='logo'?'your logo'+(S.logo?' ('+S.logo.name+')':''):k==='tagline'?'Do - A - Little Scuba':k==='line'?'your line "'+S.text.trim()+'"':MARKS[k]?MARKS[k].name:k; }
   function lines(){
     var L=[];
+    if(S.product==='cap'){
+      L.push('Item: pigment-dyed dad cap, '+cname());
+      L.push('Front: '+label(S.cf)); L.push('Side: '+label(S.cs)+(S.cs==='none'?'':', '+S.csp+' side')); L.push('Back: '+label(S.cb));
+      if(S.text.trim()&&(S.cf==='line'||S.cb==='line')) L.push('Lettering: '+{hand:'hand-lettered',plain:'plain',mono:'mono'}[S.font]);
+      if(S.logo) L.push('Logo: '+S.logo.name+' (attached to this email)');
+      L.push('Quantity: '+(S.capqty>0?S.capqty+' cap'+(S.capqty>1?'s':''):'(not filled in yet)'));
+      L.push('Mockup link: '+link()); return L;
+    }
     L.push('Garment: Comfort Colors 1717, '+cname());
     L.push('Back: '+(S.back==='none'?'no back print':byId[S.back].name+(byId[S.back].flag?' plate':' (Certified-ish)')+', '+(S.bsize==='full'?'full back':'upper back, smaller')));
     L.push('Chest: '+label(S.chest)+(S.chest==='none'?'':', '+(S.cpos==='left'?'left chest':'centre chest')));
@@ -467,7 +568,7 @@ p{margin:0}
     return L;
   }
   function link(){
-    var q=new URLSearchParams(); ['colour','tab','back','bsize','chest','site','cpos','sleeve','spos','upper','text','font','tpos'].forEach(function(k){ if(S[k]!==undefined&&S[k]!==null&&S[k]!=='') q.set(k,S[k]); });
+    var q=new URLSearchParams(); (S.product==='cap'?['product','colour','site','cf','cs','csp','cb','text','font']:['colour','tab','back','bsize','chest','site','cpos','sleeve','spos','upper','text','font','tpos']).forEach(function(k){ if(S[k]!==undefined&&S[k]!==null&&S[k]!=='') q.set(k,S[k]); });
     return location.origin+location.pathname+'#'+q.toString();
   }
   function summary(){ $('#summary').textContent=lines().join('\n'); }
@@ -480,10 +581,10 @@ p{margin:0}
     e.preventDefault(); var bad=null;
     $$('[required]',form).forEach(function(elm){ var v=elm.value.trim(), ok=v.length>0; if(ok&&elm.type==='email') ok=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); elm.setAttribute('aria-invalid',ok?'false':'true'); if(!ok&&!bad) bad=elm; });
     if(bad){ st.textContent='Please fill in '+(bad.id==='c-email'?'your email':'your name')+'.'; bad.focus(); return; }
-    var body=['Custom shirt request from '+$('#c-name').value.trim()+' <'+$('#c-email').value.trim()+'>',''].concat(lines());
+    var body=['Custom '+(S.product==='cap'?'cap':'shirt')+' request from '+$('#c-name').value.trim()+' <'+$('#c-email').value.trim()+'>',''].concat(lines());
     var notes=$('#c-notes').value.trim(); if(notes) body.push('','Notes:',notes);
     if(S.logo) body.push('','(Logo file attached: '+S.logo.name+')');
-    var subj='Custom shirt: '+(S.back==='none'?label(S.chest):byId[S.back].name)+' on '+cname();
+    var subj=S.product==='cap'?'Custom cap: '+label(S.cf)+' on '+cname():'Custom shirt: '+(S.back==='none'?label(S.chest):byId[S.back].name)+' on '+cname();
     track('custom-send',{design:S.back,colour:S.colour});
     location.href='mailto:'+form.getAttribute('data-to')+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body.join('\n'));
     st.textContent='Your email app should open with everything filled in. '+(S.logo?'Attach your logo file, then press send.':'Just press send.');
