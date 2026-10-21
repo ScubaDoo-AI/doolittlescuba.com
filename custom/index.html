@@ -190,7 +190,7 @@ p{margin:0}
       <a class="back" href="/#shirts" data-umami-event="custom-back">&larr; Back to the shirts</a>
     </div>
     <div class="rules" aria-label="How the placements work">
-      <p><b>Back designs</b> go on the back: the dive-site plates and the Certified-ish backs. A Certified-ish design can go on the chest of a shirt as well.</p>
+      <p><b>Back designs</b> go on the back: the dive-site plates and the Certified-ish backs. A Certified-ish design can go on the front of a shirt as well, full front only, not on the pocket.</p>
       <p><b>Chest blocks</b> (site name, flag and coordinates) go on the chest.</p>
       <p><b>The seal</b> goes on the chest or a sleeve. <b>DS marks</b> go anywhere.</p>
       <p><b>Your line or logo</b> can take the chest, a sleeve or the upper back.</p>
@@ -287,7 +287,7 @@ p{margin:0}
         <div class="row" id="chest-what"><span class="lbl">Print</span><button type="button" class="chip on" data-chest="site">Site block</button><button type="button" class="chip" data-chest="cert">Certified-ish</button><button type="button" class="chip" data-chest="seal">Seal</button><button type="button" class="chip" data-chest="dsmark">DS mark</button><button type="button" class="chip" data-chest="shark" data-needs-plate>Shark mark</button><button type="button" class="chip" data-chest="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-chest="none">None</button></div>
         <div class="row" id="chest-site-row"><label class="lbl" for="chest-site">Site</label><select id="chest-site" class="chip" style="padding-right:28px"></select></div>
         <div class="row" id="chest-cert-row"><label class="lbl" for="chest-cert">Design</label><select id="chest-cert" class="chip" style="padding-right:28px"></select></div>
-        <div class="row"><span class="lbl">Where</span><button type="button" class="chip on" data-cpos="left">Left chest</button><button type="button" class="chip" data-cpos="center">Centre chest</button></div>
+        <div class="row"><span class="lbl">Where</span><button type="button" class="chip on" data-cpos="left" id="cpos-left">Left chest</button><button type="button" class="chip" data-cpos="center">Centre chest</button></div>
       </div>
 
       <div class="step" id="st-sleeve" data-for="shirt">
@@ -471,7 +471,7 @@ p{margin:0}
     /* sleeves: wearer's right = viewer's left on the front view */
     /* the mark sits along the arm hole: just inside the sleeve hem, turned to follow it */
     var sleeveFront={right:{cx:96,cy:236,rot:63},left:{cx:504,cy:236,rot:-63}}, sleeveBack={right:{cx:504,cy:236,rot:-63},left:{cx:96,cy:236,rot:63}};
-    var chest={left:{cx:383,cy:248,w:104,h:104},center:{cx:300,cy:296,w:180,h:150}}[S.cpos];
+    var chest={left:{cx:383,cy:248,w:104,h:104},center:S.chest==='cert'?{cx:300,cy:310,w:216,h:200}:{cx:300,cy:296,w:180,h:150}}[S.cpos];
     /* chest */
     var cn=null;
     if(S.chest==='site') cn=siteBlock(byId[S.site],chest.cx,chest.cy,S.cpos==='left'?100:170);
@@ -540,6 +540,7 @@ p{margin:0}
 
   function render(){
     ensureMark();
+    if(S.chest==='cert') S.cpos='center';
     var cap=S.product==='cap', c=colour();
     if(!cap&&c.dark){ S.colour='light-blue'; c=colour(); }
     $('#tee').style.setProperty('--tee',c.hex); $('#cap').style.setProperty('--cap',c.hex); $('#sw-name').textContent=c.name+(cap?' cap':'');
@@ -560,6 +561,7 @@ p{margin:0}
     suggest(c);
     $('#chest-site-row').style.display=S.chest==='site'?'':'none'; $('#chest-site').value=S.site;
     $('#chest-cert-row').style.display=S.chest==='cert'?'':'none'; $('#chest-cert').value=S.ccert;
+    $('#cpos-left').disabled=S.chest==='cert'; $('#cpos-left').title=S.chest==='cert'?'A Certified-ish design goes full front, not on the pocket':'';
     $('#line').value=S.text;
     $('#tee-front').style.display=S.view==='front'?'':'none'; $('#tee-back').style.display=S.view==='back'?'':'none';
     $('#cap-front').style.display=S.view==='front'?'':'none'; $('#cap-back').style.display=S.view==='back'?'':'none';
@@ -581,7 +583,7 @@ p{margin:0}
 
   /* ---------- the request ---------- */
   function cname(){ return colour().name; }
-  function label(k){ return k==='none'?'none':k==='site'?'Site block, '+byId[S.site].name:k==='cert'?'Certified-ish, '+byId[S.ccert].name:k==='logo'?'your logo'+(S.logo?' ('+S.logo.name+')':''):k==='tagline'?'Do - A - Little Scuba':k==='line'?'your line "'+S.text.trim()+'"':MARKS[k]?MARKS[k].name:k; }
+  function label(k){ return k==='none'?'none':k==='site'?'Site block, '+byId[S.site].name:k==='cert'?'Certified-ish, '+byId[S.ccert].name+' (full front)':k==='logo'?'your logo'+(S.logo?' ('+S.logo.name+')':''):k==='tagline'?'Do - A - Little Scuba':k==='line'?'your line "'+S.text.trim()+'"':MARKS[k]?MARKS[k].name:k; }
   function lines(){
     var L=[];
     if(S.product==='cap'){
