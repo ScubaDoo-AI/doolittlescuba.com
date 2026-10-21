@@ -399,7 +399,7 @@ p{margin:0}
     var F=$('#front-prints'), B=$('#back-prints'); F.innerHTML=''; B.innerHTML='';
     /* sleeves: wearer's right = viewer's left on the front view */
     var sleeveFront={right:{cx:112,cy:212,rot:-32},left:{cx:488,cy:212,rot:32}}, sleeveBack={right:{cx:488,cy:212,rot:32},left:{cx:112,cy:212,rot:-32}};
-    var chest={left:{cx:383,cy:248,w:104,h:104},center:{cx:300,cy:300,w:210,h:170}}[S.cpos];
+    var chest={left:{cx:383,cy:248,w:104,h:104},center:{cx:300,cy:296,w:180,h:150}}[S.cpos];
     /* chest */
     var cn=null;
     if(S.chest==='site') cn=siteBlock(byId[S.site],chest.cx,chest.cy,S.cpos==='left'?100:170);
@@ -417,7 +417,7 @@ p{margin:0}
     if(S.upper!=='none'){ var un=markNode(S.upper,300,S.tpos==='upper'&&S.text.trim()?172:188,150,62,0); if(un) B.appendChild(un); }
     if(S.tpos==='upper'){ var tu=textNode(300,S.upper!=='none'&&S.upper!=='logo'||(S.upper==='logo'&&S.logo)?222:196,260,15,0); if(tu) B.appendChild(tu); }
     /* back design */
-    if(S.back!=='none' && byId[S.back]){ var d=byId[S.back], full=S.bsize==='full'; var cy=full?(hasUpper?392:362):(hasUpper?330:296); var bn=img('art/'+d.slug+'.webp',d.w,d.h,300,cy,full?318:220,full?(hasUpper?290:330):200,true,0); B.appendChild(bn); }
+    if(S.back!=='none' && byId[S.back]){ var d=byId[S.back], full=S.bsize==='full', mw=full?200:140, mh=full?250:150, f=fit(d.w,d.h,mw,mh), top=hasUpper?242:196; /* top edge about 4 in. below the collar, like a printed back */ var bn=img('art/'+d.slug+'.webp',d.w,d.h,300,top+f[1]/2,mw,mh,true,0); B.appendChild(bn); }
     shrink($('#tee'));
   }
 
