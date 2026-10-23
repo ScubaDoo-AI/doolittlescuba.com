@@ -7,7 +7,7 @@ Store `x00ytr-y9.myshopify.com` (Basic plan, USD, shop@doolittlescuba.com). Stil
 | Line | Products | Price | Sizes | Images (from doolittlescuba.com) | Tag that drives the collection |
 |---|---|---|---|---|---|
 | Signature Series tees | 14 | $38 S–XL · **$41 2XL/3XL** | S, M, L, XL, 2XL, 3XL | on-model front + back photo, watermarked plate | `signature-series` |
-| Certified-ish tees | 20 | $38 S–XL · **$41 2XL/3XL** | S, M, L, XL, 2XL, 3XL | mockup back + front (`img/certs/`), watermarked design | `certified-ish` |
+| Certified-ish tees | 20 | $38 S–XL · **$41 2XL/3XL** | S, M, L, XL, 2XL, 3XL | mockup back + front (`img/certs/`), watermarked preview of the final back print (`img/designs/`) | `certified-ish` |
 | Caps | 19 (14 site + 5 brand) | $32 | One size | mockup front + back (`img/hats/`) | `cap` |
 
 53 products, 223 variants, all with inventory tracking on and quantity 0 (set real counts when stock arrives). Vendor "Doolittle Scuba"; product types "T-shirt" and "Cap". Every product also carries `coming-soon`, `colour:<slug>` and `site:<slug>` / `cert:<slug>` / `brand` tags, and a description with the site line, the placements (Back / Chest / Sleeve / Shirt), a link to the site guide and a "Make it yours" link that opens the same set-up on `/custom/`.
@@ -45,4 +45,5 @@ Current state found in the store: name "My Store"; only the auto-generated priva
 ## What the static site will need on launch
 - Shirt and hat cards on the home page: pill → "Buy — $38" / "$32" linking to `https://shop.doolittlescuba.com/products/<handle>`; handles are the product titles slugified (e.g. `black-bart-signature-series-tee`, `certified-ish-night-diver-tee`, `black-bart-cap`, `the-mark-cap`).
 - Nav: "Shop" entry; `/custom/` request email stays as is (custom orders are quoted by hand, not sold off the shelf).
-- `img/certs/` (40 renders, 0.6 MB) was added to the site repo on 2026-10-23 as the image source for the Certified-ish products; it is not linked from any page yet.
+- `img/certs/` (40 renders, 0.7 MB) was added to the site repo on 2026-10-23 as the image source for the Certified-ish products; it is not linked from any page yet. Rebuilt the same day from the final portrait designs.
+- Image URLs given to Shopify carry `?v=<content hash>` (the site's cache-busting scheme): Porkbun's CDN caches images for 30 days by URL, so a replaced file must be re-imported under its new hashed URL (remove the old media, add the new URL). The product images are Shopify's own copies afterwards; the site URL only matters at import time.
