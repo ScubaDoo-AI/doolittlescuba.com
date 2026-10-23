@@ -5,6 +5,8 @@
 - Home page: Certified-ish cards and the Certified-ish collection tile crop to the top of the art (the illustration), so the grid looks as before; the designs intro no longer calls the previews "copyright filings".
 - `/custom/`: the Certified-ish back print is now the full portrait design, scaled to the torso; the full-front option shows the same design on the chest.
 
+- **Cache-busting.** Porkbun's CDN caches images, CSS and JS for 30 days by URL, so files replaced in place kept serving the old bytes. Every local asset reference on all 19 pages now carries `?v=<content hash>` (`bust.py`, run last in the build), and the Make it yours mockup appends the same hash to its art and thumbnail URLs (`D.v` in the page data). The hash changes only when the file does.
+
 ## Added
 - `img/certs/`: 40 renders of the 20 Certified-ish designs on the tee mockup (front: plain with the DS mark along the sleeve; back: the full design), one shop colour per design. Made with `certs.py` from the `/custom/` mockup, 1200 px WebP, 0.6 MB in all. Not linked from any page: they are the product images for the Shopify catalog.
 
