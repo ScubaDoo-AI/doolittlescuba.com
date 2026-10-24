@@ -143,7 +143,7 @@ p{margin:0}
 .dz.on{outline:2px solid var(--ink);outline-offset:-2px;background:var(--paper)}
 .dz span{font-size:.78rem;line-height:1.2}
 .dz small{font-family:var(--f-data);font-size:.62rem;color:var(--muted);letter-spacing:.04em}
-.field{display:flex;flex-direction:column;gap:4px}
+.field{display:flex;flex-direction:column;gap:4px}.field[hidden],.price[hidden]{display:none}
 .field label,.req label{font-family:var(--f-data);font-size:var(--s-1);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .field input,.field select,.req input,.req select,.req textarea{font:inherit;color:var(--text);background:var(--panel);border:1.5px solid var(--rule);border-radius:3px;padding:10px 12px;width:100%;min-width:0}
 .field input:focus-visible,.req input:focus-visible,.req select:focus-visible,.req textarea:focus-visible{outline:2px solid var(--red);outline-offset:1px;border-color:var(--ink)}
@@ -167,6 +167,7 @@ p{margin:0}
 .req .status{font-family:var(--f-data);font-size:var(--s-1);color:var(--muted);min-height:1.4em}
 .summary{font-family:var(--f-data);font-size:var(--s-1);color:var(--muted);white-space:pre-wrap;background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:12px;max-height:200px;overflow:auto}
 .fine{font-size:var(--s-1);color:var(--muted);max-width:70ch;padding-block:8px 0}
+.price{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 18px;margin-bottom:12px;padding:12px 14px;background:var(--panel);border:1px solid var(--rule);border-left:3px solid var(--red);border-radius:3px}.price .each{font-family:var(--f-display);font-weight:700;font-size:var(--s2);color:var(--ink);line-height:1.1}.price .why{font-size:var(--s-1);color:var(--muted);flex:1 1 16ch}.price .total{font-family:var(--f-data);font-size:var(--s-1);letter-spacing:.04em;color:var(--ink)}.price .total:empty{display:none}
 @media (max-width:860px){.builder,.intro{grid-template-columns:minmax(0,1fr)}.stage{position:static}.tee-wrap svg{max-height:60vh}.rules{border-left:0;padding-left:0}}
 @media (max-width:480px){.top nav{gap:14px}.req .row2{grid-template-columns:minmax(0,1fr)}.dgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 </style>
@@ -186,7 +187,7 @@ p{margin:0}
       <p class="eyebrow" style="color:var(--on-deep-muted)">Custom shirts</p>
       <h1>Make it yours</h1>
       <p class="lede">Pick a colour, pick a design, put it where you want it. Add a line of your own or your logo, see it on the shirt, and send us the request.</p>
-      <p>Every shirt is still printed by hand in Newnan, one at a time, on the same Comfort Colors 1717 tee as the catalog. We reply with a proof and a price.</p>
+      <p>Every shirt is still printed by hand in Newnan, one at a time, on the same Comfort Colors 1717 tee as the catalog. A personalized tee is <strong>$43</strong>, or <strong>$44</strong> with your own line or logo ($3 more in 2XL and 3XL). Caps are quoted with the proof. We reply with a proof before anything is printed.</p>
       <a class="back" href="/#shirts" data-umami-event="custom-back">&larr; Back to the shirts</a>
     </div>
     <div class="rules" aria-label="How the placements work">
@@ -332,6 +333,7 @@ p{margin:0}
 
       <div class="step" id="st-order">
         <div class="step-h"><span class="n"></span><h2 id="order-h">Sizes and the request</h2></div>
+        <div class="price" id="price" data-for="shirt" aria-live="polite"><span class="each" id="price-each"></span><span class="why" id="price-why"></span><span class="total" id="price-total"></span></div>
         <div class="sizes" id="sizes" data-for="shirt"></div>
         <div class="field" data-for="cap" hidden style="max-width:220px"><label for="cap-qty">Caps <span style="text-transform:none;letter-spacing:0">(one size, adjustable strap)</span></label><input id="cap-qty" type="number" min="0" max="500" inputmode="numeric" placeholder="0"></div>
         <form class="req" id="custom-form" novalidate data-to="orders@doolittlescuba.com" data-subject="Custom shirt">
@@ -610,6 +612,7 @@ p{margin:0}
     if(S.logo) L.push('Logo: '+S.logo.name+' (attached to this email)');
     var q=D.sizes.filter(function(z){return S.qty[z]>0}).map(function(z){return z+' x '+S.qty[z]});
     L.push('Sizes: '+(q.length?q.join(', '):'(not filled in yet)'));
+    var p=price(); L.push('Price: $'+p.each+' each, $'+p.big+' in 2XL and 3XL ('+p.why+')'+(p.n?' · '+p.n+' shirt'+(p.n>1?'s':'')+' = $'+p.total:''));
     L.push('Mockup link: '+link());
     return L;
   }
@@ -617,7 +620,23 @@ p{margin:0}
     var q=new URLSearchParams(); (S.product==='cap'?['product','colour','site','cf','cs','csp','cb','text','font']:['colour','tab','back','bsize','chest','site','ccert','cpos','sleeve','spos','upper','text','font','tpos']).forEach(function(k){ if(S[k]!==undefined&&S[k]!==null&&S[k]!=='') q.set(k,S[k]); });
     return location.origin+location.pathname+'#'+q.toString();
   }
-  function summary(){ $('#summary').textContent=lines().join('\n'); }
+  /* ---------- the price ---------- */
+  /* Catalog tee $38, $41 in 2XL and 3XL. Personalization: +$5 for your design and colour, +$6 when a line of your own or your logo goes on the shirt. Caps are quoted with the proof. */
+  var PRICE={base:38,big:41,bigFrom:['2XL','3XL'],tierA:5,tierB:6};
+  function personal(){ return !!(S.logo && (S.chest==='logo'||S.sleeve==='logo'||S.upper==='logo')) || !!(S.text.trim() && S.tpos); }
+  function price(){
+    var add=personal()?PRICE.tierB:PRICE.tierA, each=PRICE.base+add, big=PRICE.big+add, n=0, total=0;
+    D.sizes.forEach(function(z){ var q=S.qty[z]||0; n+=q; total+=q*(PRICE.bigFrom.indexOf(z)>-1?big:each); });
+    return {each:each,big:big,add:add,n:n,total:total,why:personal()?'your design, colour and your '+(S.logo&&(S.chest==='logo'||S.sleeve==='logo'||S.upper==='logo')?'logo':'line')+': the $'+PRICE.base+' tee + $'+add:'your design and colour: the $'+PRICE.base+' tee + $'+add};
+  }
+  function showPrice(){
+    if(S.product!=='shirt') return;
+    var p=price();
+    $('#price-each').textContent='$'+p.each+' each';
+    $('#price-why').textContent=p.why+' · $'+p.big+' in 2XL and 3XL';
+    $('#price-total').textContent=p.n?p.n+' shirt'+(p.n>1?'s':'')+' · $'+p.total:'';
+  }
+  function summary(){ showPrice(); $('#summary').textContent=lines().join('\n'); }
   function copy(text,st,msg){ var done=function(){ st.textContent=msg; setTimeout(function(){st.textContent='';},4000); }; if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done,function(){ st.textContent='Could not copy; select the text and copy it by hand.'; }); } else { st.textContent='Copy is not available in this browser.'; } }
   $('#copy-link').addEventListener('click',function(){ copy(link(),$('#link-status'),'Link copied. It reopens this mockup (without your logo file).'); });
   $('#copy-summary').addEventListener('click',function(){ copy(lines().join('\n'),$('#form-status'),'Summary copied.'); });

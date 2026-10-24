@@ -6,10 +6,14 @@
 - **Site guides, "On the shirt":** the back print sits beside the two shirt photos, captioned; stacks under them on a phone.
 - **Make it yours:** a plate at "full back" now shows the full back print (plate, facts, species, water) scaled to the torso, as the shirts are printed; "upper back, smaller" keeps the plate alone. Certified-ish backs unchanged.
 
+- **Make it yours — prices.** A personalized tee is priced on the page as you build it: $43 each (the $38 tee + $5) for your design and colour, $44 (+ $6) once a line of your own or your logo goes on the shirt; $3 more in 2XL and 3XL, as the catalog. The price box above the sizes shows the per-shirt price, why, and the running total; the request email carries the same line. Caps stay "quoted with the proof". The intro says the prices up front.
+- Fix: the Caps quantity box no longer shows in shirt mode (`.field{display:flex}` was overriding `hidden`).
+
 ## Added
 - `tools/backs.py` — builds the two back-print derivatives from the 3600×4800 print pages.
 - `tools/bust.py` — the cache-busting stamp (`?v=<sha1[:8]>` on every local asset reference, plus the `v` map in the Make it yours data); the script referenced in the 2026-10-23 log, now in the repo. Run last.
 - `workshop/index.html` picked up hashes on its `data-full` photo links (the lightbox had been loading unhashed URLs).
 
 ## Shopify (recorded in `SHOPIFY-STORE.md`)
+- New draft product **Make it yours — personalized tee** (`make-it-yours-tee`): options Size × Personalization ("Your design and colour" $43/$46, "With your line or logo" $44/$47), 12 variants, SKUs `DS-MYA-T-<size>` / `DS-MYB-T-<size>`, inventory untracked (made to order), image `img/og/custom.jpg`. The mockup link goes in the order note at checkout.
 - The 14 Signature Series tees carry the back-print preview as their third image (front photo, back photo, back print, plate close-up), imported under the new hashed URLs.
