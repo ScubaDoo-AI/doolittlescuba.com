@@ -863,7 +863,7 @@ DiveMap.all(document.getElementById('divemap'), document.getElementById('map-jum
         status:pill?pill.textContent:'Coming soon', statusClass:pill?pill.className.replace('pill','').trim():'available',
         guide:f.dataset.guide||'', custom:f.dataset.custom||'/custom/', site:site, price:f.dataset.price||'', finish:f.dataset.finish||'', parts:(function(){ var o={}; (f.dataset.custom||'').replace(/^[^#]*#/,'').split('&').forEach(function(kv){ var q=kv.split('='); o[q[0]]=q[1]; }); return o; })()};
     });
-    var state={line:cfg.lines[0][0], active:-1, open:-1, view:'front', touch:false}, lastPointer='mouse', raf=0, pending=-1;
+    var state={line:cfg.lines[0][0], active:-1, open:-1, view:'front', touch:false}, lastPointer='mouse', raf=0, pending=-1, tapAt=null;
     try{ if(matchMedia('(hover: none)').matches){ lastPointer='touch'; state.touch=true; } }catch(e){}
     var list=function(){ return items.filter(function(x){return x.line===state.line;}); };
 
@@ -890,7 +890,7 @@ DiveMap.all(document.getElementById('divemap'), document.getElementById('map-jum
         face.innerHTML='<span class="dk-tab'+(dark(it.hex)?' dark':'')+'" style="background:'+it.hex+'"><span class="nm">'+esc(it.name)+'</span>'+(step>=56?'<span class="cd">No. '+esc(it.code)+'</span>':'')+'</span><span class="dk-pic"><img src="'+esc(it.thumb)+'" width="600" height="600" loading="lazy" decoding="async" alt=""></span>';
         var tag=h('div','dk-tag','<div class="r"><span class="ln">'+esc(cfg.eyebrow(it))+' &middot; No. '+esc(it.code)+'</span><span class="pill '+esc(it.statusClass)+'">'+esc(it.status)+'</span></div><p class="t">'+esc(it.name)+'</p><p class="s">'+esc(cfg.sub(it))+'</p><button type="button" class="dk-open"><span class="c"><i></i>'+esc(it.colour)+'</span><span class="g">'+(it.price||cfg.price)+' &middot; Open</span></button>');
         face.addEventListener('pointerenter',function(e){ if(e.pointerType&&e.pointerType!=='mouse') return; if(!e.pointerType&&touchLike()) return; activate(i); });
-        face.addEventListener('pointerdown',function(e){ lastPointer=e.pointerType||'mouse'; if(touchLike()&&!state.touch){ state.touch=true; hintText(); } });
+        face.addEventListener('pointerdown',function(e){ lastPointer=e.pointerType||'mouse'; if(touchLike()){ tapAt=dk.scrollLeft; if(!state.touch){ state.touch=true; hintText(); } } });
         face.addEventListener('keydown',function(){ lastPointer='key'; });
         face.addEventListener('focus',function(){ if(!touchLike()) activate(i); });
         face.addEventListener('click',function(){ if(touchLike()&&state.active!==i){ activate(i); return; } openIt(i); });
@@ -913,6 +913,8 @@ DiveMap.all(document.getElementById('divemap'), document.getElementById('map-jum
     dk.addEventListener('scroll',function(){
       // phones: the card nearest the middle of the screen steps forward, measured from the first card and clamped, so the bounce at either end never picks a neighbour
       if(dk.scrollWidth<=dk.clientWidth+2||!cards.length) return;
+      // a tap on a tab is not a swipe: the few pixels the deck drifts under a finger must not hand the step to the card in the middle
+      if(tapAt!==null){ if(Math.abs(dk.scrollLeft-tapAt)<48) return; tapAt=null; }
       var step=cfg.step[state.line], x=dk.scrollLeft+dk.clientWidth/2-cards[0].offsetLeft-CW/2, idx=Math.round(x/step);
       idx=Math.max(0,Math.min(cards.length-1,idx)); pending=idx;
       if(raf) return; raf=requestAnimationFrame(function(){ raf=0; activate(pending); });
