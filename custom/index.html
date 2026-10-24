@@ -187,7 +187,7 @@ p{margin:0}
       <p class="eyebrow" style="color:var(--on-deep-muted)">Custom shirts</p>
       <h1>Make it yours</h1>
       <p class="lede">Pick a colour, pick a design, put it where you want it. Add a line of your own or your logo, see it on the shirt, and send us the request.</p>
-      <p>Every shirt is still printed by hand in Newnan, one at a time, on the same Comfort Colors 1717 tee as the catalog. A personalized tee is <strong>$43</strong>, or <strong>$44</strong> with your own line or logo ($3 more in 2XL and 3XL). Caps are quoted with the proof. We reply with a proof before anything is printed.</p>
+      <p>Every shirt is still printed by hand in Newnan, one at a time, on the same Comfort Colors 1717 tee as the catalog. A personalized tee is <strong>$43</strong>, or <strong>$44</strong> with your own line or logo ($3 more in 2XL and 3XL); a personalized cap is <strong>$37</strong>, or <strong>$38</strong> with your line or logo. We reply with a proof before anything is printed.</p>
       <a class="back" href="/#shirts" data-umami-event="custom-back">&larr; Back to the shirts</a>
     </div>
     <div class="rules" aria-label="How the placements work">
@@ -333,7 +333,7 @@ p{margin:0}
 
       <div class="step" id="st-order">
         <div class="step-h"><span class="n"></span><h2 id="order-h">Sizes and the request</h2></div>
-        <div class="price" id="price" data-for="shirt" aria-live="polite"><span class="each" id="price-each"></span><span class="why" id="price-why"></span><span class="total" id="price-total"></span></div>
+        <div class="price" id="price" aria-live="polite"><span class="each" id="price-each"></span><span class="why" id="price-why"></span><span class="total" id="price-total"></span></div>
         <div class="sizes" id="sizes" data-for="shirt"></div>
         <div class="field" data-for="cap" hidden style="max-width:220px"><label for="cap-qty">Caps <span style="text-transform:none;letter-spacing:0">(one size, adjustable strap)</span></label><input id="cap-qty" type="number" min="0" max="500" inputmode="numeric" placeholder="0"></div>
         <form class="req" id="custom-form" novalidate data-to="orders@doolittlescuba.com" data-subject="Custom shirt">
@@ -599,6 +599,7 @@ p{margin:0}
       if(S.logo) L.push('Logo: '+S.logo.name+' (attached to this email)');
       L.push('Brand mark: '+(DS[S.cf]?label(S.cf)+' on the front':DS[S.cs]?label(S.cs)+' on the side':label(S.cb)+' on the back'));
       L.push('Quantity: '+(S.capqty>0?S.capqty+' cap'+(S.capqty>1?'s':''):'(not filled in yet)'));
+      var cp=price(); L.push('Price: $'+cp.each+' each ('+cp.why+')'+(cp.n?' · '+cp.n+' cap'+(cp.n>1?'s':'')+' = $'+cp.total:''));
       L.push('Mockup link: '+link()); return L;
     }
     L.push('Garment: Comfort Colors 1717, '+cname());
@@ -621,20 +622,23 @@ p{margin:0}
     return location.origin+location.pathname+'#'+q.toString();
   }
   /* ---------- the price ---------- */
-  /* Catalog tee $38, $41 in 2XL and 3XL. Personalization: +$5 for your design and colour, +$6 when a line of your own or your logo goes on the shirt. Caps are quoted with the proof. */
-  var PRICE={base:38,big:41,bigFrom:['2XL','3XL'],tierA:5,tierB:6};
-  function personal(){ return !!(S.logo && (S.chest==='logo'||S.sleeve==='logo'||S.upper==='logo')) || !!(S.text.trim() && S.tpos); }
+  /* Catalog tee $38 ($41 in 2XL and 3XL), catalog cap $32. Personalization, either product: +$5 for your design and colour, +$6 when a line of your own or your logo goes on it. */
+  var PRICE={base:38,big:41,bigFrom:['2XL','3XL'],cap:32,tierA:5,tierB:6};
+  function hasLogo(){ return !!S.logo && (S.product==='cap' ? (S.cf==='logo'||S.cs==='logo'||S.cb==='logo') : (S.chest==='logo'||S.sleeve==='logo'||S.upper==='logo')); }
+  function hasLine(){ return !!S.text.trim() && (S.product==='cap' ? (S.cf==='line'||S.cb==='line') : !!S.tpos); }
+  function personal(){ return hasLogo()||hasLine(); }
   function price(){
-    var add=personal()?PRICE.tierB:PRICE.tierA, each=PRICE.base+add, big=PRICE.big+add, n=0, total=0;
-    D.sizes.forEach(function(z){ var q=S.qty[z]||0; n+=q; total+=q*(PRICE.bigFrom.indexOf(z)>-1?big:each); });
-    return {each:each,big:big,add:add,n:n,total:total,why:personal()?'your design, colour and your '+(S.logo&&(S.chest==='logo'||S.sleeve==='logo'||S.upper==='logo')?'logo':'line')+': the $'+PRICE.base+' tee + $'+add:'your design and colour: the $'+PRICE.base+' tee + $'+add};
+    var cap=S.product==='cap', add=personal()?PRICE.tierB:PRICE.tierA, base=cap?PRICE.cap:PRICE.base, each=base+add, big=PRICE.big+add, n=0, total=0;
+    if(cap){ n=S.capqty||0; total=n*each; }
+    else D.sizes.forEach(function(z){ var q=S.qty[z]||0; n+=q; total+=q*(PRICE.bigFrom.indexOf(z)>-1?big:each); });
+    var item=cap?'cap':'tee';
+    return {each:each,big:big,add:add,n:n,total:total,cap:cap,why:personal()?'your design, colour and your '+(hasLogo()?'logo':'line')+': the $'+base+' '+item+' + $'+add:'your design and colour: the $'+base+' '+item+' + $'+add};
   }
   function showPrice(){
-    if(S.product!=='shirt') return;
     var p=price();
     $('#price-each').textContent='$'+p.each+' each';
-    $('#price-why').textContent=p.why+' · $'+p.big+' in 2XL and 3XL';
-    $('#price-total').textContent=p.n?p.n+' shirt'+(p.n>1?'s':'')+' · $'+p.total:'';
+    $('#price-why').textContent=p.why+(p.cap?' · one size':' · $'+p.big+' in 2XL and 3XL');
+    $('#price-total').textContent=p.n?p.n+' '+(p.cap?'cap':'shirt')+(p.n>1?'s':'')+' · $'+p.total:'';
   }
   function summary(){ showPrice(); $('#summary').textContent=lines().join('\n'); }
   function copy(text,st,msg){ var done=function(){ st.textContent=msg; setTimeout(function(){st.textContent='';},4000); }; if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done,function(){ st.textContent='Could not copy; select the text and copy it by hand.'; }); } else { st.textContent='Copy is not available in this browser.'; } }
