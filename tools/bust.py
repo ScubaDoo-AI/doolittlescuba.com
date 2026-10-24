@@ -4,7 +4,7 @@
 Porkbun's CDN caches images, CSS and JS for 30 days by URL, so a file replaced in place keeps
 serving the old bytes until its URL changes. Run this last, after any asset changes.
 
-Covers src, href, data-front, data-back, data-full and poster attributes in every *.html under the site
+Covers src, href, data-front, data-back, data-full, data-art and poster attributes in every *.html under the site
 (relative paths resolve against the page; absolute ones against the site root), and the
 `"v": {...}` map inside the Make it yours page data (custom/index.html), whose keys are paths
 relative to /custom/. External URLs, anchors and mailto: links are left alone. A reference to a
@@ -15,7 +15,7 @@ Usage: tools/bust.py            (from anywhere; edits the files in place, prints
 import hashlib, json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ATTR = re.compile(r'\b(src|href|data-front|data-back|data-full|poster)="([^"]+)"')
+ATTR = re.compile(r'\b(src|href|data-front|data-back|data-full|data-art|poster)="([^"]+)"')
 SKIP = re.compile(r'^(https?:|//|mailto:|tel:|#|data:|javascript:)')
 _cache = {}
 
