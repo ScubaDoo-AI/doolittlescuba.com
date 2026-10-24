@@ -1,4 +1,4 @@
-# Doolittle Scuba — Shopify store record (2026-10-23)
+# Doolittle Scuba — Shopify store record (2026-10-23, images updated 2026-10-24)
 
 Store `x00ytr-y9.myshopify.com` (Basic plan, USD, shop@doolittlescuba.com). Still named **"My Store"** in Shopify; nothing is published yet — every product is a **Draft** until Eric says go.
 
@@ -6,7 +6,7 @@ Store `x00ytr-y9.myshopify.com` (Basic plan, USD, shop@doolittlescuba.com). Stil
 
 | Line | Products | Price | Sizes | Images (from doolittlescuba.com) | Tag that drives the collection |
 |---|---|---|---|---|---|
-| Signature Series tees | 14 | $38 S–XL · **$41 2XL/3XL** | S, M, L, XL, 2XL, 3XL | on-model front + back photo, watermarked plate | `signature-series` |
+| Signature Series tees | 14 | $38 S–XL · **$41 2XL/3XL** | S, M, L, XL, 2XL, 3XL | on-model front + back photo, watermarked full back print (plate + Facts / Species / Water, `img/designs/<slug>-back.webp`), watermarked plate close-up | `signature-series` |
 | Certified-ish tees | 20 | $38 S–XL · **$41 2XL/3XL** | S, M, L, XL, 2XL, 3XL | mockup back + front (`img/certs/`), watermarked preview of the final back print (`img/designs/`) | `certified-ish` |
 | Caps | 19 (14 site + 5 brand) | $32 | One size | mockup front + back (`img/hats/`) | `cap` |
 
@@ -47,3 +47,7 @@ Current state found in the store: name "My Store"; only the auto-generated priva
 - Nav: "Shop" entry; `/custom/` request email stays as is (custom orders are quoted by hand, not sold off the shelf).
 - `img/certs/` (40 renders, 0.7 MB) was added to the site repo on 2026-10-23 as the image source for the Certified-ish products; it is not linked from any page yet. Rebuilt the same day from the final portrait designs.
 - Image URLs given to Shopify carry `?v=<content hash>` (the site's cache-busting scheme): Porkbun's CDN caches images for 30 days by URL, so a replaced file must be re-imported under its new hashed URL (remove the old media, add the new URL). The product images are Shopify's own copies afterwards; the site URL only matters at import time.
+
+## 2026-10-24 — Signature Series back prints
+- Each of the 14 Signature Series tees gained a third image: the watermarked preview of the whole back print (plate with its Facts / Species / Water block, 900×1240), imported from `img/designs/<slug>-back.webp?v=<hash>` and moved to position 3, ahead of the plate close-up. Media ids 47018093150394 … 47018094592186.
+- Also in the store, not from this session: 14 **"Signature Series Dark tee"** drafts (tags `dark-line`, `signature-series-dark`, colours graphite / navy / sage / wine / emerald / blue-spruce / midnight / moss …), created 2026-10-23 23:15 UTC with no images yet. Left untouched; they need their own mockups before launch.

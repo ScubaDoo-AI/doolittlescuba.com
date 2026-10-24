@@ -12,4 +12,4 @@
 - `workshop/index.html` picked up hashes on its `data-full` photo links (the lightbox had been loading unhashed URLs).
 
 ## Shopify (recorded in `SHOPIFY-STORE.md`)
-- The 14 Signature Series tees carry the back-print preview as their third image, replacing the plate-only preview, imported under the new hashed URLs.
+- The 14 Signature Series tees carry the back-print preview as their third image (front photo, back photo, back print, plate close-up), imported under the new hashed URLs.
