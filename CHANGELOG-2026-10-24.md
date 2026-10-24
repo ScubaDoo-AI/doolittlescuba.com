@@ -1,5 +1,17 @@
 # DoolittleScuba.com — update of 2026-10-24
 
+## Changed (evening)
+- **Hats, blueprint v2 — the embroidered base.** Every cap is now embroidered with the heavy DS mark small (1.5 in) on the left side and “Do - A - Little Scuba” across the back; the 14 site caps get their chest block printed to order in white DTF on the front, the four brand caps are embroidered front, side and back. All 19 front and back renders redone with the heavy-weight DS mark and an embroidered finish on the side and back (`img/hats/dark/`, 1200 px WebP + 600 px thumbnails, re-stamped); the renders are now at true scale (3.6 in site block, 2.5 in seal, 1.5 in side mark — the earlier set showed the art smaller than it prints). The hats intro, note and spec sheet say so; Maroon (Rainbow River) shows the mark in white and navy.
+- **Home Port is custom-order only:** made with the buyer's own port and coordinates; the card reads “Home Port — your coordinates”, its render shows a placeholder block, and the spec sheet carries a Custom row.
+- The Mark card: side plain, back tagline; The Stack: side and back plain — the Make it yours links now match the store listings.
+
+## Added
+- `tools/hats_v2.py` — copies a folder of cap renders into `img/hats/dark/` and applies the v2 copy to `index.html`.
+
+## Shopify
+- The 19 dark caps: new front and back renders (heavy DS mark), descriptions and tags rewritten for the embroidered base (`embroidered` on all, `front:dtf` on the site caps and Home Port, `front:embroidered` on the brand caps). Home Port tagged `custom-order`. Prices unchanged ($35 / $40) pending the embroidery quote.
+- New smart collections **Site Caps** (`site-caps`: tag `front:dtf` + `cap`) and **Brand Caps** (`brand-caps`: tag `front:embroidered` + `cap`) under the existing Hats collection.
+
 ## Changed
 - **The hats are the dark line.** The hats section now shows the 19 Flexfit 6277 caps that are in the store (14 site caps and Home Port, DTF in white ink, $35; The Mark, The Seal, The Stack and The Wordmark embroidered, $40; S/M and L/XL), with the front and back renders from the store copied to `img/hats/dark/` (WebP plus 600 px thumbnails). Chips: Site caps (15) | Brand caps (4). The 19 light pigment-dyed dad caps are off the page (archived in the store; their colours do not exist in the 6277). The old renders stay under `img/hats/` for now, nothing links them.
 - **Deck on touch screens:** the neighbouring cards no longer shift sideways when a card steps forward (that read as a spring while swiping); they still part on hover devices.
