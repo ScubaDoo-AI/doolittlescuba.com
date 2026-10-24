@@ -911,11 +911,13 @@ DiveMap.all(document.getElementById('divemap'), document.getElementById('map-jum
     function setLine(l){ if(state.line===l){ if(state.open>=0) closeIt(); return; } state.line=l; state.active=-1; state.open=-1; open.hidden=true; dk.hidden=false; foot.hidden=false; build(); }
     dk.addEventListener('mouseleave',function(){ if(lastPointer==='mouse'&&state.active>=0){ state.active=-1; paint(); } });
     dk.addEventListener('scroll',function(){
-      // phones: the card nearest the middle of the screen steps forward, measured from the first card and clamped, so the bounce at either end never picks a neighbour
+      // touch screens: swiping the deck steps a card forward
       if(dk.scrollWidth<=dk.clientWidth+2||!cards.length) return;
       // a tap on a tab is not a swipe: the few pixels the deck drifts under a finger must not hand the step to the card in the middle
       if(tapAt!==null){ if(Math.abs(dk.scrollLeft-tapAt)<48) return; tapAt=null; }
-      var step=cfg.step[state.line], x=dk.scrollLeft+dk.clientWidth/2-cards[0].offsetLeft-CW/2, idx=Math.round(x/step);
+      // the scroll range maps onto the deck end to end: fully left is the first card, fully right the last, and the step walks along in between
+      // (on a phone that is the card nearest the middle of the screen; on a wider screen the deck overflows less and the ends still reach the end cards)
+      var range=dk.scrollWidth-dk.clientWidth, idx=Math.round(dk.scrollLeft/range*(cards.length-1));
       idx=Math.max(0,Math.min(cards.length-1,idx)); pending=idx;
       if(raf) return; raf=requestAnimationFrame(function(){ raf=0; activate(pending); });
     });
