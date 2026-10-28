@@ -60,3 +60,11 @@ Current state found in the store: name "My Store"; only the auto-generated priva
 ## 2026-10-24 — site note on the caps
 - The home page hats deck shows the 19 **Dark caps** (tag `cap-dark`, Flexfit 6277, $35 DTF / $40 embroidered, S/M and L/XL) with renders copied from the store to `img/hats/dark/cap-dark-<slug>-{front,back}.webp` (+ `-t` thumbnails). The light caps (`<site>-cap`, one size, $32) are archived in the store and off the site.
 - Open question: the Make it yours cap (`make-it-yours-cap`, $37 / $38) and the custom page's cap mockup are still on the $32 pigment-dyed dad cap. If the personalized cap is to be the Flexfit, the rule gives $40 / $41 and the page's mockup needs the 6277 shape.
+
+## 2026-10-28 — apparel sync with the Printful edition
+- **Prices:** all 68 tees (28 Signature, 40 Certified-ish) $42 S–XL / $45 2XL–3XL. `make-it-yours-tee`: $47 / $48 ($50 / $51 in 2XL, 3XL).
+- **Garments (tags `colour:` + description):** Signature light `bridge-span-14` flo-blue, `navy-llcat` granite; Signature dark `bali` denim (China Blue not stocked at Printful). Certified-ish light, all 20 onto the 20 Oct palette (light-blue ×6, pink, coral, lagoon-blue ×5, butter ×7). Certified-ish dark tags were already the plan colours and stay (Moss, Espresso, Violet are stocked at $15.60 as of 28 Oct).
+- **Images:** the 40 Certified-ish light mockups (back + front) and the 9 dark ones that showed the old substitutes (Graphite, Hemp, Flo Blue) were replaced in place with `fileUpdate` (same media ids, new source, new alt text) — re-dyed with `tools/recolour.py`.
+- **`make-it-yours-cap`:** now Flexfit 6277 — options Size (S/M, L/XL) × Personalization; $40 / $41; SKUs `DS-MYA-C-SM`, `DS-MYB-C-SM`, `DS-MYA-C-LXL`, `DS-MYB-C-LXL`; tags + `flexfit-6277 embroidered`; description rewritten. Image is still the old dad-cap mockup.
+- **Caps, fulfilment route tags:** `fulfil:printful-6277` on the 13 caps whose colour Printful stocks (black, navy, dark grey, olive); `fulfil:ss-blank-embroiderer` on Bridge Span 14 (brown), Blue Grotto (purple), Rainbow River (maroon), Thistlegorm / Somosomo / Vuna Reef (spruce).
+- Still open: the 14 Signature dark tees have no images; Bridge Span 14 / Navy LLCAT light still show the sample photos in the old colours; Printful is installed but not connected (no location, no linked products); store name "My Store".
