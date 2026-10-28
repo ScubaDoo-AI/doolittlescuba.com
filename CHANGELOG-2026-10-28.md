@@ -17,5 +17,7 @@ Apparel sync: the site, the Shopify store and the Printful edition now agree on 
 - `tools/recolour.py` — re-dyes a flat-lay shirt mockup to a new garment colour, keeping shading, the ink (black on light, white on dark) and the sleeve mark. Used for the 40 Certified-ish light mockups here and the 9 dark ones in the store.
 
 ## Not changed (open)
-- The personalized cap mockup on `/custom/` is still drawn as the dad-cap silhouette; only its colours and copy moved to the 6277.
 - Site guides for Bridge Span 14 and Navy LLCAT keep their photo captions (the photos are the sample garments).
+
+## Later, 28 Oct — the cap mockup is the Flexfit 6277
+- **Make it yours, cap mode:** the cap is redrawn as the 6277 — taller structured crown, pre-curved brim, closed fitted back with the stretch band showing (no strap, no buckle). The back tagline arch moved down to suit. Prints sit where they did.

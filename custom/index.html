@@ -128,10 +128,8 @@ p{margin:0}
 #cap .brim{fill:var(--cap,#C9DCEC)}
 #cap .seam{stroke:rgba(0,0,0,.16);stroke-width:1.5;fill:none}
 #cap .band{stroke:rgba(0,0,0,.22);stroke-width:3;fill:none}
-#cap .strap{fill:rgba(0,0,0,.16)}
-#cap .buckle{fill:#B08D3C;stroke:rgba(0,0,0,.25);stroke-width:1}
 #cap .eyelet{fill:rgba(0,0,0,.28)}
-#cap .opening{fill:var(--panel)}
+#cap .stretch{fill:rgba(0,0,0,.20)}
 .stage-top .segs{display:flex;flex-wrap:wrap;gap:8px}
 .panel{counter-reset:step}
 .step:not([hidden]){counter-increment:step}
@@ -236,26 +234,25 @@ p{margin:0}
             <radialGradient id="cglow" cx=".5" cy=".3" r=".65"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
             <linearGradient id="cside" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".16"/><stop offset=".3" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".16"/></linearGradient>
             <linearGradient id="cbrim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".10"/><stop offset="1" stop-color="#000" stop-opacity=".26"/></linearGradient>
-            <path id="arch" d="M186 268 A114 114 0 0 1 414 268" fill="none"/>
+            <path id="arch" d="M176 276 A124 124 0 0 1 424 276" fill="none"/>
           </defs>
           <g id="cap-front">
-            <path class="brim" d="M84 298 C140 312 220 320 300 320 C380 320 460 312 516 298 L530 314 C482 356 392 378 300 378 C208 378 118 356 70 314 Z"/>
-            <path d="M84 298 C140 312 220 320 300 320 C380 320 460 312 516 298 L530 314 C482 356 392 378 300 378 C208 378 118 356 70 314 Z" fill="url(#cbrim)"/>
-            <path class="crown" d="M108 300 C108 192 190 116 300 116 C410 116 492 192 492 300 Z"/><path d="M108 300 C108 192 190 116 300 116 C410 116 492 192 492 300 Z" fill="url(#cside)"/><path d="M108 300 C108 192 190 116 300 116 C410 116 492 192 492 300 Z" fill="url(#cglow)"/>
-            <path class="seam" d="M300 123 L300 300 M172 146 C148 200 134 250 134 300 M428 146 C452 200 466 250 466 300"/>
-            <circle class="eyelet" cx="170" cy="205" r="3"/><circle class="eyelet" cx="430" cy="205" r="3"/>
-            <circle cx="300" cy="118" r="7" fill="rgba(0,0,0,.18)"/>
-            <path class="band" d="M108 300 Q300 318 492 300"/>
+            <path class="brim" d="M92 288 C150 304 226 310 300 310 C374 310 450 304 508 288 C526 306 530 330 512 346 C460 380 386 392 300 392 C214 392 140 380 88 346 C70 330 74 306 92 288 Z"/>
+            <path d="M92 288 C150 304 226 310 300 310 C374 310 450 304 508 288 C526 306 530 330 512 346 C460 380 386 392 300 392 C214 392 140 380 88 346 C70 330 74 306 92 288 Z" fill="url(#cbrim)"/>
+            <path class="crown" d="M112 300 C106 176 184 96 300 96 C416 96 494 176 488 300 Q300 330 112 300 Z"/><path d="M112 300 C106 176 184 96 300 96 C416 96 494 176 488 300 Q300 330 112 300 Z" fill="url(#cside)"/><path d="M112 300 C106 176 184 96 300 96 C416 96 494 176 488 300 Q300 330 112 300 Z" fill="url(#cglow)"/>
+            <path class="seam" d="M300 103 L300 300 M176 136 C150 196 138 250 138 300 M424 136 C450 196 462 250 462 300"/>
+            <circle class="eyelet" cx="168" cy="196" r="3"/><circle class="eyelet" cx="432" cy="196" r="3"/>
+            <circle cx="300" cy="98" r="7" fill="rgba(0,0,0,.18)"/>
+            <path class="band" d="M112 300 Q300 330 488 300"/>
             <g id="cap-front-prints"></g>
           </g>
           <g id="cap-back" style="display:none">
-            <path class="crown" d="M108 300 C108 192 190 116 300 116 C410 116 492 192 492 300 Z"/><path d="M108 300 C108 192 190 116 300 116 C410 116 492 192 492 300 Z" fill="url(#cside)"/><path d="M108 300 C108 192 190 116 300 116 C410 116 492 192 492 300 Z" fill="url(#cglow)"/>
-            <path class="seam" d="M300 123 L300 258 M172 146 C148 200 134 250 134 300 M428 146 C452 200 466 250 466 300"/>
-            <circle class="eyelet" cx="170" cy="205" r="3"/><circle class="eyelet" cx="430" cy="205" r="3"/>
-            <circle cx="300" cy="118" r="7" fill="rgba(0,0,0,.18)"/>
-            <path class="opening" d="M252 302 L252 290 C252 262 274 250 300 250 C326 250 348 262 348 290 L348 302 Z"/>
-            <rect class="strap" x="236" y="280" width="128" height="18" rx="2"/><rect class="buckle" x="330" y="277" width="22" height="24" rx="2"/>
-            <path class="band" d="M108 300 Q300 318 492 300"/>
+            <path class="crown" d="M112 300 C106 176 184 96 300 96 C416 96 494 176 488 300 Q300 330 112 300 Z"/><path d="M112 300 C106 176 184 96 300 96 C416 96 494 176 488 300 Q300 330 112 300 Z" fill="url(#cside)"/><path d="M112 300 C106 176 184 96 300 96 C416 96 494 176 488 300 Q300 330 112 300 Z" fill="url(#cglow)"/>
+            <path class="seam" d="M300 103 L300 300 M176 136 C150 196 138 250 138 300 M424 136 C450 196 462 250 462 300"/>
+            <circle class="eyelet" cx="168" cy="196" r="3"/><circle class="eyelet" cx="432" cy="196" r="3"/>
+            <circle cx="300" cy="98" r="7" fill="rgba(0,0,0,.18)"/>
+            <path class="stretch" d="M116 294 Q300 322 484 294 L486 302 Q300 330 114 302 Z"/>
+            <path class="band" d="M112 300 Q300 330 488 300"/>
             <g id="cap-back-prints"></g>
           </g>
           <text x="300" y="505" text-anchor="middle" class="mock-label">Mockup · not a proof · © 2026 Doolittle Scuba L.L.C.</text>
