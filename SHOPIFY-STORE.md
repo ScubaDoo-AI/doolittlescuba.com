@@ -68,3 +68,9 @@ Current state found in the store: name "My Store"; only the auto-generated priva
 - **`make-it-yours-cap`:** now Flexfit 6277 — options Size (S/M, L/XL) × Personalization; $40 / $41; SKUs `DS-MYA-C-SM`, `DS-MYB-C-SM`, `DS-MYA-C-LXL`, `DS-MYB-C-LXL`; tags + `flexfit-6277 embroidered`; description rewritten. Image is still the old dad-cap mockup.
 - **Caps, fulfilment route tags:** `fulfil:printful-6277` on the 13 caps whose colour Printful stocks (black, navy, dark grey, olive); `fulfil:ss-blank-embroiderer` on Bridge Span 14 (brown), Blue Grotto (purple), Rainbow River (maroon), Thistlegorm / Somosomo / Vuna Reef (spruce).
 - Still open: the 14 Signature dark tees have no images; Bridge Span 14 / Navy LLCAT light still show the sample photos in the old colours; Printful is installed but not connected (no location, no linked products); store name "My Store".
+
+## 2026-10-29 — Stickers
+- 26 Draft products, type **Sticker**, vendor Doolittle Scuba, inventory tracked at 0, policy DENY:
+  12 Achievement Unlocked ($4, `DS-STK-A-<code>`, tags `sticker sticker-achievement tier:<tier> cert:<code> coming-soon`), the Full Set sheet ($15, `DS-STK-A-SET12`, handle `achievement-unlocked-full-set`), 13 classic die-cuts ($5, `DS-STK-D-<code>`, tags `sticker sticker-die-cut cert:<code> coming-soon`). Codes: OWD AOW RES MSD (die-cuts MSD1 octopus, MSD2 chess king) DRI BUO NTX UWP SAR SID SHK FSH ALT DEE DRS.
+- Collections (smart, by tag; created unpublished): Stickers `gid://shopify/Collection/492679987386` (tag `sticker`, 26), Achievement Unlocked `…/492680020154` (`sticker-achievement`, 13), Die-cut Stickers `…/492680052922` (`sticker-die-cut`, 13).
+- One image each, uploaded straight to Shopify (staged upload), the same renders as `img/stickers/`.
