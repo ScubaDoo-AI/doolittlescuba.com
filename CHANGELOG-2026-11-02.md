@@ -1,0 +1,14 @@
+# DoolittleScuba.com — update of 2026-11-02
+
+## Added — the Signature Series dark line
+- **Home, shirts deck:** a third line, **Signature Series Dark** (14 shirts, between Signature Series and Certified-ish). Same fourteen sites, white ink on a dark Comfort Colors 1717, "Coming soon". Each card opens front / back / the watermarked back print, the site facts, and a Make it yours link that lands on the matching dark colour (`/custom/#colour=<dark slug>&back=<site>&site=<site>`).
+- **Mockups (`img/shirts/dark/<slug>-{front,back}.webp` 1200 px, `-t` 600 px, 28 + 28 files):** not drawn — made from the photographs of the light shirts. `tools/darkset.py` segments the shirt (U²-Net cloth prior + GrabCut, hands and hem handled), separates the black ink from the fabric (medians at three scales, a crisp-edge test so creases and fold shadows stay fabric, a print-zone gate), re-dyes the fabric to the dark garment in linear light with the folds, highlights and weave kept, turns the ink white, keeps the flag in colour, and rebuilds the anti-aliased silhouette against whatever is next to it. The 2048 px originals are not in the repo; the pipeline needs them (`DS_SRC`) and rembg.
+- **Garment colours and the hexes the mockups use** (as the dyed shirt photographs, a little muted from the Comfort Colors swatch): Black Bart Pepper `#464340` · Bridge Span 14 Espresso `#4B3631` · Blue Grotto Grape `#332552` · Blue Water Park Black `#222426` · Dampier Strait True Navy `#15284A` · Bali Denim `#3F5163` · Rainbow River Wine `#4D2A48` · Navy LLCAT Navy `#1B2D4A` · Dive Land Park Graphite `#262C33` · Thurmond Dam Midnight `#22365A` · Thistlegorm Blue Spruce `#3A5752` · Somosomo Strait Emerald `#0F6156` · Rainbow Reef Sage (dark olive, "Dark sage" on the site) `#444D33` · Vuna Reef Moss `#27392E`. Change a hex in `tools/darkline.py` (site) and `tools/darkset.py` (render) and re-run.
+- **Copy:** shirts intro and the Signature Series collection tile mention the dark line ("black on the soft pastel tees, white on the dark line"), with a "The dark line →" link that opens the deck on it.
+
+## Changed — Make it yours
+- Twelve dark tee colours added to the colour row (after olive): pepper, graphite, midnight, true navy, denim, blue spruce, emerald, moss, dark sage, espresso, wine, grape; navy and black now show for tees as well as caps. On a dark colour the art inverts to white (the caps already did this). Cap-only colours stay hidden in tee mode, and switching to a tee from a cap-only colour falls back to light blue.
+- `tools/darkline.py` is idempotent: it re-copies the renders, replaces the 14 dark cards and leaves the deck config alone once patched. Run `tools/bust.py` after it.
+
+## Shopify (recorded in `SHOPIFY-STORE.md`)
+- The 14 **Signature Series Dark** drafts got their images: front mockup, back mockup, watermarked back print. Make it yours links corrected (Bali → `colour=denim`, Rainbow Reef → `colour=dark-sage`).
