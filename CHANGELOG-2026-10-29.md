@@ -10,3 +10,6 @@
 
 ## 2026-11-02 — heavy DS mark on the Achievement stickers
 - The 12 Achievement Unlocked stickers and the Full Set sheet now carry Eric's **heavy-weight DS mark** (white D + red S, from the 25 Oct heavy master), 0.40 in tall top-right; titles stop short of it. Images in `img/stickers/achievement-*` replaced.
+
+## 2026-11-02 — the DS Seal sticker
+- New card first among the die-cuts: **The DS Seal**, 3 in round, $5, four colourways from Eric's knock-out seal masters — Classic (navy + red on white), Black, Navy and Red (white ring and mark on the coloured field; navy S on red). Images `img/stickers/sticker-ds-seal*.webp` (card shows all four). Store: one product, option *Colourway*, SKUs `DS-STK-D-SEA-CLASSIC|BLACK|NAVY|RED`.
