@@ -7,3 +7,6 @@
 - Images in `img/stickers/` (`<slug>.webp` 1200 px and `<slug>-t.webp` 600 px, sticker on warm paper). Cards open in the existing shirt lightbox (`sk-grid` added to its grid list).
 - Matching Shopify drafts: 26 products (type Sticker, tags `sticker`, `sticker-achievement` / `sticker-die-cut`, `coming-soon`, `cert:<code>`), SKUs `DS-STK-A-<code>`, `DS-STK-D-<code>`, `DS-STK-A-SET12`; collections **Stickers**, **Achievement Unlocked**, **Die-cut Stickers**. Handles match the image slugs (e.g. `achievement-high-score`, `sticker-deep-diver`).
 - Cache-busting stamps refreshed (`tools/bust.py`).
+
+## 2026-11-02 — heavy DS mark on the Achievement stickers
+- The 12 Achievement Unlocked stickers and the Full Set sheet now carry Eric's **heavy-weight DS mark** (white D + red S, from the 25 Oct heavy master), 0.40 in tall top-right; titles stop short of it. Images in `img/stickers/achievement-*` replaced.
