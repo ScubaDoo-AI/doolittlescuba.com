@@ -13,3 +13,7 @@
 
 ## 2026-11-02 — the DS Seal sticker
 - New card first among the die-cuts: **The DS Seal**, 3 in round, $5, four colourways from Eric's knock-out seal masters — Classic (navy + red on white), Black, Navy and Red (white ring and mark on the coloured field; navy S on red). Images `img/stickers/sticker-ds-seal*.webp` (card shows all four). Store: one product, option *Colourway*, SKUs `DS-STK-D-SEA-CLASSIC|BLACK|NAVY|RED`.
+
+## 2026-11-02 — brand stickers
+- Five more cards after the Seal: **The DS Stacked Logo** (3.4 × 2.9 in, $5) and **The DS Horizontal Logo** (5.4 × 1.8 in, $6), each in Classic, Black, Navy and Red; **Do - A - Little Scuba Stacked** (3.4 × 2.5 in, $5) and **Dive Kit** (4.9 × 1.8 in, $6) in Classic, Navy and Black; **Do - A - Little Scuba Bumper** (7.6 × 3.2 in, $7, Classic). All rounded rectangles with a 0.06 in white cut border; every colourway of a product shares one cut shape. Card images show all colourways; per-colourway images `img/stickers/<slug>-<colourway>.webp` feed the store.
+- The QR versions of the tagline boards are free handout stickers (print package `print/promo/`), not store products.
