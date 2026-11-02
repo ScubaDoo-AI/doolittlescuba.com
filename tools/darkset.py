@@ -98,12 +98,15 @@ def convert(slug, view, hexc, out_dir, flag='us'):
         kv = np.clip((M - lum) / np.maximum(M - ink_floor, 0.05), 0, 1); return kv * (lum < gate * M)
     # a stroke needs a sure-ink core (under half the local median; fold creases almost never get there); its
     # anti-aliased edge pixels are kept around the core
-    sure = (lum < 0.5 * M9) & mask
+    # dense lettering fills the 19 px window, so the local reference falls back on the wider median there
+    lf = cv2.GaussianBlur(lum_fill, (0, 0), 4); lsd = np.sqrt(np.clip(cv2.GaussianBlur(lum_fill * lum_fill, (0, 0), 4) - lf * lf, 0, None))
+    Mref = np.where(lsd > 0.12, np.maximum(M9, 0.9 * M25), M9)                       # only where strokes and gaps alternate
+    sure = (lum < (0.5 + 0.16 * np.clip((lo - 0.5) / 0.2, 0, 1)) * Mref) & mask      # a soft photo of a pale shirt leaves thin strokes greyer
     # ...and the core must have crisp edges: crease shadows reach the same darkness but fade in over many pixels
     gl = cv2.GaussianBlur(lum, (0, 0), 1.0); gm = np.hypot(cv2.Sobel(gl, cv2.CV_32F, 1, 0, ksize=3), cv2.Sobel(gl, cv2.CV_32F, 0, 1, ksize=3)) / 8
     inner6 = nd.binary_erosion(mask, iterations=6)
     bd = sure & ~nd.binary_erosion(sure, iterations=2) & inner6
-    crisp = bd & (gm / np.maximum(M9 - lum, 0.05) > 0.25)
+    crisp = bd & (gm / np.maximum(Mref - lum, 0.05) > 0.25)
     sure = sure & nd.binary_dilation(crisp, iterations=4)
     # a wide dark core that keeps the garment's saturation is a crease, not ink (thin strokes are exempt: JPEG chroma
     # subsampling smears the fabric colour into them, so only cores 6 px and wider are judged)
@@ -115,14 +118,37 @@ def convert(slug, view, hexc, out_dir, flag='us'):
             idx = np.arange(1, n + 1); nw = nd.sum(wide, lab, idx); sw = nd.sum(satv * wide, lab, idx)
             crease = (nw >= 30) & (sw / np.maximum(nw, 1) > max(0.6 * sat_base, 0.3))
             sure = sure & ~np.concatenate([[False], crease])[lab]
-    # specks (the weave's dark pits in a fold) are not ink unless they sit right next to a stroke
+    # specks (the weave's dark pits in a fold) are not ink unless they sit right next to a stroke; a big dark mass
+    # at the silhouette (the inside of a sleeve, a hem shadow) is not ink at all
     lab, n = nd.label(sure)
     if n:
-        size = nd.sum(sure, lab, np.arange(1, n + 1)); big = np.concatenate([[False], size >= 12])[lab] & sure
+        idx = np.arange(1, n + 1); size = nd.sum(sure, lab, idx)
+        rim = nd.sum(~nd.binary_erosion(mask, iterations=15), lab, idx) > 0
+        big = np.concatenate([[False], size >= 12])[lab] & sure
         sure = big | (sure & nd.binary_dilation(big, iterations=4))
-    strokes = kk(M9, 0.85) * mask * nd.binary_dilation(sure, iterations=2)
+        sure &= ~np.concatenate([[False], (size > 3000) & rim])[lab]
+    strokes = kk(Mref, 0.85) * mask * nd.binary_dilation(sure, iterations=2)
     # the print zone: where sure ink is dense. Solid fills only count inside it, so deep hem/armpit shadows stay fabric
-    pz = cv2.GaussianBlur((sure & (strokes > 0.3) & nd.binary_erosion(mask, iterations=12)).astype(np.float32), (0, 0), 30) > 0.012
+    # a print zone needs either a large connected drawing well inside the shirt (the map, the title box) or a cluster
+    # of separate strokes (text, the sleeve mark); one crease or one stitch line is neither
+    src = sure & (lum < 0.5 * Mref) & (strokes > 0.3)                                   # unmistakable ink
+    lab, n = nd.label(src); pz = np.zeros_like(mask)
+    if n:
+        idx = np.arange(1, n + 1); area = nd.sum(src, lab, idx)
+        # a stitch line along a hem is long but fills almost none of its bounding box; a title box or a map does
+        fillr = np.array([a / max((sl[0].stop - sl[0].start) * (sl[1].stop - sl[1].start), 1) for a, sl in zip(area, nd.find_objects(lab))])
+        bigc = (np.concatenate([[False], (area > 2000) & (fillr > 0.06)])[lab] & src) | (np.concatenate([[False], area > 2000])[lab] & src & nd.binary_erosion(mask, iterations=30))
+        marks = np.zeros_like(lum)
+        for cy, cx in nd.center_of_mass(src, lab, idx): marks[int(round(cy)), int(round(cx))] = 1
+        cluster = cv2.GaussianBlur(marks, (0, 0), 30) > 6e-4                              # four or more strokes within reach
+        pz = cv2.GaussianBlur((bigc | (src & cluster & nd.binary_erosion(mask, iterations=12))).astype(np.float32), (0, 0), 30) > 0.012
+        # a compact stroke component that reaches into a print zone belongs to it whole (a title box running out past the zone)
+        lab2, n2 = nd.label(sure)
+        if n2:
+            idx2 = np.arange(1, n2 + 1); a2 = nd.sum(sure, lab2, idx2)
+            f2 = np.array([a / max((sl[0].stop - sl[0].start) * (sl[1].stop - sl[1].start), 1) for a, sl in zip(a2, nd.find_objects(lab2))])
+            t2 = nd.maximum(nd.binary_dilation(pz, iterations=20).astype(np.float32), lab2, idx2) > 0
+            pz |= np.concatenate([[False], t2 & (a2 >= 300) & (f2 > 0.06)])[lab2] & sure
     pz = nd.binary_dilation(pz, iterations=20)
     # dark blobs with soft boundaries are fold shadows (ink fills have crisp edges): no solid-fill test inside them
     blobs = cv2.morphologyEx((mask & (cv2.GaussianBlur(lum, (0, 0), 3) < 0.55 * lo)).astype(np.uint8), cv2.MORPH_OPEN, disk(4)).astype(bool)   # regions: text and weave blur away, fills and shadows stay
@@ -148,13 +174,57 @@ def convert(slug, view, hexc, out_dir, flag='us'):
     k = np.minimum(k, np.maximum(k0 * 1.6, 0) ** 0.5)         # only where the median test agreed (no fold-shadow leakage)
     k = np.maximum(k, k_abs)
     k = np.clip((k - 0.12) / 0.88, 0, 1) * mask                  # crisp edges: drop the JPEG-ringing tail
+    # the ink is solid even where the photo is soft: bring each stroke's core up to full coverage
+    lab, n = nd.label(sure)
+    if n:
+        idx = np.arange(1, n + 1); kmax = nd.maximum(k, lab, idx)
+        sc = np.concatenate([[1.0], 1 / np.maximum(kmax, 0.4)])[lab].astype(np.float32)
+        sc = nd.grey_dilation(sc, size=5)
+        k = np.clip(k * sc, 0, 1)
     # flag colours: keep
-    flagzone = nd.binary_fill_holes(nd.binary_dilation(colored, iterations=22)) if colored.any() else np.zeros_like(mask)
-    L_open = cv2.GaussianBlur(cv2.morphologyEx(lum, cv2.MORPH_OPEN, disk(18)), (0, 0), 4)
-    w = np.clip((lum - L_open - 0.02) / 0.10, 0, 1) * flagzone * (chroma < 0.2)
-    k = np.maximum(k, w)
-    cmask = nd.binary_dilation(colored, iterations=1)
-    k[cmask] = 0
+    # the flag's white (the diver-down stripe, the alpha's hoist half) is printed white too: the large areas its
+    # ink outline and its colour enclose are white ink; the small gaps in the torn edge stay fabric
+    ring = nd.binary_dilation(colored, iterations=2) & ~colored
+    if colored.any():
+        solid = (k > 0.5) | nd.binary_dilation(colored, iterations=1)
+        holes = nd.binary_fill_holes(nd.binary_closing(solid, iterations=1)) & ~solid
+        lab, n = nd.label(holes)
+        if n:
+            idx = np.arange(1, n + 1); area = nd.sum(holes, lab, idx)
+            touch = nd.maximum(nd.binary_dilation(colored, iterations=3).astype(np.float32), lab, idx) > 0
+            big = np.concatenate([[False], (area >= 300) & touch])[lab]
+            k = np.maximum(k, big.astype(np.float32))
+        if flag == 'us':
+            # the diver-down stripe runs upper-left to lower-right: closing the red across it (along /) fills it
+            L = 90; se = np.zeros((L, L), np.uint8); cv2.line(se, (0, L - 1), (L - 1, 0), 1, 1)
+            stripe = cv2.morphologyEx(colored.astype(np.uint8), cv2.MORPH_CLOSE, se).astype(bool) & ~nd.binary_dilation(colored, iterations=1) & (k < 0.5)
+            lab, n = nd.label(stripe)
+            if n:
+                idx = np.arange(1, n + 1); area = nd.sum(stripe, lab, idx)
+                k = np.maximum(k, np.concatenate([[False], area >= 300])[lab].astype(np.float32))
+        else:
+            # the alpha flag: the hoist half, between the torn outline on the left and the blue, is white
+            ys, xs = np.where(colored); rows = np.unique(ys)
+            if rows.size > 20:
+                bw = np.median([xs[ys == r].max() - xs[ys == r].min() for r in rows[::4]])        # blue half width
+                ink_row = (k > 0.5)
+                left = {}
+                for r in rows:
+                    xb = xs[ys == r].min(); x0 = max(0, int(xb - 2.2 * bw))
+                    cand = np.where(ink_row[r, x0:xb])[0]
+                    if cand.size: left[r] = x0 + cand.min()
+                print('alpha: rows', rows.size, 'bw', bw, 'left found', len(left)) if os.environ.get('DSDEBUG') else None
+                if len(left) > 10:
+                    rr = np.array(sorted(left)); lv = np.array([left[r] for r in rr])
+                    lv = nd.median_filter(lv, size=15)
+                    white = np.zeros_like(colored)
+                    for r in rows:
+                        xb = xs[ys == r].min(); xl = int(np.interp(r, rr, lv))
+                        white[r, xl:xb] = True
+                    white &= ~nd.binary_dilation(colored, iterations=1) & (k < 0.5) & nd.binary_erosion(white | colored | ink_row, iterations=1)
+                    print('alpha white px', int(white.sum())) if os.environ.get('DSDEBUG') else None
+                    k = np.maximum(k, white.astype(np.float32))
+    k[colored] = 0
     # --- re-dye --------------------------------------------------------------------------------------------
     new = np.array([int(hexc[i:i + 2], 16) for i in (1, 3, 5)], np.float32) / 255
     s_lin = srgb2lin(np.clip(L_fab, 0.02, 1)) / srgb2lin(lo)                          # shading, linear light
@@ -168,10 +238,15 @@ def convert(slug, view, hexc, out_dir, flag='us'):
     outp = fab * (1 - k[..., None]) + ink * k[..., None]
     res = im.copy(); inner = nd.binary_erosion(mask, iterations=2)
     res[inner] = outp[inner]
-    res[cmask] = im[cmask]
+    res[colored] = im[colored]
+    if colored.any():   # the colour's anti-aliased rim: its own share of colour over whatever is under it now
+        redc = np.median(im[colored], axis=0); dc = redc - base
+        tc = np.clip(((im - base) * dc).sum(2) / max(float((dc * dc).sum()), 1e-4), 0, 1)[..., None]
+        cw = colored.astype(np.float32); red_local = cv2.GaussianBlur(im * cw[..., None], (0, 0), 3) / np.maximum(cv2.GaussianBlur(cw, (0, 0), 3), 1e-4)[..., None]   # the colour as photographed next to it
+        res[ring] = (tc * red_local + (1 - tc) * outp)[ring]
     # --- edge band: rebuild each anti-aliased pixel against its own outside neighbour -----------------------
     chrom = im / np.maximum(im.sum(2, keepdims=True), 0.05); cdist = np.abs(chrom - base / base.sum()).sum(2)        # colour without brightness
-    band = (nd.binary_dilation(mask, iterations=3) | (nd.binary_dilation(mask, iterations=8) & (cdist < 0.12))) & ~inner & ~cmask   # plus garment-coloured leftovers just outside the mask
+    band = (nd.binary_dilation(mask, iterations=3) | (nd.binary_dilation(mask, iterations=8) & (cdist < 0.12))) & ~inner & ~colored & ~ring   # plus garment-coloured leftovers just outside the mask
     outside = ~nd.binary_dilation(mask, iterations=4)
     # local outside colour: blur of outside pixels, normalised
     o = np.zeros_like(im); o[outside] = im[outside]; wgt = outside.astype(np.float32)

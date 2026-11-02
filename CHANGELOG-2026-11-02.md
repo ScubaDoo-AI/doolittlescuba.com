@@ -12,3 +12,8 @@
 
 ## Shopify (recorded in `SHOPIFY-STORE.md`)
 - The 14 **Signature Series Dark** drafts got their images: front mockup, back mockup, watermarked back print. Make it yours links corrected (Bali → `colour=denim`, Rainbow Reef → `colour=dark-sage`).
+
+## Later the same day — flags filled, soft photos
+- The chest flags on the dark line now print their white: the diver-down's diagonal stripe and the alpha flag's hoist half are white ink (in the photographs those areas were unprinted fabric or white ink on a pale shirt; on a dark shirt they must be printed). `tools/darkset.py` finds them geometrically — the stripe by closing the red across its diagonal, the hoist half as the span between the torn outline and the blue — and keeps the flag colour's anti-aliased rim over whatever is under it now. The thin-white-halo detector that smeared around the flags is gone.
+- Softer photographs (Dampier Strait, Bali) left thin lettering grey: the ink test is now relative to the shirt's brightness, dense lettering falls back on a wider median, and each stroke's core is brought up to full coverage. Print zones open only from large compact drawings or clusters of strokes, so a crease, a cuff hem or the inside of a sleeve can no longer turn white, and a title box running out of a zone is carried whole.
+- All 28 mockups re-rendered; the 14 Shopify dark drafts got the new fronts and backs.
