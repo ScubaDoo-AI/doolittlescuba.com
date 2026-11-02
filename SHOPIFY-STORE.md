@@ -74,3 +74,10 @@ Current state found in the store: name "My Store"; only the auto-generated priva
   12 Achievement Unlocked ($4, `DS-STK-A-<code>`, tags `sticker sticker-achievement tier:<tier> cert:<code> coming-soon`), the Full Set sheet ($15, `DS-STK-A-SET12`, handle `achievement-unlocked-full-set`), 13 classic die-cuts ($5, `DS-STK-D-<code>`, tags `sticker sticker-die-cut cert:<code> coming-soon`). Codes: OWD AOW RES MSD (die-cuts MSD1 octopus, MSD2 chess king) DRI BUO NTX UWP SAR SID SHK FSH ALT DEE DRS.
 - Collections (smart, by tag; created unpublished): Stickers `gid://shopify/Collection/492679987386` (tag `sticker`, 26), Achievement Unlocked `…/492680020154` (`sticker-achievement`, 13), Die-cut Stickers `…/492680052922` (`sticker-die-cut`, 13).
 - One image each, uploaded straight to Shopify (staged upload), the same renders as `img/stickers/`.
+
+## 2026-11-02 — heavy mark + brand stickers
+- The 13 Achievement Unlocked images were swapped in place (fileUpdate on the existing media) for versions with the heavy DS mark.
+- 6 new Draft sticker products, tag `sticker-brand` (+ `sticker`, `brand`, `coming-soon`), option **Colourway** with one image per variant:
+  The DS Seal `sticker-ds-seal` (3 in round, $5, Classic/Black/Navy/Red, also tagged `sticker-die-cut`) · The DS Stacked Logo `sticker-ds-stacked-logo` ($5, Classic/Black/Navy/Red) · The DS Horizontal Logo `sticker-ds-horizontal-logo` ($6, same four) · Do - A - Little Scuba Stacked `sticker-do-a-little-scuba-stacked` ($5, Classic/Navy/Black) · Dive Kit `sticker-do-a-little-scuba-dive-kit` ($6, Classic/Navy/Black) · Bumper `sticker-do-a-little-scuba-bumper` ($7, single). SKUs `DS-STK-D-<SEA|STK|HOR|TAG|KIT|BMP>-<COLOURWAY>`.
+- New smart collection **Brand Stickers** `gid://shopify/Collection/492876169402` (tag `sticker-brand`), unpublished like the others.
+- Images were imported from `img/stickers/` on the live site, only after a throwaway-query probe confirmed the deploy (fetching a fresh `?v=` URL early makes the CDN hold the old bytes under it for 30 days).
