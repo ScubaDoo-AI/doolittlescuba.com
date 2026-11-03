@@ -78,6 +78,7 @@ if __name__ == '__main__':
             if not sku: continue
             seen.add(sku); t = T[sku]
             if not apply: continue
+            if sv.get('synced') and sv.get('variant_id') == t['variant_id'] and '--force' not in sys.argv: continue   # already linked
             r = api(token, 'PUT', f'/sync/variant/{sv["id"]}', {'variant_id': t['variant_id'], 'files': t['files'], 'is_ignored': False})
             if r.get('code') == 200: linked += 1; print('linked', sku, '→', t['variant_id'], flush=True)
             else: failed.append((sku, r.get('error'))); print('FAILED', sku, r.get('error'), flush=True)
