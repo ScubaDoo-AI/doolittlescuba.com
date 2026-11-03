@@ -1,0 +1,458 @@
+{
+ "line": "1N73LL1G3NC3",
+ "key": "n73",
+ "note": "Hidden-message line (2 Nov 2026). Full-front print, 12 x 16 in canvas, art about 11.5 in wide, multi-colour DTG; one garment per design, from the site palette, matched to the theme.",
+ "categories": {
+  "dive": "Dive",
+  "utility": "Utility & Power",
+  "mindset": "Mindset",
+  "sky": "Sky & Flight",
+  "code": "Code & Tech",
+  "rc": "RC Cars"
+ },
+ "colours": {
+  "black": {
+   "name": "Black",
+   "cc": "Black",
+   "hex": "#222426"
+  },
+  "blue-spruce": {
+   "name": "Blue spruce",
+   "cc": "Blue Spruce",
+   "hex": "#3A5752"
+  },
+  "granite": {
+   "name": "Granite",
+   "cc": "Granite",
+   "hex": "#A6ABAA"
+  },
+  "graphite": {
+   "name": "Graphite",
+   "cc": "Graphite",
+   "hex": "#262C33"
+  },
+  "ivory": {
+   "name": "Ivory",
+   "cc": "Ivory",
+   "hex": "#F2EBD9"
+  },
+  "midnight": {
+   "name": "Midnight",
+   "cc": "Midnight",
+   "hex": "#22365A"
+  },
+  "moss": {
+   "name": "Moss",
+   "cc": "Moss",
+   "hex": "#27392E"
+  },
+  "pepper": {
+   "name": "Pepper",
+   "cc": "Pepper",
+   "hex": "#464340"
+  },
+  "true-navy": {
+   "name": "True navy",
+   "cc": "True Navy",
+   "hex": "#15284A"
+  }
+ },
+ "designs": [
+  {
+   "n": 1,
+   "slug": "n73-never-hold-your-breath",
+   "name": "Never Hold Your Breath",
+   "text": "Scuba rule number one, hidden in a grid of depths and pressures.",
+   "cat": "dive",
+   "colour": "true-navy",
+   "dark": true,
+   "png": "1-Dive/01_Never-Hold-Your-Breath.png",
+   "shopify_handle": "1n73ll1g3nc3-never-hold-your-breath-tee"
+  },
+  {
+   "n": 2,
+   "slug": "n73-plan-your-dive",
+   "name": "Plan Your Dive",
+   "text": "A message above the waterline and its reflection below it.",
+   "cat": "dive",
+   "colour": "midnight",
+   "dark": true,
+   "png": "1-Dive/02_Plan-Your-Dive.png",
+   "shopify_handle": "1n73ll1g3nc3-plan-your-dive-tee"
+  },
+  {
+   "n": 3,
+   "slug": "n73-breathe",
+   "name": "Breathe",
+   "text": "A bubble trail rising up the chest, every bubble a Morse dot or dash.",
+   "cat": "dive",
+   "colour": "blue-spruce",
+   "dark": true,
+   "png": "1-Dive/03_Breathe-Morse-Bubbles.png",
+   "shopify_handle": "1n73ll1g3nc3-breathe-tee"
+  },
+  {
+   "n": 4,
+   "slug": "n73-explore-safely",
+   "name": "Explore Safely",
+   "text": "A dive computer whose depth and status fields say more than numbers.",
+   "cat": "dive",
+   "colour": "true-navy",
+   "dark": true,
+   "png": "1-Dive/04_Explore-Safely-Dive-Computer.png",
+   "shopify_handle": "1n73ll1g3nc3-explore-safely-tee"
+  },
+  {
+   "n": 5,
+   "slug": "n73-find-your-depth",
+   "name": "Find Your Depth",
+   "text": "A dive word search with the answers already marked.",
+   "cat": "dive",
+   "colour": "graphite",
+   "dark": true,
+   "png": "1-Dive/05_Find-Your-Depth-Word-Search.png",
+   "shopify_handle": "1n73ll1g3nc3-find-your-depth-tee"
+  },
+  {
+   "n": 6,
+   "slug": "n73-dive-pixel",
+   "name": "Dive Pixel",
+   "text": "A word lit in a field of pixels, its binary printed underneath.",
+   "cat": "dive",
+   "colour": "black",
+   "dark": true,
+   "png": "1-Dive/06_Dive-Pixel-Matrix.png",
+   "shopify_handle": "1n73ll1g3nc3-dive-pixel-tee"
+  },
+  {
+   "n": 7,
+   "slug": "n73-keep-the-pulse",
+   "name": "Keep The Pulse",
+   "text": "A seven-segment meter readout over a pulse trace.",
+   "cat": "utility",
+   "colour": "black",
+   "dark": true,
+   "png": "2-Utility-and-Power/07_Keep-The-Pulse-Meter.png",
+   "shopify_handle": "1n73ll1g3nc3-keep-the-pulse-tee"
+  },
+  {
+   "n": 8,
+   "slug": "n73-steady-under-load",
+   "name": "Steady Under Load",
+   "text": "A message hidden in a grid of line voltages.",
+   "cat": "utility",
+   "colour": "pepper",
+   "dark": true,
+   "png": "2-Utility-and-Power/08_Steady-Under-Load.png",
+   "shopify_handle": "1n73ll1g3nc3-steady-under-load-tee"
+  },
+  {
+   "n": 9,
+   "slug": "n73-trust-but-test",
+   "name": "Trust But Test",
+   "text": "Four clock-dial registers reading 7357; the dial to the right tells you where a pointer really is.",
+   "cat": "utility",
+   "colour": "pepper",
+   "dark": true,
+   "png": "2-Utility-and-Power/09_7357-TEST-Meter-Dials.png",
+   "shopify_handle": "1n73ll1g3nc3-trust-but-test-tee"
+  },
+  {
+   "n": 10,
+   "slug": "n73-in-phase",
+   "name": "In Phase",
+   "text": "A three-phase phasor diagram, 120° apart.",
+   "cat": "utility",
+   "colour": "black",
+   "dark": true,
+   "png": "2-Utility-and-Power/10_In-Phase-Phasor.png",
+   "shopify_handle": "1n73ll1g3nc3-in-phase-tee"
+  },
+  {
+   "n": 11,
+   "slug": "n73-ride-the-wave",
+   "name": "Ride The Wave",
+   "text": "An oscilloscope trace on a scope grid.",
+   "cat": "utility",
+   "colour": "blue-spruce",
+   "dark": true,
+   "png": "2-Utility-and-Power/11_Ride-The-Wave-Scope.png",
+   "shopify_handle": "1n73ll1g3nc3-ride-the-wave-tee"
+  },
+  {
+   "n": 12,
+   "slug": "n73-root-cause",
+   "name": "Root Cause",
+   "text": "Five whys, stepping down to the answer.",
+   "cat": "utility",
+   "colour": "graphite",
+   "dark": true,
+   "png": "2-Utility-and-Power/12_Root-Cause.png",
+   "shopify_handle": "1n73ll1g3nc3-root-cause-tee"
+  },
+  {
+   "n": 13,
+   "slug": "n73-stay-curious",
+   "name": "Stay Curious",
+   "text": "A message glowing in a wall of binary.",
+   "cat": "mindset",
+   "colour": "black",
+   "dark": true,
+   "png": "3-Mindset/13_Stay-Curious-Binary.png",
+   "shopify_handle": "1n73ll1g3nc3-stay-curious-tee"
+  },
+  {
+   "n": 14,
+   "slug": "n73-wander",
+   "name": "Wander",
+   "text": "A constellation that spells its own name.",
+   "cat": "mindset",
+   "colour": "midnight",
+   "dark": true,
+   "png": "3-Mindset/14_Wander-Constellation.png",
+   "shopify_handle": "1n73ll1g3nc3-wander-tee"
+  },
+  {
+   "n": 15,
+   "slug": "n73-original",
+   "name": "Original",
+   "text": "A barcode for something that only comes once.",
+   "cat": "mindset",
+   "colour": "ivory",
+   "dark": false,
+   "png": "3-Mindset/15_Original-Barcode.png",
+   "shopify_handle": "1n73ll1g3nc3-original-tee"
+  },
+  {
+   "n": 16,
+   "slug": "n73-do-the-hard-thing",
+   "name": "Do The Hard Thing",
+   "text": "A declassified page with only the important part left.",
+   "cat": "mindset",
+   "colour": "granite",
+   "dark": false,
+   "png": "3-Mindset/16_Do-The-Hard-Thing-Redacted.png",
+   "shopify_handle": "1n73ll1g3nc3-do-the-hard-thing-tee"
+  },
+  {
+   "n": 17,
+   "slug": "n73-keep-going",
+   "name": "Keep Going",
+   "text": "A hex dump whose text column has something to say.",
+   "cat": "mindset",
+   "colour": "black",
+   "dark": true,
+   "png": "3-Mindset/17_Keep-Going-Hex-Dump.png",
+   "shopify_handle": "1n73ll1g3nc3-keep-going-tee"
+  },
+  {
+   "n": 18,
+   "slug": "n73-grit-growth",
+   "name": "Grit = Growth",
+   "text": "A mini crossword with leet clues.",
+   "cat": "mindset",
+   "colour": "pepper",
+   "dark": true,
+   "png": "3-Mindset/18_Grit-Grow-Crossword.png",
+   "shopify_handle": "1n73ll1g3nc3-grit-growth-tee"
+  },
+  {
+   "n": 19,
+   "slug": "n73-altitude",
+   "name": "Altitude",
+   "text": "An attitude indicator in a climbing turn.",
+   "cat": "sky",
+   "colour": "graphite",
+   "dark": true,
+   "png": "4-Sky-and-Flight/19_Altitude-Attitude-Indicator.png",
+   "shopify_handle": "1n73ll1g3nc3-altitude-tee"
+  },
+  {
+   "n": 20,
+   "slug": "n73-depth-to-altitude",
+   "name": "Depth To Altitude",
+   "text": "A flight path from below the surface to cruising altitude.",
+   "cat": "sky",
+   "colour": "true-navy",
+   "dark": true,
+   "png": "4-Sky-and-Flight/20_Depth-To-Altitude-Flight-Path.png",
+   "shopify_handle": "1n73ll1g3nc3-depth-to-altitude-tee"
+  },
+  {
+   "n": 21,
+   "slug": "n73-the-sky-is-open",
+   "name": "The Sky Is Open",
+   "text": "A drone camera HUD, recording.",
+   "cat": "sky",
+   "colour": "black",
+   "dark": true,
+   "png": "4-Sky-and-Flight/21_Sky-Is-Open-Drone-HUD.png",
+   "shopify_handle": "1n73ll1g3nc3-the-sky-is-open-tee"
+  },
+  {
+   "n": 22,
+   "slug": "n73-find-your-north",
+   "name": "Find Your North",
+   "text": "A compass rose with a twist on the cardinal points.",
+   "cat": "sky",
+   "colour": "blue-spruce",
+   "dark": true,
+   "png": "4-Sky-and-Flight/22_Find-Your-North-Compass.png",
+   "shopify_handle": "1n73ll1g3nc3-find-your-north-tee"
+  },
+  {
+   "n": 23,
+   "slug": "n73-cleared-for-takeoff",
+   "name": "Cleared For Takeoff",
+   "text": "Runway 27, seen from the threshold.",
+   "cat": "sky",
+   "colour": "graphite",
+   "dark": true,
+   "png": "4-Sky-and-Flight/23_Cleared-For-Takeoff-Runway.png",
+   "shopify_handle": "1n73ll1g3nc3-cleared-for-takeoff-tee"
+  },
+  {
+   "n": 24,
+   "slug": "n73-send-it",
+   "name": "Send It",
+   "text": "A phonetic-alphabet stack whose first letters spell the message.",
+   "cat": "sky",
+   "colour": "moss",
+   "dark": true,
+   "png": "4-Sky-and-Flight/24_Send-It-Phonetic.png",
+   "shopify_handle": "1n73ll1g3nc3-send-it-tee"
+  },
+  {
+   "n": 25,
+   "slug": "n73-shipped",
+   "name": "Shipped",
+   "text": "A terminal session: errors, retries, then OK.",
+   "cat": "code",
+   "colour": "black",
+   "dark": true,
+   "png": "5-Code-and-Tech/25_Shipped-Terminal.png",
+   "shopify_handle": "1n73ll1g3nc3-shipped-tee"
+  },
+  {
+   "n": 26,
+   "slug": "n73-commit-to-it",
+   "name": "Commit To It",
+   "text": "A git log that reads tried, broke, fixed, shipped.",
+   "cat": "code",
+   "colour": "graphite",
+   "dark": true,
+   "png": "5-Code-and-Tech/26_Commit-To-It-Git-Log.png",
+   "shopify_handle": "1n73ll1g3nc3-commit-to-it-tee"
+  },
+  {
+   "n": 27,
+   "slug": "n73-404-quit-not-found",
+   "name": "404: Quit Not Found",
+   "text": "The search for giving up returned nothing.",
+   "cat": "code",
+   "colour": "true-navy",
+   "dark": true,
+   "png": "5-Code-and-Tech/27_404-Quit-Not-Found.png",
+   "shopify_handle": "1n73ll1g3nc3-404-quit-not-found-tee"
+  },
+  {
+   "n": 28,
+   "slug": "n73-loading-wisdom",
+   "name": "Loading Wisdom",
+   "text": "A progress bar at 87% and climbing.",
+   "cat": "code",
+   "colour": "graphite",
+   "dark": true,
+   "png": "5-Code-and-Tech/28_Loading-Wisdom.png",
+   "shopify_handle": "1n73ll1g3nc3-loading-wisdom-tee"
+  },
+  {
+   "n": 29,
+   "slug": "n73-infinite-loop",
+   "name": "Infinite Loop",
+   "text": "Eat, dive, sleep, repeat, in code.",
+   "cat": "code",
+   "colour": "midnight",
+   "dark": true,
+   "png": "5-Code-and-Tech/29_Infinite-Loop-Code.png",
+   "shopify_handle": "1n73ll1g3nc3-infinite-loop-tee"
+  },
+  {
+   "n": 30,
+   "slug": "n73-reboot",
+   "name": "Reboot",
+   "text": "Three keys for a fresh start.",
+   "cat": "code",
+   "colour": "pepper",
+   "dark": true,
+   "png": "5-Code-and-Tech/30_Reboot-Keycaps.png",
+   "shopify_handle": "1n73ll1g3nc3-reboot-tee"
+  },
+  {
+   "n": 31,
+   "slug": "n73-full-throttle-no-brakes",
+   "name": "Full Throttle, No Brakes",
+   "text": "A basher’s creed hidden in a number grid.",
+   "cat": "rc",
+   "colour": "black",
+   "dark": true,
+   "png": "6-RC-Cars/31_Full-Throttle-No-Brakes.png",
+   "shopify_handle": "1n73ll1g3nc3-full-throttle-no-brakes-tee"
+  },
+  {
+   "n": 32,
+   "slug": "n73-one-more-pack",
+   "name": "One More Pack",
+   "text": "A LiPo on its last bar, and the only answer that matters.",
+   "cat": "rc",
+   "colour": "true-navy",
+   "dark": true,
+   "png": "6-RC-Cars/32_One-More-Pack-LiPo.png",
+   "shopify_handle": "1n73ll1g3nc3-one-more-pack-tee"
+  },
+  {
+   "n": 33,
+   "slug": "n73-mesh-matters",
+   "name": "Mesh Matters",
+   "text": "An 87-tooth spur on a 17-tooth pinion; set it with the paper test.",
+   "cat": "rc",
+   "colour": "graphite",
+   "dark": true,
+   "png": "6-RC-Cars/33_Mesh-Matters-Gears.png",
+   "shopify_handle": "1n73ll1g3nc3-mesh-matters-tee"
+  },
+  {
+   "n": 34,
+   "slug": "n73-in-control",
+   "name": "In Control",
+   "text": "Radio telemetry: steering centred, throttle pinned, failsafe armed.",
+   "cat": "rc",
+   "colour": "black",
+   "dark": true,
+   "png": "6-RC-Cars/34_In-Control-Radio.png",
+   "shopify_handle": "1n73ll1g3nc3-in-control-tee"
+  },
+  {
+   "n": 35,
+   "slug": "n73-worth-it",
+   "name": "Worth It",
+   "text": "The repair receipt from Sunday’s track day.",
+   "cat": "rc",
+   "colour": "pepper",
+   "dark": true,
+   "png": "6-RC-Cars/35_Worth-It-Repair-Receipt.png",
+   "shopify_handle": "1n73ll1g3nc3-worth-it-tee"
+  },
+  {
+   "n": 36,
+   "slug": "n73-brake-late",
+   "name": "Brake Late",
+   "text": "A six-turn track map, lap times and the apex.",
+   "cat": "rc",
+   "colour": "blue-spruce",
+   "dark": true,
+   "png": "6-RC-Cars/36_Brake-Late-Track-Map.png",
+   "shopify_handle": "1n73ll1g3nc3-brake-late-tee"
+  }
+ ]
+}
