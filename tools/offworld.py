@@ -4,11 +4,11 @@
 Usage: tools/offworld.py <render dir>      (the output of tools/offworld_render.py)
 
 - img/offworld/<slug>-{front,back}.webp (1200) + -t (600): the light-line mockups the cards use
-- img/offworld/dark/<slug>-{front,back}.webp: the dark-line mockups, not linked from any page (the Shopify image source)
+- img/offworld/dark/<slug>-{front,back}.webp (1200) + -t (600): the dark-line mockups (also the Shopify image source)
 - img/designs/<slug>.webp: watermarked preview for the designs grid and the shirt viewer
 - custom/art/<slug>.webp, <slug>-w.webp, custom/t/<slug>.webp: the Make it yours art and thumbnails
-- index.html: 30 cards in #sh-grid (data-line="offworld"), the deck config, a collection tile, 30 designs-grid cards,
-  a designs chip, counts and copy
+- index.html: 30 + 30 cards in #sh-grid (data-line="offworld" / "offworld-dark"), two deck lines, a collection tile,
+  30 designs-grid cards, a designs chip, counts and copy
 - custom/index.html: an Off-World Hunt Club tab in the Back step, with white-ink art on dark garments
 Run tools/bust.py afterwards.
 """
@@ -18,7 +18,7 @@ from PIL import Image
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = sys.argv[1] if len(sys.argv) > 1 else '/home/claude/offworld_out'
 D = json.load(open(f'{SITE}/tools/offworld_designs.json'))
-LINE = D['line']; KEY = D['key']
+LINE = D['line']; KEY = D['key']; DKEY = KEY + '-dark'; DLINE = LINE + ' Dark'
 OUT = f'{SITE}/img/offworld'; os.makedirs(f'{OUT}/dark', exist_ok=True)
 os.makedirs(f'{SITE}/custom/t', exist_ok=True); os.makedirs(f'{SITE}/custom/art', exist_ok=True)
 
@@ -32,11 +32,12 @@ tot = 0
 for d in D['designs']:
     s = d['slug']
     for view in ('front', 'back'):
-        im = Image.open(f'{SRC}/{s}-{view}.png').convert('RGB')
-        im.resize((1200, 1200), Image.LANCZOS).save(f'{OUT}/{s}-{view}.webp', 'webp', quality=86, method=6)
-        im.resize((600, 600), Image.LANCZOS).save(f'{OUT}/{s}-{view}-t.webp', 'webp', quality=80, method=6)
-        Image.open(f'{SRC}/{s}-dark-{view}.png').convert('RGB').resize((1200, 1200), Image.LANCZOS).save(f'{OUT}/dark/{s}-{view}.webp', 'webp', quality=86, method=6)
-        tot += os.path.getsize(f'{OUT}/{s}-{view}.webp') + os.path.getsize(f'{OUT}/{s}-{view}-t.webp') + os.path.getsize(f'{OUT}/dark/{s}-{view}.webp')
+        for src, dst in ((f'{SRC}/{s}-{view}.png', f'{OUT}/{s}-{view}'), (f'{SRC}/{s}-dark-{view}.png', f'{OUT}/dark/{s}-{view}')):
+            if not (os.path.exists(f'{dst}-t.webp') and os.path.getmtime(f'{dst}-t.webp') > os.path.getmtime(src)):   # already made from this render
+                im = Image.open(src).convert('RGB')
+                im.resize((1200, 1200), Image.LANCZOS).save(f'{dst}.webp', 'webp', quality=86, method=6)
+                im.resize((600, 600), Image.LANCZOS).save(f'{dst}-t.webp', 'webp', quality=80, method=6)
+            tot += os.path.getsize(f'{dst}.webp') + os.path.getsize(f'{dst}-t.webp')
     Image.open(f'{SRC}/designs/{s}.webp').save(f'{SITE}/img/designs/{s}.webp', 'webp', quality=82, method=6)
     for suf in ('', '-w'):
         Image.open(f'{SRC}/art/{s}{suf}.webp').save(f'{SITE}/custom/art/{s}{suf}.webp', 'webp', quality=80, method=6, exact=True)
@@ -53,17 +54,18 @@ p = f'{SITE}/index.html'; h = open(p, encoding='utf-8').read()
 CUSTOM = '/custom/#colour={c}&tab=offworld&back={s}&bsize=full&chest=dsmark&cpos=left&sleeve=none'
 
 
-def card(d):
-    s = d['slug']; col = D['colours']['light'][d['light']]; n = d['name']; low = col['name'].lower(); t = d['text']
-    return (f'<figure class="sh" data-line="{KEY}" data-slug="{s}" data-code="OW{d["n"]:02d}" data-colour="{H.escape(col["name"])}" data-hex="{col["hex"]}" '
-            f'data-art="img/designs/{s}.webp" data-text="{H.escape(t)}" data-custom="{CUSTOM.format(c=d["light"], s=s)}" hidden>'
-            f'<button type="button" class="sh-img" data-front="img/offworld/{s}-front.webp" data-back="img/offworld/{s}-back.webp" data-side="back" '
-            f'data-cap="{H.escape(n)} · {H.escape(col["name"])} · Comfort Colors 1717 · mockup" data-umami-event="shirt-open" data-umami-event-site="{s}" '
-            f'aria-label="Open mockup: {H.escape(n)} shirt, {H.escape(low)}">'
-            f'<img src="img/offworld/{s}-back-t.webp" width="600" height="600" loading="lazy" decoding="async" '
-            f'alt="{H.escape(n)} {LINE} shirt in {H.escape(low)}, mockup: the line in the off-world script on the back, translated, with {H.escape(d["punch"].lower())} in red"></button>'
+def card(d, line='light'):
+    dk = line == 'dark'; s = d['slug']; col = D['colours'][line][d[line]]; n = d['name']; low = col['name'].lower(); t = d['text']
+    folder = 'img/offworld/dark' if dk else 'img/offworld'
+    return (f'<figure class="sh" data-line="{DKEY if dk else KEY}" data-slug="{s}" data-code="OW{d["n"]:02d}" data-colour="{H.escape(col["name"])}" data-hex="{col["hex"]}" '
+            f'data-art="img/designs/{s}.webp" data-text="{H.escape(t)}" data-custom="{CUSTOM.format(c=d[line], s=s)}" hidden>'
+            f'<button type="button" class="sh-img" data-front="{folder}/{s}-front.webp" data-back="{folder}/{s}-back.webp" data-side="back" '
+            f'data-cap="{H.escape(n)} · {H.escape(col["name"])} · Comfort Colors 1717 · {"dark line, white ink · " if dk else ""}mockup" data-umami-event="shirt-open" data-umami-event-site="{s}{"-dark" if dk else ""}" '
+            f'aria-label="Open mockup: {H.escape(n)} shirt, {H.escape(low)}{", dark line" if dk else ""}">'
+            f'<img src="{folder}/{s}-back-t.webp" width="600" height="600" loading="lazy" decoding="async" '
+            f'alt="{H.escape(n)} {LINE} shirt in {H.escape(low)}, {"dark line, " if dk else ""}mockup: the line in the off-world script on the back{" in white ink" if dk else ""}, translated, with {H.escape(d["punch"].lower())} in red"></button>'
             f'<figcaption><span class="dz-row"><span class="dz-t">{H.escape(n)}</span><span class="pill available">Coming soon</span></span>'
-            f'<span class="dz-s">{H.escape(col["name"])} · {LINE}</span>'
+            f'<span class="dz-s">{H.escape(col["name"])} · {"white ink · " if dk else ""}{LINE}</span>'
             f'<span class="sh-flip" role="group" aria-label="Show front or back"><button type="button" data-side="front" aria-pressed="false">Front</button><button type="button" class="on" data-side="back" aria-pressed="true">Back</button></span></figcaption></figure>')
 
 
@@ -76,11 +78,12 @@ def dz(d):
 
 
 h = re.sub(rf'<figure class="sh" data-line="{KEY}".*?</figure>', '', h, flags=re.S)
+h = re.sub(rf'<figure class="sh" data-line="{DKEY}".*?</figure>', '', h, flags=re.S)
 h = re.sub(rf'<figure class="dz" data-status="completed" data-line="{KEY}".*?</figure>', '', h, flags=re.S)
-cards = ''.join(card(d) for d in D['designs']); dzs = ''.join(dz(d) for d in D['designs'])
+cards = ''.join(card(d) for d in D['designs']) + ''.join(card(d, 'dark') for d in D['designs']); dzs = ''.join(dz(d) for d in D['designs'])
 h = rep(h, '</div>\n      <p class="dz-note">Colours are the garment colours each site was printed on', cards + '</div>\n      <p class="dz-note">Colours are the garment colours each site was printed on')
 h = rep(h, '\n      </div>\n      <p class="dz-note">All artwork &copy; 2026', '\n        ' + dzs + '\n      </div>\n      <p class="dz-note">All artwork &copy; 2026')
-print('cards:', len(D['designs']), '× 2')
+print('cards:', len(D['designs']), '× 3')
 
 first = D['designs'][0]['slug']
 if f"['{KEY}','{LINE}']" not in h:
@@ -120,6 +123,22 @@ if f"['{KEY}','{LINE}']" not in h:
             '<p>Every plate and Certified-ish back, drawn by hand, and the thirty Off-World Hunt Club lines. Tap a design for the full back print, facts and all.')
     h = rep(h, '<button type="button" class="chip" data-l="certifiedish" data-umami-event="designs-line" data-umami-event-line="certifiedish" aria-pressed="false">Certified-ish</button>',
             f'<button type="button" class="chip" data-l="certifiedish" data-umami-event="designs-line" data-umami-event-line="certifiedish" aria-pressed="false">Certified-ish</button>\n        <button type="button" class="chip" data-l="{KEY}" data-umami-event="designs-line" data-umami-event-line="{KEY}" aria-pressed="false">{LINE}</button>')
+if f"['{DKEY}','{DLINE}']" not in h:
+    # a second deck line for the dark tees, like Signature Series Dark
+    h = rep(h, f"['{KEY}','{LINE}']], step:{{plates:64,dark:64,certifiedish:44,{KEY}:44}},", f"['{KEY}','{LINE}'],['{DKEY}','{DLINE}']], step:{{plates:64,dark:64,certifiedish:44,{KEY}:44,'{DKEY}':44}},")
+    h = rep(h, f"it.line==='{KEY}'?'{LINE}':'Certified-ish'; }},", f"it.line==='{KEY}'?'{LINE}':it.line==='{DKEY}'?'{DLINE}':'Certified-ish'; }},")
+    h = rep(h, f":it.line==='{KEY}'?it.text:'Certified-ish back print · DS mark'; }},", f":it.line.indexOf('{KEY}')===0?it.text:'Certified-ish back print · DS mark'; }},")
+    h = rep(h, f"blurb:function(it){{ return it.line==='{KEY}'?'One line in the hunters", f"blurb:function(it){{ return it.line.indexOf('{KEY}')===0?'One line in the hunters")
+    h = rep(h, f"defaultView:function(it){{ return it.line==='certifiedish'||it.line==='{KEY}'?'back':'front'; }},", f"defaultView:function(it){{ return it.line==='certifiedish'||it.line.indexOf('{KEY}')===0?'back':'front'; }},")
+    h = rep(h, "dk?'Back · mockup on the photographed shirt, white ink':'Back · mockup')", f"dk?'Back · mockup on the photographed shirt, white ink':it.line==='{DKEY}'?'Back · mockup, white ink':'Back · mockup')")
+    h = rep(h, f"it.line==='{KEY}'?'Front · mockup, DS mark and the word in glyphs on the chest':", f"it.line==='{DKEY}'?'Front · mockup, DS mark and the word in glyphs on the chest, white ink':it.line==='{KEY}'?'Front · mockup, DS mark and the word in glyphs on the chest':")
+    h = rep(h, f"if(it.line==='{KEY}') return [['Back','The line in the off-world script, 12 × 16 in, translated beneath it with the punch word in red'],['Chest','The DS mark with the punch word in glyphs, left chest'],['Shirt',sw],['Ink','Water-based black and red, printed by hand'],",
+            f"if(it.line.indexOf('{KEY}')===0) return [['Back','The line in the off-world script, 12 × 16 in, translated beneath it with the punch word in red'],['Chest','The DS mark with the punch word in glyphs, left chest'],['Shirt',sw],['Ink',it.line==='{DKEY}'?'Water-based white and red, printed by hand':'Water-based black and red, printed by hand'],")
+    # copy: the tile gets the dark-line link, the shirts intro mentions both
+    h = rep(h, 'The DS mark carries the word on the chest, in glyphs.</p>\n            <p class="line-links"><a class="btn" href="#shirts" data-deck-line="offworld"',
+            'The DS mark carries the word on the chest, in glyphs. Black and red ink on the light tees; white and red on the dark line.</p>\n            <p class="line-links"><a class="btn" href="#shirts" data-deck-line="offworld"')
+    h = rep(h, f'data-umami-event-line="{KEY}">See the Off-World shirts</a>', f'data-umami-event-line="{KEY}">See the Off-World shirts</a><a class="txt" href="#shirts" data-deck-line="{DKEY}" data-umami-event="line-open" data-umami-event-line="{DKEY}">The dark line &rarr;</a>')
+    h = rep(h, 'and the thirty Off-World Hunt Club lines (mockups, one garment colour each).', 'and the thirty Off-World Hunt Club lines, each on a light tee and again on a dark one (mockups, one garment colour each way).')
 # designs chip counts, from the grid itself
 grid = h[h.index('<div class="dz-grid" id="dz-grid">'):h.index('<p class="dz-note">All artwork')]
 cnt = {k: len(re.findall(rf'<figure class="dz" data-status="{k}"', grid)) for k in ('available', 'completed', 'progress')}
