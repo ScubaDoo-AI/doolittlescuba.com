@@ -29,3 +29,8 @@
 
 ## Shopify, evening (recorded in `SHOPIFY-STORE.md`)
 - 60 **Off-World Hunt Club** drafts (30 light, 30 dark; $42 / $45; SKUs `DS-OW<nn>-T-` / `-TD-`), three images each, in the new collection `off-world-hunt-club`. 120 print masters in Shopify Files. `tools/printful_offworld.py` prints the Printful plan (Comfort Colors 1717 DTG, back + chest, $21.55–25.55 a shirt) and links or creates the products once a token exists. Everything stays Draft.
+
+## Later in the evening — the Off-World dark line on the site
+- **Home, shirts deck:** a fifth line, **Off-World Hunt Club Dark** (30 shirts, after the light line): the same thirty designs in white and red ink on the dark garments (Graphite, True navy, Midnight, Moss, Blue spruce, Black, Pepper — one per design, the pairings in `tools/offworld_designs.json`). Cards `data-line="offworld-dark"`, images `img/offworld/dark/<slug>-{front,back}.webp` + new `-t` thumbnails; captions say "mockup, white ink", the Ink row reads "Water-based white and red"; Make it yours opens the matching dark colour. The collection tile says "Black and red ink on the light tees; white and red on the dark line" and gains a "The dark line →" link; the shirts intro mentions both.
+- **Fix:** the "Make it yours" button in the open shirt / cap panel was styled for the dark hero (white on the white panel) and all but invisible on desktop; it is now ink-coloured inside the panel.
+- `tools/offworld.py` now writes both lines and skips images already made from the current render.
