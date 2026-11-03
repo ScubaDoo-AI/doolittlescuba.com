@@ -3,8 +3,8 @@
 
 The store is Shopify-connected (Printful store 18960047), so the sync API applies: GET /sync/products,
 GET /sync/products/{id}, PUT /sync/variant/{id}. (The /store/products routes in printful_stickers.py,
-printful_offworld.py and printful_n73.py only work on a manual / API store.) The plans come from those three
-scripts: stickers (kiss-cut route), Off-World Hunt Club light + dark (DTG back + chest) and 1N73LL1G3NC3 (DTG front).
+printful_offworld.py, printful_n73.py only work on a manual / API store.) The plans come from those three
+scripts: stickers (kiss-cut route), Off-World Hunt Club light + dark (DTG back + chest) 1N73LL1G3NC3 (DTG front) and Aquatic Comic Boat Banter (DTG front + back, printful_aquatic.py).
 Sync variants are matched by SKU, then by Shopify variant id (external_id).
 
   PRINTFUL_TOKEN=… tools/printful_link.py                  # dry run: what would be linked, what is unmatched
@@ -43,6 +43,10 @@ def targets(only):
         for p in load('printful_n73').plan('dtg'):
             for v in p['variants']:
                 out[v['sku']] = dict(line='n73', ext=str(v['shopify_variant']), variant_id=v['variant_id'], files=fix(p['files']))
+    if 'aquatic' in only:   # Boat Banter S01–S20 only; the personalized Aquatic Comic tees are ordered by hand
+        for p in load('printful_aquatic').plan('dtg'):
+            for v in p['variants']:
+                out[v['sku']] = dict(line='aquatic', ext='sku:' + v['sku'], variant_id=v['variant_id'], files=p['files'])
     return out
 
 
@@ -61,7 +65,7 @@ def api(token, method, path, body=None, tries=4):
 
 if __name__ == '__main__':
     token = os.environ.get('PRINTFUL_TOKEN') or sys.exit('PRINTFUL_TOKEN not set')
-    only = sys.argv[sys.argv.index('--only') + 1].split(',') if '--only' in sys.argv else ['stickers', 'offworld', 'n73']
+    only = sys.argv[sys.argv.index('--only') + 1].split(',') if '--only' in sys.argv else ['stickers', 'offworld', 'n73', 'aquatic']
     apply = '--apply' in sys.argv
     T = targets(only); by_ext = {t['ext']: s for s, t in T.items()}
     items, off = [], 0

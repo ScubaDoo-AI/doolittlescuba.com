@@ -6,3 +6,12 @@
 - **Collection tile** "Jokes told on the dive deck" (Aquatic Comic · 59 designs) after the 1N73LL1G3NC3 tile, with a link per subset; collections intro now "Five lines, one hand."; shirts and designs intros mention the line.
 - **Designs grid:** 59 "Art finished" cards (`data-line="aquatic"`), chip **Aquatic Comic**; counts recomputed (All 161 · Coming soon 6 · Art finished 153 · In progress 2).
 - **Files:** `tools/aquatic_designs.json` (the 59 designs, red words marked `*…*`, name slots `{N}` `{A}` `{B}` `{H}` `{W}`), `tools/aquatic_print.py` (the 300-dpi Printful masters, and one customer's files: `order W03 <out> --name Sam`), `tools/aquatic_render.py` (mockups on the Off-World blank, previews), `tools/aquatic.py` (this patch, idempotent; run `tools/bust.py` after). Images `img/aquatic/` (236 files, 2.4 MB), `img/designs/ac-*.webp`, `img/lines/aquatic-tile.webp`. The print masters are not in the repo.
+
+## Shopify and Printful
+- **59 Draft products** in Shopify, one per design. SKU `DS-AC<code>-TD-<size>`, prices $42 / $45 (Boat Banter) and $47 / $50 (personalized). Each has the site's back, front and preview images.
+- **Seven smart collections:** Aquatic Comic plus one per subset.
+- **Name fields:** the personalized tees use the `product.personalized` template on the unpublished theme "Horizon — Doolittle Scuba". It shows the required name fields (one name, two buddies, or husband / wife), which ride the order as line-item properties.
+- **Print masters:** the 40 Boat Banter masters (AC-S01…S20 front and back, 3600 × 4800, 300 dpi) are in Shopify Files.
+- **New `tools/printful_aquatic.py`:** the Printful plan and cost table. `tools/printful_link.py` gains an `aquatic` plan that links S01–S20, front and back at full area.
+- **Personalized orders** are made by hand: `tools/aquatic_print.py order <code> <out> --name … [--name2 …]`, then a Printful order.
+- **Self-locating scripts:** `aquatic_print.py`, `aquatic_render.py` and `printful_aquatic.py` find the design list (and `assets/`) next to themselves, so the copies in the print package run on their own.

@@ -26,8 +26,9 @@ from PIL import Image, ImageDraw, ImageFont, ImageCms
 from scipy import ndimage as nd
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-D = json.load(open(os.path.join(ROOT, 'tools', 'aquatic_designs.json'), encoding='utf-8'))
-A = os.environ.get('AQUATIC_ASSETS', '/home/claude/aquatic/assets')
+D = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'aquatic_designs.json'), encoding='utf-8'))
+_HERE = os.path.dirname(os.path.abspath(__file__))
+A = os.environ.get('AQUATIC_ASSETS') or (os.path.join(_HERE, 'assets') if os.path.isdir(os.path.join(_HERE, 'assets')) else '/home/claude/aquatic/assets')
 DPI = 300; W, H = 3600, 4800; SS = 2                      # supersample for clean edges, then threshold
 WHITE = (255, 255, 255); RED = (0xDA, 0x29, 0x1C)
 IT, RO = os.path.join(A, 'IMFellItalic.ttf'), os.path.join(A, 'IMFellRoman.ttf')

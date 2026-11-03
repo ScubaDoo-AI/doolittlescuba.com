@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import offworld_render as ow
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-D = json.load(open(os.path.join(ROOT, 'tools', 'aquatic_designs.json'), encoding='utf-8'))
+D = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'aquatic_designs.json'), encoding='utf-8'))
 COLLAR = 210
 SUBS = {v['key']: v for v in D['subsets'].values()}
 

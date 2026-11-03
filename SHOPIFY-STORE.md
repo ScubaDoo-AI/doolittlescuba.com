@@ -135,3 +135,34 @@ Current state found in the store: name "My Store"; only the auto-generated priva
 - **Linked and synced:** 32 sticker products / 45 variants (kiss-cut route), 60 Off-World products / 360 variants (DTG back + chest), 36 1N73LL1G3NC3 products / 216 variants (DTG front). 621 variants, 0 failures. Retail prices stay Shopify's.
 - **Not linked (108 products / 481 variants):** Signature Series light + dark, Certified-ish light + dark, the 19 Dark caps, the 19 archived caps, Make it yours. Their print files are not in Shopify Files yet.
 - Still open: billing + tax certificate in Printful (Eric); manual order confirmation until samples arrive (recommended, not set); the 66 shirts and 32 stickers stay unpublished.
+
+## 2026-11-03 — Aquatic Comic: 59 dark tees, six subsets, personalized names
+- **The line:** the 59 approved humour designs, split into six subsets with new subtitles. Each has the DS mark over a slogan on the left chest and the joke on the back. White ink plus PMS 485 red punch words. Data is in `tools/aquatic_designs.json`; masters come from `tools/aquatic_print.py`, mockups from `tools/aquatic_render.py`, store inputs from `tools/aquatic_shopify.py`.
+  - **Boat Banter** S01–S20: True navy for odd numbers, Black for even.
+  - **Self-Logged** W01–W10: wearer's name, Graphite.
+  - **Buddy Check** R01–R10: buddy's name, True navy.
+  - **Buddy System** B01–B10: two names, Black.
+  - **Till Surface Do Us Part** C01–C06: husband and wife, Graphite.
+  - **Master Class** M01–M03: husband and wife, Black.
+- **59 Draft products** created 3 Nov with `productSet` (ten per call).
+  - **Titles and handles:** title is "Aquatic Comic · <Subset> — <Name> tee"; handle is `aquatic-comic-<subset>-<slug>-tee`.
+  - **Sizes and SKUs:** S–3XL, SKU `DS-AC<code>-TD-<size>`.
+  - **Prices:** **$42 / $45** for Boat Banter, **$47 / $50** for personalized (the +$5 rule).
+  - **Tags:** `aquatic-comic ac:<subset> colour:<c> coming-soon tee dark-line`. The 39 personalized tees add `personalized personalize:1|buddy|couple` and template suffix `personalized`.
+  - **Images:** three per product, all READY — back mockup, front mockup, watermarked preview.
+  - **Product ids:** S01 10415359754426 … S20 10415360540858, W01 10415360671930 … W10 10415360966842, R01 10415361884346 … R10 10415362179258, B01 10415362932922 … B10 10415363293370, C01 10415363621050 … M03 10415363915962. Every id is in `manifest.csv` of the print package.
+- **Collections** (smart, tag-driven):
+  - Aquatic Comic `aquatic-comic`: 59 products (gid …/Collection/493017366714).
+  - One per subset: `aquatic-comic-boat-banter` 20, `-self-logged` 10, `-buddy-check` 10, `-buddy-system` 10, `-till-surface` 6, `-master-class` 3.
+- **Name fields:** theme **"Horizon — Doolittle Scuba"** (unpublished, 160959234234) has:
+  - `blocks/aquatic-personalize.liquid`: required inputs tied to the buy-buttons form through `form=`, sent as line-item properties `Name on the shirt` (12 characters max), `Diver 1` / `Diver 2`, or `Husband` / `Wife` (10 each). The product's `personalize:` tag picks which inputs show.
+  - `templates/product.personalized.json`.
+  - **Not yet tested with a live add-to-cart.** Preview the theme, add one of each type to the cart, check the properties on a test order, then publish the theme or copy the two files into the live theme.
+- **Print masters in Shopify Files:** the 40 Boat Banter files, `https://cdn.shopify.com/s/files/1/0787/3350/8794/files/AC-S<nn>_{front,back}.png`. Each is 3600 × 4800 px (the full 12 × 16 in area at 300 dpi), media ids 47220830437562 … 47220831715514, all READY. They were uploaded through `stagedUploadsCreate` with a shell POST, then `fileCreate`. The personalized masters are rendered per order and are not stored.
+- **Printful** (`tools/printful_aquatic.py`, and `tools/printful_link.py --only aquatic`):
+  - **Placements:** the 1717 (#586), front plus back, both files at full area.
+  - **Cost:** $21.55 / $23.55 / $25.55 per shirt.
+  - **Margin at M:** $20.45 for Boat Banter, $25.45 for personalized.
+  - **Linking:** only S01–S20 get linked (120 variants, matched by SKU). This needs a fresh token and is **not run yet**.
+  - **Personalized orders:** leave those sync variants ignored. Each order goes `aquatic_print.py order <code> out --name … [--name2 …]`, then a manual Printful order in the design colour.
+- **Store count:** 295 products.
