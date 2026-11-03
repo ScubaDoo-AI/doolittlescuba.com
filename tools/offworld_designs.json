@@ -1,0 +1,62 @@
+{
+  "line": "Off-World Hunt Club",
+  "key": "offworld",
+  "package": "OffWorld_HuntClub_Procreate (2 Nov 2026): 01_Backs_12x16in (3600x4800, light black ink / dark white ink, PMS 485 C punch word), 02_Chests_3.5in (1050x1200, DS mark + punch word in glyphs)",
+  "colours": {
+    "light": {
+      "light-blue": {"name": "Light blue", "cc": "Chambray", "hex": "#C9DCEC"},
+      "granite": {"name": "Granite", "cc": "Granite", "hex": "#A6ABAA"},
+      "sage": {"name": "Sage", "cc": "Bay", "hex": "#B8BFB0"},
+      "lagoon-blue": {"name": "Lagoon blue", "cc": "Lagoon Blue", "hex": "#86C9C6"},
+      "butter": {"name": "Butter", "cc": "Butter", "hex": "#F5E9A8"},
+      "ivory": {"name": "Ivory", "cc": "Ivory", "hex": "#F2EBD9"}
+    },
+    "dark": {
+      "graphite": {"name": "Graphite", "cc": "Graphite", "hex": "#262C33"},
+      "true-navy": {"name": "True navy", "cc": "True Navy", "hex": "#15284A"},
+      "midnight": {"name": "Midnight", "cc": "Midnight", "hex": "#22365A"},
+      "moss": {"name": "Moss", "cc": "Moss", "hex": "#27392E"},
+      "blue-spruce": {"name": "Blue spruce", "cc": "Blue Spruce", "hex": "#3A5752"},
+      "black": {"name": "Black", "cc": "Black", "hex": "#222426"},
+      "pepper": {"name": "Pepper", "cc": "Pepper", "hex": "#464340"}
+    }
+  },
+  "families": {
+    "stealth": "Cloaked, heat vision, invisible, night vision",
+    "travel": "Light-years, wormholes, flying back",
+    "hunt": "Trophies, the hunt, the club",
+    "earth": "Earth, reviewed"
+  },
+  "designs": [
+    {"n": 1,  "slug": "ow-cloaked",     "name": "Cloaked",     "text": "I'm not ignoring you. I'm cloaked.",                 "punch": "CLOAKED",     "family": "stealth", "light": "granite",     "dark": "graphite"},
+    {"n": 2,  "slug": "ow-souvenir",    "name": "Souvenir",    "text": "Traveled 40 light-years for a souvenir.",           "punch": "SOUVENIR",    "family": "travel",  "light": "light-blue",  "dark": "true-navy"},
+    {"n": 3,  "slug": "ow-wormhole",    "name": "Wormhole",    "text": "Sorry I'm late. Wormhole traffic.",                 "punch": "WORMHOLE",    "family": "travel",  "light": "light-blue",  "dark": "true-navy"},
+    {"n": 4,  "slug": "ow-nap",         "name": "Nap",         "text": "Hunt. Loot. Nap. Repeat.",                          "punch": "NAP",         "family": "hunt",    "light": "sage",        "dark": "moss"},
+    {"n": 5,  "slug": "ow-awkward",     "name": "Awkward",     "text": "First contact was awkward.",                        "punch": "AWKWARD",     "family": "earth",   "light": "butter",      "dark": "black"},
+    {"n": 6,  "slug": "ow-nervous",     "name": "Nervous",     "text": "My heat vision says you're nervous.",               "punch": "NERVOUS",     "family": "stealth", "light": "granite",     "dark": "graphite"},
+    {"n": 7,  "slug": "ow-local",       "name": "Local",       "text": "Interstellar tourist. Hunts local.",                "punch": "LOCAL",       "family": "hunt",    "light": "sage",        "dark": "moss"},
+    {"n": 8,  "slug": "ow-reef",        "name": "Reef",        "text": "Came for the trophy. Stayed for the reef.",         "punch": "REEF",        "family": "hunt",    "light": "lagoon-blue", "dark": "blue-spruce"},
+    {"n": 9,  "slug": "ow-light-years", "name": "Light-years", "text": "I don't do small talk. I do light-years.",          "punch": "LIGHT-YEARS", "family": "travel",  "light": "light-blue",  "dark": "true-navy"},
+    {"n": 10, "slug": "ow-rude",        "name": "Rude",        "text": "This shirt says something rude.",                   "punch": "RUDE",        "family": "earth",   "light": "butter",      "dark": "black"},
+    {"n": 11, "slug": "ow-okayest",     "name": "Okayest",     "text": "World's okayest hunter. Galactic division.",        "punch": "OKAYEST",     "family": "hunt",    "light": "sage",        "dark": "moss"},
+    {"n": 12, "slug": "ow-hot-tub",     "name": "Hot tub",     "text": "My ship has a trophy room. And a hot tub.",         "punch": "HOT TUB",     "family": "hunt",    "light": "sage",        "dark": "moss"},
+    {"n": 13, "slug": "ow-fly-back",    "name": "Fly back",    "text": "Don't make me fly back here.",                      "punch": "FLY BACK",    "family": "travel",  "light": "light-blue",  "dark": "true-navy"},
+    {"n": 14, "slug": "ow-two-stars",   "name": "Two stars",   "text": "Earth: two stars. No good snacks.",                 "punch": "TWO STARS",   "family": "earth",   "light": "butter",      "dark": "black"},
+    {"n": 15, "slug": "ow-dinner",      "name": "Dinner",      "text": "Out of this world. Back by dinner.",                "punch": "DINNER",      "family": "travel",  "light": "lagoon-blue", "dark": "midnight"},
+    {"n": 16, "slug": "ow-menu",        "name": "Menu",        "text": "My planet called. You're on the menu.",             "punch": "MENU",        "family": "earth",   "light": "butter",      "dark": "black"},
+    {"n": 17, "slug": "ow-dad",         "name": "Dad",         "text": "Galaxy's best dad. Ask my trophy wall.",            "punch": "DAD",         "family": "hunt",    "light": "sage",        "dark": "moss"},
+    {"n": 18, "slug": "ow-group-chat",  "name": "Group chat",  "text": "Invisible. Still on the group chat.",               "punch": "GROUP CHAT",  "family": "stealth", "light": "granite",     "dark": "graphite"},
+    {"n": 19, "slug": "ow-meeting",     "name": "Meeting",     "text": "I paused a hunt for this meeting.",                 "punch": "MEETING",     "family": "earth",   "light": "ivory",       "dark": "pepper"},
+    {"n": 20, "slug": "ow-aliens",      "name": "Aliens",      "text": "Warning: may contain aliens.",                      "punch": "ALIENS",      "family": "earth",   "light": "ivory",       "dark": "pepper"},
+    {"n": 21, "slug": "ow-directions",  "name": "Directions",  "text": "Lost in space. Too proud to ask for directions.",   "punch": "DIRECTIONS",  "family": "travel",  "light": "light-blue",  "dark": "true-navy"},
+    {"n": 22, "slug": "ow-pending",     "name": "Pending",     "text": "Earth hunting license: pending.",                   "punch": "PENDING",     "family": "hunt",    "light": "sage",        "dark": "moss"},
+    {"n": 23, "slug": "ow-gap-year",    "name": "Gap year",    "text": "Earth is my gap year.",                             "punch": "GAP YEAR",    "family": "earth",   "light": "ivory",       "dark": "pepper"},
+    {"n": 24, "slug": "ow-suggestion",  "name": "Suggestion",  "text": "Gravity is a suggestion.",                          "punch": "SUGGESTION",  "family": "travel",  "light": "lagoon-blue", "dark": "midnight"},
+    {"n": 25, "slug": "ow-coffee",      "name": "Coffee",      "text": "Will trade one moon for coffee.",                   "punch": "COFFEE",      "family": "earth",   "light": "ivory",       "dark": "pepper"},
+    {"n": 26, "slug": "ow-hunter",      "name": "Hunter",      "text": "Do not feed the hunter.",                           "punch": "HUNTER",      "family": "hunt",    "light": "sage",        "dark": "moss"},
+    {"n": 27, "slug": "ow-out-late",    "name": "Out late",    "text": "Mothership says I can stay out late.",              "punch": "OUT LATE",    "family": "travel",  "light": "lagoon-blue", "dark": "midnight"},
+    {"n": 28, "slug": "ow-patience",    "name": "Patience",    "text": "Night vision. Zero patience.",                      "punch": "PATIENCE",    "family": "stealth", "light": "granite",     "dark": "graphite"},
+    {"n": 29, "slug": "ow-mornings",    "name": "Mornings",    "text": "Light speed. Slow mornings.",                       "punch": "MORNINGS",    "family": "travel",  "light": "lagoon-blue", "dark": "midnight"},
+    {"n": 30, "slug": "ow-deeper",      "name": "Deeper",      "text": "Dive deep. Hunt deeper.",                           "punch": "DEEPER",      "family": "hunt",    "light": "lagoon-blue", "dark": "blue-spruce"}
+  ]
+}
