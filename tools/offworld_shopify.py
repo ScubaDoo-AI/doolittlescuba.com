@@ -37,7 +37,7 @@ def product(d, line, collection):
         desc += f'<p><strong>Dark line</strong> — the same design in white and red ink on {cn} Comfort Colors 1717.</p>'
     desc += (f'<p><strong>Off-World Hunt Club — {H.escape(n)}</strong></p>'
              f'<p>From the Off-World Hunt Club: thirty lines in a hunters&rsquo; script from somewhere else, each translated underneath with one word in red. '
-             f'This one reads <em>{H.escape(t)}</em> Full back on {article(low)} {low} tee; the DS mark with the word in glyphs on the chest.</p>'
+             f'This one reads <em>{H.escape(t).replace('&#x27;', '&rsquo;')}</em> Full back on {article(low)} {low} tee; the DS mark with the word in glyphs on the chest.</p>'
              f'<ul>\n<li>\n<strong>Back:</strong> the line in the off-world script, 12 × 16 in, with its translation beneath and {punch} in red.</li>\n'
              f'<li>\n<strong>Chest:</strong> the DS mark with {punch} in glyphs, left chest, 3.5 in.</li>\n'
              f'<li>\n<strong>Shirt:</strong> Comfort Colors 1717, garment-dyed, {low}. Water-based {ink} ink, printed by hand in Newnan, Georgia.</li>\n</ul>'
