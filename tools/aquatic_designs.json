@@ -1,0 +1,689 @@
+{
+ "line": "Aquatic Comic",
+ "key": "aquatic",
+ "note": "Aquatic Comic series (3 Nov 2026): 59 humor tees in six subsets, dark palette only. Left chest: DS mark (white D + red S) centred over the slogan, IM Fell English Italic; back: the joke, IM Fell English Roman, 11 in block. White ink + PMS 485 C red punch words at 125%. {N} = one name; {A}/{B} = buddy pair; {H}/{W} = husband / wife. *word* = red.",
+ "subsets": {
+  "S": {
+   "key": "boat-banter",
+   "name": "Boat Banter",
+   "blurb": "Twenty one-liners from the dive deck. No names, just the joke.",
+   "names": 0,
+   "code": "S",
+   "colour": null
+  },
+  "W": {
+   "key": "self-logged",
+   "name": "Self-Logged",
+   "blurb": "Your name, your habits, your logbook. Worn by the diver it is about.",
+   "names": 1,
+   "label": "Your name",
+   "code": "W",
+   "colour": "graphite"
+  },
+  "R": {
+   "key": "buddy-check",
+   "name": "Buddy Check",
+   "blurb": "Your dive buddy’s name and the story they’d rather you didn’t tell. Made to give.",
+   "names": 1,
+   "label": "Buddy’s name",
+   "code": "R",
+   "colour": "true-navy"
+  },
+  "B": {
+   "key": "buddy-system",
+   "name": "Buddy System",
+   "blurb": "Two names, one dive, two versions of what happened. Made as a matching pair.",
+   "names": 2,
+   "label": "Diver 1 / Diver 2",
+   "code": "B",
+   "colour": "black"
+  },
+  "C": {
+   "key": "till-surface",
+   "name": "Till Surface Do Us Part",
+   "blurb": "For the husband-and-wife dive team. Both names, a matching pair.",
+   "names": 2,
+   "label": "Husband / Wife",
+   "code": "C",
+   "colour": "graphite"
+  },
+  "M": {
+   "key": "master-class",
+   "name": "Master Class",
+   "blurb": "For the couple who both carry a Master Scuba Diver card, and still argue about the mask.",
+   "names": 2,
+   "label": "Husband / Wife",
+   "code": "M",
+   "colour": "black"
+  }
+ },
+ "colours": {
+  "true-navy": {
+   "name": "True navy",
+   "cc": "True Navy",
+   "hex": "#15284A",
+   "pf_swatch": "#1E2C4A"
+  },
+  "black": {
+   "name": "Black",
+   "cc": "Black",
+   "hex": "#222426",
+   "pf_swatch": "#1B1B1C"
+  },
+  "graphite": {
+   "name": "Graphite",
+   "cc": "Graphite",
+   "hex": "#262C33",
+   "pf_swatch": "#3E3737"
+  }
+ },
+ "sample": {
+  "N": "Sam",
+  "A": "Sam",
+  "B": "Alex",
+  "H": "Mike",
+  "W": "Lisa"
+ },
+ "price": {
+  "stock": [
+   "42.00",
+   "45.00"
+  ],
+  "custom": [
+   "47.00",
+   "50.00"
+  ]
+ },
+ "designs": [
+  {
+   "code": "S01",
+   "slug": "ac-s01-nitrogen",
+   "name": "Nitrogen",
+   "subset": "boat-banter",
+   "front": "Nitrogen is a *feeling*.",
+   "back": "At 100 feet my buddy gave a heartfelt thumbs-up to a rock.\nJust a *rock*.\nHe’s told the story at three dinner parties since.",
+   "colour": "true-navy",
+   "names": 0
+  },
+  {
+   "code": "S02",
+   "slug": "ac-s02-current",
+   "name": "Current",
+   "subset": "boat-banter",
+   "front": "Plan the dive.\nDive the plan.\nBlame the *current*.",
+   "back": "The briefing said mild current.\nThe current *didn’t* attend the briefing.",
+   "colour": "black",
+   "names": 0
+  },
+  {
+   "code": "S03",
+   "slug": "ac-s03-dry-suit",
+   "name": "Dry Suit",
+   "subset": "boat-banter",
+   "front": "Dry suit,\n*wet* humor.",
+   "back": "My jokes don’t land.\nNeither does my *descent*.\nWe’re working on both.",
+   "colour": "true-navy",
+   "names": 0
+  },
+  {
+   "code": "S04",
+   "slug": "ac-s04-visibility",
+   "name": "Visibility",
+   "subset": "boat-banter",
+   "front": "Visibility is a mood,\n*not* a measurement.",
+   "back": "The shop promised 80 feet of vis.\nI could see my hand.\nI’m logging it as 80 feet of *trust*.",
+   "colour": "black",
+   "names": 0
+  },
+  {
+   "code": "S05",
+   "slug": "ac-s05-buoyancy",
+   "name": "Buoyancy",
+   "subset": "boat-banter",
+   "front": "Neutral buoyancy,\n*strong* opinions.",
+   "back": "I can hover motionless at 15 feet for five minutes.\nI *cannot stay quiet* about your fin kick for five seconds.",
+   "colour": "true-navy",
+   "names": 0
+  },
+  {
+   "code": "S06",
+   "slug": "ac-s06-brag",
+   "name": "Brag",
+   "subset": "boat-banter",
+   "front": "Breathe slow.\nAscend slower.\nBrag *fastest*.",
+   "back": "My safety stop takes three minutes.\nMy retelling of the dive takes *forty-five*.",
+   "colour": "black",
+   "names": 0
+  },
+  {
+   "code": "S07",
+   "slug": "ac-s07-snacks",
+   "name": "Snacks",
+   "subset": "boat-banter",
+   "front": "I came up for the *snacks*.",
+   "back": "Saw a turtle, a reef shark, and an eagle ray on one dive.\nThe boat had those little *orange crackers*.\nGuess what I talked about on the ride home.",
+   "colour": "true-navy",
+   "names": 0
+  },
+  {
+   "code": "S08",
+   "slug": "ac-s08-low-on-air",
+   "name": "Low on Air",
+   "subset": "boat-banter",
+   "front": "Low on air,\n*high* on life.",
+   "back": "500 psi and a smile is how I surface.\n500 psi and a *lecture* is how I get back on the boat.",
+   "colour": "black",
+   "names": 0
+  },
+  {
+   "code": "S09",
+   "slug": "ac-s09-surface-interval",
+   "name": "Surface Interval",
+   "subset": "boat-banter",
+   "front": "Surface interval\nis a *state of mind*.",
+   "back": "Technically I’m off-gassing.\nSpiritually I’m back in the water.\nPhysically I’m eating a *sandwich*.",
+   "colour": "true-navy",
+   "names": 0
+  },
+  {
+   "code": "S10",
+   "slug": "ac-s10-gas-management",
+   "name": "Gas Management",
+   "subset": "boat-banter",
+   "front": "Gas management\nis *self-care*.",
+   "back": "My therapist asked what makes me feel in control.\nI said checking my SPG every two minutes.\nShe *wrote something down*.",
+   "colour": "black",
+   "names": 0
+  },
+  {
+   "code": "S11",
+   "slug": "ac-s11-equalizing",
+   "name": "Equalizing",
+   "subset": "boat-banter",
+   "front": "I’d rather be\n*equalizing*.",
+   "back": "Sat through a two-hour meeting pinching my nose.\nNobody asked.\nThat was *worse*.",
+   "colour": "true-navy",
+   "names": 0
+  },
+  {
+   "code": "S12",
+   "slug": "ac-s12-hover",
+   "name": "Hover",
+   "subset": "boat-banter",
+   "front": "Buoyancy:\nthe art of trying\n*not* to try.",
+   "back": "Spent two weeks perfecting my hover.\nLost it the second a lobster made *eye contact*.",
+   "colour": "black",
+   "names": 0
+  },
+  {
+   "code": "S13",
+   "slug": "ac-s13-good-dive",
+   "name": "Good Dive",
+   "subset": "boat-banter",
+   "front": "Every dive\nis a *good* dive.",
+   "back": "Some are just better stories.\nLost a fin, found it.\nLost my buddy, found him.\nLost my dignity. *Still looking*.",
+   "colour": "true-navy",
+   "names": 0
+  },
+  {
+   "code": "S14",
+   "slug": "ac-s14-salt",
+   "name": "Salt",
+   "subset": "boat-banter",
+   "front": "Salt in my hair,\n*nitrogen* in my tissues.",
+   "back": "My skin says beach vacation.\nMy dive computer says *sit still*.",
+   "colour": "black",
+   "names": 0
+  },
+  {
+   "code": "S15",
+   "slug": "ac-s15-mask-on",
+   "name": "Mask On",
+   "subset": "boat-banter",
+   "front": "Mask on,\nworld *off*.",
+   "back": "No email at 60 feet.\nThe only notification is a *parrotfish* crunching coral.",
+   "colour": "true-navy",
+   "names": 0
+  },
+  {
+   "code": "S16",
+   "slug": "ac-s16-born-to-dive",
+   "name": "Born to Dive",
+   "subset": "boat-banter",
+   "front": "Born to dive,\n*forced* to work.",
+   "back": "I check the weather at work.\nNot for the commute.\nFor the *vis*.",
+   "colour": "black",
+   "names": 0
+  },
+  {
+   "code": "S17",
+   "slug": "ac-s17-dive-more",
+   "name": "Dive More",
+   "subset": "boat-banter",
+   "front": "Dive more,\nworry *less*.",
+   "back": "My boss asked where I see myself in five years.\nSixty feet down, hovering, was *not the answer* he wanted.",
+   "colour": "true-navy",
+   "names": 0
+  },
+  {
+   "code": "S18",
+   "slug": "ac-s18-weight-belt",
+   "name": "Weight Belt",
+   "subset": "boat-banter",
+   "front": "Weight belt optional,\n*humor* required.",
+   "back": "Overweighted on dive one.\nUnderweighted on dive two.\nDive three was mostly *stories*.",
+   "colour": "black",
+   "names": 0
+  },
+  {
+   "code": "S19",
+   "slug": "ac-s19-fins-first",
+   "name": "Fins First",
+   "subset": "boat-banter",
+   "front": "Fins first,\n*questions* later.",
+   "back": "Nailed the giant stride.\nThe camera watched from the *bench*.",
+   "colour": "true-navy",
+   "names": 0
+  },
+  {
+   "code": "S20",
+   "slug": "ac-s20-bubbles",
+   "name": "Bubbles",
+   "subset": "boat-banter",
+   "front": "Bubbles up,\nstress *down*.",
+   "back": "Left my worries at 60 feet.\nBrought home a *sunburn* instead.",
+   "colour": "black",
+   "names": 0
+  },
+  {
+   "code": "W01",
+   "slug": "ac-w01-camel",
+   "name": "Camel",
+   "subset": "self-logged",
+   "front": "{N} breathes\nlike a *camel*.",
+   "back": "Everyone surfaced at 500 psi.\n{N} surfaced at *1800*.\nNobody trusts {N} anymore.",
+   "colour": "graphite",
+   "names": 1
+  },
+  {
+   "code": "W02",
+   "slug": "ac-w02-trim",
+   "name": "Trim",
+   "subset": "self-logged",
+   "front": "Perfect trim.\n*Questionable* jokes.",
+   "back": "{N} can hold a safety stop without moving a fin.\nThe punchlines are *another story*.",
+   "colour": "graphite",
+   "names": 1
+  },
+  {
+   "code": "W03",
+   "slug": "ac-w03-snacks",
+   "name": "Snacks",
+   "subset": "self-logged",
+   "front": "{N} dives\nfor the *snacks*.",
+   "back": "Two tanks, one turtle, zero memory of either.\n{N} can describe every *cookie* on the boat.",
+   "colour": "graphite",
+   "names": 1
+  },
+  {
+   "code": "W04",
+   "slug": "ac-w04-equalizing",
+   "name": "Equalizing",
+   "subset": "self-logged",
+   "front": "{N} is\n*still* equalizing.",
+   "back": "Everyone else hit the bottom.\n{N} was at 10 feet, pinching.\n{N} calls it a *graceful* descent.",
+   "colour": "graphite",
+   "names": 1
+  },
+  {
+   "code": "W05",
+   "slug": "ac-w05-weight",
+   "name": "Weight",
+   "subset": "self-logged",
+   "front": "{N} brought\n*extra weight*.",
+   "back": "Two extra pounds on the belt.\nThree extra stories at the bar.\n{N} is *negatively buoyant* either way.",
+   "colour": "graphite",
+   "names": 1
+  },
+  {
+   "code": "W06",
+   "slug": "ac-w06-nitrox",
+   "name": "Nitrox",
+   "subset": "self-logged",
+   "front": "{N} runs\non *nitrox*.",
+   "back": "Thirty-two percent oxygen.\nOne hundred percent *opinions*.\nAsk {N} about MOD. Actually, *don’t*.",
+   "colour": "graphite",
+   "names": 1
+  },
+  {
+   "code": "W07",
+   "slug": "ac-w07-fins",
+   "name": "Fins",
+   "subset": "self-logged",
+   "front": "{N}’s fins\n*have names*.",
+   "back": "The left one is my brother Daryl.\nThe right one is my other brother *Daryl*.\n{N} insists this is normal.",
+   "colour": "graphite",
+   "names": 1
+  },
+  {
+   "code": "W08",
+   "slug": "ac-w08-wetsuit",
+   "name": "Wetsuit",
+   "subset": "self-logged",
+   "front": "{N}\nvs. *the wetsuit*.",
+   "back": "Getting in took ten minutes.\nGetting out took twenty.\nThe wetsuit leads the series, *3 to 1*.",
+   "colour": "graphite",
+   "names": 1
+  },
+  {
+   "code": "W09",
+   "slug": "ac-w09-retired",
+   "name": "Retired",
+   "subset": "self-logged",
+   "front": "{N} retired\nto *go diving*.",
+   "back": "Used to check stock prices every morning.\nNow {N} checks the tide chart.\nReturns have *improved*.",
+   "colour": "graphite",
+   "names": 1
+  },
+  {
+   "code": "W10",
+   "slug": "ac-w10-one-more",
+   "name": "One More",
+   "subset": "self-logged",
+   "front": "{N}:\n*one more dive*.",
+   "back": "{N} said that at dive 50.\nAnd dive 100.\n*Nobody believes* {N} at the dock anymore.",
+   "colour": "graphite",
+   "names": 1
+  },
+  {
+   "code": "R01",
+   "slug": "ac-r01-shark",
+   "name": "Shark",
+   "subset": "buddy-check",
+   "front": "Ask {N}\nabout the *shark*.",
+   "back": "It was a nurse shark.\nIt was asleep.\n{N} still calls it a *great white*.",
+   "colour": "true-navy",
+   "names": 1
+  },
+  {
+   "code": "R02",
+   "slug": "ac-r02-vacuum",
+   "name": "Vacuum",
+   "subset": "buddy-check",
+   "front": "{N}’s SPG\nhas *trust issues*.",
+   "back": "The group turned at half a tank.\n{N} turned at a quarter.\nThe boat crew calls {N} *the vacuum*.",
+   "colour": "true-navy",
+   "names": 1
+  },
+  {
+   "code": "R03",
+   "slug": "ac-r03-navigator",
+   "name": "Navigator",
+   "subset": "buddy-check",
+   "front": "Follow {N}.\n*Probably*.",
+   "back": "{N} led the dive back to the anchor line.\nIt was a *different boat’s* anchor line.",
+   "colour": "true-navy",
+   "names": 1
+  },
+  {
+   "code": "R04",
+   "slug": "ac-r04-photographer",
+   "name": "Photographer",
+   "subset": "buddy-check",
+   "front": "{N} is the photographer.\nDon’t *wait*.",
+   "back": "A manta swam right past the group.\n{N} was photographing a *nudibranch*.\nThe manta was not mentioned again.",
+   "colour": "true-navy",
+   "names": 1
+  },
+  {
+   "code": "R05",
+   "slug": "ac-r05-briefing",
+   "name": "Briefing",
+   "subset": "buddy-check",
+   "front": "{N} was at the briefing.\nMentally, *at lunch*.",
+   "back": "Asked what the max depth was.\nOn the descent.\n*By slate*.",
+   "colour": "true-navy",
+   "names": 1
+  },
+  {
+   "code": "R06",
+   "slug": "ac-r06-logbook",
+   "name": "Logbook",
+   "subset": "buddy-check",
+   "front": "{N}’s logbook\nis *fiction*.",
+   "back": "Max depth: deep.\nVisibility: yes.\nMarine life: *a whole fish, maybe two*.",
+   "colour": "true-navy",
+   "names": 1
+  },
+  {
+   "code": "R07",
+   "slug": "ac-r07-night-dive",
+   "name": "Night Dive",
+   "subset": "buddy-check",
+   "front": "{N} does\n*night dives*.",
+   "back": "Pointed the torch at a squid.\nThe squid pointed *back*.\n{N} hasn’t mentioned it since.",
+   "colour": "true-navy",
+   "names": 1
+  },
+  {
+   "code": "R08",
+   "slug": "ac-r08-slate",
+   "name": "Slate",
+   "subset": "buddy-check",
+   "front": "{N} has a *slate*\nfor that.",
+   "back": "{N} brought a slate\nto say the octopus was cool.\n*Underlined twice*.",
+   "colour": "true-navy",
+   "names": 1
+  },
+  {
+   "code": "R09",
+   "slug": "ac-r09-computer",
+   "name": "Computer",
+   "subset": "buddy-check",
+   "front": "{N}’s dive computer\nis *disappointed*.",
+   "back": "Beeped on ascent.\nBeeped at the safety stop.\nBeeped at {N} in the *parking lot*, just in case.",
+   "colour": "true-navy",
+   "names": 1
+  },
+  {
+   "code": "R10",
+   "slug": "ac-r10-ladder",
+   "name": "Ladder",
+   "subset": "buddy-check",
+   "front": "First in.\n*Last out*.\nThat’s {N}.",
+   "back": "First off the boat.\nLast back on.\n{N} treats the ladder as *a suggestion*.",
+   "colour": "true-navy",
+   "names": 1
+  },
+  {
+   "code": "B01",
+   "slug": "ac-b01-stories",
+   "name": "Stories",
+   "subset": "buddy-system",
+   "front": "{A} & {B}.\nSame dive,\n*different stories*.",
+   "back": "{A} saw a shark.\n{B} saw a big grouper.\nThe video shows a *medium* grouper.",
+   "colour": "black",
+   "names": 2
+  },
+  {
+   "code": "B02",
+   "slug": "ac-b02-the-plan",
+   "name": "The Plan",
+   "subset": "buddy-system",
+   "front": "{A} plans the dive.\n{B} *blames* the current.",
+   "back": "The plan was perfect.\nThe current didn’t *read it*.\n*{B}* said so the whole ride home.",
+   "colour": "black",
+   "names": 2
+  },
+  {
+   "code": "B03",
+   "slug": "ac-b03-if-lost",
+   "name": "If Lost",
+   "subset": "buddy-system",
+   "front": "*If lost*,\nreturn to {B}.",
+   "back": "{A} looked away for one second.\n{B} was gone.\nFound later at the *snack table*.",
+   "colour": "black",
+   "names": 2
+  },
+  {
+   "code": "B04",
+   "slug": "ac-b04-air-snacks",
+   "name": "Air & Snacks",
+   "subset": "buddy-system",
+   "front": "{A} has the air.\n{B} has the *snacks*.",
+   "back": "One of them gets you home.\nThe other makes it worth it.\n*Nobody’s* saying which.",
+   "colour": "black",
+   "names": 2
+  },
+  {
+   "code": "B05",
+   "slug": "ac-b05-slow-fast",
+   "name": "Slow & Fast",
+   "subset": "buddy-system",
+   "front": "{A} breathes slow.\n{B} *talks fast*.",
+   "back": "One tank lasts {A} an hour.\n{B} needs a tank *just for the story* afterward.",
+   "colour": "black",
+   "names": 2
+  },
+  {
+   "code": "B06",
+   "slug": "ac-b06-navigation",
+   "name": "Navigation",
+   "subset": "buddy-system",
+   "front": "{A} leads.\n{B} follows.\n*Mostly*.",
+   "back": "{A} navigated by compass.\n{B} navigated by *vibes*.\nBoth found the anchor line. Eventually.",
+   "colour": "black",
+   "names": 2
+  },
+  {
+   "code": "B07",
+   "slug": "ac-b07-since-day-one",
+   "name": "Since Day One",
+   "subset": "buddy-system",
+   "front": "{A} & {B}.\nBuddies since\nthe first *giant stride*.",
+   "back": "{A} forgot a fin.\n{B} forgot a mask.\nThey’ve been *inseparable* since.",
+   "colour": "black",
+   "names": 2
+  },
+  {
+   "code": "B08",
+   "slug": "ac-b08-hand-signals",
+   "name": "Hand Signals",
+   "subset": "buddy-system",
+   "front": "{A} signs OK.\n{B} signs *lunch*.",
+   "back": "Three hand signals to learn.\n{B} invented *a fourth*.\nIt means “is there lunch on the boat.”",
+   "colour": "black",
+   "names": 2
+  },
+  {
+   "code": "B09",
+   "slug": "ac-b09-photos",
+   "name": "Photos",
+   "subset": "buddy-system",
+   "front": "Bubbles by {A}.\n*Photos by* {B}.",
+   "back": "{B} took 400 photos.\n{A} is in 380 of them.\nMostly as a *blurry fin*.",
+   "colour": "black",
+   "names": 2
+  },
+  {
+   "code": "B10",
+   "slug": "ac-b10-sharing",
+   "name": "Sharing",
+   "subset": "buddy-system",
+   "front": "{A} & {B}.\nSharing everything\n*but snacks*.",
+   "back": "Shared a tank on the training dive.\nShared a cabin on the liveaboard.\nStill *not* sharing the *snacks*.",
+   "colour": "black",
+   "names": 2
+  },
+  {
+   "code": "C01",
+   "slug": "ac-c01-vows",
+   "name": "Vows",
+   "subset": "till-surface",
+   "front": "{H} & {W}.\nTill *surface*\ndo us part.",
+   "back": "Vowed to stay together in sickness and in health.\nUnderwater, within arm’s reach.\nTopside, within *snack* reach.",
+   "colour": "graphite",
+   "names": 2
+  },
+  {
+   "code": "C02",
+   "slug": "ac-c02-navigator",
+   "name": "Navigator",
+   "subset": "till-surface",
+   "front": "{W} navigates.\n{H} *thinks* he navigates.",
+   "back": "{H} swore the anchor line was north.\n{W} swam them straight to it.\n{H} calls it *teamwork*.",
+   "colour": "graphite",
+   "names": 2
+  },
+  {
+   "code": "C03",
+   "slug": "ac-c03-octo",
+   "name": "Octo",
+   "subset": "till-surface",
+   "front": "{W}: 2000 psi.\n{H}: *don’t ask*.",
+   "back": "Years of marriage.\nShe still lets him breathe off her octo.\nThat’s *love*.",
+   "colour": "graphite",
+   "names": 2
+  },
+  {
+   "code": "C04",
+   "slug": "ac-c04-hand-signals",
+   "name": "Hand Signals",
+   "subset": "till-surface",
+   "front": "Married divers.\nWe argue in\n*hand signals*.",
+   "back": "{H} signals OK.\n{W} signals *we’ll talk about this* on the boat.",
+   "colour": "graphite",
+   "names": 2
+  },
+  {
+   "code": "C05",
+   "slug": "ac-c05-honeymoon",
+   "name": "Honeymoon",
+   "subset": "till-surface",
+   "front": "{H} & {W}.\nStill on\nour *honeymoon*.",
+   "back": "Some couples went to Paris.\nWe went to 60 feet.\nBetter view, and nobody *talked*.",
+   "colour": "graphite",
+   "names": 2
+  },
+  {
+   "code": "C06",
+   "slug": "ac-c06-photographer",
+   "name": "Photographer",
+   "subset": "till-surface",
+   "front": "{W} takes the photos.\n{H} holds the *light*.",
+   "back": "Three hundred photos of a seahorse.\nOne photo of {H}.\n*It’s blurry*.",
+   "colour": "graphite",
+   "names": 2
+  },
+  {
+   "code": "M01",
+   "slug": "ac-m01-master-arguers",
+   "name": "Master Arguers",
+   "subset": "master-class",
+   "front": "{H} & {W}.\nMaster Scuba Divers.\nMaster *arguers*.",
+   "back": "Two Master Scuba Diver cards.\nTen specialties between them.\nStill can’t agree *who packed the mask*.",
+   "colour": "black",
+   "names": 2
+  },
+  {
+   "code": "M02",
+   "slug": "ac-m02-master-packers",
+   "name": "Master Packers",
+   "subset": "master-class",
+   "front": "{H} & {W}.\nMaster Scuba Divers.\nMaster *snack* packers.",
+   "back": "{H} handles the gas plan.\n{W} handles the dive plan.\n*Both* handle the cooler.",
+   "colour": "black",
+   "names": 2
+  },
+  {
+   "code": "M03",
+   "slug": "ac-m03-one-master",
+   "name": "One Master",
+   "subset": "master-class",
+   "front": "{H} & {W}.\nTwo Master Scuba Divers.\n*One read the manual*.",
+   "back": "One of us read the manual.\nOne of us read the dive computer.\n*Together*, one master diver.",
+   "colour": "black",
+   "names": 2
+  }
+ ]
+}
