@@ -61,7 +61,7 @@ def dz(d):
     s = d['slug']; n = d['name']
     return (f'<figure class="dz" data-status="completed" data-line="{KEY}"><button type="button" class="dz-img" data-full="img/designs/{s}.webp" '
             f'data-cap="{H.escape(n)} · {LINE} · the front print" data-umami-event="design-open" data-umami-event-design="{s}" aria-label="Open the full design: {H.escape(n)}">'
-            f'<img src="img/designs/{s}.webp" width="450" height="620" loading="lazy" decoding="async" draggable="false" alt="{H.escape(n)} design preview, watermarked"></button>'
+            f'<img src="img/designs/{s}.webp" width="600" height="450" loading="lazy" decoding="async" draggable="false" alt="{H.escape(n)} design preview, watermarked"></button>'
             f'<figcaption><span class="dz-row"><span class="dz-t">{H.escape(n)}</span><span class="pill completed">Art finished</span></span><span class="dz-s">{H.escape(d["text"])}</span></figcaption></figure>')
 
 

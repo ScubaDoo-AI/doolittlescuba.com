@@ -7,7 +7,7 @@ blank. One garment per design, from the site palette (tools/n73_designs.json), c
 
 Usage: tools/n73_render.py <masters dir> <out dir> [slug ...]
   <out dir>/<slug>-{front,back}.png 1200x1200
-  <out dir>/designs/<slug>.webp  900x1240 watermarked preview on the garment colour, with the footer (img/designs/)
+  <out dir>/designs/<slug>.webp  1200x900 (4:3) watermarked preview on the garment colour, with the footer (img/designs/)
 """
 import os, sys, json
 import numpy as np
@@ -42,14 +42,15 @@ def place_centred(res, shade, im, f, top, scale, dark, tmp):
 
 
 def preview(png, hexc, dark, out):
-    """The art on a sheet of the garment colour, watermark tiled over it, the site footer underneath."""
-    W, H = 900, 1200
+    """The art on a sheet of the garment colour, watermark tiled over it, the site footer underneath.
+    4:3 with the footer (1200 x 900), the shape of the designs-grid tile, so the whole print shows there uncropped."""
+    W, H = 1200, 860
     sheet = Image.new('RGB', (W, H), hexc)
     art, f = optical(png)
-    s = min((W - 160) / art.width, (H - 220) / art.height)
+    s = min((W - 120) / art.width, (H - 70) / art.height)
     art = art.resize((max(1, int(art.width * s)), max(1, int(art.height * s))), Image.LANCZOS)
-    x = int(round(W / 2 - f * art.width)); x = min(max(x, 40), W - 40 - art.width)
-    sheet.paste(art, (x, (H - 40 - art.height) // 2), art)
+    x = int(round(W / 2 - f * art.width)); x = min(max(x, 30), W - 30 - art.width)
+    sheet.paste(art, (x, (H - art.height) // 2), art)
     layer = ow.watermark_layer(sheet.size)
     tint = Image.new('RGB', sheet.size, (255, 255, 255) if dark else (60, 60, 60))
     sheet = Image.composite(tint, sheet, layer.point(lambda v: int(v * (0.16 if dark else 0.22))))
