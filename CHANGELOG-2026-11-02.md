@@ -42,3 +42,9 @@
 - **Designs grid:** 36 "Art finished" cards (`data-line="n73"`), chip **1N73LL1G3NC3**; counts recomputed (All 102 · Coming soon 6 · Art finished 94 · In progress 2).
 - **Mockups (`img/n73/<slug>-{front,back}.webp` 1200 px + `-t` 600 px):** `tools/n73_render.py` dyes the Off-World blank (the Certified-ish median shading) to the design's colour and sets the full-front print about 11.5 in wide, 3 in under the collar, in its own inks; previews `img/designs/n73-<slug>.webp` are the art on the garment colour, watermarked, with the footer. Source art: the Procreate package's transparent PNGs (3600 px wide). The 300-dpi print masters are not in the repo.
 - `tools/n73.py <render dir>` is idempotent (re-copies the images, replaces the 36 shirt and 36 design cards, patches the deck and copy once). Run `tools/bust.py` after it.
+
+## Late — Certified-ish Dark on the site
+- The 20 Certified-ish Dark shirts (Shopify drafts since 23 Oct) are now a deck line of their own, "Certified-ish Dark", after Certified-ish: back and front mockups in white ink on the dark-map garments (Moss, Emerald, Yam, Espresso, Violet, Grape), the DS sleeve mark in white and red, "Coming soon".
+- Mockups: `tools/certdark.py` makes them from the light site renders (`img/certs/`) — fabric re-dyed with its folds kept, black ink to white, the DS red kept, the outline rebuilt — so the dark cards sit on exactly the same shirt, print and sleeve mark as the light ones. Output `img/certs/dark/` (80 files, 1.1 MB).
+- Site: `tools/certdarkline.py` (idempotent) — 20 cards cloned from the light cards, the deck line, captions and specs (white ink), a "The dark line" link and a line of copy on the Certified-ish tile, the shirts intro.
+- Make it yours: Yam (#BE531C) and Violet (#7474C1) added to the garment palette — the dark line uses them and the links on those nine cards had nothing to open.
