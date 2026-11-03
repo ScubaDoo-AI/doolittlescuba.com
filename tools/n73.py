@@ -94,7 +94,7 @@ if f"['{KEY}','{LINE}']" not in h:
     h = rep(h, '<p>Three lines, one hand. Pick a line to see every design in it.</p>', '<p>Four lines, one hand. Pick a line to see every design in it.</p>')
     first = 'n73-trust-but-test'
     tile = (f'''        <article class="line" aria-labelledby="line-{KEY}-h">
-          <figure class="line-art cert" oncontextmenu="return false"><img src="img/designs/{first}.webp" width="450" height="620" loading="lazy" decoding="async" draggable="false" alt="Trust But Test {LINE} preview, watermarked"></figure>
+          <figure class="line-art" oncontextmenu="return false"><img src="img/lines/n73-tile.webp" width="800" height="600" loading="lazy" decoding="async" draggable="false" alt="Trust But Test {LINE} preview, watermarked"></figure>
           <div class="line-body">
             <p class="eyebrow">{LINE} &middot; <span data-count="{KEY}">{len(D['designs'])}</span> designs</p>
             <h3 id="line-{KEY}-h">Messages hiding in plain sight</h3>
