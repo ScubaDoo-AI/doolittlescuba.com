@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """1N73LL1G3NC3 mockups in the site's flat-lay style (the Off-World blank: the Certified-ish renders' median shading).
 
-Each design is a full-front print: the art (transparent PNG from the Procreate package, 3600 px = its own width) is set
-about 11.5 in wide (no taller than 13.5 in), centred, its top 3 in under the collar, in its own ink colours. The back is
-the dyed blank. One garment per design, from the site palette (tools/n73_designs.json), chosen for the theme.
+Each design is a full-front print in its own ink colours, at the size and place its print master gives it (the
+masters from tools/n73_art.py: 12 x 16 in at 300 dpi, ink at true size, up to 11.5 x 15 in). The back is the dyed
+blank. One garment per design, from the site palette (tools/n73_designs.json), chosen for the theme.
 
-Usage: tools/n73_render.py <PNG-transparent dir> <out dir> [slug ...]
+Usage: tools/n73_render.py <masters dir> <out dir> [slug ...]
   <out dir>/<slug>-{front,back}.png 1200x1200
   <out dir>/designs/<slug>.webp  900x1240 watermarked preview on the garment colour, with the footer (img/designs/)
 """
@@ -19,7 +19,6 @@ import offworld_render as ow
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 D = json.load(open(os.path.join(ROOT, 'tools', 'n73_designs.json')))
 COLLAR = 210                       # collar seam on the 1200 px front blank (Off-World chest top 265 = 2.5 in under it)
-FRONT_TOP = COLLAR + int(3.0 * ow.PPI)
 
 
 def optical(png):
@@ -63,19 +62,20 @@ def main():
     B = ow.blanks_()
     for d in D['designs']:
         if only and d['slug'] not in only: continue
-        col = D['colours'][d['colour']]; dark = d['dark']; png = os.path.join(src, d['png'])
-        art = Image.open(png)
-        width_in = min(11.5, 13.5 * art.width / art.height)     # the frame's size on the shirt, as before
-        crop, f = optical(png); scale = width_in * ow.PPI / art.width
-        tmp = f'{out}/_crop.png'
+        col = D['colours'][d['colour']]; dark = d['dark']; png = os.path.join(src, d['slug'] + '.png')
+        # the master is the 12 x 16 in print area at 300 dpi with the ink at true size, one inch of collar gap
+        # already taken off its top (tools/n73_art.py): the ink's box says how big it prints and where
+        art = Image.open(png).convert('RGBA'); bb = art.getchannel('A').getbbox()
+        width_in = (bb[2] - bb[0]) / 300; top_in = 1.0 + bb[1] / 300; off_in = ((bb[0] + bb[2]) / 2 - 1800) / 300
+        tmp = f'{out}/_crop.png'; art.crop(bb).save(tmp)
         for view in ('front', 'back'):
             shade, mask, bg = B[view]
             res = ow.garment(shade, mask, bg, col['hex'], dark)
             if view == 'front':
-                res = place_centred(res, shade, crop, f, FRONT_TOP, scale, dark, tmp)
+                res = ow.place(res, shade, tmp, ow.CX + off_in * ow.PPI, int(round(COLLAR + top_in * ow.PPI)), width_in, dark)
             Image.fromarray((np.clip(res, 0, 1) * 255).astype(np.uint8)).save(f'{out}/{d["slug"]}-{view}.png')
         preview(png, col['hex'], dark, f'{out}/designs/{d["slug"]}.webp')
-        print(d['slug'], col['name'], f'{width_in:.1f} in', flush=True)
+        print(d['slug'], col['name'], f'{width_in:.1f} x {(bb[3] - bb[1]) / 300:.1f} in, top {top_in:.1f} in under the collar', flush=True)
 
 
 if __name__ == '__main__':
