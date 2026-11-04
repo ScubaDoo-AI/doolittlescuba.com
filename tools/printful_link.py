@@ -43,6 +43,10 @@ def targets(only):
         for p in load('printful_n73').plan('dtg'):
             for v in p['variants']:
                 out[v['sku']] = dict(line='n73', ext=str(v['shopify_variant']), variant_id=v['variant_id'], files=fix(p['files']))
+    if 'certifiedish' in only:   # 20 designs x light + dark, front logo + back
+        for p in load('printful_certifiedish').plan('dtg'):
+            for v in p['variants']:
+                out[v['sku']] = dict(line='certifiedish', ext='sku:' + v['sku'], variant_id=v['variant_id'], files=p['files'])
     if 'signature' in only:   # 14 designs x light + dark, front + back + right sleeve
         for p in load('printful_signature').plan('dtg'):
             for v in p['variants']:
@@ -73,7 +77,7 @@ def api(token, method, path, body=None, tries=4):
 
 if __name__ == '__main__':
     token = os.environ.get('PRINTFUL_TOKEN') or sys.exit('PRINTFUL_TOKEN not set')
-    only = sys.argv[sys.argv.index('--only') + 1].split(',') if '--only' in sys.argv else ['stickers', 'offworld', 'n73', 'aquatic', 'signature']
+    only = sys.argv[sys.argv.index('--only') + 1].split(',') if '--only' in sys.argv else ['stickers', 'offworld', 'n73', 'aquatic', 'signature', 'certifiedish']
     apply = '--apply' in sys.argv
     T = targets(only); by_ext = {t['ext']: s for s, t in T.items()}
     items, off = [], 0
