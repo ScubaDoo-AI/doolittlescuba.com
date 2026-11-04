@@ -86,8 +86,17 @@ if __name__ == '__main__':
         off += 100
         if off >= res['paging']['total']: break
     seen, linked, failed = set(), 0, []
+    # only open the products whose name belongs to the lines asked for (a 295-product store took 20+ min opening all)
+    NAMES = {'aquatic': ['aquatic comic'], 'signature': ['signature series'], 'certifiedish': ['certified-ish'],
+             'n73': ['1n73ll1g3nc3'], 'offworld': ['off-world'], 'stickers': ['sticker', 'achievement', 'seal', 'logo', 'bumper', 'kit']}
+    keys = [k for l in only for k in NAMES.get(l, [])]
+    if keys and '--all-products' not in sys.argv:
+        picked = [sp for sp in items if any(k in (sp.get('name') or '').lower() for k in keys)]
+        print(f'opening {len(picked)} of {len(items)} sync products (name match: {", ".join(keys)})', flush=True)
+        if picked: items = picked
     for sp in items:
         det = api(token, 'GET', f'/sync/products/{sp["id"]}'); time.sleep(0.3)
+        if 'result' not in det: print('skip', sp.get('name'), det.get('code'), str(det.get('error'))[:120], flush=True); continue
         for sv in det['result']['sync_variants']:
             sku = sv.get('sku') or ''
             if sku not in T: sku = by_ext.get(str(sv.get('external_id')), '')
