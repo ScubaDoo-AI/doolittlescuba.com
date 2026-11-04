@@ -171,3 +171,12 @@ Current state found in the store: name "My Store"; only the auto-generated priva
     - It needs `SHOPIFY_CLIENT_ID` + `SHOPIFY_CLIENT_SECRET` from a Dev Dashboard app installed on the store (read_orders + write_files; the script exchanges them for a 24-hour token, because Shopify stopped issuing legacy custom-app tokens on 1 Jan 2026), plus `PRINTFUL_TOKEN`.
     - Not run live yet. The first real order should stop at the draft and be checked in the dashboard. It is not yet confirmed that a Shopify-connected Printful store accepts API orders; if it does not, fall back to `aquatic_print.py order` plus a manual Printful order.
 - **Store count:** 295 products.
+
+## 2026-11-03 — Keys and GitHub Actions (run from the iPad)
+- **Shopify app:** "Doolittle Order Bot", a Dev Dashboard app (dev.shopify.com, version V1), installed on the store with scopes `read_orders`, `read_files`, `write_files` (verified via `appInstallations`). Its Client ID and secret live only in GitHub secrets as `SHOPIFY_CLIENT_ID` / `SHOPIFY_CLIENT_SECRET`. The scripts exchange them for a 24-hour token.
+- **Printful key:** `PRINTFUL_TOKEN` is a GitHub secret as well. No key is in the repo, the Project or chat.
+- **Actions** (repo → Actions → pick one → Run workflow):
+  - **Check connections:** `tools/check_connections.py`, read-only. Covers the Shopify token and scopes, Files read plus an upload slot, and the Printful scopes, store 18960047 and its synced products.
+  - **Printful link:** `tools/printful_link.py --only <lines>`; leave "apply" off for a dry run.
+  - **Personalized order:** dry-run / draft / confirm through `tools/aquatic_order.py`. The print files come back as a downloadable artifact kept 14 days.
+- **Render assets:** IM Fell fonts (OFL) and the DS mark are in `tools/assets/`, so Actions can render name shirts.
