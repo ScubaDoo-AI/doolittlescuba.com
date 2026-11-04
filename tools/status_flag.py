@@ -29,18 +29,22 @@ PAGES = ["index.html", "about/index.html", "workshop/index.html", "custom/index.
 BLOCK_RE = re.compile(r"\n?<!-- STATUS:START -->.*?<!-- STATUS:END -->\n?", re.S)
 
 CSS = """<style>
-.ds-status{position:relative;z-index:5;margin-inline:calc(-1 * var(--gut,0px));background:#0E2147;color:#F3F6F9;border-bottom:2px solid #C8202A;font-family:var(--f-body,system-ui,sans-serif);font-size:.9375rem;line-height:1.45}
+.ds-status{--sz:clamp(.95rem,.5rem + .5vw,1.5rem);position:relative;z-index:5;margin-inline:calc(-1 * var(--gut,0px));background:#C8202A;background-image:linear-gradient(90deg,#B01B24,#C8202A 45%,#D22A33);color:#fff;border-bottom:.2em solid #0E2147;box-shadow:0 .15em .6em rgba(8,18,40,.35);font-family:var(--f-body,system-ui,sans-serif);font-size:var(--sz);line-height:1.4}
 .ds-status[hidden]{display:none}
-.ds-status__in{max-width:1120px;margin:0 auto;padding:9px clamp(16px,4vw,40px);display:flex;align-items:center;gap:10px 14px;flex-wrap:wrap}
-.ds-status__tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-data,ui-monospace,Menlo,monospace);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
-.ds-status__tag svg{width:24px;height:16px;flex:none;display:block}
-.ds-status__state{color:#0E2147;background:#F3F6F9;border-radius:3px;padding:1px 6px}
-.ds-status__msg{flex:1 1 320px;margin:0;color:#DCE5F0}
-.ds-status__msg a{color:#F3F6F9;text-underline-offset:3px;white-space:nowrap}
-.ds-status__when{font-family:var(--f-data,ui-monospace,Menlo,monospace);font-size:.75rem;color:#A9B9CF;white-space:nowrap}
-.ds-status__x{background:none;border:0;color:#A9B9CF;font:inherit;font-size:1.25rem;line-height:1;padding:6px 8px;margin:-6px -8px -6px 0;cursor:pointer;border-radius:4px}
-.ds-status__x:hover,.ds-status__x:focus-visible{color:#F3F6F9;outline:2px solid #C8202A;outline-offset:1px}
-@media (max-width:560px){.ds-status__in{padding-right:44px}.ds-status__x{position:absolute;top:6px;right:8px;margin:0}}
+.ds-status__in{max-width:90em;margin:0 auto;padding:.7em clamp(16px,4vw,3em);display:flex;align-items:center;gap:.6em 1.2em;flex-wrap:wrap}
+.ds-status__tag{display:inline-flex;align-items:center;gap:.6em;font-family:var(--f-data,ui-monospace,Menlo,monospace);font-size:.85em;font-weight:600;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.ds-status__tag svg{width:1.9em;height:1.3em;flex:none;display:block;outline:.12em solid #fff;outline-offset:0;border-radius:1px}
+.ds-status__state{display:inline-flex;align-items:center;gap:.45em;color:#B01B24;background:#fff;border-radius:.3em;padding:.2em .6em;font-weight:700}
+.ds-status__state::before{content:"";width:.55em;height:.55em;border-radius:50%;background:#C8202A;box-shadow:0 0 0 0 rgba(200,32,42,.6);animation:ds-pulse 2s ease-out infinite}
+@keyframes ds-pulse{0%{box-shadow:0 0 0 0 rgba(200,32,42,.6)}70%{box-shadow:0 0 0 .5em rgba(200,32,42,0)}100%{box-shadow:0 0 0 0 rgba(200,32,42,0)}}
+@media (prefers-reduced-motion:reduce){.ds-status__state::before{animation:none}}
+.ds-status__msg{flex:1 1 20em;margin:0;color:#fff;font-weight:500}
+.ds-status__msg a{color:#fff;font-weight:700;text-decoration-thickness:.08em;text-underline-offset:.2em;white-space:nowrap}
+.ds-status__msg a:hover{text-decoration-thickness:.14em}
+.ds-status__when{font-family:var(--f-data,ui-monospace,Menlo,monospace);font-size:.78em;color:#FFE3E4;white-space:nowrap}
+.ds-status__x{background:none;border:0;color:#fff;font:inherit;font-size:1.4em;line-height:1;padding:.2em .35em;margin:-.2em -.35em -.2em 0;cursor:pointer;border-radius:.2em;opacity:.85}
+.ds-status__x:hover,.ds-status__x:focus-visible{opacity:1;outline:2px solid #fff;outline-offset:1px}
+@media (max-width:560px){.ds-status__in{padding-right:44px}.ds-status__x{position:absolute;top:.35em;right:.4em;margin:0}}
 </style>"""
 
 FLAG_SVG = ('<svg viewBox="0 0 26 18" aria-hidden="true"><rect width="26" height="18" fill="#C8202A"/>'
