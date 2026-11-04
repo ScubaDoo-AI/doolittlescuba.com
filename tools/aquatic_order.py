@@ -28,7 +28,11 @@ Usage
   tools/aquatic_order.py --code C02 --size M --name Mike --name2 Lisa --to recipient.json
 
 Environment (never written to disk by this script)
-  SHOPIFY_TOKEN    Admin API token from a custom app in Shopify admin, scopes read_orders + write_files.
+  SHOPIFY_CLIENT_ID + SHOPIFY_CLIENT_SECRET
+                   from a Dev Dashboard app (dev.shopify.com) installed on the store, scopes read_orders + write_files.
+                   The script trades them for a 24-hour Admin token (client credentials grant). This replaces
+                   legacy custom-app tokens, which Shopify stopped issuing on 1 Jan 2026.
+  SHOPIFY_TOKEN    alternatively, an Admin API access token you already have
   SHOPIFY_STORE    x00ytr-y9.myshopify.com (default)
   PRINTFUL_TOKEN   Printful private token, scope orders (+ files)
   PRINTFUL_STORE   18960047 (default)
@@ -67,8 +71,24 @@ def http(method, url, headers=None, body=None, raw=None, tries=4):
             return e.code, msg
 
 
+_TOK = {}
+
+
+def shopify_token():
+    if os.environ.get('SHOPIFY_TOKEN'): return os.environ['SHOPIFY_TOKEN']
+    cid, sec = os.environ.get('SHOPIFY_CLIENT_ID'), os.environ.get('SHOPIFY_CLIENT_SECRET')
+    if not (cid and sec): sys.exit('set SHOPIFY_CLIENT_ID + SHOPIFY_CLIENT_SECRET (Dev Dashboard app) or SHOPIFY_TOKEN')
+    if 'tok' not in _TOK:
+        import urllib.parse
+        code, r = http('POST', f'https://{SHOP}/admin/oauth/access_token', {'Content-Type': 'application/x-www-form-urlencoded'},
+                       raw=urllib.parse.urlencode({'grant_type': 'client_credentials', 'client_id': cid, 'client_secret': sec}).encode())
+        if code != 200 or not isinstance(r, dict) or 'access_token' not in r: sys.exit(f'Shopify token exchange failed: {code} {r}')
+        _TOK['tok'] = r['access_token']
+    return _TOK['tok']
+
+
 def shopify(query, variables=None):
-    tok = os.environ.get('SHOPIFY_TOKEN') or sys.exit('SHOPIFY_TOKEN not set (custom app token, read_orders + write_files)')
+    tok = shopify_token()
     code, r = http('POST', f'https://{SHOP}/admin/api/{API_VER}/graphql.json',
                    {'X-Shopify-Access-Token': tok, 'Content-Type': 'application/json'}, {'query': query, 'variables': variables or {}})
     if code != 200 or not isinstance(r, dict) or r.get('errors'): sys.exit(f'Shopify {code}: {r}')

@@ -168,6 +168,6 @@ Current state found in the store: name "My Store"; only the auto-generated priva
     - It reads the Shopify order's names, renders the masters and uploads them to Shopify Files.
     - It creates a **draft** Printful order (`/v2/orders`, catalog variant, `front` + `back` DTG, layer position 12 × 16 in at 0,0), with `external_id` set to the order number.
     - Confirm the draft with `--confirm-id`.
-    - It needs `SHOPIFY_TOKEN` (custom app, read_orders + write_files) and `PRINTFUL_TOKEN`.
+    - It needs `SHOPIFY_CLIENT_ID` + `SHOPIFY_CLIENT_SECRET` from a Dev Dashboard app installed on the store (read_orders + write_files; the script exchanges them for a 24-hour token, because Shopify stopped issuing legacy custom-app tokens on 1 Jan 2026), plus `PRINTFUL_TOKEN`.
     - Not run live yet. The first real order should stop at the draft and be checked in the dashboard. It is not yet confirmed that a Shopify-connected Printful store accepts API orders; if it does not, fall back to `aquatic_print.py order` plus a manual Printful order.
 - **Store count:** 295 products.
