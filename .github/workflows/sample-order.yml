@@ -1,0 +1,51 @@
+name: Sample order
+# One Printful DRAFT order of sample tees, shipped to the SAMPLE_SHIP_TO secret (tools/sample_order.py).
+#   items: SKUs separated by spaces; a personalized Aquatic tee takes names after colons, e.g. DS-ACW01-TD-XL:Eric
+#   draft    create the draft (not charged) and print Printful's costs
+#   confirm  confirm a draft by its Printful order id (charges the card, starts production)
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'What to do'
+        type: choice
+        options: [dry-run, draft, confirm]
+        default: dry-run
+      items:
+        description: 'SKUs (space separated)'
+        default: 'DS-THI-TD-XL DS-ACW01-TD-XL:Eric DS-TEC-TD-XL'
+      order_id:
+        description: 'Printful order id (confirm only)'
+        required: false
+permissions:
+  contents: read
+concurrency: printful
+jobs:
+  sample:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - run: pip install pillow numpy scipy scikit-image
+      - name: Run
+        env:
+          PRINTFUL_TOKEN: ${{ secrets.PRINTFUL_TOKEN }}
+          SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
+          SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
+          SAMPLE_SHIP_TO: ${{ secrets.SAMPLE_SHIP_TO }}
+          MODE: ${{ inputs.mode }}
+          ITEMS: ${{ inputs.items }}
+          OID: ${{ inputs.order_id }}
+        run: |
+          set -o pipefail
+          echo "mode: $MODE  items: $ITEMS" | tee run.log
+          [[ "$ITEMS" =~ ^[A-Za-z0-9:\ \'_.-]+$ ]] || { echo "::error::items may hold only SKUs, names, spaces and colons"; exit 1; }
+          case "$MODE" in
+            confirm) [[ "$OID" =~ ^[0-9]+$ ]] || { echo "::error::order id must be digits"; exit 1; }
+                     python tools/sample_order.py --confirm-id "$OID" | tee -a run.log ;;
+            dry-run) python tools/sample_order.py $ITEMS --dry-run | grep -v '"url"' | tee -a run.log ;;
+            draft)   python tools/sample_order.py $ITEMS | tee -a run.log ;;
+          esac
+          { echo '## Sample order'; echo; echo '```'; grep -v -i -E 'address|zip|phone|"url"' run.log | tail -n 30; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
