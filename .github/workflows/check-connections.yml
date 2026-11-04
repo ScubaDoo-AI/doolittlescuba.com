@@ -1,0 +1,21 @@
+name: Check connections
+# Tests the Shopify and Printful keys stored as repository secrets. Read-only: changes nothing, prints no key.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install pillow numpy scipy scikit-image
+      - name: Check Shopify, Shopify Files and Printful
+        env:
+          SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
+          SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
+          PRINTFUL_TOKEN: ${{ secrets.PRINTFUL_TOKEN }}
+        run: python tools/check_connections.py

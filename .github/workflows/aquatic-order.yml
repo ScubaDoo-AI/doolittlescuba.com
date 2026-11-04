@@ -1,0 +1,60 @@
+name: Personalized order
+# Aquatic Comic name tees: Shopify order → render names → Shopify Files → Printful v2 order (tools/aquatic_order.py).
+#   dry-run  render and show the plan; nothing uploaded, no Printful order. The print files come back as a download.
+#   draft    upload and create a DRAFT Printful order (not charged). Check it in the Printful dashboard.
+#   confirm  confirm an existing draft by its Printful order id (starts production, charges the card).
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'What to do'
+        type: choice
+        options: [dry-run, draft, confirm]
+        default: dry-run
+      order:
+        description: 'Shopify order number, e.g. 1001 (dry-run / draft)'
+        required: false
+      printful_id:
+        description: 'Printful order id (confirm only)'
+        required: false
+permissions:
+  contents: read
+concurrency: printful
+jobs:
+  order:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install pillow numpy scipy scikit-image
+      - name: Run
+        env:
+          SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
+          SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
+          PRINTFUL_TOKEN: ${{ secrets.PRINTFUL_TOKEN }}
+          MODE: ${{ inputs.mode }}
+          ORDER: ${{ inputs.order }}
+          PFID: ${{ inputs.printful_id }}
+        run: |
+          set -o pipefail
+          case "$MODE" in
+            confirm)
+              [[ "$PFID" =~ ^[0-9]+$ ]] || { echo "::error::Printful order id must be digits"; exit 1; }
+              python tools/aquatic_order.py --confirm-id "$PFID" | tee run.log ;;
+            dry-run|draft)
+              ORDER="${ORDER#\#}"
+              [[ "$ORDER" =~ ^[0-9]+$ ]] || { echo "::error::Shopify order number must be digits, e.g. 1001"; exit 1; }
+              EXTRA=; [ "$MODE" = "dry-run" ] && EXTRA=--dry-run
+              python tools/aquatic_order.py "$ORDER" --out print-files $EXTRA | tee run.log ;;
+          esac
+          { echo "## Personalized order: $MODE"; echo; echo '```'; grep -v '"url"' run.log | tail -n 40; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+      - name: Print files (download to check the names)
+        if: always() && inputs.mode != 'confirm'
+        uses: actions/upload-artifact@v4
+        with:
+          name: print-files-${{ inputs.order }}
+          path: print-files/*.png
+          if-no-files-found: ignore
+          retention-days: 14

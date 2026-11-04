@@ -1,0 +1,37 @@
+name: Printful link
+# Links Printful's imported Shopify products to their blanks and print files (tools/printful_link.py).
+# Leave "apply" off first: the dry run only lists what would be linked.
+on:
+  workflow_dispatch:
+    inputs:
+      lines:
+        description: 'Lines to link'
+        type: choice
+        options: [aquatic, 'stickers,offworld,n73,aquatic']
+        default: aquatic
+      apply:
+        description: 'Apply (write the links). Off = dry run'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency: printful
+jobs:
+  link:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install pillow numpy scipy scikit-image
+      - name: Link
+        env:
+          PRINTFUL_TOKEN: ${{ secrets.PRINTFUL_TOKEN }}
+          LINES: ${{ inputs.lines }}
+          APPLY: ${{ inputs.apply }}
+        run: |
+          set -o pipefail
+          if [ "$APPLY" = "true" ]; then FLAG=--apply; else FLAG=; fi
+          python tools/printful_link.py --only "$LINES" $FLAG | tee link.log
+          { echo '## Printful link'; echo; echo '```'; tail -n 25 link.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
