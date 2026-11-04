@@ -195,3 +195,12 @@ Current state found in the store: name "My Store"; only the auto-generated priva
   - **Where the sleeve mark applies:** Certified-ish (all 40; cost now $24.04–28.04) and 1N73LL1G3NC3 (all 36; navy + red on Ivory and Granite, white + red on the rest; cost $18.09–22.09).
   - **Already covered:** Signature has the shark sleeve, Aquatic Comic has the DS mark over the slogan, Off-World Hunt Club has the DS octopus chest mark, and the caps have the left-side DS mark.
   - **Relinking:** the Printful link job gained a `force` option, so 1N73LL1G3NC3 (linked 3 Nov, front only) can be re-sent with the sleeve.
+
+## 2026-11-04 — Printful links complete for every tee line
+- **All linked through the GitHub "Printful link" job, 0 failures overall:**
+  - Signature Series: 168 / 168 (front, back op25, shark sleeve).
+  - Certified-ish: 240 / 240 (front logo, back, heavy 1 in DS sleeve). Every variant shows the Printful location in Shopify.
+  - 1N73LL1G3NC3: 216 / 216 re-sent with `force` (front + heavy 1 in DS sleeve).
+  - Earlier: Aquatic Comic Boat Banter 120 (+234 personalized ignored) and Off-World Hunt Club 360.
+- **Still unlinked:** the 19 Dark caps (embroidery), the 19 archived caps, Make it yours.
+- **Job speed:** `printful_link.py` now opens only the requested line's sync products (36–72, not 295). The job summary's first line shows `mode: lines=… apply=… force=…`.
