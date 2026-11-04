@@ -29,7 +29,7 @@ PAGES = ["index.html", "about/index.html", "workshop/index.html", "custom/index.
 BLOCK_RE = re.compile(r"\n?<!-- STATUS:START -->.*?<!-- STATUS:END -->\n?", re.S)
 
 CSS = """<style>
-.ds-status{--sz:clamp(.95rem,.5rem + .5vw,1.5rem);position:relative;z-index:5;margin-inline:calc(-1 * var(--gut,0px));background:#C8202A;background-image:linear-gradient(90deg,#B01B24,#C8202A 45%,#D22A33);color:#fff;border-bottom:.2em solid #0E2147;box-shadow:0 .15em .6em rgba(8,18,40,.35);font-family:var(--f-body,system-ui,sans-serif);font-size:var(--sz);line-height:1.4}
+.ds-status{--sz:calc(clamp(.95rem,.5rem + .5vw,1.5rem) / var(--ds-z,1));position:relative;z-index:5;margin-inline:calc(-1 * var(--gut,0px));background:#C8202A;background-image:linear-gradient(90deg,#B01B24,#C8202A 45%,#D22A33);color:#fff;border-bottom:.2em solid #0E2147;box-shadow:0 .15em .6em rgba(8,18,40,.35);font-family:var(--f-body,system-ui,sans-serif);font-size:var(--sz);line-height:1.4}
 .ds-status[hidden]{display:none}
 .ds-status__in{max-width:90em;margin:0 auto;padding:.7em clamp(16px,4vw,3em);display:flex;align-items:center;gap:.6em 1.2em;flex-wrap:wrap}
 .ds-status__tag{display:inline-flex;align-items:center;gap:.6em;font-family:var(--f-data,ui-monospace,Menlo,monospace);font-size:.85em;font-weight:600;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
