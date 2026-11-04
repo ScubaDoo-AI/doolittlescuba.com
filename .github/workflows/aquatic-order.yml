@@ -22,11 +22,11 @@ permissions:
 concurrency: printful
 jobs:
   order:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with: { python-version: '3.12' }
       - run: pip install pillow numpy scipy scikit-image
       - name: Run
@@ -52,7 +52,7 @@ jobs:
           { echo "## Personalized order: $MODE"; echo; echo '```'; grep -v '"url"' run.log | tail -n 40; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
       - name: Print files (download to check the names)
         if: always() && inputs.mode != 'confirm'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: print-files-${{ inputs.order }}
           path: print-files/*.png
