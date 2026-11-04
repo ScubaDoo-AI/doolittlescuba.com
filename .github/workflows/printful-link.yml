@@ -7,10 +7,14 @@ on:
       lines:
         description: 'Lines to link'
         type: choice
-        options: [aquatic, signature, certifiedish, 'stickers,offworld,n73,aquatic,signature,certifiedish']
+        options: [aquatic, signature, certifiedish, n73, 'stickers,offworld,n73,aquatic,signature,certifiedish']
         default: aquatic
       apply:
         description: 'Apply (write the links). Off = dry run'
+        type: boolean
+        default: false
+      force:
+        description: 'Re-send files to variants already linked (after a print-file change)'
         type: boolean
         default: false
 permissions:
@@ -30,8 +34,10 @@ jobs:
           PRINTFUL_TOKEN: ${{ secrets.PRINTFUL_TOKEN }}
           LINES: ${{ inputs.lines }}
           APPLY: ${{ inputs.apply }}
+          FORCE: ${{ inputs.force }}
         run: |
           set -o pipefail
           if [ "$APPLY" = "true" ]; then FLAG=--apply; else FLAG=; fi
+          if [ "$FORCE" = "true" ]; then FLAG="$FLAG --force"; fi
           python tools/printful_link.py --only "$LINES" $FLAG | tee link.log
           { echo '## Printful link'; echo; echo '```'; tail -n 25 link.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"

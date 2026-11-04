@@ -24,6 +24,8 @@ SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 D = json.load(open(f'{SITE}/tools/n73_designs.json'))
 CDN = 'https://cdn.shopify.com/s/files/1/0787/3350/8794/files/'
 SIZES = ['S', 'M', 'L', 'XL', '2XL', '3XL']
+SLEEVE = 2.49   # right-sleeve DS mark
+LIGHT = {'ivory', 'granite'}   # navy + red mark; the other seven colours get white + red
 BASE = {'S': 15.60, 'M': 15.60, 'L': 15.60, 'XL': 15.60, '2XL': 17.60, '3XL': 19.60}
 PRICE = {'S': 42.00, 'M': 42.00, 'L': 42.00, 'XL': 42.00, '2XL': 45.00, '3XL': 45.00}
 DTF_FEE = 5.95
@@ -88,7 +90,9 @@ def plan(route):
         pid, vid = IDS[d['n']]; ck = d['colour']; colour = D['colours'][ck]['name']
         fee = 0.0 if route == 'dtg' else DTF_FEE
         files = [{'type': 'default' if route == 'dtg' else 'front_dtf', 'url': f'{CDN}N73-{d["n"]:02d}_front.png',
-                  'position': {'area_width': 1800, 'area_height': 2400, 'width': 1800, 'height': 2400, 'top': 0, 'left': 0}}]
+                  'position': {'area_width': 1800, 'area_height': 2400, 'width': 1800, 'height': 2400, 'top': 0, 'left': 0}},
+                 {'type': 'sleeve_right', 'url': f'{CDN}DS_mark_PF-sleeve-right_3.5x4in_{"NAVYRED" if ck in LIGHT else "WHITERED"}.png'}]
+        fee += SLEEVE   # brand rule (Eric, 3 Nov): a shirt with no DS mark or shark signature carries the DS mark on the right sleeve
         variants = [dict(sku=f'DS-N{d["n"]:02d}-T-{z}', size=z, shopify_variant=vid + i * STEP, variant_id=PF[ck][z],
                          cost=round(BASE[z] + fee, 2), price=PRICE[z], margin=round(PRICE[z] - BASE[z] - fee, 2)) for i, z in enumerate(SIZES)]
         out.append(dict(n=d['n'], slug=d['slug'], title=f'1N73LL1G3NC3 — {d["name"]} tee', colour=colour, shopify_product=pid, files=files,

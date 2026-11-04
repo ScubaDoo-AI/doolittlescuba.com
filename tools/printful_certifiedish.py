@@ -7,14 +7,16 @@
          Built 3 Nov from Eric's 1-bit seps: CI-<code>_back_12x16in_{BLACK,WHITE}.png.
 Garments follow the Shopify colour: tags (light: light-blue = Chambray, pink = Blossom, coral = Watermelon, lagoon-blue,
 butter; dark: emerald, yam, espresso, violet, moss, grape). Every one is $15.60 at Printful as of Nov 2026.
-Cost: garment + back $5.95 (the front rides in the base price) = $21.55 S-XL · $23.55 2XL · $25.55 3XL, against $42 / $45.
+  sleeve_right  the DS mark (navy + red on light, white + red on dark), 2.5 x 2.75 in. Brand rule (Eric, 3 Nov): a shirt with
+         no DS mark or shark signature carries the DS mark on the right sleeve.
+Cost: garment + back $5.95 + sleeve $2.49 (the front rides in the base price) = $24.04 S-XL · $26.04 2XL · $28.04 3XL, against $42 / $45.
 
   tools/printful_certifiedish.py
   PRINTFUL_TOKEN=... tools/printful_link.py --only certifiedish [--apply]
 """
 CDN = 'https://cdn.shopify.com/s/files/1/0787/3350/8794/files/'
 SIZES = ['S', 'M', 'L', 'XL', '2XL', '3XL']
-GARMENT = dict(zip(SIZES, [15.60, 15.60, 15.60, 15.60, 17.60, 19.60])); BACK = 5.95
+GARMENT = dict(zip(SIZES, [15.60, 15.60, 15.60, 15.60, 17.60, 19.60])); BACK = 5.95 + 2.49   # back + right-sleeve DS mark
 PRICE = dict(zip(SIZES, [42.0, 42.0, 42.0, 42.0, 45.0, 45.0]))
 AREA = {'area_width': 1800, 'area_height': 2400, 'width': 1800, 'height': 2400, 'top': 0, 'left': 0}
 DESIGNS = [  # code, name, light garment, dark garment (Printful names, from the Shopify colour: tags)
@@ -39,7 +41,8 @@ def plan(route='dtg'):
     for code, name, light, dark in DESIGNS:
         for line, colour, ink, sfx in (('light', light, 'BLACK', 'T'), ('dark', dark, 'WHITE', 'TD')):
             files = [{'type': 'front', 'url': f'{CDN}CI-front-leftchest_Certified-ish_12x16in_{ink}.png', 'position': AREA},
-                     {'type': 'back', 'url': f'{CDN}CI-{code}_back_12x16in_{ink}.png', 'position': AREA}]
+                     {'type': 'back', 'url': f'{CDN}CI-{code}_back_12x16in_{ink}.png', 'position': AREA},
+                     {'type': 'sleeve_right', 'url': f'{CDN}DS_mark_PF-sleeve-right_3.5x4in_{"NAVYRED" if line == "light" else "WHITERED"}.png'}]
             variants = [dict(sku=f'DS-{code}-{sfx}-{z}', size=z, variant_id=PF[colour][i], cost=round(GARMENT[z] + BACK, 2), price=PRICE[z],
                              margin=round(PRICE[z] - GARMENT[z] - BACK, 2)) for i, z in enumerate(SIZES)]
             out.append(dict(code=code, name=name, line=line, colour=colour, files=files, variants=variants))
@@ -52,4 +55,4 @@ if __name__ == '__main__':
         v = p['variants']
         print(f"{p['code']} {p['name']:26s} {p['line']:5s} {p['colour']:11s} {','.join(map(str, (x['variant_id'] for x in v)))}  "
               f"cost {v[0]['cost']:.2f}-{v[-1]['cost']:.2f} margin {v[-1]['margin']:.2f}-{v[0]['margin']:.2f}")
-    print(f"\n{len(P)} products · {sum(len(p['variants']) for p in P)} variants · front + back")
+    print(f"\n{len(P)} products · {sum(len(p['variants']) for p in P)} variants · front + back + right sleeve")
