@@ -47,6 +47,10 @@ def targets(only):
         for p in load('printful_aquatic').plan('dtg'):
             for v in p['variants']:
                 out[v['sku']] = dict(line='aquatic', ext='sku:' + v['sku'], variant_id=v['variant_id'], files=p['files'])
+        for p in load('printful_aquatic').plan('dtg', all_designs=True):   # name tees: ignore, so Shopify imports don't hold
+            if p['files']: continue
+            for v in p['variants']:
+                out[v['sku']] = dict(line='aquatic-ignored', ext='sku:' + v['sku'], variant_id=None, files=[], ignore=True)
     return out
 
 
@@ -82,6 +86,12 @@ if __name__ == '__main__':
             if not sku: continue
             seen.add(sku); t = T[sku]
             if not apply: continue
+            if t.get('ignore'):   # personalized: made per order by tools/aquatic_order.py, never by the sync
+                if sv.get('is_ignored') and '--force' not in sys.argv: continue
+                r = api(token, 'PUT', f'/sync/variant/{sv["id"]}', {'is_ignored': True})
+                if r.get('code') == 200: linked += 1; print('ignored', sku, flush=True)
+                else: failed.append((sku, r.get('error'))); print('FAILED', sku, r.get('error'), flush=True)
+                time.sleep(0.6); continue
             if sv.get('synced') and sv.get('variant_id') == t['variant_id'] and '--force' not in sys.argv: continue   # already linked
             r = api(token, 'PUT', f'/sync/variant/{sv["id"]}', {'variant_id': t['variant_id'], 'files': t['files'], 'is_ignored': False})
             if r.get('code') == 200: linked += 1; print('linked', sku, '→', t['variant_id'], flush=True)

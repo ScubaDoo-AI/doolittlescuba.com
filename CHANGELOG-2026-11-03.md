@@ -15,3 +15,5 @@
 - **New `tools/printful_aquatic.py`:** the Printful plan and cost table. `tools/printful_link.py` gains an `aquatic` plan that links S01–S20, front and back at full area.
 - **Personalized orders** are made by hand: `tools/aquatic_print.py order <code> <out> --name … [--name2 …]`, then a Printful order.
 - **Self-locating scripts:** `aquatic_print.py`, `aquatic_render.py` and `printful_aquatic.py` find the design list (and `assets/`) next to themselves, so the copies in the print package run on their own.
+- **New `tools/aquatic_order.py`:** one command per personalized order. It goes from the Shopify order to a Printful draft through Printful API v2: names from the line-item properties, masters rendered, uploaded to Shopify Files, draft order created, costs printed. `--dry-run` shows the plan, and `--confirm-id` confirms a checked draft.
+- **`tools/printful_link.py --only aquatic`:** now also marks the personalized products' sync variants ignored.

@@ -164,5 +164,10 @@ Current state found in the store: name "My Store"; only the auto-generated priva
   - **Cost:** $21.55 / $23.55 / $25.55 per shirt.
   - **Margin at M:** $20.45 for Boat Banter, $25.45 for personalized.
   - **Linking:** only S01–S20 get linked (120 variants, matched by SKU). This needs a fresh token and is **not run yet**.
-  - **Personalized orders:** leave those sync variants ignored. Each order goes `aquatic_print.py order <code> out --name … [--name2 …]`, then a manual Printful order in the design colour.
+  - **Personalized orders:** the same run also sets the 234 personalized sync variants to **ignored**. Each order then goes through `tools/aquatic_order.py <order number>` (Printful API **v2**, beta):
+    - It reads the Shopify order's names, renders the masters and uploads them to Shopify Files.
+    - It creates a **draft** Printful order (`/v2/orders`, catalog variant, `front` + `back` DTG, layer position 12 × 16 in at 0,0), with `external_id` set to the order number.
+    - Confirm the draft with `--confirm-id`.
+    - It needs `SHOPIFY_TOKEN` (custom app, read_orders + write_files) and `PRINTFUL_TOKEN`.
+    - Not run live yet. The first real order should stop at the draft and be checked in the dashboard. It is not yet confirmed that a Shopify-connected Printful store accepts API orders; if it does not, fall back to `aquatic_print.py order` plus a manual Printful order.
 - **Store count:** 295 products.
