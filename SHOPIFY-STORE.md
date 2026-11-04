@@ -180,3 +180,13 @@ Current state found in the store: name "My Store"; only the auto-generated priva
   - **Printful link:** `tools/printful_link.py --only <lines>`; leave "apply" off for a dry run.
   - **Personalized order:** dry-run / draft / confirm through `tools/aquatic_order.py`. The print files come back as a downloadable artifact kept 14 days.
 - **Render assets:** IM Fell fonts (OFL) and the DS mark are in `tools/assets/`, so Actions can render name shirts.
+
+## 2026-11-03 — Aquatic Comic linked; Signature Series print files + Printful plan
+- **Aquatic Comic linked:** the GitHub "Printful link" job (aquatic, apply) linked all 120 Boat Banter variants with 0 failures. The 234 personalized variants were already ignored at Printful.
+- **Signature Series print files** are in Shopify Files: 58 PNGs, media ids 47224004608186 … 47224006475962. They were rebuilt from the Project's press art with the 25 Oct `claude/printful_build.py`, all checked for binary alpha, sRGB and 300 dpi.
+  - 14 fronts `DS-<code>_<site>_PF-front-leftchest_12x16in_{BLACK,WHITE}.png`: the lockup on the full area, ink centre 9.5 in, top 0.5 in.
+  - 14 backs `…_PF-back_12x16in_{BLACK,WHITE}_op25.png`: the OP-25 thickened set, stroke p5 0.0187–0.0200 in, chosen 3 Nov.
+  - 2 sleeve files `DS_shark-signature_PF-sleeve-right_3.5x4in_{BLACK,WHITE}.png`.
+- **`tools/printful_signature.py`:** 28 products, 168 variants, front + back + `sleeve_right`. Linked through `printful_link.py --only signature`, which is also a choice in the GitHub job.
+  - **Garments follow the Shopify tags and the site.** The dark line is Pepper, Espresso, Grape, Black, True Navy, Denim, Wine, Navy, Graphite, Midnight, Blue Spruce, Emerald, Sage and Moss; Thurmond Dam light is Ivory. All are $15.60 now, so the 25 Oct price-driven swaps are dropped.
+  - **Cost:** $24.04 / $26.04 / $28.04 against $42 / $45, a margin of about $17–18 before fees and shipping.
