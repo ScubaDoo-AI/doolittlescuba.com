@@ -57,3 +57,13 @@ The five collection tiles on the home page are now a deck of five cards, the sam
 `js/deck.js` learned the options this needs, all off by default so the shirts and hats decks are unchanged: `bar:false` (no chip row), `status:''` (no pill), `openLabel`, `go` (open = navigate instead of the in-page panel), and a tab/tag that omit the number when a card has none.
 
 Eric: *"Should open on signature series and the scroll is bad on this small group."* Fixed: the deck now rests on **Signature Series** — open, tag showing — and returns to it when the pointer leaves. And five cards were too few for the overlapping fan (the open card covered every other tab, and on a phone the swipe-to-step mapping was twitchy), so the collections deck **spreads** instead of stacking: each card shows its tab, the open one widens to show its shirt, every tab stays in reach, nothing scrolls; on a phone the five fit the width (tap a tab to open its card, tap again for the page). `js/deck.js`: `start` option (the card a deck rests on) and a touch hint that says *tap* when there is nothing to swipe; the spread is CSS on `.deck-coll` only — the shirts and hats decks are unchanged.
+
+## The stickers as three sheets
+
+Eric: *"Better organize stickers instead of grid on home page."* The 32 stickers were one flat grid of identical squares. They are now three kiss-cut **sheets** on the home page, each a cream panel (the same paper the sticker photos sit on, so the tiles blend into it) with a dashed cut line, a sheet label, a heading and one line of pricing:
+
+1. **Achievement Unlocked** — the twelve badges at their own wide proportion (3.5 × 1.2 in), course · tier · size · price under each, with the full-set sheet ($15) as a portrait card beside them.
+2. **The classic die-cuts** — the thirteen course and specialty die-cuts, about 3 in, $5, in one tight row set.
+3. **The brand set** — the DS Seal (moved here from the die-cuts, where its data-line had put it), the stacked and horizontal logos, the tagline stacked, the dive kit, and the bumper sticker on a wide tile.
+
+The "Coming soon" pill is said once in the section intro instead of 32 times; the viewer (tap for the large image) is unchanged, and the sticker figures keep their SKUs and captions. CSS: `.sk-sheets` / `.sk-sheet` / `.sk-row` in `css/site.css` (named to stay clear of the hero's `.sheet`).

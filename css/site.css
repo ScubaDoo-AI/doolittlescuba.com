@@ -354,6 +354,35 @@ section{padding-block:clamp(40px,7vw,72px);border-top:1px solid var(--rule)}
 .lb figcaption{font-family:var(--f-data);font-size:var(--s-1);letter-spacing:.05em;color:#fff;text-align:center}
 .lb-x{position:fixed;top:12px;right:14px;font:400 2rem/1 var(--f-body);color:#fff;background:transparent;border:0;cursor:pointer}
 
+/* The stickers as three sheets: the kiss-cut sheet look, stickers at their own proportions, no card chrome */
+.sk-sheets{display:grid;gap:clamp(18px,3vw,28px)}
+.sk-sheet{position:relative;background:#F0ECE6;color:#26241F;border:1px solid #D9D2C4;border-radius:8px;padding:clamp(14px,2.6vw,26px);box-shadow:0 18px 30px -24px rgba(18,42,85,.35)}
+.sk-sheet::before{content:"";position:absolute;inset:7px;border:1px dashed rgba(38,36,31,.16);border-radius:5px;pointer-events:none}
+.sk-sheet-h{display:grid;gap:4px 18px;grid-template-columns:auto minmax(0,1fr);align-items:baseline;margin-bottom:clamp(12px,2vw,18px)}
+.sk-sheet-h .lbl{grid-column:1/-1;font-family:var(--f-data);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#8A8376}
+.sk-sheet-h h3{font-size:var(--s2);color:#122A55;line-height:1.1}
+.sk-sheet-h p{color:#5E584D;font-size:var(--s-1);max-width:70ch}
+@media (max-width:640px){.sk-sheet-h{grid-template-columns:1fr}}
+.sk-sheet-body{display:grid;grid-template-columns:minmax(0,1fr) clamp(150px,18vw,200px);gap:18px clamp(16px,3vw,32px);align-items:start}
+@media (max-width:760px){.sk-sheet-body{grid-template-columns:1fr}.sk-row.sk-set{max-width:240px}}
+.sk-row{gap:14px 16px}
+.sk-row.sk-badges{grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr))}
+.sk-row.sk-set{grid-template-columns:1fr}
+.sk-row.sk-cuts{grid-template-columns:repeat(auto-fill,minmax(min(100%,124px),1fr))}
+.sk-row.sk-brand{grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr))}
+.sk-row .sk{gap:6px}
+.sk-row .sh-img{aspect-ratio:1;border:0;border-radius:8px;background:transparent;box-shadow:0 1px 0 rgba(255,255,255,.6) inset}
+.sk-row .sh-img img{border-radius:8px}
+.sk-badges .sh-img{aspect-ratio:35/12}
+.sk-set .sh-img{aspect-ratio:17/22}
+.sk-brand .sk-wide{grid-column:span 2}
+.sk-brand .sk-wide .sh-img{aspect-ratio:2.3}
+.sk-row .sh-img:hover img{transform:translateY(-3px) scale(1.02)}
+.sk-row .dz-t{font-size:var(--s0);color:#122A55}
+.sk-row .dz-s{font-size:.74rem;color:#6B655A;font-family:var(--f-data);letter-spacing:.02em}
+.sk-row .pill{display:none}
+.sk-set .dz-t{font-size:var(--s0)}
+@media (max-width:560px){.sk-row.sk-badges{grid-template-columns:repeat(2,minmax(0,1fr))}.sk-row.sk-cuts{grid-template-columns:repeat(3,minmax(0,1fr))}.sk-row.sk-brand{grid-template-columns:repeat(2,minmax(0,1fr))}.sk-row{gap:12px 10px}}
 /* The collections as a deck on the home page (JS builds it from #co-grid; without JS the tiles stay) */
 #lines.has-deck .lines,#lines.has-deck #co-grid{display:none}
 /* Five cards is too few for the overlapping fan (the open card would cover every other tab), so this deck spreads instead:
