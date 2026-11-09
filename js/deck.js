@@ -3,7 +3,8 @@
      DS.lightbox()                               every .sh-grid on the page opens its photos in #sh-lb
      DS.deck('shirts','sh-grid',DS.shirtsCfg({lines:[['plates','Signature Series'],…], contact:'/#contact'}))
      DS.deck('hats','ht-grid',{…})               a deck with its own config (see the home page)
-     DS.deck('lines','co-grid',{…, bar:false, status:'', go:function(it){…}})   the collections as a deck: no chips, no pill, open = go to the page
+     DS.deck('lines','co-grid',{…, bar:false, status:'', start:0, go:function(it){…}})   the collections as a deck: no chips, no pill,
+                                                 rests on the first card (pulled forward, tag showing), open = go to the page
      DS.designs()                                #dz-grid: status / line / subset chips, counts, the viewer
    A deck opens on the line named in the URL hash (/off-world/#offworld-dark), so other pages can deep-link a line. */
 window.DS=(function(){
@@ -64,19 +65,20 @@ window.DS=(function(){
         tag.querySelector('.dk-open').addEventListener('click',function(){ openIt(i); });
         card.appendChild(face); card.appendChild(tag); row.appendChild(card); cards.push(card);
       });
+      if(state.active<0&&cfg.start!=null&&L[cfg.start]) state.active=cfg.start;
       foot.querySelector('.cnt').innerHTML=L.length+' '+cfg.noun+(L.length>1?'s':'')+' &middot; '+cfg.footNote;
       Object.keys(chips).forEach(function(k){ var on=k===state.line; chips[k].classList.toggle('on',on); chips[k].setAttribute('aria-pressed',on); });
       hintText(); paint();
     }
     function touchLike(){ return lastPointer==='touch'||lastPointer==='pen'; }
-    function hintText(){ hint.textContent=state.touch?'Swipe the deck: the '+cfg.noun+' in the middle steps forward · tap it to open':'Run across the tabs to pull a '+cfg.noun+' forward · click it to open'; }
+    function hintText(){ hint.textContent=state.touch?(dk.scrollWidth>dk.clientWidth+2?'Swipe the deck: the '+cfg.noun+' in the middle steps forward · tap it to open':'Tap a tab to pull a '+cfg.noun+' forward · tap it again to open'):'Run across the tabs to pull a '+cfg.noun+' forward · click it to open'; }
     function paint(){
       dk.classList.toggle('live',state.active>=0);
       cards.forEach(function(c,i){ c.classList.toggle('on',i===state.active); c.classList.toggle('after',state.active>=0&&i>state.active); c.classList.toggle('before',state.active>=0&&i<state.active); c.style.zIndex=i===state.active?200:i+1; });
     }
     function activate(i){ if(state.active!==i){ state.active=i; paint(); } }
     function setLine(l){ if(state.line===l){ if(state.open>=0) closeIt(); return; } state.line=l; state.active=-1; state.open=-1; open.hidden=true; dk.hidden=false; foot.hidden=false; build(); }
-    dk.addEventListener('mouseleave',function(){ if(lastPointer==='mouse'&&state.active>=0){ state.active=-1; paint(); } });
+    dk.addEventListener('mouseleave',function(){ if(lastPointer==='mouse'&&state.active>=0){ state.active=cfg.start!=null?cfg.start:-1; paint(); } });
     dk.addEventListener('scroll',function(){
       // touch screens: swiping the deck steps a card forward
       if(dk.scrollWidth<=dk.clientWidth+2||!cards.length) return;

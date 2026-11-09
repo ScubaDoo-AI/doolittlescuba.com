@@ -356,8 +356,20 @@ section{padding-block:clamp(40px,7vw,72px);border-top:1px solid var(--rule)}
 
 /* The collections as a deck on the home page (JS builds it from #co-grid; without JS the tiles stay) */
 #lines.has-deck .lines,#lines.has-deck #co-grid{display:none}
+/* Five cards is too few for the overlapping fan (the open card would cover every other tab), so this deck spreads instead:
+   each card shows its tab; the open one widens to show its shirt. Every tab stays in reach, nothing scrolls, the first card rests open. */
+.deck-coll.deck{padding-top:214px;overflow:visible}.deck-coll .deck-hint{top:182px}
+.deck-coll .deck-row{padding:0;gap:6px}
+.deck-coll .dk{flex:0 0 var(--step);width:var(--step);border-radius:4px;transition:flex-basis .38s cubic-bezier(.2,.75,.25,1),width .38s cubic-bezier(.2,.75,.25,1),transform .38s cubic-bezier(.2,.75,.25,1),box-shadow .38s ease;box-shadow:0 6px 14px -10px rgba(18,42,85,.35)}
+.deck-coll .dk+.dk{margin-left:0}
+.deck-coll .dk.on{flex-basis:280px;width:280px;transform:translateY(-24px);box-shadow:0 26px 40px -20px rgba(18,42,85,.5),0 2px 8px rgba(18,42,85,.18)}
+.deck.live.deck-coll .dk.after,.deck.live.deck-coll .dk.before{transform:none}
+.deck-coll .dk-pic{min-width:0}
+.deck-coll .dk-tab{border-right:0}
 .deck-coll .dk-pic img{transform:scale(1.18);transform-origin:50% 30%}
 .deck-coll .dk-tag .s{min-height:2.6em}
+.deck-coll .dk-tag{animation:none;transition:opacity .25s;opacity:1}
+@media (max-width:620px){.deck-coll .deck-row,.deck-coll .dk{--step:36px!important}.deck-coll .deck-row{gap:4px}.deck-coll .dk{height:300px}.deck-coll .dk.on{flex-basis:190px;width:190px}.deck-coll .dk-tab .nm{font-size:15px}.deck-coll .dk-tag{width:236px;margin-left:-118px}.deck-coll.deck{padding-top:206px}.deck-coll .deck-hint{top:176px}}
 /* Collection pages (built by tools/line_pages.py): the switcher under the header, swatches, pointer cards, the other-collections tiles, search */
 .coll{background:var(--panel);border-bottom:1px solid var(--rule);margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);position:relative;z-index:1}
 .coll .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:0 22px}
