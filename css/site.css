@@ -354,6 +354,10 @@ section{padding-block:clamp(40px,7vw,72px);border-top:1px solid var(--rule)}
 .lb figcaption{font-family:var(--f-data);font-size:var(--s-1);letter-spacing:.05em;color:#fff;text-align:center}
 .lb-x{position:fixed;top:12px;right:14px;font:400 2rem/1 var(--f-body);color:#fff;background:transparent;border:0;cursor:pointer}
 
+/* The collections as a deck on the home page (JS builds it from #co-grid; without JS the tiles stay) */
+#lines.has-deck .lines,#lines.has-deck #co-grid{display:none}
+.deck-coll .dk-pic img{transform:scale(1.18);transform-origin:50% 30%}
+.deck-coll .dk-tag .s{min-height:2.6em}
 /* Collection pages (built by tools/line_pages.py): the switcher under the header, swatches, pointer cards, the other-collections tiles, search */
 .coll{background:var(--panel);border-bottom:1px solid var(--rule);margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);position:relative;z-index:1}
 .coll .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:0 22px}

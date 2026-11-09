@@ -3,6 +3,7 @@
      DS.lightbox()                               every .sh-grid on the page opens its photos in #sh-lb
      DS.deck('shirts','sh-grid',DS.shirtsCfg({lines:[['plates','Signature Series'],…], contact:'/#contact'}))
      DS.deck('hats','ht-grid',{…})               a deck with its own config (see the home page)
+     DS.deck('lines','co-grid',{…, bar:false, status:'', go:function(it){…}})   the collections as a deck: no chips, no pill, open = go to the page
      DS.designs()                                #dz-grid: status / line / subset chips, counts, the viewer
    A deck opens on the line named in the URL hash (/off-world/#offworld-dark), so other pages can deep-link a line. */
 window.DS=(function(){
@@ -26,7 +27,7 @@ window.DS=(function(){
       var sub=f.querySelector('.dz-s'); sub=sub?sub.textContent.replace(/\s+/g,' ').trim():'';
       return {slug:f.dataset.slug, line:f.dataset.line, name:f.querySelector('.dz-t').textContent, code:f.dataset.code, colour:f.dataset.colour, hex:f.dataset.hex,
         front:b.dataset.front, back:b.dataset.back, art:f.dataset.art||'', thumb:img.getAttribute('src'), cap:b.dataset.cap, sub:sub, text:f.dataset.text||'',
-        status:pill?pill.textContent:'Coming soon', statusClass:pill?pill.className.replace('pill','').trim():'available',
+        status:pill?pill.textContent:(cfg.status!=null?cfg.status:'Coming soon'), statusClass:pill?pill.className.replace('pill','').trim():'available',
         guide:f.dataset.guide||'', custom:f.dataset.custom||'/custom/', site:site, price:f.dataset.price||'', finish:f.dataset.finish||'', parts:(function(){ var o={}; (f.dataset.custom||'').replace(/^[^#]*#/,'').split('&').forEach(function(kv){ var q=kv.split('='); o[q[0]]=q[1]; }); return o; })()};
     });
     var state={line:cfg.lines[0][0], active:-1, open:-1, view:'front', touch:false}, lastPointer='mouse', raf=0, pending=-1, tapAt=null;
@@ -36,14 +37,14 @@ window.DS=(function(){
     sec.classList.add('has-deck');
     var wrap=h('div','deck-wrap'+(cfg.cls?' '+cfg.cls:'')), bar=h('div','deck-bar'); bar.setAttribute('role','group'); bar.setAttribute('aria-label','Choose a line');
     var chips={};
-    cfg.lines.forEach(function(l){
+    if(cfg.bar!==false) cfg.lines.forEach(function(l){
       var c=h('button','chip',esc(l[1])+' <span class="mono">'+items.filter(function(x){return x.line===l[0];}).length+'</span>'); c.type='button'; c.dataset.deckLine=l[0];
       c.addEventListener('click',function(){ setLine(l[0]); track('deck-line',{deck:gridId,line:l[0]}); }); bar.appendChild(c); chips[l[0]]=c;
     });
     var dk=h('div','deck'+(cfg.cls?' '+cfg.cls:'')), hint=h('p','deck-hint',''), row=h('div','deck-row'); dk.appendChild(hint); dk.appendChild(row);
     var foot=h('div','deck-foot','<span class="cnt"></span><span class="kbd">Tab moves along the deck &middot; Enter opens</span>');
     var open=h('div','sh-open'); open.hidden=true;
-    wrap.appendChild(bar); wrap.appendChild(dk); wrap.appendChild(foot); wrap.appendChild(open);
+    if(cfg.bar!==false) wrap.appendChild(bar); wrap.appendChild(dk); wrap.appendChild(foot); wrap.appendChild(open);
     grid.parentNode.insertBefore(wrap, grid);
 
     var cards=[];
@@ -53,8 +54,8 @@ window.DS=(function(){
       L.forEach(function(it,i){
         var card=h('div','dk'); card.dataset.line=it.line; card.style.setProperty('--hex',it.hex); card.style.setProperty('--step',step+'px');
         var face=h('button','dk-face'); face.type='button'; face.setAttribute('aria-label',it.name+', '+it.colour.toLowerCase()+'. Pull forward or open');
-        face.innerHTML='<span class="dk-tab'+(dark(it.hex)?' dark':'')+'" style="background:'+it.hex+'"><span class="nm">'+esc(it.name)+'</span>'+(step>=56?'<span class="cd">No. '+esc(it.code)+'</span>':'')+'</span><span class="dk-pic"><img src="'+esc(it.thumb)+'" width="600" height="600" loading="lazy" decoding="async" alt=""></span>';
-        var tag=h('div','dk-tag','<div class="r"><span class="ln">'+esc(cfg.eyebrow(it))+' &middot; No. '+esc(it.code)+'</span><span class="pill '+esc(it.statusClass)+'">'+esc(it.status)+'</span></div><p class="t">'+esc(it.name)+'</p><p class="s">'+esc(cfg.sub(it))+'</p><button type="button" class="dk-open"><span class="c"><i></i>'+esc(it.colour)+'</span><span class="g">'+(it.price||cfg.price)+' &middot; Open</span></button>');
+        face.innerHTML='<span class="dk-tab'+(dark(it.hex)?' dark':'')+'" style="background:'+it.hex+'"><span class="nm">'+esc(it.name)+'</span>'+(step>=56&&it.code?'<span class="cd">No. '+esc(it.code)+'</span>':'')+'</span><span class="dk-pic"><img src="'+esc(it.thumb)+'" width="600" height="600" loading="lazy" decoding="async" alt=""></span>';
+        var tag=h('div','dk-tag','<div class="r"><span class="ln">'+esc(cfg.eyebrow(it))+(it.code?' &middot; No. '+esc(it.code):'')+'</span>'+(it.status?'<span class="pill '+esc(it.statusClass)+'">'+esc(it.status)+'</span>':'')+'</div><p class="t">'+esc(it.name)+'</p><p class="s">'+esc(cfg.sub(it))+'</p><button type="button" class="dk-open"><span class="c"><i></i>'+esc(it.colour)+'</span><span class="g">'+(cfg.openLabel?esc(cfg.openLabel(it)):(it.price||cfg.price)+' &middot; Open')+'</span></button>');
         face.addEventListener('pointerenter',function(e){ if(e.pointerType&&e.pointerType!=='mouse') return; if(!e.pointerType&&touchLike()) return; activate(i); });
         face.addEventListener('pointerdown',function(e){ lastPointer=e.pointerType||'mouse'; if(touchLike()){ tapAt=dk.scrollLeft; if(!state.touch){ state.touch=true; hintText(); } } });
         face.addEventListener('keydown',function(){ lastPointer='key'; });
@@ -88,7 +89,7 @@ window.DS=(function(){
       if(raf) return; raf=requestAnimationFrame(function(){ raf=0; activate(pending); });
     });
 
-    function openIt(i){ state.open=i; var it=list()[i]; state.view=cfg.defaultView(it); render(); track(cfg.openEvent,{item:it.slug,via:'deck'}); }
+    function openIt(i){ var it=list()[i]; track(cfg.openEvent,{item:it.slug,via:'deck'}); if(cfg.go){ cfg.go(it); return; } state.open=i; state.view=cfg.defaultView(it); render(); }
     function closeIt(){ var i=state.open; state.open=-1; open.hidden=true; dk.hidden=false; foot.hidden=false; state.active=i; paint(); var f=cards[i]&&cards[i].querySelector('.dk-face'); if(f) f.focus({preventScroll:true}); }
     function render(){
       var L=list(), it=L[state.open]; if(!it) return;

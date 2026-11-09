@@ -47,3 +47,11 @@ Each page: the site shell (header, nav, shop-status flag, footer), a **collectio
 - Light + dark share a page; 1N73LL1G3NC3 keeps its six dive designs. Both are one edit in `tools/line_pages.py` (`LINES`).
 - Page names/URLs: `/signature/`, `/certified-ish/`, `/off-world/`, `/1n73ll1g3nc3/`, `/aquatic-comic/`. Renaming = `dir` in `LINES` + the links on the home tiles + sitemap.
 - The banner text above.
+
+## Later the same morning: the collections as a deck
+
+Eric: *"Stack the collections on the homepage in a similar style as the shirts scroll."*
+
+The five collection tiles on the home page are now a deck of five cards, the same stack as the shirts: run across the tabs to pull a collection forward (its tag shows the name, one line and the design count), click it to go to its page; on a phone, swipe the deck. Each tab is the collection's theme colour (Signature navy, Certified-ish cream, Off-World black, 1N73LL1G3NC3 graphite, Aquatic red) and each card shows one of its shirts. The tiles stay in the page as the no-JS fallback (`#co-grid` holds the five hidden cards the deck is built from; `#lines.has-deck .lines` hides the tiles once the deck is up). The search box and the "in the works" note sit under the deck.
+
+`js/deck.js` learned the options this needs, all off by default so the shirts and hats decks are unchanged: `bar:false` (no chip row), `status:''` (no pill), `openLabel`, `go` (open = navigate instead of the in-page panel), and a tab/tag that omit the number when a card has none.
