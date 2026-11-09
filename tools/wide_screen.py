@@ -18,6 +18,7 @@ STEPS = [(1800, 1.15), (2100, 1.3), (2400, 1.5), (3000, 1.75), (3600, 2.0)]
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PAGES = ["index.html", "about/index.html", "workshop/index.html", "custom/index.html",
+         "signature/index.html", "certified-ish/index.html", "off-world/index.html", "1n73ll1g3nc3/index.html", "aquatic-comic/index.html",
          *sorted(str(p.relative_to(ROOT)) for p in ROOT.glob("sites/*/index.html"))]
 BLOCK_RE = re.compile(r"\n?<!-- WIDE:START -->.*?<!-- WIDE:END -->\n?", re.S)
 
