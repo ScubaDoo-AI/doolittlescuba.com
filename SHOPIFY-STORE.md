@@ -204,3 +204,9 @@ Current state found in the store: name "My Store"; only the auto-generated priva
   - Earlier: Aquatic Comic Boat Banter 120 (+234 personalized ignored) and Off-World Hunt Club 360.
 - **Still unlinked:** the 19 Dark caps (embroidery), the 19 archived caps, Make it yours.
 - **Job speed:** `printful_link.py` now opens only the requested line's sync products (36–72, not 295). The job summary's first line shows `mode: lines=… apply=… force=…`.
+
+## 2026-11-09 — First Printful sample order confirmed
+- Printful order **#sample-202611040806** (the draft the Sample order job made on 4 Nov) confirmed by Eric 9 Nov 18:18 ET: Thistlegorm dark XL (Blue Spruce), Aquatic Comic W01 "Camel" personalized *Eric* XL (Graphite), Tech Diver dark XL (Grape). Subtotal $69.63 = $24.04 + $21.55 + $24.04, exactly the per-placement costs the `printful_*.py` plans predicted; shipping $9.35 flat; tax $6.37 (no resale certificate on file — correct for samples); total $85.75 on the business Visa. Status: waiting for fulfilment, estimated delivery 17–21 Nov. Shipment #184646245-86616366.
+- The confirm charge failed a couple of times before going through; the card showed the authorisation as "payment initiated / in progress" each time, so the failures were on Printful's side (VPN / risk check suspected). Pending duplicate holds drop off on their own.
+- Printful's "Fulfillment disabled (79)" group checked: the 39 personalized Aquatic products (variants ignored by design — orders go through the Personalized order job), 38 caps (never linked) and the 2 Make-it-yours products. 216 synced + 79 = 295.
+- Next: the second sample set from the dashboard (Black Bart light, Cloaked dark, Trust But Test, Achievement full sheet + one die-cut); set order confirmation to manual before anything is published; proofing checklist when the box arrives (placement vs spec, garment colour vs mockups, red on garment-dyed, underbase haze, fine lines, three washes).
