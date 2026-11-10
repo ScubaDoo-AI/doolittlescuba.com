@@ -26,7 +26,7 @@ STATUS = {
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PAGES = ["index.html", "about/index.html", "workshop/index.html", "custom/index.html",
-         "signature/index.html", "certified-ish/index.html", "off-world/index.html", "1n73ll1g3nc3/index.html", "aquatic-comic/index.html",
+         "signature/index.html", "certified-ish/index.html", "off-world/index.html", "1n73ll1g3nc3/index.html", "aquatic-comic/index.html", "stickers/index.html",
          *sorted(str(p.relative_to(ROOT)) for p in ROOT.glob("sites/*/index.html"))]
 BLOCK_RE = re.compile(r"\n?<!-- STATUS:START -->.*?<!-- STATUS:END -->\n?", re.S)
 

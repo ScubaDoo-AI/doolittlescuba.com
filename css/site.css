@@ -383,6 +383,19 @@ section{padding-block:clamp(40px,7vw,72px);border-top:1px solid var(--rule)}
 .sk-row .pill{display:none}
 .sk-set .dz-t{font-size:var(--s0)}
 @media (max-width:560px){.sk-row.sk-badges{grid-template-columns:repeat(2,minmax(0,1fr))}.sk-row.sk-cuts{grid-template-columns:repeat(3,minmax(0,1fr))}.sk-row.sk-brand{grid-template-columns:repeat(2,minmax(0,1fr))}.sk-row{gap:12px 10px}}
+/* Sticker packs: portrait sheets in a grid (the /stickers/ page) and the six-proof strip on the home page */
+.pk-grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,164px),1fr));gap:18px 16px}
+.pk{gap:8px}
+.pk .sh-img{aspect-ratio:2/3;border:1px solid var(--rule);border-radius:8px;background:#fff;box-shadow:0 10px 22px -18px rgba(18,42,85,.5)}
+.pk .sh-img img{border-radius:7px}
+.pk .sh-img:hover img{transform:translateY(-3px) scale(1.02)}
+.pk .dz-t{font-size:var(--s0)}
+.pk .dz-s{font-size:.74rem;color:var(--muted)}
+.pk-strip{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.pk-strip a{display:block;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#fff;aspect-ratio:2/3;transition:transform .2s}
+.pk-strip a:hover{transform:translateY(-3px)}
+.pk-strip img{width:100%;height:100%;object-fit:cover;display:block}
+@media (max-width:640px){.pk-strip{grid-template-columns:repeat(3,minmax(0,1fr))}.pk-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* The collections as a deck on the home page (JS builds it from #co-grid; without JS the tiles stay) */
 #lines.has-deck .lines,#lines.has-deck #co-grid{display:none}
 /* Five cards is too few for the overlapping fan (the open card would cover every other tab), so this deck spreads instead:

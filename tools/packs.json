@@ -1,0 +1,487 @@
+{
+ "price": 10.0,
+ "sheet": "5.83 x 8.27 in kiss-cut sheet, Printful product 505 / variant 12917, $5.15",
+ "packs": [
+  {
+   "sku": "DS-PK-T01",
+   "name": "Reef Cuties",
+   "slug": "reef-cuties",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T01-01",
+    "DS-STK-T01-02",
+    "DS-STK-T01-03"
+   ],
+   "uv_sheet": "sheet1",
+   "master": "DS-PK-T01_Reef-Cuties_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T02",
+   "name": "Lazy Reef",
+   "slug": "lazy-reef",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T01-04",
+    "DS-STK-T01-05",
+    "DS-STK-T01-06"
+   ],
+   "uv_sheet": "sheet1",
+   "master": "DS-PK-T02_Lazy-Reef_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T03",
+   "name": "Pun Pack",
+   "slug": "pun-pack",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T02-01",
+    "DS-STK-T02-02",
+    "DS-STK-T02-03"
+   ],
+   "uv_sheet": "sheet1",
+   "master": "DS-PK-T03_Pun-Pack_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T04",
+   "name": "Bubble Puns",
+   "slug": "bubble-puns",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T02-04",
+    "DS-STK-T02-05",
+    "DS-STK-T02-06"
+   ],
+   "uv_sheet": "sheet1",
+   "master": "DS-PK-T04_Bubble-Puns_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T05",
+   "name": "Dive Computer Says",
+   "slug": "dive-computer-says",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T03-03",
+    "DS-STK-T03-04",
+    "DS-STK-T03-06"
+   ],
+   "uv_sheet": "sheet1",
+   "master": "DS-PK-T05_Dive-Computer-Says_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T06",
+   "name": "Diver Truths",
+   "slug": "diver-truths",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T03-01",
+    "DS-STK-T03-02",
+    "DS-STK-T03-05"
+   ],
+   "uv_sheet": "sheet1",
+   "master": "DS-PK-T06_Diver-Truths_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T07",
+   "name": "Kit Bag",
+   "slug": "kit-bag",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T04-01",
+    "DS-STK-T04-02",
+    "DS-STK-T04-04"
+   ],
+   "uv_sheet": "sheet1",
+   "master": "DS-PK-T07_Kit-Bag_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T08",
+   "name": "Gear Up",
+   "slug": "gear-up",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T04-03",
+    "DS-STK-T04-05",
+    "DS-STK-T04-06"
+   ],
+   "uv_sheet": "sheet1",
+   "master": "DS-PK-T08_Gear-Up_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T09",
+   "name": "Critter Cafe Crew",
+   "slug": "critter-cafe-crew",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T05-01",
+    "DS-STK-T05-02",
+    "DS-STK-T05-07"
+   ],
+   "uv_sheet": "sheet1",
+   "master": "DS-PK-T09_Critter-Cafe-Crew_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T10",
+   "name": "Reef Pros",
+   "slug": "reef-pros",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T05-03",
+    "DS-STK-T05-05",
+    "DS-STK-T05-06"
+   ],
+   "uv_sheet": "sheet1",
+   "master": "DS-PK-T10_Reef-Pros_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T11",
+   "name": "Wreck Divers",
+   "slug": "wreck-divers",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T06-01",
+    "DS-STK-T06-02",
+    "DS-STK-T06-06"
+   ],
+   "uv_sheet": "sheet1",
+   "master": "DS-PK-T11_Wreck-Divers_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T12",
+   "name": "Into the Dark",
+   "slug": "into-the-dark",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T06-03",
+    "DS-STK-T06-04",
+    "DS-STK-T06-05"
+   ],
+   "uv_sheet": "sheet1",
+   "master": "DS-PK-T12_Into-the-Dark_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T13",
+   "name": "Retro Patches",
+   "slug": "retro-patches",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T07-03",
+    "DS-STK-T07-04",
+    "DS-STK-T07-06"
+   ],
+   "uv_sheet": "sheet1",
+   "master": "DS-PK-T13_Retro-Patches_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T14",
+   "name": "Vintage Classics",
+   "slug": "vintage-classics",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T07-01",
+    "DS-STK-T07-02",
+    "DS-STK-T07-05"
+   ],
+   "uv_sheet": "sheet1",
+   "master": "DS-PK-T14_Vintage-Classics_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T15",
+   "name": "Pacific Bucket List",
+   "slug": "pacific-bucket-list",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T08-01",
+    "DS-STK-T08-03",
+    "DS-STK-T08-06"
+   ],
+   "uv_sheet": "sheet1",
+   "master": "DS-PK-T15_Pacific-Bucket-List_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T16",
+   "name": "Atlantic & Red Sea",
+   "slug": "atlantic-and-red-sea",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T08-02",
+    "DS-STK-T08-04",
+    "DS-STK-T08-05"
+   ],
+   "uv_sheet": "sheet2",
+   "master": "DS-PK-T16_Atlantic-Red-Sea_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T17",
+   "name": "Reef Heroes",
+   "slug": "reef-heroes",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T09-01",
+    "DS-STK-T09-02",
+    "DS-STK-T09-03"
+   ],
+   "uv_sheet": "sheet2",
+   "master": "DS-PK-T17_Reef-Heroes_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T18",
+   "name": "Ocean Pledge",
+   "slug": "ocean-pledge",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T09-04",
+    "DS-STK-T09-05",
+    "DS-STK-T09-06"
+   ],
+   "uv_sheet": "sheet2",
+   "master": "DS-PK-T18_Ocean-Pledge_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T19",
+   "name": "Deep Weird",
+   "slug": "deep-weird",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T10-01",
+    "DS-STK-T10-02",
+    "DS-STK-T10-03"
+   ],
+   "uv_sheet": "sheet2",
+   "master": "DS-PK-T19_Deep-Weird_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T20",
+   "name": "Strange Beauty",
+   "slug": "strange-beauty",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T10-04",
+    "DS-STK-T10-05",
+    "DS-STK-T10-06"
+   ],
+   "uv_sheet": "sheet2",
+   "master": "DS-PK-T20_Strange-Beauty_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T21",
+   "name": "Ocean Masterpieces",
+   "slug": "ocean-masterpieces",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T11-01",
+    "DS-STK-T11-02",
+    "DS-STK-T11-06"
+   ],
+   "uv_sheet": "sheet2",
+   "master": "DS-PK-T21_Ocean-Masterpieces_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T22",
+   "name": "Art History Dive",
+   "slug": "art-history-dive",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T11-03",
+    "DS-STK-T11-02",
+    "DS-STK-T11-05"
+   ],
+   "uv_sheet": "sheet2",
+   "master": "DS-PK-T22_Art-History-Dive_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T23",
+   "name": "Dive Science 101",
+   "slug": "dive-science-101",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T12-01",
+    "DS-STK-T12-03",
+    "DS-STK-T12-05"
+   ],
+   "uv_sheet": "sheet2",
+   "master": "DS-PK-T23_Dive-Science-101_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T24",
+   "name": "Pre-Dive Check",
+   "slug": "pre-dive-check",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T12-02",
+    "DS-STK-T12-04",
+    "DS-STK-T12-06"
+   ],
+   "uv_sheet": "sheet2",
+   "master": "DS-PK-T24_Pre-Dive-Check_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T25",
+   "name": "Turtle Trio",
+   "slug": "turtle-trio",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T01-01",
+    "DS-STK-T05-04",
+    "DS-STK-T06-05"
+   ],
+   "uv_sheet": "sheet2",
+   "master": "DS-PK-T25_Turtle-Trio_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-T26",
+   "name": "Octopus Trio",
+   "slug": "octopus-trio",
+   "line": "themed",
+   "stickers": [
+    "DS-STK-T05-07",
+    "DS-STK-T06-06",
+    "DS-STK-T11-05"
+   ],
+   "uv_sheet": "sheet2",
+   "master": "DS-PK-T26_Octopus-Trio_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-C01",
+   "name": "Certified",
+   "slug": "certified",
+   "line": "classic",
+   "stickers": [
+    "DS-STK-D-OWD",
+    "DS-STK-D-AOW",
+    "DS-STK-D-RES"
+   ],
+   "uv_sheet": "sheet2",
+   "master": "DS-PK-C01_Certified_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-C02",
+   "name": "Master Diver",
+   "slug": "master-diver",
+   "line": "classic",
+   "stickers": [
+    "DS-STK-D-MSD1",
+    "DS-STK-D-MSD2",
+    "DS-STK-D-BUO"
+   ],
+   "uv_sheet": "sheet2",
+   "master": "DS-PK-C02_Master-Diver_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-C03",
+   "name": "The Deep End",
+   "slug": "the-deep-end",
+   "line": "classic",
+   "stickers": [
+    "DS-STK-D-DEE",
+    "DS-STK-D-NTX",
+    "DS-STK-D-ALT"
+   ],
+   "uv_sheet": "sheet2",
+   "master": "DS-PK-C03_The-Deep-End_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-C04",
+   "name": "Specialty Mix",
+   "slug": "specialty-mix",
+   "line": "classic",
+   "stickers": [
+    "DS-STK-D-SID",
+    "DS-STK-D-DRS",
+    "DS-STK-D-FSH"
+   ],
+   "uv_sheet": "sheet2",
+   "master": "DS-PK-C04_Specialty-Mix_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-C05",
+   "name": "Chill Dives",
+   "slug": "chill-dives",
+   "line": "classic",
+   "stickers": [
+    "DS-STK-D-DRI",
+    "DS-STK-D-ALT",
+    "DS-STK-D-BUO"
+   ],
+   "uv_sheet": "sheet3",
+   "master": "DS-PK-C05_Chill-Dives_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-B01",
+   "name": "Classic Trio",
+   "slug": "classic-trio",
+   "line": "brand",
+   "stickers": [
+    "DS-STK-D-SEA-CLASSIC",
+    "DS-STK-D-STK-CLASSIC",
+    "DS-STK-D-TAG-CLASSIC"
+   ],
+   "uv_sheet": "sheet3",
+   "master": "DS-PK-B01_Classic-Trio_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-B02",
+   "name": "Navy Trio",
+   "slug": "navy-trio",
+   "line": "brand",
+   "stickers": [
+    "DS-STK-D-SEA-NAVY",
+    "DS-STK-D-HOR-NAVY",
+    "DS-STK-D-KIT-NAVY"
+   ],
+   "uv_sheet": "sheet3",
+   "master": "DS-PK-B02_Navy-Trio_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-B03",
+   "name": "Black Trio",
+   "slug": "black-trio",
+   "line": "brand",
+   "stickers": [
+    "DS-STK-D-SEA-BLACK",
+    "DS-STK-D-STK-BLACK",
+    "DS-STK-D-TAG-BLACK"
+   ],
+   "uv_sheet": "sheet3",
+   "master": "DS-PK-B03_Black-Trio_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-B04",
+   "name": "Red Trio",
+   "slug": "red-trio",
+   "line": "brand",
+   "stickers": [
+    "DS-STK-D-SEA-RED",
+    "DS-STK-D-STK-RED",
+    "DS-STK-D-HOR-RED"
+   ],
+   "uv_sheet": "sheet3",
+   "master": "DS-PK-B04_Red-Trio_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-B05",
+   "name": "The Seal Set",
+   "slug": "the-seal-set",
+   "line": "brand",
+   "stickers": [
+    "DS-STK-D-SEA-CLASSIC",
+    "DS-STK-D-SEA-NAVY",
+    "DS-STK-D-SEA-RED"
+   ],
+   "uv_sheet": "sheet3",
+   "master": "DS-PK-B05_The-Seal-Set_5.83x8.27.png"
+  },
+  {
+   "sku": "DS-PK-B06",
+   "name": "Do A Little Scuba",
+   "slug": "do-a-little-scuba",
+   "line": "brand",
+   "stickers": [
+    "DS-STK-D-TAG-NAVY",
+    "DS-STK-D-KIT-CLASSIC",
+    "DS-STK-D-KIT-BLACK"
+   ],
+   "uv_sheet": "sheet3",
+   "master": "DS-PK-B06_Do-A-Little-Scuba_5.83x8.27.png"
+  }
+ ]
+}
