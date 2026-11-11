@@ -32,6 +32,16 @@ Full ids and details: `SHOPIFY-STORE.md`, 2026-11-10.
 - **$10 a pack** is an assumption (a $4.85 margin on the $5.15 sheet, before Printful's sticker shipping). Change `price` in `tools/packs.json`, rerun `tools/stickers_page.py`, and update the 37 Shopify prices.
 - Printful's sheet template: check the current size and price before the first real order, and order one pack as a sample — the printed sheet is the proof of the kiss-cut lines.
 
+## Evening: the packs as a deck, the shop sections together
+
+Eric: *"Stack the sticker packs for scrolling like the rest of the webpage. Also move all items next to one another no map and signup btw."*
+
+**The packs are a deck now**, the same stacked fan as the shirts and the hats, on both `/stickers/` and the home page: three chips (Themed 26 · Classic die-cuts 5 · Brand 6), each pack a card with its name on a coloured tab — the colour is pulled from the pack's own proof (`hex` in `tools/packs.json`), the six brand packs in the brand palette — and the whole sheet showing on the pulled card. Open a card for the sheet proof large, the three stickers on it, the sheet size, vinyl, mark and price, and the launch-news button. `#themed`, `#classic`, `#brand` deep-link to a line. The 37 figures stay in the page under `#pk-grid` as the no-JS fallback; the deck is built from them.
+
+`js/deck.js`: `DS.packsCfg()` (the pack deck's copy and specs), and three small general additions — a card with no back image gets a single view (no Front/Back toggle), a card with no code gets no "No." in the eyebrow, and `custom:false` leaves the Make it yours button out. The shirts and hats decks are unchanged. CSS: `.deck-packs` (portrait proof shown whole on the card; the open panel gives the picture the narrow column on desktop, full width on a phone).
+
+**Home page order**: hero → the collections → the hats → the stickers → the dive map (with its *Suggest the next site* form) → the craft → about → logbook → wear it → contact. The three shop decks sit back to back; the map and the suggestion form moved below them. The home `#stickers` section is rebuilt by `tools/stickers_page.py` between `<!-- PACKS:START/END -->` markers each run.
+
 ### Routine, as before
 
 `tools/bust.py` ran last; everything committed and pushed to `main`; live checked by probe.

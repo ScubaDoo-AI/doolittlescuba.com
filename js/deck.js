@@ -54,7 +54,7 @@ window.DS=(function(){
       row.style.setProperty('--step',step+'px');
       L.forEach(function(it,i){
         var card=h('div','dk'); card.dataset.line=it.line; card.style.setProperty('--hex',it.hex); card.style.setProperty('--step',step+'px');
-        var face=h('button','dk-face'); face.type='button'; face.setAttribute('aria-label',it.name+', '+it.colour.toLowerCase()+'. Pull forward or open');
+        var face=h('button','dk-face'); face.type='button'; face.setAttribute('aria-label',it.name+', '+(it.colour||'').toLowerCase()+'. Pull forward or open');
         face.innerHTML='<span class="dk-tab'+(dark(it.hex)?' dark':'')+'" style="background:'+it.hex+'"><span class="nm">'+esc(it.name)+'</span>'+(step>=56&&it.code?'<span class="cd">No. '+esc(it.code)+'</span>':'')+'</span><span class="dk-pic"><img src="'+esc(it.thumb)+'" width="600" height="600" loading="lazy" decoding="async" alt=""></span>';
         var tag=h('div','dk-tag','<div class="r"><span class="ln">'+esc(cfg.eyebrow(it))+(it.code?' &middot; No. '+esc(it.code):'')+'</span>'+(it.status?'<span class="pill '+esc(it.statusClass)+'">'+esc(it.status)+'</span>':'')+'</div><p class="t">'+esc(it.name)+'</p><p class="s">'+esc(cfg.sub(it))+'</p><button type="button" class="dk-open"><span class="c"><i></i>'+esc(it.colour)+'</span><span class="g">'+(cfg.openLabel?esc(cfg.openLabel(it)):(it.price||cfg.price)+' &middot; Open')+'</span></button>');
         face.addEventListener('pointerenter',function(e){ if(e.pointerType&&e.pointerType!=='mouse') return; if(!e.pointerType&&touchLike()) return; activate(i); });
@@ -97,15 +97,15 @@ window.DS=(function(){
       var L=list(), it=L[state.open]; if(!it) return;
       dk.hidden=true; foot.hidden=true; open.hidden=false;
       var v=state.view, src=v==='art'?it.art:v==='back'?it.back:it.front, s=it.site||{};
-      var views=[['front','Front'],['back','Back']]; if(it.art) views.push(['art','The art']);
+      var views=[['front','Front']]; if(it.back) views.push(['back','Back']); if(it.art) views.push(['art','The art']);
       open.innerHTML='<div class="sh-open-bar"><button type="button" class="txt sh-back">&larr; Back to the deck</button><div class="sh-nav"><span class="pos">'+(state.open+1)+' of '+L.length+'</span><button type="button" class="arrow sh-prev" aria-label="Previous">&lsaquo;</button><button type="button" class="arrow sh-next" aria-label="Next">&rsaquo;</button></div></div>'
         +'<div class="sh-panel" style="--hex:'+it.hex+'"><div class="sh-detail"><div class="sh-view"><button type="button" class="big'+(v==='art'?' art':'')+'" aria-label="Open the full-size image"><img src="'+esc(src)+'" alt="'+esc(it.name+', '+it.colour.toLowerCase()+', '+v)+'"></button>'
-        +'<div class="row"><span class="sh-flip" role="group" aria-label="Show front, back or the art">'+views.map(function(w){ return '<button type="button" data-v="'+w[0]+'" class="'+(v===w[0]?'on':'')+'" aria-pressed="'+(v===w[0])+'">'+w[1]+'</button>'; }).join('')+'</span><span class="cap">'+esc(cfg.caption(it,v))+'</span></div></div>'
-        +'<div class="sh-info"><p class="eyebrow">'+esc(cfg.eyebrow(it))+' &middot; No. '+esc(it.code)+'</p><h3>'+esc(it.name)+'</h3>'
+        +'<div class="row">'+(views.length>1?'<span class="sh-flip" role="group" aria-label="Show front, back or the art">'+views.map(function(w){ return '<button type="button" data-v="'+w[0]+'" class="'+(v===w[0]?'on':'')+'" aria-pressed="'+(v===w[0])+'">'+w[1]+'</button>'; }).join('')+'</span>':'')+'<span class="cap">'+esc(cfg.caption(it,v))+'</span></div></div>'
+        +'<div class="sh-info"><p class="eyebrow">'+esc(cfg.eyebrow(it))+(it.code?' &middot; No. '+esc(it.code):'')+'</p><h3>'+esc(it.name)+'</h3>'
         +(it.site?'<p class="where">'+flag(s.flag==='us')+'<span>'+esc(s.place||'')+(s.water?' · '+esc(s.water):'')+'</span></p><p class="coords mono">'+esc(s.coords||'')+'</p>':'<p style="color:var(--muted);max-width:48ch">'+esc(cfg.blurb(it))+'</p>')
         +'<dl class="specs">'+cfg.specs(it).map(function(r){return '<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>';}).join('')+'</dl>'
         +(s.fact&&cfg.facts?'<p class="fact">'+esc(s.fact)+'</p>':'')
-        +'<div class="cta"><a class="btn" href="'+esc(cfg.contact||'#contact')+'" data-umami-event="deck-launch-news">'+(it.statusClass==='completed'?'Sample print':'Coming soon')+' &middot; get launch news</a><a class="btn ghost" href="'+esc(it.custom)+'" data-umami-event="deck-custom">Make it yours</a>'+(it.guide?'<a class="txt" href="'+esc(it.guide)+'" data-umami-event="deck-guide">Site guide &rarr;</a>':'')+'</div></div></div></div>';
+        +'<div class="cta"><a class="btn" href="'+esc(cfg.contact||'#contact')+'" data-umami-event="deck-launch-news">'+(it.statusClass==='completed'?'Sample print':'Coming soon')+' &middot; get launch news</a>'+(cfg.custom===false?'':'<a class="btn ghost" href="'+esc(it.custom)+'" data-umami-event="deck-custom">Make it yours</a>')+(it.guide?'<a class="txt" href="'+esc(it.guide)+'" data-umami-event="deck-guide">Site guide &rarr;</a>':'')+'</div></div></div></div>';
       open.querySelector('.sh-back').addEventListener('click',closeIt);
       open.querySelector('.sh-prev').addEventListener('click',function(){ state.open=(state.open-1+L.length)%L.length; state.view=cfg.defaultView(list()[state.open]); render(); });
       open.querySelector('.sh-next').addEventListener('click',function(){ state.open=(state.open+1)%L.length; state.view=cfg.defaultView(list()[state.open]); render(); });
@@ -142,6 +142,21 @@ window.DS=(function(){
     specs:function(it){ var sw='<span class="sw"></span>Comfort Colors 1717, garment-dyed · '+esc(it.colour); if(it.line.indexOf('aquatic-')===0) return [['Front','The DS mark over the slogan, left chest, 3.75 in'],['Back','The joke, white with the punch words in red, 11 in wide'],['Shirt',sw],['Ink','Water-based white and red, printed by hand'],['Price',(it.line==='aquatic-self-logged'||it.line==='aquatic-buddy-check'||it.line==='aquatic-buddy-system'||it.line==='aquatic-till-surface'||it.line==='aquatic-master-class')?'$47 · $50 in 2XL and 3XL, with the name or names you choose':'$42 · $45 in 2XL and 3XL']]; if(it.line==='n73') return [['Front','The design, full front, about 11.5 in wide'],['Back','Plain'],['Shirt',sw],['Ink','Water-based, in the colours shown, printed by hand'],['Price','$42 · $45 in 2XL and 3XL']]; if(it.line.indexOf('offworld')===0) return [['Back','The line in the off-world script, 12 × 16 in, translated beneath it with the punch word in red'],['Chest','The DS mark with the punch word in glyphs, left chest'],['Shirt',sw],['Ink',it.line==='offworld-dark'?'Water-based white and red, printed by hand':'Water-based black and red, printed by hand'],['Price','$42 · $45 in 2XL and 3XL']]; if(it.line==='dark') return [['Back','Full site illustration with facts, species and water conditions'],['Chest','Site name, dive flag and GPS coordinates'],['Sleeve','Signature shark mark'],['Shirt',sw],['Ink','Water-based white, printed by hand · the flag in colour'],['Price','$42 · $45 in 2XL and 3XL']]; return it.line==='plates'
       ?[['Back','Full site illustration with facts, species and water conditions'],['Chest','Site name, dive flag and GPS coordinates'],['Sleeve','Signature shark mark'],['Shirt',sw],['Ink','Water-based black, printed by hand'],['Price','$42 · $45 in 2XL and 3XL']]
       :[['Back','The full Certified-ish diagram, printed full size'],['Mark','DS mark along the sleeve · the shark stays on the Signature Series'],['Shirt',sw],['Ink',it.line==='certifiedish-dark'?'Water-based white, printed by hand · the DS mark in white and red':'Water-based black, printed by hand'],['Price','$42 · $45 in 2XL and 3XL']]; }
+   };
+  };
+
+  // The sticker packs deck: 37 kiss-cut sheets in three lines; a card opens the sheet proof and what is on it
+  DS.packsCfg=function(o){ o=o||{}; var NAME={themed:'Themed',classic:'Classic die-cuts',brand:'Brand set'};
+   function inside(it){ return it.sub.replace(/\s*·\s*\$\d+\s*$/,''); }
+   return {
+    lines:o.lines||[['themed','Themed'],['classic','Classic die-cuts'],['brand','Brand']], step:{themed:36,classic:64,brand:64}, noun:'pack', price:'$10', openEvent:'pack-open', cls:'deck-packs', custom:false, contact:o.contact||'/#contact',
+    footNote:'three kiss-cut stickers on one 5.83 &times; 8.27 in sheet', facts:false,
+    eyebrow:function(it){ return NAME[it.line]||'Sticker pack'; },
+    sub:function(it){ return inside(it); },
+    blurb:function(it){ return it.text||'Three kiss-cut stickers on one sheet. Peel them one at a time for the tank, the dive box, the laptop and the logbook.'; },
+    defaultView:function(){ return 'front'; },
+    caption:function(){ return 'The sheet · proof of the three stickers, 5.83 × 8.27 in'; },
+    specs:function(it){ var c=inside(it); return [['Sheet','5.83 × 8.27 in kiss-cut sheet, three stickers'],['Stickers',/^three stickers$/i.test(c)?'Three, drawn for the pack':esc(c)],['Vinyl','Printed vinyl, glossy film, waterproof'],['Mark','The DS mark on every sticker'],['Price',it.price||'$10']]; }
    };
   };
 

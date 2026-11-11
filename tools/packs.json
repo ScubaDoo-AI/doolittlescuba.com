@@ -13,7 +13,8 @@
     "DS-STK-T01-03"
    ],
    "uv_sheet": "sheet1",
-   "master": "DS-PK-T01_Reef-Cuties_5.83x8.27.png"
+   "master": "DS-PK-T01_Reef-Cuties_5.83x8.27.png",
+   "hex": "#D4AC6A"
   },
   {
    "sku": "DS-PK-T02",
@@ -26,7 +27,8 @@
     "DS-STK-T01-06"
    ],
    "uv_sheet": "sheet1",
-   "master": "DS-PK-T02_Lazy-Reef_5.83x8.27.png"
+   "master": "DS-PK-T02_Lazy-Reef_5.83x8.27.png",
+   "hex": "#D4CB8A"
   },
   {
    "sku": "DS-PK-T03",
@@ -39,7 +41,8 @@
     "DS-STK-T02-03"
    ],
    "uv_sheet": "sheet1",
-   "master": "DS-PK-T03_Pun-Pack_5.83x8.27.png"
+   "master": "DS-PK-T03_Pun-Pack_5.83x8.27.png",
+   "hex": "#6AACD4"
   },
   {
    "sku": "DS-PK-T04",
@@ -52,7 +55,8 @@
     "DS-STK-T02-06"
    ],
    "uv_sheet": "sheet1",
-   "master": "DS-PK-T04_Bubble-Puns_5.83x8.27.png"
+   "master": "DS-PK-T04_Bubble-Puns_5.83x8.27.png",
+   "hex": "#D46A92"
   },
   {
    "sku": "DS-PK-T05",
@@ -65,7 +69,8 @@
     "DS-STK-T03-06"
    ],
    "uv_sheet": "sheet1",
-   "master": "DS-PK-T05_Dive-Computer-Says_5.83x8.27.png"
+   "master": "DS-PK-T05_Dive-Computer-Says_5.83x8.27.png",
+   "hex": "#6AD4C7"
   },
   {
    "sku": "DS-PK-T06",
@@ -78,7 +83,8 @@
     "DS-STK-T03-05"
    ],
    "uv_sheet": "sheet1",
-   "master": "DS-PK-T06_Diver-Truths_5.83x8.27.png"
+   "master": "DS-PK-T06_Diver-Truths_5.83x8.27.png",
+   "hex": "#197F72"
   },
   {
    "sku": "DS-PK-T07",
@@ -91,7 +97,8 @@
     "DS-STK-T04-04"
    ],
    "uv_sheet": "sheet1",
-   "master": "DS-PK-T07_Kit-Bag_5.83x8.27.png"
+   "master": "DS-PK-T07_Kit-Bag_5.83x8.27.png",
+   "hex": "#D4BF2A"
   },
   {
    "sku": "DS-PK-T08",
@@ -104,7 +111,8 @@
     "DS-STK-T04-06"
    ],
    "uv_sheet": "sheet1",
-   "master": "DS-PK-T08_Gear-Up_5.83x8.27.png"
+   "master": "DS-PK-T08_Gear-Up_5.83x8.27.png",
+   "hex": "#151D2A"
   },
   {
    "sku": "DS-PK-T09",
@@ -117,7 +125,8 @@
     "DS-STK-T05-07"
    ],
    "uv_sheet": "sheet1",
-   "master": "DS-PK-T09_Critter-Cafe-Crew_5.83x8.27.png"
+   "master": "DS-PK-T09_Critter-Cafe-Crew_5.83x8.27.png",
+   "hex": "#D4776A"
   },
   {
    "sku": "DS-PK-T10",
@@ -130,7 +139,8 @@
     "DS-STK-T05-06"
    ],
    "uv_sheet": "sheet1",
-   "master": "DS-PK-T10_Reef-Pros_5.83x8.27.png"
+   "master": "DS-PK-T10_Reef-Pros_5.83x8.27.png",
+   "hex": "#7F573F"
   },
   {
    "sku": "DS-PK-T11",
@@ -143,7 +153,8 @@
     "DS-STK-T06-06"
    ],
    "uv_sheet": "sheet1",
-   "master": "DS-PK-T11_Wreck-Divers_5.83x8.27.png"
+   "master": "DS-PK-T11_Wreck-Divers_5.83x8.27.png",
+   "hex": "#3F577F"
   },
   {
    "sku": "DS-PK-T12",
@@ -156,7 +167,8 @@
     "DS-STK-T06-05"
    ],
    "uv_sheet": "sheet1",
-   "master": "DS-PK-T12_Into-the-Dark_5.83x8.27.png"
+   "master": "DS-PK-T12_Into-the-Dark_5.83x8.27.png",
+   "hex": "#7F673F"
   },
   {
    "sku": "DS-PK-T13",
@@ -169,7 +181,8 @@
     "DS-STK-T07-06"
    ],
    "uv_sheet": "sheet1",
-   "master": "DS-PK-T13_Retro-Patches_5.83x8.27.png"
+   "master": "DS-PK-T13_Retro-Patches_5.83x8.27.png",
+   "hex": "#08152A"
   },
   {
    "sku": "DS-PK-T14",
@@ -182,7 +195,8 @@
     "DS-STK-T07-05"
    ],
    "uv_sheet": "sheet1",
-   "master": "DS-PK-T14_Vintage-Classics_5.83x8.27.png"
+   "master": "DS-PK-T14_Vintage-Classics_5.83x8.27.png",
+   "hex": "#D46A2A"
   },
   {
    "sku": "DS-PK-T15",
@@ -195,7 +209,8 @@
     "DS-STK-T08-06"
    ],
    "uv_sheet": "sheet1",
-   "master": "DS-PK-T15_Pacific-Bucket-List_5.83x8.27.png"
+   "master": "DS-PK-T15_Pacific-Bucket-List_5.83x8.27.png",
+   "hex": "#3F197F"
   },
   {
    "sku": "DS-PK-T16",
@@ -208,7 +223,8 @@
     "DS-STK-T08-05"
    ],
    "uv_sheet": "sheet2",
-   "master": "DS-PK-T16_Atlantic-Red-Sea_5.83x8.27.png"
+   "master": "DS-PK-T16_Atlantic-Red-Sea_5.83x8.27.png",
+   "hex": "#2AD4BF"
   },
   {
    "sku": "DS-PK-T17",
@@ -221,7 +237,8 @@
     "DS-STK-T09-03"
    ],
    "uv_sheet": "sheet2",
-   "master": "DS-PK-T17_Reef-Heroes_5.83x8.27.png"
+   "master": "DS-PK-T17_Reef-Heroes_5.83x8.27.png",
+   "hex": "#6AC7D4"
   },
   {
    "sku": "DS-PK-T18",
@@ -234,7 +251,8 @@
     "DS-STK-T09-06"
    ],
    "uv_sheet": "sheet2",
-   "master": "DS-PK-T18_Ocean-Pledge_5.83x8.27.png"
+   "master": "DS-PK-T18_Ocean-Pledge_5.83x8.27.png",
+   "hex": "#6AD4C7"
   },
   {
    "sku": "DS-PK-T19",
@@ -247,7 +265,8 @@
     "DS-STK-T10-03"
    ],
    "uv_sheet": "sheet2",
-   "master": "DS-PK-T19_Deep-Weird_5.83x8.27.png"
+   "master": "DS-PK-T19_Deep-Weird_5.83x8.27.png",
+   "hex": "#D48A93"
   },
   {
    "sku": "DS-PK-T20",
@@ -260,7 +279,8 @@
     "DS-STK-T10-06"
    ],
    "uv_sheet": "sheet2",
-   "master": "DS-PK-T20_Strange-Beauty_5.83x8.27.png"
+   "master": "DS-PK-T20_Strange-Beauty_5.83x8.27.png",
+   "hex": "#573F7F"
   },
   {
    "sku": "DS-PK-T21",
@@ -273,7 +293,8 @@
     "DS-STK-T11-06"
    ],
    "uv_sheet": "sheet2",
-   "master": "DS-PK-T21_Ocean-Masterpieces_5.83x8.27.png"
+   "master": "DS-PK-T21_Ocean-Masterpieces_5.83x8.27.png",
+   "hex": "#D46A77"
   },
   {
    "sku": "DS-PK-T22",
@@ -286,7 +307,8 @@
     "DS-STK-T11-05"
    ],
    "uv_sheet": "sheet2",
-   "master": "DS-PK-T22_Art-History-Dive_5.83x8.27.png"
+   "master": "DS-PK-T22_Art-History-Dive_5.83x8.27.png",
+   "hex": "#3F577F"
   },
   {
    "sku": "DS-PK-T23",
@@ -299,7 +321,8 @@
     "DS-STK-T12-05"
    ],
    "uv_sheet": "sheet2",
-   "master": "DS-PK-T23_Dive-Science-101_5.83x8.27.png"
+   "master": "DS-PK-T23_Dive-Science-101_5.83x8.27.png",
+   "hex": "#197F3F"
   },
   {
    "sku": "DS-PK-T24",
@@ -312,7 +335,8 @@
     "DS-STK-T12-06"
    ],
    "uv_sheet": "sheet2",
-   "master": "DS-PK-T24_Pre-Dive-Check_5.83x8.27.png"
+   "master": "DS-PK-T24_Pre-Dive-Check_5.83x8.27.png",
+   "hex": "#3F197F"
   },
   {
    "sku": "DS-PK-T25",
@@ -325,7 +349,8 @@
     "DS-STK-T06-05"
    ],
    "uv_sheet": "sheet2",
-   "master": "DS-PK-T25_Turtle-Trio_5.83x8.27.png"
+   "master": "DS-PK-T25_Turtle-Trio_5.83x8.27.png",
+   "hex": "#ACD46A"
   },
   {
    "sku": "DS-PK-T26",
@@ -338,7 +363,8 @@
     "DS-STK-T11-05"
    ],
    "uv_sheet": "sheet2",
-   "master": "DS-PK-T26_Octopus-Trio_5.83x8.27.png"
+   "master": "DS-PK-T26_Octopus-Trio_5.83x8.27.png",
+   "hex": "#D4776A"
   },
   {
    "sku": "DS-PK-C01",
@@ -351,7 +377,8 @@
     "DS-STK-D-RES"
    ],
    "uv_sheet": "sheet2",
-   "master": "DS-PK-C01_Certified_5.83x8.27.png"
+   "master": "DS-PK-C01_Certified_5.83x8.27.png",
+   "hex": "#3F777F"
   },
   {
    "sku": "DS-PK-C02",
@@ -364,7 +391,8 @@
     "DS-STK-D-BUO"
    ],
    "uv_sheet": "sheet2",
-   "master": "DS-PK-C02_Master-Diver_5.83x8.27.png"
+   "master": "DS-PK-C02_Master-Diver_5.83x8.27.png",
+   "hex": "#673F7F"
   },
   {
    "sku": "DS-PK-C03",
@@ -377,7 +405,8 @@
     "DS-STK-D-ALT"
    ],
    "uv_sheet": "sheet2",
-   "master": "DS-PK-C03_The-Deep-End_5.83x8.27.png"
+   "master": "DS-PK-C03_The-Deep-End_5.83x8.27.png",
+   "hex": "#3F777F"
   },
   {
    "sku": "DS-PK-C04",
@@ -390,7 +419,8 @@
     "DS-STK-D-FSH"
    ],
    "uv_sheet": "sheet2",
-   "master": "DS-PK-C04_Specialty-Mix_5.83x8.27.png"
+   "master": "DS-PK-C04_Specialty-Mix_5.83x8.27.png",
+   "hex": "#D4776A"
   },
   {
    "sku": "DS-PK-C05",
@@ -403,7 +433,8 @@
     "DS-STK-D-BUO"
    ],
    "uv_sheet": "sheet3",
-   "master": "DS-PK-C05_Chill-Dives_5.83x8.27.png"
+   "master": "DS-PK-C05_Chill-Dives_5.83x8.27.png",
+   "hex": "#3F777F"
   },
   {
    "sku": "DS-PK-B01",
@@ -416,7 +447,8 @@
     "DS-STK-D-TAG-CLASSIC"
    ],
    "uv_sheet": "sheet3",
-   "master": "DS-PK-B01_Classic-Trio_5.83x8.27.png"
+   "master": "DS-PK-B01_Classic-Trio_5.83x8.27.png",
+   "hex": "#122A55"
   },
   {
    "sku": "DS-PK-B02",
@@ -429,7 +461,8 @@
     "DS-STK-D-KIT-NAVY"
    ],
    "uv_sheet": "sheet3",
-   "master": "DS-PK-B02_Navy-Trio_5.83x8.27.png"
+   "master": "DS-PK-B02_Navy-Trio_5.83x8.27.png",
+   "hex": "#0E2140"
   },
   {
    "sku": "DS-PK-B03",
@@ -442,7 +475,8 @@
     "DS-STK-D-TAG-BLACK"
    ],
    "uv_sheet": "sheet3",
-   "master": "DS-PK-B03_Black-Trio_5.83x8.27.png"
+   "master": "DS-PK-B03_Black-Trio_5.83x8.27.png",
+   "hex": "#1C1C1E"
   },
   {
    "sku": "DS-PK-B04",
@@ -455,7 +489,8 @@
     "DS-STK-D-HOR-RED"
    ],
    "uv_sheet": "sheet3",
-   "master": "DS-PK-B04_Red-Trio_5.83x8.27.png"
+   "master": "DS-PK-B04_Red-Trio_5.83x8.27.png",
+   "hex": "#C8202A"
   },
   {
    "sku": "DS-PK-B05",
@@ -468,7 +503,8 @@
     "DS-STK-D-SEA-RED"
    ],
    "uv_sheet": "sheet3",
-   "master": "DS-PK-B05_The-Seal-Set_5.83x8.27.png"
+   "master": "DS-PK-B05_The-Seal-Set_5.83x8.27.png",
+   "hex": "#2F4F7F"
   },
   {
    "sku": "DS-PK-B06",
@@ -481,7 +517,8 @@
     "DS-STK-D-KIT-BLACK"
    ],
    "uv_sheet": "sheet3",
-   "master": "DS-PK-B06_Do-A-Little-Scuba_5.83x8.27.png"
+   "master": "DS-PK-B06_Do-A-Little-Scuba_5.83x8.27.png",
+   "hex": "#5A7FA8"
   }
  ]
 }
