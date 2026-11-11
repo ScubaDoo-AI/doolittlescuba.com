@@ -3,13 +3,16 @@
 
 The store is Shopify-connected (Printful store 18960047), so the sync API applies: GET /sync/products,
 GET /sync/products/{id}, PUT /sync/variant/{id}. (The /store/products routes in printful_stickers.py,
-printful_offworld.py, printful_n73.py only work on a manual / API store.) The plans come from those three
-scripts: stickers (kiss-cut route), Off-World Hunt Club light + dark (DTG back + chest) 1N73LL1G3NC3 (DTG front) and Aquatic Comic Boat Banter (DTG front + back, printful_aquatic.py).
+printful_offworld.py, printful_n73.py only work on a manual / API store.) The plans come from the printful_*.py
+scripts: stickers (kiss-cut route), packs (37 three-sticker kiss-cut sheets, printful_packs.py), Off-World Hunt Club
+light + dark (DTG back + chest), 1N73LL1G3NC3 (DTG front), Aquatic Comic Boat Banter (DTG front + back,
+printful_aquatic.py), Signature Series and Certified-ish.
 Sync variants are matched by SKU, then by Shopify variant id (external_id).
 
   PRINTFUL_TOKEN=… tools/printful_link.py                  # dry run: what would be linked, what is unmatched
   PRINTFUL_TOKEN=… tools/printful_link.py --apply          # write the links
   PRINTFUL_TOKEN=… tools/printful_link.py --apply --only stickers,n73,offworld
+  PRINTFUL_TOKEN=… tools/printful_link.py --apply --only packs       # the 37 three-sticker sheets (printful_packs.py)
 
 Retail prices stay Shopify's; only the Printful variant, the files and is_ignored are sent.
 """
@@ -51,6 +54,10 @@ def targets(only):
         for p in load('printful_signature').plan('dtg'):
             for v in p['variants']:
                 out[v['sku']] = dict(line='signature', ext='sku:' + v['sku'], variant_id=v['variant_id'], files=p['files'])
+    if 'packs' in only:   # 37 three-sticker packs, one kiss-cut sheet each (printful_packs.py, masters in Shopify Files)
+        for r in load('printful_packs').plan():
+            out[r['sku']] = dict(line='packs', ext=str(r['shopify_variant']), variant_id=r['variant_id'],
+                                 files=[{'type': 'default', 'url': r['file']}])
     if 'aquatic' in only:   # Boat Banter S01–S20 only; the personalized Aquatic Comic tees are ordered by hand
         for p in load('printful_aquatic').plan('dtg'):
             for v in p['variants']:
@@ -77,7 +84,7 @@ def api(token, method, path, body=None, tries=4):
 
 if __name__ == '__main__':
     token = os.environ.get('PRINTFUL_TOKEN') or sys.exit('PRINTFUL_TOKEN not set')
-    only = sys.argv[sys.argv.index('--only') + 1].split(',') if '--only' in sys.argv else ['stickers', 'offworld', 'n73', 'aquatic', 'signature', 'certifiedish']
+    only = sys.argv[sys.argv.index('--only') + 1].split(',') if '--only' in sys.argv else ['stickers', 'packs', 'offworld', 'n73', 'aquatic', 'signature', 'certifiedish']
     apply = '--apply' in sys.argv
     T = targets(only); by_ext = {t['ext']: s for s, t in T.items()}
     items, off = [], 0
@@ -88,7 +95,8 @@ if __name__ == '__main__':
     seen, linked, failed = set(), 0, []
     # only open the products whose name belongs to the lines asked for (a 295-product store took 20+ min opening all)
     NAMES = {'aquatic': ['aquatic comic'], 'signature': ['signature series'], 'certifiedish': ['certified-ish'],
-             'n73': ['1n73ll1g3nc3'], 'offworld': ['off-world'], 'stickers': ['sticker', 'achievement', 'seal', 'logo', 'bumper', 'kit']}
+             'n73': ['1n73ll1g3nc3'], 'offworld': ['off-world'], 'stickers': ['sticker', 'achievement', 'seal', 'logo', 'bumper', 'kit'],
+             'packs': ['sticker pack']}
     keys = [k for l in only for k in NAMES.get(l, [])]
     if keys and '--all-products' not in sys.argv:
         picked = [sp for sp in items if any(k in (sp.get('name') or '').lower() for k in keys)]

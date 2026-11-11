@@ -7,7 +7,7 @@ on:
       lines:
         description: 'Lines to link'
         type: choice
-        options: [aquatic, signature, certifiedish, n73, 'stickers,offworld,n73,aquatic,signature,certifiedish']
+        options: [packs, aquatic, signature, certifiedish, n73, stickers, 'stickers,packs,offworld,n73,aquatic,signature,certifiedish']
         default: aquatic
       apply:
         description: 'Apply (write the links). Off = dry run'
