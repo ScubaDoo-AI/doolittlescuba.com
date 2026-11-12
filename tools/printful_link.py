@@ -14,6 +14,7 @@ Sync variants are matched by SKU, then by Shopify variant id (external_id).
   PRINTFUL_TOKEN=… tools/printful_link.py --apply --only stickers,n73,offworld
   PRINTFUL_TOKEN=… tools/printful_link.py --apply --only packs       # the 37 three-sticker sheets (printful_packs.py)
   PRINTFUL_TOKEN=… tools/printful_link.py --apply --only caps        # the 12 embroidered Flexfit 6277 caps (printful_caps.py)
+  PRINTFUL_TOKEN=… tools/printful_link.py --apply --force --only signature,caps --sku DS-NAV   # one site, after a print-file change
 
 Retail prices stay Shopify's; only the Printful variant, the files and is_ignored are sent.
 """
@@ -91,7 +92,11 @@ if __name__ == '__main__':
     token = os.environ.get('PRINTFUL_TOKEN') or sys.exit('PRINTFUL_TOKEN not set')
     only = sys.argv[sys.argv.index('--only') + 1].split(',') if '--only' in sys.argv else ['stickers', 'packs', 'offworld', 'n73', 'aquatic', 'signature', 'certifiedish']
     apply = '--apply' in sys.argv
-    T = targets(only); by_ext = {t['ext']: s for s, t in T.items()}
+    T = targets(only)
+    if '--sku' in sys.argv:   # restrict to SKUs starting with any of the given prefixes, e.g. --sku DS-NAV (one site's tees and caps)
+        pre = tuple(sys.argv[sys.argv.index('--sku') + 1].split(',')); T = {s: t for s, t in T.items() if s.startswith(pre)}
+        print(f'--sku {",".join(pre)}: {len(T)} planned variants', flush=True)
+    by_ext = {t['ext']: s for s, t in T.items()}
     items, off = [], 0
     while True:
         res = api(token, 'GET', f'/sync/products?offset={off}&limit=100'); items += res['result']

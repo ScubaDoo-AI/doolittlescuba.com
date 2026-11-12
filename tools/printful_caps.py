@@ -34,7 +34,7 @@ BACK_FILE = 'DS_tagline_PF-cap-back_DO-A-LITTLE-over-SCUBA_2.00x0.67in_white.png
 CAPS = [
     ('BAL', 'bali-dark-cap', 'Dark Navy', 'DS-BAL_Bali_PF-cap-front_2.46x1.88in_white-blue.png', [WHITE, ROYAL], True, True, 35),
     ('DAM', 'dampier-strait-dark-cap', 'Dark Navy', 'DS-DAM_Dampier_Strait_PF-cap-front_3.57x1.99in_white-blue.png', [WHITE, ROYAL], True, True, 35),
-    ('NAV', 'navy-llcat-dark-cap', 'Dark Navy', 'DS-NAV_Navy_LLCAT_PF-cap-front_4.10x1.94in_white-red.png', [WHITE, RED], True, True, 35),
+    ('NAV', 'navy-llcat-dark-cap', 'Dark Navy', 'DS-NAV_Navy_LLCAT_PF-cap-front_2.81x1.96in_white-red.png', [WHITE, RED], True, True, 35),
     ('THD', 'thurmond-dam-dark-cap', 'Dark Navy', 'DS-THD_Thurmond_Dam_PF-cap-front_3.78x1.89in_white-red.png', [WHITE, RED], True, True, 35),
     ('BBT', 'black-bart-dark-cap', 'Dark Grey', 'DS-BBT_Black_Bart_PF-cap-front_2.83x1.88in_white-red.png', [WHITE, RED], True, True, 35),
     ('DLP', 'dive-land-park-dark-cap', 'Dark Grey', 'DS-DLP_Dive_Land_Park_PF-cap-front_3.61x1.88in_white-red.png', [WHITE, RED], True, True, 35),

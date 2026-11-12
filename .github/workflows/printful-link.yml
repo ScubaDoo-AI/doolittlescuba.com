@@ -17,6 +17,10 @@ on:
         description: 'Re-send files to variants already linked (after a print-file change)'
         type: boolean
         default: false
+      sku:
+        description: 'Only SKUs starting with these prefixes, comma-separated (e.g. DS-NAV). Blank = all'
+        type: string
+        default: ''
 permissions:
   contents: read
 concurrency: printful
@@ -35,10 +39,12 @@ jobs:
           LINES: ${{ inputs.lines }}
           APPLY: ${{ inputs.apply }}
           FORCE: ${{ inputs.force }}
+          SKU: ${{ inputs.sku }}
         run: |
           set -o pipefail
           if [ "$APPLY" = "true" ]; then FLAG=--apply; else FLAG=; fi
           if [ "$FORCE" = "true" ]; then FLAG="$FLAG --force"; fi
-          echo "mode: lines=$LINES apply=$APPLY force=$FORCE" | tee link.log
+          if [ -n "$SKU" ]; then [[ "$SKU" =~ ^[A-Za-z0-9,_-]+$ ]] || { echo "::error::sku prefixes: letters, digits, - _ , only"; exit 1; }; FLAG="$FLAG --sku $SKU"; fi
+          echo "mode: lines=$LINES apply=$APPLY force=$FORCE sku=$SKU" | tee link.log
           python tools/printful_link.py --only "$LINES" $FLAG | tee -a link.log
           { echo '## Printful link'; echo; echo '```'; head -n 1 link.log; echo; tail -n 25 link.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
