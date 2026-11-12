@@ -53,12 +53,27 @@ def printful():
     return f'store "{ours[0].get("name")}" ({O.PF_STORE}); {sync}; scopes {", ".join(map(str, names))}'
 
 
+def cap_areas():
+    """Flexfit 6277 (140) embroidery areas, read-only: the exact per-placement template sizes the caps' files must fit
+    (tools/printful_caps.py assumes front <= 2.25 in tall, left 1.25 in, back ~3 x 1 in from Printful's general guidance)."""
+    code, r = O.http('GET', 'https://api.printful.com/mockup-generator/printfiles/140',
+                     {'Authorization': 'Bearer ' + os.environ['PRINTFUL_TOKEN'], 'X-PF-Store-Id': O.PF_STORE})
+    if code != 200: raise SystemExit(f'printfiles not readable ({code})')
+    res = r['result']; pf = {f['printfile_id']: f for f in res.get('printfiles', [])}
+    out = []
+    for v in res.get('variant_printfiles', [])[:1]:
+        for pl, pid in v.get('placements', {}).items():
+            f = pf.get(pid, {}); dpi = f.get('dpi') or 300
+            out.append(f"{pl}: {f.get('width')}x{f.get('height')} px @ {dpi} dpi = {f.get('width', 0)/dpi:.2f} x {f.get('height', 0)/dpi:.2f} in")
+    return '6277 areas — ' + '; '.join(out)
+
+
 if __name__ == '__main__':
     if os.environ.get('SHOPIFY_CLIENT_ID') or os.environ.get('SHOPIFY_TOKEN'):
         check('Shopify', shopify); check('Shopify Files', files)
     else:
         results.append(('Shopify', False, 'SHOPIFY_CLIENT_ID / SHOPIFY_CLIENT_SECRET not set'))
-    if os.environ.get('PRINTFUL_TOKEN'): check('Printful', printful)
+    if os.environ.get('PRINTFUL_TOKEN'): check('Printful', printful); check('Printful cap areas', cap_areas)
     else: results.append(('Printful', False, 'PRINTFUL_TOKEN not set'))
     out = [f'{"PASS" if ok else "FAIL"}  {n}: {m}' for n, ok, m in results]
     print('\n'.join(out))

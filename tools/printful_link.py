@@ -6,13 +6,14 @@ GET /sync/products/{id}, PUT /sync/variant/{id}. (The /store/products routes in 
 printful_offworld.py, printful_n73.py only work on a manual / API store.) The plans come from the printful_*.py
 scripts: stickers (kiss-cut route), packs (37 three-sticker kiss-cut sheets, printful_packs.py), Off-World Hunt Club
 light + dark (DTG back + chest), 1N73LL1G3NC3 (DTG front), Aquatic Comic Boat Banter (DTG front + back,
-printful_aquatic.py), Signature Series and Certified-ish.
+printful_aquatic.py), Signature Series, Certified-ish and the embroidered caps (printful_caps.py, item-level thread options).
 Sync variants are matched by SKU, then by Shopify variant id (external_id).
 
   PRINTFUL_TOKEN=… tools/printful_link.py                  # dry run: what would be linked, what is unmatched
   PRINTFUL_TOKEN=… tools/printful_link.py --apply          # write the links
   PRINTFUL_TOKEN=… tools/printful_link.py --apply --only stickers,n73,offworld
   PRINTFUL_TOKEN=… tools/printful_link.py --apply --only packs       # the 37 three-sticker sheets (printful_packs.py)
+  PRINTFUL_TOKEN=… tools/printful_link.py --apply --only caps        # the 12 embroidered Flexfit 6277 caps (printful_caps.py)
 
 Retail prices stay Shopify's; only the Printful variant, the files and is_ignored are sent.
 """
@@ -58,6 +59,10 @@ def targets(only):
         for r in load('printful_packs').plan():
             out[r['sku']] = dict(line='packs', ext=str(r['shopify_variant']), variant_id=r['variant_id'],
                                  files=[{'type': 'default', 'url': r['file']}])
+    if 'caps' in only:   # 12 embroidered Flexfit 6277 caps (printful_caps.py): front + left + back, thread colours as item options
+        for p in load('printful_caps').plan():
+            for v in p['variants']:
+                out[v['sku']] = dict(line='caps', ext=str(v['shopify_variant']), variant_id=v['variant_id'], files=p['files'], options=p['options'])
     if 'aquatic' in only:   # Boat Banter S01–S20 only; the personalized Aquatic Comic tees are ordered by hand
         for p in load('printful_aquatic').plan('dtg'):
             for v in p['variants']:
@@ -96,7 +101,7 @@ if __name__ == '__main__':
     # only open the products whose name belongs to the lines asked for (a 295-product store took 20+ min opening all)
     NAMES = {'aquatic': ['aquatic comic'], 'signature': ['signature series'], 'certifiedish': ['certified-ish'],
              'n73': ['1n73ll1g3nc3'], 'offworld': ['off-world'], 'stickers': ['sticker', 'achievement', 'seal', 'logo', 'bumper', 'kit'],
-             'packs': ['sticker pack']}
+             'packs': ['sticker pack'], 'caps': ['dark cap']}
     keys = [k for l in only for k in NAMES.get(l, [])]
     if keys and '--all-products' not in sys.argv:
         picked = [sp for sp in items if any(k in (sp.get('name') or '').lower() for k in keys)]
@@ -118,7 +123,9 @@ if __name__ == '__main__':
                 else: failed.append((sku, r.get('error'))); print('FAILED', sku, r.get('error'), flush=True)
                 time.sleep(0.6); continue
             if sv.get('synced') and sv.get('variant_id') == t['variant_id'] and '--force' not in sys.argv: continue   # already linked
-            r = api(token, 'PUT', f'/sync/variant/{sv["id"]}', {'variant_id': t['variant_id'], 'files': t['files'], 'is_ignored': False})
+            body = {'variant_id': t['variant_id'], 'files': t['files'], 'is_ignored': False}
+            if t.get('options'): body['options'] = t['options']   # embroidery: thread colours + embroidery_type ride on the variant, not the file
+            r = api(token, 'PUT', f'/sync/variant/{sv["id"]}', body)
             if r.get('code') == 200: linked += 1; print('linked', sku, '→', t['variant_id'], flush=True)
             else: failed.append((sku, r.get('error'))); print('FAILED', sku, r.get('error'), flush=True)
             time.sleep(0.6)
