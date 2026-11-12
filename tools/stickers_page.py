@@ -52,7 +52,7 @@ def contents(pack):
 
 
 def card(p):
-    what = 'the full set · seventeen kiss-cut stickers on one 5.83 × 8.27 in sheet' if p['line'] == 'set' else ('sticker pack · three kiss-cut stickers' + (' and small fillers' if p.get('fillers') else '') + ' on one 4 × 6 in sheet')
+    what = 'the full set · seventeen UV DTF rub-on stickers on one 10¾ × 5¾ in sheet' if p['line'] == 'set' else ('sticker pack · three kiss-cut stickers' + (' and small fillers' if p.get('fillers') else '') + ' on one 4 × 6 in sheet')
     cap = f'{p["name"]} — {what} · ${price(p):.0f}'
     inner = contents(p)
     return (f'<figure class="sh pk" data-sku="{p["sku"]}" data-line="{p["line"]}" data-slug="{p["slug"]}" data-code="{"" if p["line"] == "set" else p["sku"][-3:]}" data-price="${price(p):.0f}" '

@@ -1,6 +1,6 @@
 {
  "price": 10.0,
- "printer": "Sticker Mule (confirmed 12 Nov 2026): one 4 x 6 in kiss-cut sheet per pack, printed in bulk, stock held by Eric. Store tag print:sticker-mule-4x6.",
+ "printer": "Packs DS-PK-*: Sticker Mule (confirmed 12 Nov 2026), one 4 x 6 in kiss-cut sheet each, printed in bulk, stock held by Eric; store tag print:sticker-mule-4x6. Achievement set DS-STK-A-SET12: Ninja Transfers UV DTF gang sheet (confirmed 12 Nov 2026), 22 x 24 in, 8 sets per sheet, 15 sheets ordered = 120 sets; store tag print:ninja-transfers-uv-dtf.",
  "sheet": "4 x 6 in kiss-cut sheet, three stickers + small fillers (PDF with CutContour paths; \"print\" below, archived in Shopify Files as files/<print>, GenericFile id \"print_file_id\"). \"master\" is the earlier 5.83 x 8.27 Printful layout (files/DS-PK-<xx>.png), superseded and no longer sent anywhere.",
  "packs": [
   {
@@ -35,7 +35,10 @@
    "master": "DS-STK-A-SET12-A5.png",
    "hex": "#1B2A5A",
    "fillers": false,
-   "note": "The full set, the opener of the packs deck at $15. Shopify product achievement-unlocked-full-set (SKU DS-STK-A-SET12). The print master in Shopify Files is still the twelve-badge A5 layout; the five header stickers need a new master."
+   "note": "The full set, the opener of the packs deck at $15. Shopify product achievement-unlocked-full-set (SKU DS-STK-A-SET12). The A5 \"master\" in Shopify Files is the superseded twelve-badge Printful layout; \"print\" is the sheet that is actually printed.",
+   "print": "DS-STK-A-SET12_Achievement-Unlocked_UV-DTF-gang-22x24_8-sets.png",
+   "print_file_id": 47395653058746,
+   "print_note": "Ninja Transfers UV DTF gang sheet, 22 x 24 in at 300 dpi (6600 x 7200, transparent ground), 8 sets in 2 x 4; one set is 10.7 x 5.7 in: 12 badges 3.47 x 1.08 in + 5 headers 0.77 in tall (seal round; horizontal logo 2.36, Achievement Hunter 2.54, Do A Little Scuba 2.07, 100% Complete 2.02 in wide). 15 sheets ordered 12 Nov 2026 = 120 sets."
   },
   {
    "sku": "DS-PK-T01",
