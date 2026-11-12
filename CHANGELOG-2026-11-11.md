@@ -89,3 +89,6 @@ Eric: the front reads **Navy LLCAT**. Chest print files (both inks) and the embr
 
 ### 02:39 — the button says what the pair is, and the shirts push it too
 The site's pair button now reads **Add the pair · cap + shirt · $69** on the caps and **Add the pair · shirt + cap · $69** on the site guides and on every Signature tee in the Signature deck — the 28 tee cards link their own pair (light tee → light pair, dark tee → dark pair). One tool, `tools/pairs_site.py`, idempotent. The store copy already named both pieces.
+
+### 02:55 — the whole store active, behind the password
+All 270 draft products set active, and the 279 products + 16 collections that were never on the Online Store sales channel (Pairs among them) published to it: 341 products, 21 collections, all on the channel. The storefront still sits behind the password; 19 retired products stay archived.
