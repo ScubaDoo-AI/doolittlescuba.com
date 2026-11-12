@@ -105,3 +105,7 @@ Eric (iPad screenshot of the home deck opening on its one-card set line): *"Due 
 - Checked by script at 1440, 1180 and 390 px, light and dark; the viewer opens from the opener on both pages; no console errors. The render script is outside the repo (`/home/claude/stickers_in/tools/set_render.py`, reads the gang sheet).
 - Rebased over the other session's cap/beanie commits (the generated pages conflicted on the cache-bust hashes — resolved by taking main's pages and regenerating the stickers section). Live: `site.css` d3ae18da, `deck.js` 76b31358, probed before any busted URL was fetched.
 - **Store**: the set's product image (MediaImage 47132147581114, replaced in place) is now the same sheet render on a 1200 × 1200 white square with the title under it, instead of the portrait pack mock.
+
+### 18:15 — "Is the caps and beanies also on the website"
+
+Caps yes (the home page hats deck, 19 Flexfit 6277 caps, all Coming soon, the six recoloured ones included); the beanie no — The Mark beanie is a draft in the store, linked to Printful, and not on the site yet. While checking, found the six recoloured caps still said their old colours in two places the recolour tool missed — the viewer caption (`data-cap="Bridge Span 14 cap · Brown · …"`) and the no-JS caption's colour word — twelve strings, now Olive / Royal blue / Black / Dark grey to match `data-colour`; `tools/caps_printful_colours.py` fixes them too so it stays complete and idempotent.

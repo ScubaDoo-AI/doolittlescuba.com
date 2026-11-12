@@ -34,9 +34,13 @@ p = f'{ROOT}/index.html'; h = h0 = open(p, encoding='utf-8').read()
 for slug, (name, hx, _) in NEW.items():
     m = re.search(rf'(data-slug="cap-dark-{slug}"[^>]*?)data-colour="[^"]*" data-hex="[^"]*"', h); assert m, slug
     h = h[:m.start()] + m.group(1) + f'data-colour="{name}" data-hex="{hx}"' + h[m.end():]
+    # the viewer caption (data-cap) and the no-JS caption carry the colour word too
+    cap_name = re.search(rf'data-slug="cap-dark-{slug}".*?<span class="dz-t">([^<]+) cap</span>', h, re.S).group(1)
+    h = re.sub(rf'data-cap="{re.escape(cap_name)} cap · (Brown|Purple|Maroon|Spruce) · Flexfit', f'data-cap="{cap_name} cap · {name} · Flexfit', h)
+    h = re.sub(rf'(<span class="dz-t">{re.escape(cap_name)} cap</span>.*?<span class="dz-s">)(Brown|Purple|Maroon|Spruce)( · <a href="/sites/)', rf'\g<1>{name}\g<3>', h, flags=re.S)
 old = "thread=/maroon/i.test(it.colour||'')?'white and navy':'white and red'"
 if old in h: h = h.replace(old, "thread='white and red'")
-assert not re.search(r'data-colour="(Purple|Brown|Maroon|Spruce)"', h)
+assert not re.search(r'(data-colour="|dz-s">|cap · )(Purple|Brown|Maroon|Spruce)', h)
 if h != h0: open(p, 'w', encoding='utf-8').write(h); print('index.html: six figures recoloured')
 
 # 3. custom/index.html
