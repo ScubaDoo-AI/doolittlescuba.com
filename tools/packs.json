@@ -77,7 +77,7 @@
    "uv_sheet": "sheet1",
    "master": "DS-PK-T03_Pun-Pack_5.83x8.27.png",
    "hex": "#6AACD4",
-   "fillers": false
+   "fillers": true
   },
   {
    "sku": "DS-PK-T04",
@@ -437,7 +437,7 @@
    "uv_sheet": "sheet2",
    "master": "DS-PK-C01_Certified_5.83x8.27.png",
    "hex": "#3F777F",
-   "fillers": false
+   "fillers": true
   },
   {
    "sku": "DS-PK-C02",
@@ -452,7 +452,7 @@
    "uv_sheet": "sheet2",
    "master": "DS-PK-C02_Master-Diver_5.83x8.27.png",
    "hex": "#673F7F",
-   "fillers": false
+   "fillers": true
   },
   {
    "sku": "DS-PK-C03",
@@ -497,7 +497,7 @@
    "uv_sheet": "sheet3",
    "master": "DS-PK-C05_Chill-Dives_5.83x8.27.png",
    "hex": "#3F777F",
-   "fillers": false
+   "fillers": true
   },
   {
    "sku": "DS-PK-B01",
@@ -542,7 +542,7 @@
    "uv_sheet": "sheet3",
    "master": "DS-PK-B03_Black-Trio_5.83x8.27.png",
    "hex": "#1C1C1E",
-   "fillers": false
+   "fillers": true
   },
   {
    "sku": "DS-PK-B04",
@@ -557,7 +557,7 @@
    "uv_sheet": "sheet3",
    "master": "DS-PK-B04_Red-Trio_5.83x8.27.png",
    "hex": "#C8202A",
-   "fillers": false
+   "fillers": true
   },
   {
    "sku": "DS-PK-B05",
@@ -572,7 +572,7 @@
    "uv_sheet": "sheet3",
    "master": "DS-PK-B05_The-Seal-Set_5.83x8.27.png",
    "hex": "#2F4F7F",
-   "fillers": false
+   "fillers": true
   },
   {
    "sku": "DS-PK-B06",
@@ -587,7 +587,7 @@
    "uv_sheet": "sheet3",
    "master": "DS-PK-B06_Do-A-Little-Scuba_5.83x8.27.png",
    "hex": "#5A7FA8",
-   "fillers": false
+   "fillers": true
   }
  ]
 }
