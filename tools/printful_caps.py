@@ -6,11 +6,14 @@ caps on those four colours go through Printful; Purple (Blue Grotto), Brown (Bri
 Spruce (Somosomo Strait, The Thistlegorm, Vuna Reef) stay with the outside embroiderer (tag fulfil:ss-blank-embroiderer).
 Home Port is custom-order (the buyer's own coordinates) and is not linked.
 
-Three placements (11 Nov 2026 files in Shopify Files, built by the Project's printful_caps_files.py from the embroiderer pack):
-  embroidery_front  the site front (flag + name + coordinates at 0.32 in caps, <= 2.25 in tall) or the brand front
-  embroidery_left   the heavy DS mark, fitted to the side area at 1.14 x 1.25 in (DS_mark_HEAVY_PF-cap-left_FIT_…); the
-                    1.50 x 1.64 in file is beside it in Files — switch SIDE_FILE if Printful's left area turns out taller
-  embroidery_back   "DO - A - LITTLE" arched over "SCUBA", 2.93 x 0.98 in
+Three placements, sized to the 6277's actual Printful templates (printfiles API, 11 Nov: front 5.90 x 2.00 in; left, right and
+back 2.00 x 1.00 in at 300 dpi). Files in Shopify Files, built by the Project's printful_caps_files.py from the embroiderer pack:
+  embroidery_front  the site front (flag + name + coordinates, coordinates at 0.32 in caps so the oldstyle figures clear the
+                    0.25 in text floor; <= 2.00 in tall) or the brand front (The Mark, Seal and Stack scaled to 2.00 in tall)
+  embroidery_left   the heavy DS mark fitted to the 2 x 1 in side template: 0.92 x 1.00 in — below the 1.50 in line spec and
+                    the 0.05 in line floor on the eye ring (p5 0.88 mm after the weight pass); sample one cap first
+  embroidery_back   "DO A LITTLE" (0.25 in caps) over "SCUBA" (0.30 in), straight, 2.00 x 0.67 in — the 2 x 1 in back cannot
+                    take the 4.00 in "DO - A - LITTLE" arc at the text floor, so the dashes and the arc are dropped here only
 Every file is weight-passed to Printful's 0.05 in line floor and recoloured to its thread palette: 1801 White #FFFFFF,
 1839 Red #CC3333 (the mark's S and the diver-down flag), 1842 Royal #005397 (the Alpha flag).
 The Mark has no side mark; The Stack has no side and no back.
@@ -25,21 +28,21 @@ CDN = 'https://cdn.shopify.com/s/files/1/0787/3350/8794/files/'
 BLANK, EXTRA = 16.51, 2.95
 PF = {'Black': (5276, 5277), 'Dark Navy': (5278, 5279), 'Dark Grey': (5280, 5281), 'Olive': (15901, 15902)}   # (S/M, L/XL)
 WHITE, RED, ROYAL = '#FFFFFF', '#CC3333', '#005397'
-SIDE_FILE = 'DS_mark_HEAVY_PF-cap-left_FIT_1.14x1.25in_white-red.png'
-BACK_FILE = 'DS_tagline_PF-cap-back_arc-over-SCUBA_2.93x0.98in_white.png'
+SIDE_FILE = 'DS_mark_HEAVY_PF-cap-left_FIT_0.92x1.00in_white-red.png'
+BACK_FILE = 'DS_tagline_PF-cap-back_DO-A-LITTLE-over-SCUBA_2.00x0.67in_white.png'
 # code, handle, Printful colour, front file, front threads, side?, back?, price
 CAPS = [
-    ('BAL', 'bali-dark-cap', 'Dark Navy', 'DS-BAL_Bali_PF-cap-front_2.46x2.12in_white-blue.png', [WHITE, ROYAL], True, True, 35),
-    ('DAM', 'dampier-strait-dark-cap', 'Dark Navy', 'DS-DAM_Dampier_Strait_PF-cap-front_3.77x2.23in_white-blue.png', [WHITE, ROYAL], True, True, 35),
-    ('NAV', 'navy-llcat-dark-cap', 'Dark Navy', 'DS-NAV_Navy_LLCAT_PF-cap-front_4.10x2.15in_white-red.png', [WHITE, RED], True, True, 35),
-    ('THD', 'thurmond-dam-dark-cap', 'Dark Navy', 'DS-THD_Thurmond_Dam_PF-cap-front_3.99x2.13in_white-red.png', [WHITE, RED], True, True, 35),
-    ('BBT', 'black-bart-dark-cap', 'Dark Grey', 'DS-BBT_Black_Bart_PF-cap-front_2.83x2.11in_white-red.png', [WHITE, RED], True, True, 35),
-    ('DLP', 'dive-land-park-dark-cap', 'Dark Grey', 'DS-DLP_Dive_Land_Park_PF-cap-front_3.81x2.12in_white-red.png', [WHITE, RED], True, True, 35),
-    ('BWP', 'blue-water-park-dark-cap', 'Black', 'DS-BWP_Blue_Water_Park_PF-cap-front_4.17x2.11in_white-red.png', [WHITE, RED], True, True, 35),
-    ('RRF', 'rainbow-reef-dark-cap', 'Olive', 'DS-RRF_Rainbow_Reef_PF-cap-front_3.52x2.23in_white-blue.png', [WHITE, ROYAL], True, True, 35),
-    ('MRK', 'the-mark-dark-cap', 'Black', 'DS_PF-cap-front_the-mark_2.06x2.25in_white-red.png', [WHITE, RED], False, True, 40),
-    ('SEA', 'the-seal-dark-cap', 'Black', 'DS_PF-cap-front_the-seal_A2-bezel-star_2.25in_white-red.png', [WHITE, RED], True, True, 40),
-    ('STK', 'the-stack-dark-cap', 'Black', 'DS_PF-cap-front_the-stack_4.40x2.12in_white-red.png', [WHITE, RED], False, False, 40),
+    ('BAL', 'bali-dark-cap', 'Dark Navy', 'DS-BAL_Bali_PF-cap-front_2.46x1.88in_white-blue.png', [WHITE, ROYAL], True, True, 35),
+    ('DAM', 'dampier-strait-dark-cap', 'Dark Navy', 'DS-DAM_Dampier_Strait_PF-cap-front_3.57x1.99in_white-blue.png', [WHITE, ROYAL], True, True, 35),
+    ('NAV', 'navy-llcat-dark-cap', 'Dark Navy', 'DS-NAV_Navy_LLCAT_PF-cap-front_4.10x1.94in_white-red.png', [WHITE, RED], True, True, 35),
+    ('THD', 'thurmond-dam-dark-cap', 'Dark Navy', 'DS-THD_Thurmond_Dam_PF-cap-front_3.78x1.89in_white-red.png', [WHITE, RED], True, True, 35),
+    ('BBT', 'black-bart-dark-cap', 'Dark Grey', 'DS-BBT_Black_Bart_PF-cap-front_2.83x1.88in_white-red.png', [WHITE, RED], True, True, 35),
+    ('DLP', 'dive-land-park-dark-cap', 'Dark Grey', 'DS-DLP_Dive_Land_Park_PF-cap-front_3.61x1.88in_white-red.png', [WHITE, RED], True, True, 35),
+    ('BWP', 'blue-water-park-dark-cap', 'Black', 'DS-BWP_Blue_Water_Park_PF-cap-front_3.95x1.88in_white-red.png', [WHITE, RED], True, True, 35),
+    ('RRF', 'rainbow-reef-dark-cap', 'Olive', 'DS-RRF_Rainbow_Reef_PF-cap-front_3.33x1.99in_white-blue.png', [WHITE, ROYAL], True, True, 35),
+    ('MRK', 'the-mark-dark-cap', 'Black', 'DS_PF-cap-front_the-mark_2.00in-tall_white-red.png', [WHITE, RED], False, True, 40),
+    ('SEA', 'the-seal-dark-cap', 'Black', 'DS_PF-cap-front_the-seal_A2-bezel-star_2.00in-tall_white-red.png', [WHITE, RED], True, True, 40),
+    ('STK', 'the-stack-dark-cap', 'Black', 'DS_PF-cap-front_the-stack_2.00in-tall_white-red.png', [WHITE, RED], False, False, 40),
     ('WDM', 'the-wordmark-dark-cap', 'Black', 'DS_PF-cap-front_the-wordmark_4.50x1.93in_white-red.png', [WHITE, RED], True, True, 40),
 ]
 # Shopify variant ids (S/M, L/XL), from the store 11 Nov 2026 — the link also matches by SKU DS-<code>-CD-SM / -LXL
