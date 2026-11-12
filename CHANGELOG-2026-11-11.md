@@ -95,3 +95,13 @@ All 270 draft products set active, and the 279 products + 16 collections that we
 
 ### 06:00 — six caps move to Printful-stocked colours; every pair in stock
 Twelve pairs read 0 because their caps (the six in colours Printful doesn't carry) had no stock. Rather than fake a number, the six moved to the nearest dark colour Printful stocks — Blue Grotto Royal Blue, Bridge Span 14 / Somosomo Strait / Vuna Reef Olive, Rainbow River Black, The Thistlegorm Dark Grey — re-rendered on the site and in the store, linked to Printful, and the pairs filled in. The Make-it-yours cap colours are the same five. The outside-embroiderer route is retired for the site caps.
+
+### 15:22 — the Achievement set as a hero shot above the deck
+
+Eric (iPad screenshot of the home deck opening on its one-card set line): *"Due to only one being in this stack maybe make it a separate Sticker hero shot style above the larger scrolling stacks."*
+
+- The set has left the deck. The packs deck is the 37 packs in three lines (Themed 26 · Classic die-cuts 5 · Brand 6) and no longer opens pulled forward; `DS.packsCfg` lost its `set` line, start and set-specific copy.
+- Above it, on the home page and `/stickers/`, an **opener block** (`stickers_page.py opener()`, `.opener` in `site.css`): the sheet as the customer gets it — one 10.7 × 5.7 in set cut from the Ninja Transfers gang sheet, on white, `img/packs/achievement-set-sheet.webp` 1600 × 890, opens large in the viewer — with the survey-sheet strip up its left edge (*THE OPENER · 17 UV DTF STICKERS*; on phones the strip runs across the top), and beside it the eyebrow and Coming-soon pill, the title, the blurb, a specs table (Sheet · Badges · Extras · Finish · Price $15) and the launch-news button with a link to the badges one at a time. Section intros on both pages say *the Achievement Unlocked set first — seventeen UV DTF stickers on one sheet, $15 — then 37 packs…*. The pack-format set proof (`achievement-set.webp`, the old portrait mock with a spine) is gone from the repo.
+- Checked by script at 1440, 1180 and 390 px, light and dark; the viewer opens from the opener on both pages; no console errors. The render script is outside the repo (`/home/claude/stickers_in/tools/set_render.py`, reads the gang sheet).
+- Rebased over the other session's cap/beanie commits (the generated pages conflicted on the cache-bust hashes — resolved by taking main's pages and regenerating the stickers section). Live: `site.css` d3ae18da, `deck.js` 76b31358, probed before any busted URL was fetched.
+- **Store**: the set's product image (MediaImage 47132147581114, replaced in place) is now the same sheet render on a 1200 × 1200 white square with the title under it, instead of the portrait pack mock.
