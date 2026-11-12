@@ -92,3 +92,6 @@ The site's pair button now reads **Add the pair · cap + shirt · $69** on the c
 
 ### 02:55 — the whole store active, behind the password
 All 270 draft products set active, and the 279 products + 16 collections that were never on the Online Store sales channel (Pairs among them) published to it: 341 products, 21 collections, all on the channel. The storefront still sits behind the password; 19 retired products stay archived.
+
+### 06:00 — six caps move to Printful-stocked colours; every pair in stock
+Twelve pairs read 0 because their caps (the six in colours Printful doesn't carry) had no stock. Rather than fake a number, the six moved to the nearest dark colour Printful stocks — Blue Grotto Royal Blue, Bridge Span 14 / Somosomo Strait / Vuna Reef Olive, Rainbow River Black, The Thistlegorm Dark Grey — re-rendered on the site and in the store, linked to Printful, and the pairs filled in. The Make-it-yours cap colours are the same five. The outside-embroiderer route is retired for the site caps.
