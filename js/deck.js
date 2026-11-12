@@ -79,12 +79,13 @@ window.DS=(function(){
         tag.querySelector('.dk-open').addEventListener('click',function(){ openIt(i); });
         card.appendChild(face); card.appendChild(tag); row.appendChild(card); cards.push(card);
       });
-      if(state.active<0&&cfg.start!=null&&L[cfg.start]) state.active=cfg.start;
-      foot.querySelector('.cnt').innerHTML=L.length+' '+cfg.noun+(L.length>1?'s':'')+' &middot; '+cfg.footNote;
+      var st=startFor(); if(state.active<0&&st!=null&&L[st]) state.active=st;
+      foot.querySelector('.cnt').innerHTML=L.length+' '+cfg.noun+(L.length>1?'s':'')+' &middot; '+(typeof cfg.footNote==='function'?cfg.footNote(state.line,L):cfg.footNote);
       Object.keys(chips).forEach(function(k){ var on=k===state.line; chips[k].classList.toggle('on',on); chips[k].setAttribute('aria-pressed',on); });
       hintText(); paint(); if(rolls&&state.active>=0) shiftTo(state.active);
     }
     function touchLike(){ return lastPointer==='touch'||lastPointer==='pen'; }
+    function startFor(){ var st=cfg.start; if(st!=null&&typeof st==='object') st=st[state.line]; return st==null?null:st; }   // the card a line opens on: one index for every line, or {line:index}
     function hintText(){ hint.textContent=rolls?(state.touch?'Drag across the deck to roll through the '+cfg.noun+'s · tap one to open':'Drag the deck to roll through the '+cfg.noun+'s · click one to open'):(state.touch?'Drag a finger across the tabs to pull a '+cfg.noun+' forward · tap it to open':'Run across the tabs to pull a '+cfg.noun+' forward · click it to open'); }
     // rolling deck: slide the strip so card i sits in the middle of the screen
     function shiftTo(i){ if(!rolls||i<0) return; var cs=getComputedStyle(dk), left=parseFloat(cs.paddingLeft)||0; row.style.transform='translateX('+Math.round(dk.clientWidth/2-(left+padL()+i*curStep+140))+'px)'; }
@@ -137,7 +138,7 @@ window.DS=(function(){
     }
     function activate(i){ if(state.active!==i){ state.active=i; paint(); } }
     function setLine(l){ if(state.line===l){ if(state.open>=0) closeIt(); return; } state.line=l; state.active=-1; state.open=-1; open.hidden=true; dk.hidden=false; foot.hidden=false; build(); }
-    dk.addEventListener('mouseleave',function(){ if(!rolls&&lastPointer==='mouse'&&state.active>=0){ state.active=cfg.start!=null?cfg.start:-1; paint(); } });
+    dk.addEventListener('mouseleave',function(){ if(!rolls&&lastPointer==='mouse'&&state.active>=0){ var st=startFor(); state.active=st!=null?st:-1; paint(); } });
 
     function openIt(i){ var it=list()[i]; track(cfg.openEvent,{item:it.slug,via:'deck'}); if(cfg.go){ cfg.go(it); return; } state.open=i; state.view=cfg.defaultView(it); render(); }
     function closeIt(){ var i=state.open; state.open=-1; open.hidden=true; dk.hidden=false; foot.hidden=false; state.active=i; paint(); shiftTo(i); var f=cards[i]&&cards[i].querySelector('.dk-face'); if(f) f.focus({preventScroll:true}); }
@@ -194,17 +195,20 @@ window.DS=(function(){
   };
 
   // The sticker packs deck: 37 kiss-cut sheets in three lines; a card opens the sheet proof and what is on it
-  DS.packsCfg=function(o){ o=o||{}; var NAME={themed:'Themed',classic:'Classic die-cuts',brand:'Brand set'};
+  DS.packsCfg=function(o){ o=o||{}; var NAME={set:'Achievement set',themed:'Themed',classic:'Classic die-cuts',brand:'Brand set'};
    function inside(it){ return it.sub.replace(/\s*·\s*\$\d+\s*$/,''); }
+   function fillers(it){ return /fillers/.test(it.cap||''); }
    return {
-    lines:o.lines||[['themed','Themed'],['classic','Classic die-cuts'],['brand','Brand']], step:{themed:36,classic:64,brand:64}, noun:'pack', price:'$10', openEvent:'pack-open', cls:'deck-packs', custom:false, contact:o.contact||'/#contact',
-    footNote:'three kiss-cut stickers on one 5.83 &times; 8.27 in sheet', facts:false,
+    lines:o.lines||[['set','Achievement set'],['themed','Themed'],['classic','Classic die-cuts'],['brand','Brand']], step:{set:64,themed:36,classic:64,brand:64}, noun:'pack', price:'$10', openEvent:'pack-open', cls:'deck-packs', custom:false, contact:o.contact||'/#contact',
+    start:{set:0},   // the deck opens on the Achievement set, the opener
+    footNote:function(line){ return line==='set'?'all twelve badges, the Achievement Hunter and 100% Complete badges and three DS marks on one 5.83 &times; 8.27 in sheet':'three kiss-cut stickers on one 5.83 &times; 8.27 in sheet, most with small fillers'; }, facts:false,
     eyebrow:function(it){ return NAME[it.line]||'Sticker pack'; },
-    sub:function(it){ return inside(it); },
+    sub:function(it){ return it.line==='set'?'All twelve badges + five extras':inside(it); },
     blurb:function(it){ return it.text||'Three kiss-cut stickers on one sheet. Peel them one at a time for the tank, the dive box, the laptop and the logbook.'; },
     defaultView:function(){ return 'front'; },
-    caption:function(){ return 'The sheet · proof of the three stickers, 5.83 × 8.27 in'; },
-    specs:function(it){ var c=inside(it); return [['Sheet','5.83 × 8.27 in kiss-cut sheet, three stickers'],['Stickers',/^three stickers$/i.test(c)?'Three, drawn for the pack':esc(c)],['Vinyl','Printed vinyl, glossy film, waterproof'],['Mark','The DS mark on every sticker'],['Price',it.price||'$10']]; }
+    caption:function(it){ return it.line==='set'?'The sheet · proof of the full set, 5.83 × 8.27 in':'The sheet · proof of the three stickers'+(fillers(it)?' and the fillers':'')+', 5.83 × 8.27 in'; },
+    specs:function(it){ var c=inside(it); if(it.line==='set') return [['Sheet','5.83 × 8.27 in kiss-cut sheet, seventeen stickers'],['Badges','Freshly Certified · Not On My Watch · Master Diver · Along For The Ride · Hover Mode · Spicy Air · Photobombed · Lost & Found · Dual Wield · Friendly NPC · Bestiary · High Score'],['Extras','Achievement Hunter · 100% Complete · the seal · the horizontal logo · Do A Little Scuba'],['Vinyl','Printed vinyl, glossy film, waterproof'],['Price',it.price||'$15']];
+      return [['Sheet','5.83 × 8.27 in kiss-cut sheet, three stickers'+(fillers(it)?' and small fillers':'')],['Stickers',/^three stickers$/i.test(c)?'Three, drawn for the pack':esc(c)],['Vinyl','Printed vinyl, glossy film, waterproof'],['Mark','The DS mark on every sticker'],['Price',it.price||'$10']]; }
    };
   };
 
