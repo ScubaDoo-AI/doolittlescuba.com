@@ -60,7 +60,8 @@ def cap_areas():
                      {'Authorization': 'Bearer ' + os.environ['PRINTFUL_TOKEN'], 'X-PF-Store-Id': O.PF_STORE})
     if code != 200: raise SystemExit(f'printfiles not readable ({code})')
     res = r['result']; pf = {f['printfile_id']: f for f in res.get('printfiles', [])}
-    out = []
+    out = [f"available {res.get('available_placements')}; printfiles {[(f.get('printfile_id'), f.get('width'), f.get('height'), f.get('dpi'), f.get('fill_mode')) for f in res.get('printfiles', [])]}; "
+           f"variant 0 placements {res.get('variant_printfiles', [{}])[0].get('placements')}"]
     for v in res.get('variant_printfiles', [])[:1]:
         for pl, pid in v.get('placements', {}).items():
             f = pf.get(pid, {}); dpi = f.get('dpi') or 300
