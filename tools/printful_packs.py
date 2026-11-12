@@ -12,6 +12,11 @@ can match a sync variant even when the SKU didn't come across.
 
 Retail is $10 a pack (packs.json "price") — a $4.85 margin on the sheet before Printful's shipping. Check the
 sheet's size and price against Printful's current template before the first real order; the sample is the proof.
+
+12 Nov 2026: Eric's print files are now 4 x 6 in kiss-cut PDFs (art + CutContour paths, one per pack, in Shopify Files as
+files/DS-PK-<xx>_<Name>_4x6_kisscut.pdf — ids in packs.json "print_file_id"). Those are not Printful's sheet; the
+`files/DS-PK-<xx>.png` masters this plan sends are still the earlier three-sticker 5.83 x 8.27 layouts. Rebuild them from the
+4 x 6 art (tools/packs.json "print") if the packs stay on Printful; otherwise retire this plan.
 """
 import os, json
 

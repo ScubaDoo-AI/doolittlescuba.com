@@ -54,3 +54,12 @@ Eric, 23:38: *"Update the sticker image files on the website match New prints wi
 ### 01:11 — eight more filler sheets
 
 Sixteen more proofs: eight new packs (Do A Little Scuba, Red Trio, Master Diver, Pun Pack, The Seal Set, Black Trio, Chill Dives, Certified) and eight repeats of earlier sheets, byte-identical to what was already in. Site and store images swapped the same way. **28 of 37 packs** now show the fillers; still on the three-sticker proofs: Diver Truths, Critter Cafe Crew, Into the Dark, Vintage Classics, Pacific Bucket List, Reef Heroes, Strange Beauty, Dive Science 101, Octopus Trio. Eric is sending the rest.
+
+### 01:14–01:20 — the print files: every pack as a 4 × 6 kiss-cut PDF
+
+Eric sent `DS-PK-<xx>_<Name>_4x6_kisscut.pdf` for all 37 packs (ReportLab PDFs: a 4 × 6 in page, the sheet art as one 1200 × 1800 300 dpi image with transparency — three stickers, the fillers and the pack name — plus the kiss-cut paths in a **CutContour** spot colour), and the twelve achievement badges, which were pixel-identical to the masters already on hand.
+
+- **Site proofs**: all 37 re-rendered from the PDF art composited on white (the nine that still had three-sticker proofs — Diver Truths, Critter Cafe Crew, Into the Dark, Vintage Classics, Pacific Bucket List, Reef Heroes, Strange Beauty, Dive Science 101, Octopus Trio — now show the fillers; the other 28 differ from the JPG proofs by under 1.5 mean grey levels, i.e. the same picture from the source). Hero trio and share image rebuilt. `packs.json` records each pack's `print` file and `print_file_id`.
+- **Site copy**: the pack sheet is **4 × 6 in** now (hero, packs intro, card captions, deck specs); the Achievement set still says 5.83 × 8.27 because its sheet is unknown.
+- **Store**: the nine product images swapped (37 of 37 now show the fillers); the 37 PDFs are in Shopify Files as `files/DS-PK-<xx>_<Name>_4x6_kisscut.pdf` (GenericFile ids 47395530670266 → 47395531849914, +32768 per pack in B01–B06, C01–C05, T01–T26 order). Product descriptions still say 5.83 × 8.27 in — to change once the vendor is settled.
+- **Open**: the 4 × 6 kiss-cut PDFs are not Printful's sheet (Printful's is 5.83 × 8.27, product 505). Which printer are they for? If Printful stays, the full-sheet masters can be rebuilt from the 4 × 6 art; `tools/printful_packs.py` carries the note.
