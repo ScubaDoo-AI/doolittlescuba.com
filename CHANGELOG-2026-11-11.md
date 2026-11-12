@@ -109,3 +109,11 @@ Eric (iPad screenshot of the home deck opening on its one-card set line): *"Due 
 ### 18:15 — "Is the caps and beanies also on the website"
 
 Caps yes (the home page hats deck, 19 Flexfit 6277 caps, all Coming soon, the six recoloured ones included); the beanie no — The Mark beanie is a draft in the store, linked to Printful, and not on the site yet. While checking, found the six recoloured caps still said their old colours in two places the recolour tool missed — the viewer caption (`data-cap="Bridge Span 14 cap · Brown · …"`) and the no-JS caption's colour word — twelve strings, now Olive / Royal blue / Black / Dark grey to match `data-colour`; `tools/caps_printful_colours.py` fixes them too so it stays complete and idempotent.
+
+### 18:19 — The Mark beanie joins the hats deck
+
+Eric: *"Do it."* (and *"Visor?"* — there is no visor anywhere: not in the store, not in the repo; told him so.)
+
+- A 20th card in the home page hats deck, in the brand line (chip now *Brand caps + beanie 5*): **The Mark beanie**, No. MRK-BN, $35, Coming soon. Its two views are the colours rather than front and back — **Black** and **French Navy** — from the store's own mockups (MediaImage 47401135046842 / 079610, fetched from the CDN and saved as `img/hats/dark/beanie-the-mark-{black,french-navy}.webp` 1200 + `-t` 600). Eyebrow *Brand beanie*; blurb *The DS mark alone, embroidered on the cuff of a rib-knit beanie. One size, Black or French Navy.*; specs Cuff · Beanie (Stanley/Stella STAU295, cuffed) · Size (one size) · Finish · Price; no Make-it-yours and no pair button. The foot reads *4 caps and a beanie · Flexfit 6277 caps, S/M and L/XL · the beanie one size*. The section intro gained *And one beanie: The Mark on the cuff of a Stanley/Stella rib-knit beanie, Black or French Navy, one size.*
+- `js/deck.js` grew three small hooks for it, documented in its header: `cfg.views(it)` names a card's views (`[['front','Black'],['back','French Navy']]`), `data-custom="none"` on a figure drops its Make-it-yours button, `cfg.count(line, L)` writes the foot's count when it is not simply *N caps*.
+- Checked in a browser at 1280 and 390 px: the card opens, flips between the colours with the right captions and alts, no console errors.

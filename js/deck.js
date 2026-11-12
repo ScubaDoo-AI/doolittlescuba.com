@@ -4,6 +4,9 @@
      DS.lightbox()                               every .sh-grid on the page opens its photos in #sh-lb
      DS.deck('shirts','sh-grid',DS.shirtsCfg({lines:[['plates','Signature Series'],…], contact:'/#contact'}))
      DS.deck('hats','ht-grid',{…})               a deck with its own config (see the home page)
+       cfg.views(it) -> [[key,label],…] or null   names the open panel's views per item (the beanie: Black / French Navy instead of Front / Back)
+       data-custom="none" on a figure           no Make-it-yours button for that item
+       cfg.count(line,L) -> string              the foot's count when it is not simply 'N nouns' ('4 caps and a beanie')
      DS.deck('lines','co-grid',{…, bar:false, status:'', start:0, go:function(it){…}})   the collections as a deck: no chips, no pill,
                                                  rests on the first card (pulled forward, tag showing), open = go to the page
      DS.designs()                                #dz-grid: status / line / subset chips, counts, the viewer
@@ -80,7 +83,7 @@ window.DS=(function(){
         card.appendChild(face); card.appendChild(tag); row.appendChild(card); cards.push(card);
       });
       var st=startFor(); if(state.active<0&&st!=null&&L[st]) state.active=st;
-      foot.querySelector('.cnt').innerHTML=L.length+' '+cfg.noun+(L.length>1?'s':'')+' &middot; '+(typeof cfg.footNote==='function'?cfg.footNote(state.line,L):cfg.footNote);
+      foot.querySelector('.cnt').innerHTML=(cfg.count?cfg.count(state.line,L):L.length+' '+cfg.noun+(L.length>1?'s':''))+' &middot; '+(typeof cfg.footNote==='function'?cfg.footNote(state.line,L):cfg.footNote);
       Object.keys(chips).forEach(function(k){ var on=k===state.line; chips[k].classList.toggle('on',on); chips[k].setAttribute('aria-pressed',on); });
       hintText(); paint(); if(rolls&&state.active>=0) shiftTo(state.active);
     }
@@ -146,15 +149,16 @@ window.DS=(function(){
       var L=list(), it=L[state.open]; if(!it) return;
       dk.hidden=true; foot.hidden=true; open.hidden=false;
       var v=state.view, src=v==='art'?it.art:v==='back'?it.back:it.front, s=it.site||{};
-      var views=[['front','Front']]; if(it.back) views.push(['back','Back']); if(it.art) views.push(['art','The art']);
+      var views=(cfg.views&&cfg.views(it))||null; if(!views){ views=[['front','Front']]; if(it.back) views.push(['back','Back']); if(it.art) views.push(['art','The art']); }
+      var vName=(views.filter(function(w){return w[0]===v;})[0]||views[0])[1];
       open.innerHTML='<div class="sh-open-bar"><button type="button" class="txt sh-back">&larr; Back to the deck</button><div class="sh-nav"><span class="pos">'+(state.open+1)+' of '+L.length+'</span><button type="button" class="arrow sh-prev" aria-label="Previous">&lsaquo;</button><button type="button" class="arrow sh-next" aria-label="Next">&rsaquo;</button></div></div>'
-        +'<div class="sh-panel" style="--hex:'+it.hex+'"><div class="sh-detail"><div class="sh-view"><button type="button" class="big'+(v==='art'?' art':'')+'" aria-label="Open the full-size image"><img src="'+esc(src)+'" alt="'+esc(it.name+', '+it.colour.toLowerCase()+', '+v)+'"></button>'
+        +'<div class="sh-panel" style="--hex:'+it.hex+'"><div class="sh-detail"><div class="sh-view"><button type="button" class="big'+(v==='art'?' art':'')+'" aria-label="Open the full-size image"><img src="'+esc(src)+'" alt="'+esc(it.name+', '+(cfg.views&&cfg.views(it)?vName:it.colour.toLowerCase()+', '+v))+'"></button>'
         +'<div class="row">'+(views.length>1?'<span class="sh-flip" role="group" aria-label="Show front, back or the art">'+views.map(function(w){ return '<button type="button" data-v="'+w[0]+'" class="'+(v===w[0]?'on':'')+'" aria-pressed="'+(v===w[0])+'">'+w[1]+'</button>'; }).join('')+'</span>':'')+'<span class="cap">'+esc(cfg.caption(it,v))+'</span></div></div>'
         +'<div class="sh-info"><p class="eyebrow">'+esc(cfg.eyebrow(it))+(it.code?' &middot; No. '+esc(it.code):'')+'</p><h3>'+esc(it.name)+'</h3>'
         +(it.site?'<p class="where">'+flag(s.flag==='us')+'<span>'+esc(s.place||'')+(s.water?' · '+esc(s.water):'')+'</span></p><p class="coords mono">'+esc(s.coords||'')+'</p>':'<p style="color:var(--muted);max-width:48ch">'+esc(cfg.blurb(it))+'</p>')
         +'<dl class="specs">'+cfg.specs(it).map(function(r){return '<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>';}).join('')+'</dl>'
         +(s.fact&&cfg.facts?'<p class="fact">'+esc(s.fact)+'</p>':'')
-        +'<div class="cta"><a class="btn" href="'+esc(cfg.contact||'#contact')+'" data-umami-event="deck-launch-news">'+(it.statusClass==='completed'?'Sample print':'Coming soon')+' &middot; get launch news</a>'+(it.pair?'<a class="btn ghost" href="'+esc(it.pair)+'" data-umami-event="deck-pair">'+'Add the pair &middot; '+(cfg.noun==='cap'?'cap + shirt':'shirt + cap')+' &middot; $69'+'</a>':'')+(cfg.custom===false?'':'<a class="btn ghost" href="'+esc(it.custom)+'" data-umami-event="deck-custom">Make it yours</a>')+(it.guide?'<a class="txt" href="'+esc(it.guide)+'" data-umami-event="deck-guide">Site guide &rarr;</a>':'')+'</div></div></div></div>';
+        +'<div class="cta"><a class="btn" href="'+esc(cfg.contact||'#contact')+'" data-umami-event="deck-launch-news">'+(it.statusClass==='completed'?'Sample print':'Coming soon')+' &middot; get launch news</a>'+(it.pair?'<a class="btn ghost" href="'+esc(it.pair)+'" data-umami-event="deck-pair">'+'Add the pair &middot; '+(cfg.noun==='cap'?'cap + shirt':'shirt + cap')+' &middot; $69'+'</a>':'')+(cfg.custom===false||it.custom==='none'?'':'<a class="btn ghost" href="'+esc(it.custom)+'" data-umami-event="deck-custom">Make it yours</a>')+(it.guide?'<a class="txt" href="'+esc(it.guide)+'" data-umami-event="deck-guide">Site guide &rarr;</a>':'')+'</div></div></div></div>';
       open.querySelector('.sh-back').addEventListener('click',closeIt);
       open.querySelector('.sh-prev').addEventListener('click',function(){ state.open=(state.open-1+L.length)%L.length; state.view=cfg.defaultView(list()[state.open]); render(); });
       open.querySelector('.sh-next').addEventListener('click',function(){ state.open=(state.open+1)%L.length; state.view=cfg.defaultView(list()[state.open]); render(); });
