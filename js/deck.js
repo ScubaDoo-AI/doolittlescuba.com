@@ -16,7 +16,7 @@ window.DS=(function(){
   function esc(t){ return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
   function dark(hex){ var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16); return (r*299+g*587+b*114)/1000<128; }
   function flag(us){ return us?'<svg viewBox="0 0 26 18" role="img" aria-label="Diver-down flag, US waters"><rect width="26" height="18" fill="#C8202A"/><path d="M0 0h4.5L26 14.5V18h-4.5L0 3.5z" fill="#fff"/></svg>':'<svg viewBox="0 0 26 18" role="img" aria-label="Alpha flag, international"><path d="M0 0h13v18H0z" fill="#fff" stroke="#8a97a8" stroke-width=".6"/><path d="M13 0h13l-6 9 6 9H13z" fill="#1F4FA3"/></svg>'; }
-  var MARK={site:'Site block: name, dive flag and coordinates',dsmark:'DS mark',stack:'DS stacked lockup',wordmark:'Wordmark',seal:'The seal',tagline:'“Do - A - Little Scuba”',none:'plain'};
+  var MARK={site:'Site front: dive flag, site name and coordinates',dsmark:'DS mark',stack:'DS stacked lockup',wordmark:'Wordmark',seal:'The seal',tagline:'“Do - A - Little Scuba”',none:'plain'};
 
   function deck(sectionId, gridId, cfg){
     if(!window.requestAnimationFrame) return;
