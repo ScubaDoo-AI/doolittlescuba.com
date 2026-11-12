@@ -86,3 +86,6 @@ Eric: the front reads **Navy LLCAT**. Chest print files (both inks) and the embr
 
 ## 12 Nov — The pairs
 28 set products (cap + tee of the same site, light and dark tee) as Shopify fixed bundles at $69 / $72, combined mockups, a Pairs collection; the pair line on every site cap and Signature tee page; **Add the pair** on every site guide and site cap on the home page. Untested with Printful until the first pair order. Details: `SHOPIFY-STORE.md`, 12 Nov.
+
+### 02:39 — the button says what the pair is, and the shirts push it too
+The site's pair button now reads **Add the pair · cap + shirt · $69** on the caps and **Add the pair · shirt + cap · $69** on the site guides and on every Signature tee in the Signature deck — the 28 tee cards link their own pair (light tee → light pair, dark tee → dark pair). One tool, `tools/pairs_site.py`, idempotent. The store copy already named both pieces.
