@@ -22,3 +22,6 @@ Full ids, file names and the compromises: `SHOPIFY-STORE.md`, 2026-11-11.
 - **Merged to main** (126d842), live. Open: the Navy LLCAT front reads "Hovercraft (LLCAT)".
 
 Full ids and details: `SHOPIFY-STORE.md`, 11 Nov evening.
+
+## 12 Nov, small hours — Navy LLCAT
+Eric: the front reads **Navy LLCAT**. Chest print files (both inks) and the embroidered cap front rebuilt with the new title, uploaded, Printful re-linked for the 14 Navy LLCAT variants (0 failures), the cap's store image and the site's render replaced, the embroiderer pack updated. Details: `SHOPIFY-STORE.md`, 12 Nov.
