@@ -1,3 +1,4 @@
+// deck.js · 11 Nov 2026 late: geometric rolling, tabs fitted to the width
 /* Doolittle Scuba — the shared page scripts: the photo viewer, the shirts/hats as a deck of cards, and the designs grid filter.
    Used by the home page and the collection pages. Each page calls what it has:
      DS.lightbox()                               every .sh-grid on the page opens its photos in #sh-lb
