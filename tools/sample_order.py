@@ -65,6 +65,17 @@ def main():
         oid = a[a.index('--confirm-id') + 1]
         if not oid.isdigit(): sys.exit('order id must be digits')
         r = v1('POST', f'/orders/{oid}/confirm'); print(f'order {oid} confirmed: {r.get("status")}'); return
+    if '--show-id' in a:                                          # the order's items and full cost breakdown; never the recipient
+        oid = a[a.index('--show-id') + 1]
+        if not oid.isdigit(): sys.exit('order id must be digits')
+        r = v1('GET', f'/orders/{oid}')
+        print(f'order {oid} ({r.get("status")}) external {r.get("external_id")} · created {r.get("created")}')
+        for it in r.get('items', []):
+            print(f'  {it.get("quantity")} × {it.get("name")}  variant {it.get("variant_id")}  '
+                  f'[{", ".join(f["type"] for f in it.get("files", []))}]  options {it.get("options")}')
+        print('costs:', {k: v for k, v in r.get('costs', {}).items() if v not in (None, 0, '0.00', 0.0)})
+        print('retail_costs:', {k: v for k, v in r.get('retail_costs', {}).items() if v not in (None, 0, '0.00', 0.0)})
+        return
     dry = '--dry-run' in a
     specs = [x for x in a if not x.startswith('--')]
     if not specs: sys.exit(__doc__)

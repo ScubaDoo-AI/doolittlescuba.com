@@ -4,19 +4,20 @@ name: Sample order
 #          an embroidered cap is DS-<code>-CD-SM or -LXL (tools/printful_caps.py)
 #   draft    create the draft (not charged) and print Printful's costs
 #   confirm  confirm a draft by its Printful order id (charges the card, starts production)
+#   show     print a draft's items and full cost breakdown by its order id (read-only)
 on:
   workflow_dispatch:
     inputs:
       mode:
         description: 'What to do'
         type: choice
-        options: [dry-run, draft, confirm]
+        options: [dry-run, draft, confirm, show]
         default: dry-run
       items:
         description: 'SKUs (space separated)'
         default: 'DS-THI-TD-XL DS-ACW01-TD-XL:Eric DS-TEC-TD-XL'
       order_id:
-        description: 'Printful order id (confirm only)'
+        description: 'Printful order id (confirm / show)'
         required: false
 permissions:
   contents: read
@@ -46,6 +47,8 @@ jobs:
           case "$MODE" in
             confirm) [[ "$OID" =~ ^[0-9]+$ ]] || { echo "::error::order id must be digits"; exit 1; }
                      python tools/sample_order.py --confirm-id "$OID" | tee -a run.log ;;
+            show)    [[ "$OID" =~ ^[0-9]+$ ]] || { echo "::error::order id must be digits"; exit 1; }
+                     python tools/sample_order.py --show-id "$OID" | tee -a run.log ;;
             dry-run) python tools/sample_order.py $ITEMS --dry-run | grep -v '"url"' | tee -a run.log ;;
             draft)   python tools/sample_order.py $ITEMS | tee -a run.log ;;
           esac
