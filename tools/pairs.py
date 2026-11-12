@@ -56,7 +56,7 @@ def description(slug, code, name, line, cap_col, tee_col):
             f"<ul>\n<li>\n<strong>Cap:</strong> Flexfit 6277 structured fitted cap, {cap_col}. S/M (6¾–7¼) or L/XL (7⅛–7⅝).</li>\n"
             f"<li>\n<strong>Tee:</strong> Comfort Colors 1717, garment-dyed, {tee_col}. S–3XL.</li>\n"
             f"<li>\n<strong>Price:</strong> $69 with the tee in S–XL, $72 in 2XL–3XL — $35 + $42 apart.</li>\n"
-            f"<li>\n<strong>Mix it:</strong> want a different tee with this cap, or the light one instead of the dark? Every cap pairs with every Signature Series tee — "
+            f"<li>\n<strong>Mix it:</strong> want a different tee with this cap, or the {'dark' if line == 'light' else 'light'} tee instead of the {line}? Every cap pairs with every Signature Series tee — "
             f"the other pairs are under <a href=\"{SHOP}/collections/pairs\">Pairs</a>.</li>\n</ul>"
             f"<p>Shown as mockups, not photographs: the first caps are being sampled now.</p>"
             f"<p><a href=\"https://doolittlescuba.com/sites/{GUIDE.get(slug, slug)}/\">Site guide</a></p>")

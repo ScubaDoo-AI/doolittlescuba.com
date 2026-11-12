@@ -30,7 +30,7 @@ window.DS=(function(){
       return {slug:f.dataset.slug, line:f.dataset.line, name:f.querySelector('.dz-t').textContent, code:f.dataset.code, colour:f.dataset.colour, hex:f.dataset.hex,
         front:b.dataset.front, back:b.dataset.back, art:f.dataset.art||'', thumb:img.getAttribute('src'), cap:b.dataset.cap, sub:sub, text:f.dataset.text||'',
         status:pill?pill.textContent:(cfg.status!=null?cfg.status:'Coming soon'), statusClass:pill?pill.className.replace('pill','').trim():'available',
-        guide:f.dataset.guide||'', custom:f.dataset.custom||'/custom/', site:site, price:f.dataset.price||'', finish:f.dataset.finish||'', parts:(function(){ var o={}; (f.dataset.custom||'').replace(/^[^#]*#/,'').split('&').forEach(function(kv){ var q=kv.split('='); o[q[0]]=q[1]; }); return o; })()};
+        guide:f.dataset.guide||'', pair:f.dataset.pair||'', custom:f.dataset.custom||'/custom/', site:site, price:f.dataset.price||'', finish:f.dataset.finish||'', parts:(function(){ var o={}; (f.dataset.custom||'').replace(/^[^#]*#/,'').split('&').forEach(function(kv){ var q=kv.split('='); o[q[0]]=q[1]; }); return o; })()};
     });
     var state={line:cfg.lines[0][0], active:-1, open:-1, view:'front', touch:false}, lastPointer='mouse', curStep=0, rolls=false, drag=null, fling=0;
     var MIN_FIT=26, ROLL_PX=48, shifted=false; try{ shifted=matchMedia('(hover: hover)').matches; }catch(e){}
@@ -154,7 +154,7 @@ window.DS=(function(){
         +(it.site?'<p class="where">'+flag(s.flag==='us')+'<span>'+esc(s.place||'')+(s.water?' · '+esc(s.water):'')+'</span></p><p class="coords mono">'+esc(s.coords||'')+'</p>':'<p style="color:var(--muted);max-width:48ch">'+esc(cfg.blurb(it))+'</p>')
         +'<dl class="specs">'+cfg.specs(it).map(function(r){return '<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>';}).join('')+'</dl>'
         +(s.fact&&cfg.facts?'<p class="fact">'+esc(s.fact)+'</p>':'')
-        +'<div class="cta"><a class="btn" href="'+esc(cfg.contact||'#contact')+'" data-umami-event="deck-launch-news">'+(it.statusClass==='completed'?'Sample print':'Coming soon')+' &middot; get launch news</a>'+(cfg.custom===false?'':'<a class="btn ghost" href="'+esc(it.custom)+'" data-umami-event="deck-custom">Make it yours</a>')+(it.guide?'<a class="txt" href="'+esc(it.guide)+'" data-umami-event="deck-guide">Site guide &rarr;</a>':'')+'</div></div></div></div>';
+        +'<div class="cta"><a class="btn" href="'+esc(cfg.contact||'#contact')+'" data-umami-event="deck-launch-news">'+(it.statusClass==='completed'?'Sample print':'Coming soon')+' &middot; get launch news</a>'+(it.pair?'<a class="btn ghost" href="'+esc(it.pair)+'" data-umami-event="deck-pair">Add the pair &middot; $69</a>':'')+(cfg.custom===false?'':'<a class="btn ghost" href="'+esc(it.custom)+'" data-umami-event="deck-custom">Make it yours</a>')+(it.guide?'<a class="txt" href="'+esc(it.guide)+'" data-umami-event="deck-guide">Site guide &rarr;</a>':'')+'</div></div></div></div>';
       open.querySelector('.sh-back').addEventListener('click',closeIt);
       open.querySelector('.sh-prev').addEventListener('click',function(){ state.open=(state.open-1+L.length)%L.length; state.view=cfg.defaultView(list()[state.open]); render(); });
       open.querySelector('.sh-next').addEventListener('click',function(){ state.open=(state.open+1)%L.length; state.view=cfg.defaultView(list()[state.open]); render(); });
