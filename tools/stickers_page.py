@@ -19,14 +19,16 @@ import line_pages as LP
 SITE = LP.SITE
 P = json.load(open(f'{SITE}/tools/packs.json'))
 PRICE = P['price']
-LINE_NAME = {'themed': 'Themed packs', 'classic': 'Classic die-cut packs', 'brand': 'Brand packs'}
+LINE_NAME = {'set': 'The Achievement set', 'themed': 'Themed packs', 'classic': 'Classic die-cut packs', 'brand': 'Brand packs'}
 LINE_COPY = {
+    'set': 'The opener: all twelve Achievement Unlocked badges on one sheet, with the Achievement Hunter and 100% Complete badges and three DS marks to go with them. $15.',
     'themed': 'Twenty-six sets of three, drawn for the pack: reef cuties, puns, what the dive computer says, retro patches, wrecks, the deep and the weird, bucket-list seas, ocean masterpieces and dive science.',
     'classic': 'Five sets from the classic die-cuts: the courses and specialties, three to a sheet.',
     'brand': 'Six sets of the DS marks: the seal, the stacked and horizontal logos, the tagline and the dive kit, by colourway.',
 }
-LINE_LABEL = {'themed': 'Themed pack', 'classic': 'Classic die-cut pack', 'brand': 'Brand pack'}
+LINE_LABEL = {'set': 'The opener', 'themed': 'Themed pack', 'classic': 'Classic die-cut pack', 'brand': 'Brand pack'}
 LINE_BLURB = {
+    'set': 'Every course as a game achievement — all twelve on one sheet — plus the Achievement Hunter and 100% Complete badges and three DS marks. The one to start with.',
     'themed': 'One of the twenty-six themed sets: three stickers drawn for the pack, cut as one sheet.',
     'classic': 'Three of the classic die-cuts — the courses and specialties — on one sheet.',
     'brand': 'Three of the DS marks on one sheet, in one colourway or across three.',
@@ -39,34 +41,43 @@ for l in open(f'{SITE}/tools/printful_stickers.py', encoding='utf-8').read().spl
     STK[sku] = t + (f', {colour}' if colour else '')
 
 
+def price(p): return float(p.get('price', PRICE))
+
+
 def contents(pack):
+    if pack.get('contents'): return pack['contents']
     names = [STK.get(s) for s in pack['stickers']]
     if all(names): return ' · '.join(names)
     return 'three stickers'
 
 
 def card(p):
-    cap = f'{p["name"]} — sticker pack · three kiss-cut stickers on one 5.83 × 8.27 in sheet · ${PRICE:.0f}'
+    what = 'the full set · seventeen UV DTF rub-on stickers on one 10¾ × 5¾ in sheet' if p['line'] == 'set' else ('sticker pack · three kiss-cut stickers' + (' and small fillers' if p.get('fillers') else '') + ' on one 4 × 6 in sheet')
+    cap = f'{p["name"]} — {what} · ${price(p):.0f}'
     inner = contents(p)
-    return (f'<figure class="sh pk" data-sku="{p["sku"]}" data-line="{p["line"]}" data-slug="{p["slug"]}" data-code="{p["sku"][-3:]}" '
+    return (f'<figure class="sh pk" data-sku="{p["sku"]}" data-line="{p["line"]}" data-slug="{p["slug"]}" data-code="{"" if p["line"] == "set" else p["sku"][-3:]}" data-price="${price(p):.0f}" '
             f'data-colour="{LINE_LABEL[p["line"]]}" data-hex="{p.get("hex", "#122A55")}" data-text="{H.escape(LINE_BLURB[p["line"]], quote=True)}">'
             f'<button type="button" class="sh-img" data-front="/img/packs/{p["slug"]}.webp" data-cap="{H.escape(cap, quote=True)}" data-umami-event="pack-open" data-umami-event-pack="{p["sku"]}">'
             f'<img src="/img/packs/{p["slug"]}-t.webp" width="360" height="540" loading="lazy" decoding="async" draggable="false" alt="{H.escape(p["name"])} sticker pack: {H.escape(inner)}"></button>'
             f'<figcaption><span class="dz-row"><span class="dz-t">{H.escape(p["name"])}</span></span>'
-            f'<span class="dz-s">{H.escape(inner) if inner != "three stickers" else "Three stickers"} &middot; ${PRICE:.0f}</span></figcaption></figure>')
+            f'<span class="dz-s">{H.escape(inner) if inner != "three stickers" else ("Three stickers + fillers" if p.get("fillers") else "Three stickers")} &middot; ${price(p):.0f}</span></figcaption></figure>')
 
 
 def groups():
     """The 37 cards in three groups under #pk-grid: the deck is built from them and hides them; without JS they show as grids."""
     out = []
-    for line in ('themed', 'classic', 'brand'):
+    for line in ('set', 'themed', 'classic', 'brand'):
         packs = [p for p in P['packs'] if p['line'] == line]
         out.append(f'<div class="pk-group" id="packs-{line}"><h3>{LINE_NAME[line]} <span class="mono">{len(packs)}</span></h3><p>{LINE_COPY[line]}</p>'
                    f'<div class="sh-grid pk-grid">{"".join(card(p) for p in packs)}</div></div>')
     return '<div id="pk-grid">\n' + '\n'.join(out) + '\n</div>'
 
 
-DECK_HINT = 'Run across the tabs to pull a pack forward; open it for the sheet and the three stickers on it. Swipe the deck on a phone.'
+DECK_HINT = 'Run across the tabs to pull a pack forward; open it for the sheet and what is on it. Swipe the deck on a phone.'
+DECK_CALL = "DS.deck('%s','pk-grid',DS.packsCfg({contact:'%s'}));"
+
+
+def n_packs(): return sum(1 for p in P['packs'] if p['line'] != 'set')
 
 
 def singles(home_src, page_src):
@@ -83,11 +94,11 @@ def page(home_src, page_src):
     wide = LP.block(home_src, '<!-- WIDE:START -->', '<!-- WIDE:END -->')
     social = LP.block(home_src, '<!-- SOCIAL:START -->', '<!-- SOCIAL:END -->')
     url = f'{LP.ORIGIN}/stickers/'
-    desc = 'Thirty-seven packs of three kiss-cut stickers — themed sets, the classic die-cuts and the brand marks — plus the singles: Achievement Unlocked badges, die-cuts and the brand set. Printed vinyl, waterproof, the DS mark on every one.'
+    desc = 'The Achievement Unlocked full set and thirty-seven packs of three kiss-cut stickers — themed sets, the classic die-cuts and the brand marks — plus the singles. Printed vinyl, waterproof, the DS mark on every one.'
     jsonld = json.dumps({"@context": "https://schema.org", "@type": "CollectionPage", "name": "Stickers · Doolittle Scuba", "url": url, "description": desc,
                          "isPartOf": {"@type": "WebSite", "name": "Doolittle Scuba", "url": LP.ORIGIN + '/'},
                          "publisher": {"@type": "Organization", "name": "Doolittle Scuba L.L.C.", "url": LP.ORIGIN + '/'}}, ensure_ascii=False)
-    n = len(P['packs'])
+    n = n_packs()
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -141,7 +152,7 @@ def page(home_src, page_src):
       <div class="hero-copy">
         <p class="eyebrow">Doolittle Scuba &middot; Stickers</p>
         <h1>Three to a sheet, or one at a time.</h1>
-        <p class="lede">{n} packs of three kiss-cut stickers — themed sets drawn for the pack, the classic die-cuts and the brand marks — and the singles: the Achievement Unlocked badges, the die-cuts and the brand set. Printed vinyl, waterproof, the DS mark on every one.</p>
+        <p class="lede">The Achievement Unlocked full set, {n} packs of three kiss-cut stickers — themed sets drawn for the pack, the classic die-cuts and the brand marks — and the singles. Printed vinyl, waterproof, the DS mark on every one.</p>
         <div class="cta">
           <a class="btn" data-umami-event="hero-packs" href="#packs">The packs</a>
           <a class="btn ghost" data-umami-event="hero-singles" href="#singles">The singles</a>
@@ -149,7 +160,7 @@ def page(home_src, page_src):
         </div>
       </div>
       <figure class="sheet" style="margin:0">
-        <div class="coord mono" aria-label="{n} packs, three stickers each, kiss-cut, 5.83 by 8.27 inch sheet">{n} PACKS &nbsp;&middot;&nbsp; THREE STICKERS EACH &nbsp;&middot;&nbsp; KISS-CUT &nbsp;&middot;&nbsp; 5.83 &times; 8.27 IN</div>
+        <div class="coord mono" aria-label="{n} packs, three stickers each, kiss-cut, 4 by 6 inch sheet">{n} PACKS &nbsp;&middot;&nbsp; THREE STICKERS EACH &nbsp;&middot;&nbsp; KISS-CUT &nbsp;&middot;&nbsp; 4 &times; 6 IN</div>
         <img src="/img/packs/hero-trio.webp" alt="Three sticker packs side by side: Reef Cuties, Retro Patches and the Navy Trio, three stickers on each sheet" width="1800" height="900">
       </figure>
     </div>
@@ -159,7 +170,7 @@ def page(home_src, page_src):
     <section id="packs" aria-labelledby="packs-h">
       <div class="head">
         <h2 id="packs-h">The packs</h2>
-        <p>Three stickers on one 5.83 &times; 8.27 in kiss-cut sheet, ${PRICE:.0f} a pack. Peel them one at a time for the tank, the dive box, the laptop and the logbook. {DECK_HINT} All coming soon &mdash; <a href="/#contact" data-umami-event="packs-contact">get the launch email</a>.</p>
+        <p>The opener is the Achievement set: all twelve badges on one sheet, $15. Then {n} packs of three on a 4 &times; 6 in kiss-cut sheet, ${PRICE:.0f} a pack, most with a few small fillers in the spare space. Peel them one at a time for the tank, the dive box, the laptop and the logbook. {DECK_HINT} All coming soon &mdash; <a href="/#contact" data-umami-event="packs-contact">get the launch email</a>.</p>
       </div>
       {groups()}
       <p class="dz-note">All artwork &copy; 2026 Doolittle Scuba L.L.C. Copying, printing or reuse of any design without written permission is prohibited.</p>
@@ -213,7 +224,7 @@ def page(home_src, page_src):
 </dialog>
 
 <script src="/js/deck.js"></script>
-<script>DS.lightbox();DS.deck('packs','pk-grid',DS.packsCfg({{contact:'/#contact'}}));</script>
+<script>DS.lightbox();{DECK_CALL % ('packs', '/#contact')}</script>
 
 <!-- Umami visitor analytics (cookie-free). Runs only on the live domain. -->
 <script defer src="https://cloud.umami.is/script.js" data-website-id="97eb29ce-9e01-43d7-8047-5d59024eeea7" data-domains="doolittlescuba.com,www.doolittlescuba.com"></script>
@@ -225,11 +236,11 @@ def page(home_src, page_src):
 def home_section(home_src):
     """The home page's #stickers section: intro, the packs deck (between PACKS markers) and a link to the singles. Idempotent."""
     i = home_src.index('<section id="stickers"'); j = home_src.index('</section>', i) + len('</section>')
-    n = len(P['packs'])
+    n = n_packs()
     sec = f'''<section id="stickers" aria-labelledby="stickers-h">
       <div class="head">
         <h2 id="stickers-h">The stickers</h2>
-        <p>{n} packs of three kiss-cut stickers &mdash; themed sets, the classic die-cuts and the brand marks, ${PRICE:.0f} a pack. {DECK_HINT} Printed vinyl, waterproof, the DS mark on every one. All coming soon. The singles &mdash; Achievement Unlocked badges, die-cuts and the brand set &mdash; are on <a href="/stickers/#singles" data-umami-event="stickers-singles">the stickers page</a>.</p>
+        <p>The Achievement Unlocked full set to start, $15, then {n} packs of three kiss-cut stickers &mdash; themed sets, the classic die-cuts and the brand marks, ${PRICE:.0f} a pack. {DECK_HINT} Printed vinyl, waterproof, the DS mark on every one. All coming soon. The singles &mdash; Achievement Unlocked badges, die-cuts and the brand set &mdash; are on <a href="/stickers/#singles" data-umami-event="stickers-singles">the stickers page</a>.</p>
       </div>
 <!-- PACKS:START -->
 {groups()}
@@ -239,8 +250,22 @@ def home_section(home_src):
     out = home_src[:i] + sec + home_src[j:]
     if "DS.deck('stickers'" not in out:
         k = out.index("DS.deck('hats','ht-grid',{")
-        out = out[:k] + "DS.deck('stickers','pk-grid',DS.packsCfg({contact:'#contact'}));\n" + out[k:]
+        out = out[:k] + DECK_CALL % ('stickers', '#contact') + "\n" + out[k:]
     return out
+
+
+def og():
+    """The share image: the hero trio over the page title, 1200 x 630 (img/og/stickers.jpg)."""
+    from PIL import Image, ImageDraw, ImageFont
+    W, Hh = 1200, 630
+    im = Image.new('RGB', (W, Hh), (18, 42, 85)); d = ImageDraw.Draw(im)
+    hero = Image.open(f'{SITE}/img/packs/hero-trio.webp').convert('RGB'); hero = hero.resize((904, 452), Image.LANCZOS)
+    im.paste(hero, (148, 36))
+    f_n = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf', 46)
+    f_u = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf', 20)
+    d.text((150, 512), 'Stickers \u2014 three to a sheet, or one at a time', font=f_n, fill=(255, 255, 255))
+    d.text((150, 576), 'DOOLITTLESCUBA.COM/STICKERS/', font=f_u, fill=(169, 185, 207))
+    os.makedirs(f'{SITE}/img/og', exist_ok=True); im.save(f'{SITE}/img/og/stickers.jpg', 'JPEG', quality=86, optimize=True)
 
 
 def main():
@@ -251,6 +276,7 @@ def main():
     open(p, 'w', encoding='utf-8').write(page(home_src, page_src))
     print(f'/stickers/  {len(P["packs"])} packs')
     open(f'{SITE}/index.html', 'w', encoding='utf-8').write(home_section(home_src)); print('index.html: #stickers = the packs deck')
+    og(); print('img/og/stickers.jpg')
     # sitemap
     sp = f'{SITE}/sitemap.xml'; s = open(sp, encoding='utf-8').read()
     if f'{LP.ORIGIN}/stickers/' not in s:

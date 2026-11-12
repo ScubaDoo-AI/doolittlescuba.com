@@ -1,12 +1,52 @@
 {
  "price": 10.0,
- "sheet": "5.83 x 8.27 in kiss-cut sheet, Printful product 505 / variant 12917, $5.15",
+ "printer": "Packs DS-PK-*: Sticker Mule (confirmed 12 Nov 2026), one 4 x 6 in kiss-cut sheet each, printed in bulk, stock held by Eric; store tag print:sticker-mule-4x6. Achievement set DS-STK-A-SET12: Ninja Transfers UV DTF gang sheet (confirmed 12 Nov 2026), 22 x 24 in, 8 sets per sheet, 15 sheets ordered = 120 sets; store tag print:ninja-transfers-uv-dtf.",
+ "sheet": "4 x 6 in kiss-cut sheet, three stickers + small fillers (PDF with CutContour paths; \"print\" below, archived in Shopify Files as files/<print>, GenericFile id \"print_file_id\"). \"master\" is the earlier 5.83 x 8.27 Printful layout (files/DS-PK-<xx>.png), superseded and no longer sent anywhere.",
  "packs": [
+  {
+   "sku": "DS-STK-A-SET12",
+   "name": "Achievement Unlocked",
+   "slug": "achievement-set",
+   "line": "set",
+   "price": 15.0,
+   "shopify_product": 10409046868154,
+   "shopify_variant": 50892498272442,
+   "stickers": [
+    "DS-STK-A-OWD",
+    "DS-STK-A-RES",
+    "DS-STK-A-MSD",
+    "DS-STK-A-DRI",
+    "DS-STK-A-BUO",
+    "DS-STK-A-NTX",
+    "DS-STK-A-UWP",
+    "DS-STK-A-SAR",
+    "DS-STK-A-SID",
+    "DS-STK-A-SHK",
+    "DS-STK-A-FSH",
+    "DS-STK-A-ALT",
+    "header: the DS seal",
+    "header: the horizontal logo",
+    "header: Achievement Hunter",
+    "header: Do A Little Scuba",
+    "header: 100% Complete"
+   ],
+   "contents": "All twelve achievements · Achievement Hunter · 100% Complete · the seal, the horizontal logo and Do A Little Scuba",
+   "uv_sheet": null,
+   "master": "DS-STK-A-SET12-A5.png",
+   "hex": "#1B2A5A",
+   "fillers": false,
+   "note": "The full set, the opener of the packs deck at $15. Shopify product achievement-unlocked-full-set (SKU DS-STK-A-SET12). The A5 \"master\" in Shopify Files is the superseded twelve-badge Printful layout; \"print\" is the sheet that is actually printed.",
+   "print": "DS-STK-A-SET12_Achievement-Unlocked_UV-DTF-gang-22x24_8-sets.png",
+   "print_file_id": 47395653058746,
+   "print_note": "Ninja Transfers UV DTF gang sheet, 22 x 24 in at 300 dpi (6600 x 7200, transparent ground), 8 sets in 2 x 4; one set is 10.7 x 5.7 in: 12 badges 3.47 x 1.08 in + 5 headers 0.77 in tall (seal round; horizontal logo 2.36, Achievement Hunter 2.54, Do A Little Scuba 2.07, 100% Complete 2.02 in wide). 15 sheets ordered 12 Nov 2026 = 120 sets."
+  },
   {
    "sku": "DS-PK-T01",
    "name": "Reef Cuties",
    "slug": "reef-cuties",
    "line": "themed",
+   "shopify_product": 10427044921530,
+   "shopify_variant": 51000161108154,
    "stickers": [
     "DS-STK-T01-01",
     "DS-STK-T01-02",
@@ -14,13 +54,18 @@
    ],
    "uv_sheet": "sheet1",
    "master": "DS-PK-T01_Reef-Cuties_5.83x8.27.png",
-   "hex": "#D4AC6A"
+   "hex": "#D4AC6A",
+   "fillers": true,
+   "print": "DS-PK-T01_Reef-Cuties_4x6_kisscut.pdf",
+   "print_file_id": 47395531030714
   },
   {
    "sku": "DS-PK-T02",
    "name": "Lazy Reef",
    "slug": "lazy-reef",
    "line": "themed",
+   "shopify_product": 10427045019834,
+   "shopify_variant": 51000161435834,
    "stickers": [
     "DS-STK-T01-04",
     "DS-STK-T01-05",
@@ -28,13 +73,18 @@
    ],
    "uv_sheet": "sheet1",
    "master": "DS-PK-T02_Lazy-Reef_5.83x8.27.png",
-   "hex": "#D4CB8A"
+   "hex": "#D4CB8A",
+   "fillers": true,
+   "print": "DS-PK-T02_Lazy-Reef_4x6_kisscut.pdf",
+   "print_file_id": 47395531063482
   },
   {
    "sku": "DS-PK-T03",
    "name": "Pun Pack",
    "slug": "pun-pack",
    "line": "themed",
+   "shopify_product": 10427045118138,
+   "shopify_variant": 51000162615482,
    "stickers": [
     "DS-STK-T02-01",
     "DS-STK-T02-02",
@@ -42,13 +92,18 @@
    ],
    "uv_sheet": "sheet1",
    "master": "DS-PK-T03_Pun-Pack_5.83x8.27.png",
-   "hex": "#6AACD4"
+   "hex": "#6AACD4",
+   "fillers": true,
+   "print": "DS-PK-T03_Pun-Pack_4x6_kisscut.pdf",
+   "print_file_id": 47395531096250
   },
   {
    "sku": "DS-PK-T04",
    "name": "Bubble Puns",
    "slug": "bubble-puns",
    "line": "themed",
+   "shopify_product": 10427045249210,
+   "shopify_variant": 51000163008698,
    "stickers": [
     "DS-STK-T02-04",
     "DS-STK-T02-05",
@@ -56,13 +111,18 @@
    ],
    "uv_sheet": "sheet1",
    "master": "DS-PK-T04_Bubble-Puns_5.83x8.27.png",
-   "hex": "#D46A92"
+   "hex": "#D46A92",
+   "fillers": true,
+   "print": "DS-PK-T04_Bubble-Puns_4x6_kisscut.pdf",
+   "print_file_id": 47395531129018
   },
   {
    "sku": "DS-PK-T05",
    "name": "Dive Computer Says",
    "slug": "dive-computer-says",
    "line": "themed",
+   "shopify_product": 10427045281978,
+   "shopify_variant": 51000163139770,
    "stickers": [
     "DS-STK-T03-03",
     "DS-STK-T03-04",
@@ -70,13 +130,18 @@
    ],
    "uv_sheet": "sheet1",
    "master": "DS-PK-T05_Dive-Computer-Says_5.83x8.27.png",
-   "hex": "#6AD4C7"
+   "hex": "#6AD4C7",
+   "fillers": true,
+   "print": "DS-PK-T05_Dive-Computer-Says_4x6_kisscut.pdf",
+   "print_file_id": 47395531161786
   },
   {
    "sku": "DS-PK-T06",
    "name": "Diver Truths",
    "slug": "diver-truths",
    "line": "themed",
+   "shopify_product": 10427045380282,
+   "shopify_variant": 51000163664058,
    "stickers": [
     "DS-STK-T03-01",
     "DS-STK-T03-02",
@@ -84,13 +149,18 @@
    ],
    "uv_sheet": "sheet1",
    "master": "DS-PK-T06_Diver-Truths_5.83x8.27.png",
-   "hex": "#197F72"
+   "hex": "#197F72",
+   "fillers": true,
+   "print": "DS-PK-T06_Diver-Truths_4x6_kisscut.pdf",
+   "print_file_id": 47395531194554
   },
   {
    "sku": "DS-PK-T07",
    "name": "Kit Bag",
    "slug": "kit-bag",
    "line": "themed",
+   "shopify_product": 10427045413050,
+   "shopify_variant": 51000163696826,
    "stickers": [
     "DS-STK-T04-01",
     "DS-STK-T04-02",
@@ -98,13 +168,18 @@
    ],
    "uv_sheet": "sheet1",
    "master": "DS-PK-T07_Kit-Bag_5.83x8.27.png",
-   "hex": "#D4BF2A"
+   "hex": "#D4BF2A",
+   "fillers": true,
+   "print": "DS-PK-T07_Kit-Bag_4x6_kisscut.pdf",
+   "print_file_id": 47395531227322
   },
   {
    "sku": "DS-PK-T08",
    "name": "Gear Up",
    "slug": "gear-up",
    "line": "themed",
+   "shopify_product": 10427045478586,
+   "shopify_variant": 51000163860666,
    "stickers": [
     "DS-STK-T04-03",
     "DS-STK-T04-05",
@@ -112,13 +187,18 @@
    ],
    "uv_sheet": "sheet1",
    "master": "DS-PK-T08_Gear-Up_5.83x8.27.png",
-   "hex": "#151D2A"
+   "hex": "#151D2A",
+   "fillers": true,
+   "print": "DS-PK-T08_Gear-Up_4x6_kisscut.pdf",
+   "print_file_id": 47395531260090
   },
   {
    "sku": "DS-PK-T09",
    "name": "Critter Cafe Crew",
    "slug": "critter-cafe-crew",
    "line": "themed",
+   "shopify_product": 10427045511354,
+   "shopify_variant": 51000163893434,
    "stickers": [
     "DS-STK-T05-01",
     "DS-STK-T05-02",
@@ -126,13 +206,18 @@
    ],
    "uv_sheet": "sheet1",
    "master": "DS-PK-T09_Critter-Cafe-Crew_5.83x8.27.png",
-   "hex": "#D4776A"
+   "hex": "#D4776A",
+   "fillers": true,
+   "print": "DS-PK-T09_Critter-Cafe-Crew_4x6_kisscut.pdf",
+   "print_file_id": 47395531292858
   },
   {
    "sku": "DS-PK-T10",
    "name": "Reef Pros",
    "slug": "reef-pros",
    "line": "themed",
+   "shopify_product": 10427045576890,
+   "shopify_variant": 51000164188346,
    "stickers": [
     "DS-STK-T05-03",
     "DS-STK-T05-05",
@@ -140,13 +225,18 @@
    ],
    "uv_sheet": "sheet1",
    "master": "DS-PK-T10_Reef-Pros_5.83x8.27.png",
-   "hex": "#7F573F"
+   "hex": "#7F573F",
+   "fillers": true,
+   "print": "DS-PK-T10_Reef-Pros_4x6_kisscut.pdf",
+   "print_file_id": 47395531325626
   },
   {
    "sku": "DS-PK-T11",
    "name": "Wreck Divers",
    "slug": "wreck-divers",
    "line": "themed",
+   "shopify_product": 10427045937338,
+   "shopify_variant": 51000173166778,
    "stickers": [
     "DS-STK-T06-01",
     "DS-STK-T06-02",
@@ -154,13 +244,18 @@
    ],
    "uv_sheet": "sheet1",
    "master": "DS-PK-T11_Wreck-Divers_5.83x8.27.png",
-   "hex": "#3F577F"
+   "hex": "#3F577F",
+   "fillers": true,
+   "print": "DS-PK-T11_Wreck-Divers_4x6_kisscut.pdf",
+   "print_file_id": 47395531358394
   },
   {
    "sku": "DS-PK-T12",
    "name": "Into the Dark",
    "slug": "into-the-dark",
    "line": "themed",
+   "shopify_product": 10427045970106,
+   "shopify_variant": 51000173199546,
    "stickers": [
     "DS-STK-T06-03",
     "DS-STK-T06-04",
@@ -168,13 +263,18 @@
    ],
    "uv_sheet": "sheet1",
    "master": "DS-PK-T12_Into-the-Dark_5.83x8.27.png",
-   "hex": "#7F673F"
+   "hex": "#7F673F",
+   "fillers": true,
+   "print": "DS-PK-T12_Into-the-Dark_4x6_kisscut.pdf",
+   "print_file_id": 47395531391162
   },
   {
    "sku": "DS-PK-T13",
    "name": "Retro Patches",
    "slug": "retro-patches",
    "line": "themed",
+   "shopify_product": 10427046002874,
+   "shopify_variant": 51000173232314,
    "stickers": [
     "DS-STK-T07-03",
     "DS-STK-T07-04",
@@ -182,13 +282,18 @@
    ],
    "uv_sheet": "sheet1",
    "master": "DS-PK-T13_Retro-Patches_5.83x8.27.png",
-   "hex": "#08152A"
+   "hex": "#08152A",
+   "fillers": true,
+   "print": "DS-PK-T13_Retro-Patches_4x6_kisscut.pdf",
+   "print_file_id": 47395531423930
   },
   {
    "sku": "DS-PK-T14",
    "name": "Vintage Classics",
    "slug": "vintage-classics",
    "line": "themed",
+   "shopify_product": 10427046035642,
+   "shopify_variant": 51000173265082,
    "stickers": [
     "DS-STK-T07-01",
     "DS-STK-T07-02",
@@ -196,13 +301,18 @@
    ],
    "uv_sheet": "sheet1",
    "master": "DS-PK-T14_Vintage-Classics_5.83x8.27.png",
-   "hex": "#D46A2A"
+   "hex": "#D46A2A",
+   "fillers": true,
+   "print": "DS-PK-T14_Vintage-Classics_4x6_kisscut.pdf",
+   "print_file_id": 47395531456698
   },
   {
    "sku": "DS-PK-T15",
    "name": "Pacific Bucket List",
    "slug": "pacific-bucket-list",
    "line": "themed",
+   "shopify_product": 10427046068410,
+   "shopify_variant": 51000173297850,
    "stickers": [
     "DS-STK-T08-01",
     "DS-STK-T08-03",
@@ -210,13 +320,18 @@
    ],
    "uv_sheet": "sheet1",
    "master": "DS-PK-T15_Pacific-Bucket-List_5.83x8.27.png",
-   "hex": "#3F197F"
+   "hex": "#3F197F",
+   "fillers": true,
+   "print": "DS-PK-T15_Pacific-Bucket-List_4x6_kisscut.pdf",
+   "print_file_id": 47395531489466
   },
   {
    "sku": "DS-PK-T16",
    "name": "Atlantic & Red Sea",
    "slug": "atlantic-and-red-sea",
    "line": "themed",
+   "shopify_product": 10427046101178,
+   "shopify_variant": 51000173330618,
    "stickers": [
     "DS-STK-T08-02",
     "DS-STK-T08-04",
@@ -224,13 +339,18 @@
    ],
    "uv_sheet": "sheet2",
    "master": "DS-PK-T16_Atlantic-Red-Sea_5.83x8.27.png",
-   "hex": "#2AD4BF"
+   "hex": "#2AD4BF",
+   "fillers": true,
+   "print": "DS-PK-T16_Atlantic-Red-Sea_4x6_kisscut.pdf",
+   "print_file_id": 47395531522234
   },
   {
    "sku": "DS-PK-T17",
    "name": "Reef Heroes",
    "slug": "reef-heroes",
    "line": "themed",
+   "shopify_product": 10427046133946,
+   "shopify_variant": 51000173363386,
    "stickers": [
     "DS-STK-T09-01",
     "DS-STK-T09-02",
@@ -238,13 +358,18 @@
    ],
    "uv_sheet": "sheet2",
    "master": "DS-PK-T17_Reef-Heroes_5.83x8.27.png",
-   "hex": "#6AC7D4"
+   "hex": "#6AC7D4",
+   "fillers": true,
+   "print": "DS-PK-T17_Reef-Heroes_4x6_kisscut.pdf",
+   "print_file_id": 47395531555002
   },
   {
    "sku": "DS-PK-T18",
    "name": "Ocean Pledge",
    "slug": "ocean-pledge",
    "line": "themed",
+   "shopify_product": 10427046166714,
+   "shopify_variant": 51000173396154,
    "stickers": [
     "DS-STK-T09-04",
     "DS-STK-T09-05",
@@ -252,13 +377,18 @@
    ],
    "uv_sheet": "sheet2",
    "master": "DS-PK-T18_Ocean-Pledge_5.83x8.27.png",
-   "hex": "#6AD4C7"
+   "hex": "#6AD4C7",
+   "fillers": true,
+   "print": "DS-PK-T18_Ocean-Pledge_4x6_kisscut.pdf",
+   "print_file_id": 47395531587770
   },
   {
    "sku": "DS-PK-T19",
    "name": "Deep Weird",
    "slug": "deep-weird",
    "line": "themed",
+   "shopify_product": 10427046199482,
+   "shopify_variant": 51000173428922,
    "stickers": [
     "DS-STK-T10-01",
     "DS-STK-T10-02",
@@ -266,13 +396,18 @@
    ],
    "uv_sheet": "sheet2",
    "master": "DS-PK-T19_Deep-Weird_5.83x8.27.png",
-   "hex": "#D48A93"
+   "hex": "#D48A93",
+   "fillers": true,
+   "print": "DS-PK-T19_Deep-Weird_4x6_kisscut.pdf",
+   "print_file_id": 47395531620538
   },
   {
    "sku": "DS-PK-T20",
    "name": "Strange Beauty",
    "slug": "strange-beauty",
    "line": "themed",
+   "shopify_product": 10427046232250,
+   "shopify_variant": 51000173461690,
    "stickers": [
     "DS-STK-T10-04",
     "DS-STK-T10-05",
@@ -280,13 +415,18 @@
    ],
    "uv_sheet": "sheet2",
    "master": "DS-PK-T20_Strange-Beauty_5.83x8.27.png",
-   "hex": "#573F7F"
+   "hex": "#573F7F",
+   "fillers": true,
+   "print": "DS-PK-T20_Strange-Beauty_4x6_kisscut.pdf",
+   "print_file_id": 47395531653306
   },
   {
    "sku": "DS-PK-T21",
    "name": "Ocean Masterpieces",
    "slug": "ocean-masterpieces",
    "line": "themed",
+   "shopify_product": 10427046461626,
+   "shopify_variant": 51000175853754,
    "stickers": [
     "DS-STK-T11-01",
     "DS-STK-T11-02",
@@ -294,13 +434,18 @@
    ],
    "uv_sheet": "sheet2",
    "master": "DS-PK-T21_Ocean-Masterpieces_5.83x8.27.png",
-   "hex": "#D46A77"
+   "hex": "#D46A77",
+   "fillers": true,
+   "print": "DS-PK-T21_Ocean-Masterpieces_4x6_kisscut.pdf",
+   "print_file_id": 47395531686074
   },
   {
    "sku": "DS-PK-T22",
    "name": "Art History Dive",
    "slug": "art-history-dive",
    "line": "themed",
+   "shopify_product": 10427046494394,
+   "shopify_variant": 51000175952058,
    "stickers": [
     "DS-STK-T11-03",
     "DS-STK-T11-02",
@@ -308,13 +453,18 @@
    ],
    "uv_sheet": "sheet2",
    "master": "DS-PK-T22_Art-History-Dive_5.83x8.27.png",
-   "hex": "#3F577F"
+   "hex": "#3F577F",
+   "fillers": true,
+   "print": "DS-PK-T22_Art-History-Dive_4x6_kisscut.pdf",
+   "print_file_id": 47395531718842
   },
   {
    "sku": "DS-PK-T23",
    "name": "Dive Science 101",
    "slug": "dive-science-101",
    "line": "themed",
+   "shopify_product": 10427046527162,
+   "shopify_variant": 51000175984826,
    "stickers": [
     "DS-STK-T12-01",
     "DS-STK-T12-03",
@@ -322,13 +472,18 @@
    ],
    "uv_sheet": "sheet2",
    "master": "DS-PK-T23_Dive-Science-101_5.83x8.27.png",
-   "hex": "#197F3F"
+   "hex": "#197F3F",
+   "fillers": true,
+   "print": "DS-PK-T23_Dive-Science-101_4x6_kisscut.pdf",
+   "print_file_id": 47395531751610
   },
   {
    "sku": "DS-PK-T24",
    "name": "Pre-Dive Check",
    "slug": "pre-dive-check",
    "line": "themed",
+   "shopify_product": 10427046559930,
+   "shopify_variant": 51000176017594,
    "stickers": [
     "DS-STK-T12-02",
     "DS-STK-T12-04",
@@ -336,13 +491,18 @@
    ],
    "uv_sheet": "sheet2",
    "master": "DS-PK-T24_Pre-Dive-Check_5.83x8.27.png",
-   "hex": "#3F197F"
+   "hex": "#3F197F",
+   "fillers": true,
+   "print": "DS-PK-T24_Pre-Dive-Check_4x6_kisscut.pdf",
+   "print_file_id": 47395531784378
   },
   {
    "sku": "DS-PK-T25",
    "name": "Turtle Trio",
    "slug": "turtle-trio",
    "line": "themed",
+   "shopify_product": 10427046592698,
+   "shopify_variant": 51000176050362,
    "stickers": [
     "DS-STK-T01-01",
     "DS-STK-T05-04",
@@ -350,13 +510,18 @@
    ],
    "uv_sheet": "sheet2",
    "master": "DS-PK-T25_Turtle-Trio_5.83x8.27.png",
-   "hex": "#ACD46A"
+   "hex": "#ACD46A",
+   "fillers": true,
+   "print": "DS-PK-T25_Turtle-Trio_4x6_kisscut.pdf",
+   "print_file_id": 47395531817146
   },
   {
    "sku": "DS-PK-T26",
    "name": "Octopus Trio",
    "slug": "octopus-trio",
    "line": "themed",
+   "shopify_product": 10427046625466,
+   "shopify_variant": 51000176083130,
    "stickers": [
     "DS-STK-T05-07",
     "DS-STK-T06-06",
@@ -364,13 +529,18 @@
    ],
    "uv_sheet": "sheet2",
    "master": "DS-PK-T26_Octopus-Trio_5.83x8.27.png",
-   "hex": "#D4776A"
+   "hex": "#D4776A",
+   "fillers": true,
+   "print": "DS-PK-T26_Octopus-Trio_4x6_kisscut.pdf",
+   "print_file_id": 47395531849914
   },
   {
    "sku": "DS-PK-C01",
    "name": "Certified",
    "slug": "certified",
    "line": "classic",
+   "shopify_product": 10427046658234,
+   "shopify_variant": 51000176115898,
    "stickers": [
     "DS-STK-D-OWD",
     "DS-STK-D-AOW",
@@ -378,13 +548,18 @@
    ],
    "uv_sheet": "sheet2",
    "master": "DS-PK-C01_Certified_5.83x8.27.png",
-   "hex": "#3F777F"
+   "hex": "#3F777F",
+   "fillers": true,
+   "print": "DS-PK-C01_Certified_4x6_kisscut.pdf",
+   "print_file_id": 47395530866874
   },
   {
    "sku": "DS-PK-C02",
    "name": "Master Diver",
    "slug": "master-diver",
    "line": "classic",
+   "shopify_product": 10427046691002,
+   "shopify_variant": 51000176148666,
    "stickers": [
     "DS-STK-D-MSD1",
     "DS-STK-D-MSD2",
@@ -392,13 +567,18 @@
    ],
    "uv_sheet": "sheet2",
    "master": "DS-PK-C02_Master-Diver_5.83x8.27.png",
-   "hex": "#673F7F"
+   "hex": "#673F7F",
+   "fillers": true,
+   "print": "DS-PK-C02_Master-Diver_4x6_kisscut.pdf",
+   "print_file_id": 47395530899642
   },
   {
    "sku": "DS-PK-C03",
    "name": "The Deep End",
    "slug": "the-deep-end",
    "line": "classic",
+   "shopify_product": 10427046756538,
+   "shopify_variant": 51000176214202,
    "stickers": [
     "DS-STK-D-DEE",
     "DS-STK-D-NTX",
@@ -406,13 +586,18 @@
    ],
    "uv_sheet": "sheet2",
    "master": "DS-PK-C03_The-Deep-End_5.83x8.27.png",
-   "hex": "#3F777F"
+   "hex": "#3F777F",
+   "fillers": true,
+   "print": "DS-PK-C03_The-Deep-End_4x6_kisscut.pdf",
+   "print_file_id": 47395530932410
   },
   {
    "sku": "DS-PK-C04",
    "name": "Specialty Mix",
    "slug": "specialty-mix",
    "line": "classic",
+   "shopify_product": 10427046789306,
+   "shopify_variant": 51000176246970,
    "stickers": [
     "DS-STK-D-SID",
     "DS-STK-D-DRS",
@@ -420,13 +605,18 @@
    ],
    "uv_sheet": "sheet2",
    "master": "DS-PK-C04_Specialty-Mix_5.83x8.27.png",
-   "hex": "#D4776A"
+   "hex": "#D4776A",
+   "fillers": true,
+   "print": "DS-PK-C04_Specialty-Mix_4x6_kisscut.pdf",
+   "print_file_id": 47395530965178
   },
   {
    "sku": "DS-PK-C05",
    "name": "Chill Dives",
    "slug": "chill-dives",
    "line": "classic",
+   "shopify_product": 10427047280826,
+   "shopify_variant": 51000187191482,
    "stickers": [
     "DS-STK-D-DRI",
     "DS-STK-D-ALT",
@@ -434,13 +624,18 @@
    ],
    "uv_sheet": "sheet3",
    "master": "DS-PK-C05_Chill-Dives_5.83x8.27.png",
-   "hex": "#3F777F"
+   "hex": "#3F777F",
+   "fillers": true,
+   "print": "DS-PK-C05_Chill-Dives_4x6_kisscut.pdf",
+   "print_file_id": 47395530997946
   },
   {
    "sku": "DS-PK-B01",
    "name": "Classic Trio",
    "slug": "classic-trio",
    "line": "brand",
+   "shopify_product": 10427047313594,
+   "shopify_variant": 51000187224250,
    "stickers": [
     "DS-STK-D-SEA-CLASSIC",
     "DS-STK-D-STK-CLASSIC",
@@ -448,13 +643,18 @@
    ],
    "uv_sheet": "sheet3",
    "master": "DS-PK-B01_Classic-Trio_5.83x8.27.png",
-   "hex": "#122A55"
+   "hex": "#122A55",
+   "fillers": true,
+   "print": "DS-PK-B01_Classic-Trio_4x6_kisscut.pdf",
+   "print_file_id": 47395530670266
   },
   {
    "sku": "DS-PK-B02",
    "name": "Navy Trio",
    "slug": "navy-trio",
    "line": "brand",
+   "shopify_product": 10427047346362,
+   "shopify_variant": 51000187257018,
    "stickers": [
     "DS-STK-D-SEA-NAVY",
     "DS-STK-D-HOR-NAVY",
@@ -462,13 +662,18 @@
    ],
    "uv_sheet": "sheet3",
    "master": "DS-PK-B02_Navy-Trio_5.83x8.27.png",
-   "hex": "#0E2140"
+   "hex": "#0E2140",
+   "fillers": true,
+   "print": "DS-PK-B02_Navy-Trio_4x6_kisscut.pdf",
+   "print_file_id": 47395530703034
   },
   {
    "sku": "DS-PK-B03",
    "name": "Black Trio",
    "slug": "black-trio",
    "line": "brand",
+   "shopify_product": 10427047379130,
+   "shopify_variant": 51000187289786,
    "stickers": [
     "DS-STK-D-SEA-BLACK",
     "DS-STK-D-STK-BLACK",
@@ -476,13 +681,18 @@
    ],
    "uv_sheet": "sheet3",
    "master": "DS-PK-B03_Black-Trio_5.83x8.27.png",
-   "hex": "#1C1C1E"
+   "hex": "#1C1C1E",
+   "fillers": true,
+   "print": "DS-PK-B03_Black-Trio_4x6_kisscut.pdf",
+   "print_file_id": 47395530735802
   },
   {
    "sku": "DS-PK-B04",
    "name": "Red Trio",
    "slug": "red-trio",
    "line": "brand",
+   "shopify_product": 10427047444666,
+   "shopify_variant": 51000187355322,
    "stickers": [
     "DS-STK-D-SEA-RED",
     "DS-STK-D-STK-RED",
@@ -490,13 +700,18 @@
    ],
    "uv_sheet": "sheet3",
    "master": "DS-PK-B04_Red-Trio_5.83x8.27.png",
-   "hex": "#C8202A"
+   "hex": "#C8202A",
+   "fillers": true,
+   "print": "DS-PK-B04_Red-Trio_4x6_kisscut.pdf",
+   "print_file_id": 47395530768570
   },
   {
    "sku": "DS-PK-B05",
    "name": "The Seal Set",
    "slug": "the-seal-set",
    "line": "brand",
+   "shopify_product": 10427047477434,
+   "shopify_variant": 51000187388090,
    "stickers": [
     "DS-STK-D-SEA-CLASSIC",
     "DS-STK-D-SEA-NAVY",
@@ -504,13 +719,18 @@
    ],
    "uv_sheet": "sheet3",
    "master": "DS-PK-B05_The-Seal-Set_5.83x8.27.png",
-   "hex": "#2F4F7F"
+   "hex": "#2F4F7F",
+   "fillers": true,
+   "print": "DS-PK-B05_The-Seal-Set_4x6_kisscut.pdf",
+   "print_file_id": 47395530801338
   },
   {
    "sku": "DS-PK-B06",
    "name": "Do A Little Scuba",
    "slug": "do-a-little-scuba",
    "line": "brand",
+   "shopify_product": 10427047510202,
+   "shopify_variant": 51000187420858,
    "stickers": [
     "DS-STK-D-TAG-NAVY",
     "DS-STK-D-KIT-CLASSIC",
@@ -518,7 +738,10 @@
    ],
    "uv_sheet": "sheet3",
    "master": "DS-PK-B06_Do-A-Little-Scuba_5.83x8.27.png",
-   "hex": "#5A7FA8"
+   "hex": "#5A7FA8",
+   "fillers": true,
+   "print": "DS-PK-B06_Do-A-Little-Scuba_4x6_kisscut.pdf",
+   "print_file_id": 47395530834106
   }
  ]
 }

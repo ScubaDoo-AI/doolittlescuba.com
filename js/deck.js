@@ -1,3 +1,4 @@
+// deck.js · 11 Nov 2026, late: rolling decks drag-rolled (no native scroll), tabs fitted to the width
 /* Doolittle Scuba — the shared page scripts: the photo viewer, the shirts/hats as a deck of cards, and the designs grid filter.
    Used by the home page and the collection pages. Each page calls what it has:
      DS.lightbox()                               every .sh-grid on the page opens its photos in #sh-lb
@@ -31,7 +32,8 @@ window.DS=(function(){
         status:pill?pill.textContent:(cfg.status!=null?cfg.status:'Coming soon'), statusClass:pill?pill.className.replace('pill','').trim():'available',
         guide:f.dataset.guide||'', custom:f.dataset.custom||'/custom/', site:site, price:f.dataset.price||'', finish:f.dataset.finish||'', parts:(function(){ var o={}; (f.dataset.custom||'').replace(/^[^#]*#/,'').split('&').forEach(function(kv){ var q=kv.split('='); o[q[0]]=q[1]; }); return o; })()};
     });
-    var state={line:cfg.lines[0][0], active:-1, open:-1, view:'front', touch:false}, lastPointer='mouse', raf=0, pending=-1, tapAt=null;
+    var state={line:cfg.lines[0][0], active:-1, open:-1, view:'front', touch:false}, lastPointer='mouse', curStep=0, rolls=false, drag=null, fling=0;
+    var MIN_FIT=26, ROLL_PX=48, shifted=false; try{ shifted=matchMedia('(hover: hover)').matches; }catch(e){}
     try{ if(matchMedia('(hover: none)').matches){ lastPointer='touch'; state.touch=true; } }catch(e){}
     var list=function(){ return items.filter(function(x){return x.line===state.line;}); };
 
@@ -49,50 +51,97 @@ window.DS=(function(){
     grid.parentNode.insertBefore(wrap, grid);
 
     var cards=[];
+    // Two layouts. When the whole deck fits the screen (its own tab width, or narrower tabs down to MIN_FIT px), the tabs lie
+    // side by side and the card under the pointer or finger pulls forward. When it cannot fit (phones), the deck ROLLS:
+    // it is a strip wider than the screen that slides to keep the pulled card in the middle, and a drag across it rolls the
+    // cards one per ROLL_PX px of travel (a flick carries on a little). No native scrolling: the browser cannot bounce it.
+    function padL(){ return parseFloat(getComputedStyle(row).paddingLeft)||0; }
+    function padX(){ var cs=getComputedStyle(row); return (parseFloat(cs.paddingLeft)||0)+(parseFloat(cs.paddingRight)||0); }
+    function layoutFor(n){
+      var base=cfg.step[state.line]; if(cfg.cls==='deck-coll'||n<2||!dk.clientWidth) return {step:base, rolls:false};
+      var cs=getComputedStyle(dk), avail=dk.clientWidth-(parseFloat(cs.paddingLeft)||0)-(parseFloat(cs.paddingRight)||0)-padX()-2, fit=Math.floor((avail-280)/(n-1));
+      if(fit>=base) return {step:base, rolls:false};
+      if(fit>=MIN_FIT) return {step:fit, rolls:false};
+      return {step:Math.max(base,ROLL_PX), rolls:true};
+    }
     function build(){
-      row.innerHTML=''; cards=[]; var L=list(), step=cfg.step[state.line];
-      row.style.setProperty('--step',step+'px');
+      row.innerHTML=''; cards=[]; var L=list(), lay=layoutFor(L.length), step=lay.step; curStep=step; rolls=lay.rolls;
+      dk.classList.toggle('rolls',rolls); row.style.setProperty('--step',step+'px'); row.style.transform='';
       L.forEach(function(it,i){
         var card=h('div','dk'); card.dataset.line=it.line; card.style.setProperty('--hex',it.hex); card.style.setProperty('--step',step+'px');
         var face=h('button','dk-face'); face.type='button'; face.setAttribute('aria-label',it.name+', '+(it.colour||'').toLowerCase()+'. Pull forward or open');
         face.innerHTML='<span class="dk-tab'+(dark(it.hex)?' dark':'')+'" style="background:'+it.hex+'"><span class="nm">'+esc(it.name)+'</span>'+(step>=56&&it.code?'<span class="cd">No. '+esc(it.code)+'</span>':'')+'</span><span class="dk-pic"><img src="'+esc(it.thumb)+'" width="600" height="600" loading="lazy" decoding="async" alt=""></span>';
         var tag=h('div','dk-tag','<div class="r"><span class="ln">'+esc(cfg.eyebrow(it))+(it.code?' &middot; No. '+esc(it.code):'')+'</span>'+(it.status?'<span class="pill '+esc(it.statusClass)+'">'+esc(it.status)+'</span>':'')+'</div><p class="t">'+esc(it.name)+'</p><p class="s">'+esc(cfg.sub(it))+'</p><button type="button" class="dk-open"><span class="c"><i></i>'+esc(it.colour)+'</span><span class="g">'+(cfg.openLabel?esc(cfg.openLabel(it)):(it.price||cfg.price)+' &middot; Open')+'</span></button>');
-        face.addEventListener('pointerenter',function(e){ if(e.pointerType&&e.pointerType!=='mouse') return; if(!e.pointerType&&touchLike()) return; activate(i); });
-        face.addEventListener('pointerdown',function(e){ lastPointer=e.pointerType||'mouse'; if(touchLike()){ tapAt=dk.scrollLeft; if(!state.touch){ state.touch=true; hintText(); } } });
+        face.addEventListener('pointerdown',function(e){ lastPointer=e.pointerType||'mouse'; if(touchLike()&&!state.touch){ state.touch=true; hintText(); } });
         face.addEventListener('keydown',function(){ lastPointer='key'; });
-        face.addEventListener('focus',function(){ if(!touchLike()) activate(i); });
-        face.addEventListener('click',function(){ if(touchLike()&&state.active!==i){ activate(i); return; } openIt(i); });
+        face.addEventListener('focus',function(){ if(rolls) dk.scrollLeft=0; if(!touchLike()) activate(i); else if(rolls) shiftTo(i); });
+        face.addEventListener('click',function(){ if(touchLike()&&state.active!==i){ activate(i); shiftTo(i); return; } openIt(i); });
         tag.querySelector('.dk-open').addEventListener('click',function(){ openIt(i); });
         card.appendChild(face); card.appendChild(tag); row.appendChild(card); cards.push(card);
       });
-      if(state.active<0&&cfg.start!=null&&L[cfg.start]) state.active=cfg.start;
-      foot.querySelector('.cnt').innerHTML=L.length+' '+cfg.noun+(L.length>1?'s':'')+' &middot; '+cfg.footNote;
+      var st=startFor(); if(state.active<0&&st!=null&&L[st]) state.active=st;
+      foot.querySelector('.cnt').innerHTML=L.length+' '+cfg.noun+(L.length>1?'s':'')+' &middot; '+(typeof cfg.footNote==='function'?cfg.footNote(state.line,L):cfg.footNote);
       Object.keys(chips).forEach(function(k){ var on=k===state.line; chips[k].classList.toggle('on',on); chips[k].setAttribute('aria-pressed',on); });
-      hintText(); paint();
+      hintText(); paint(); if(rolls&&state.active>=0) shiftTo(state.active);
     }
     function touchLike(){ return lastPointer==='touch'||lastPointer==='pen'; }
-    function hintText(){ hint.textContent=state.touch?(dk.scrollWidth>dk.clientWidth+2?'Swipe the deck: the '+cfg.noun+' in the middle steps forward · tap it to open':'Tap a tab to pull a '+cfg.noun+' forward · tap it again to open'):'Run across the tabs to pull a '+cfg.noun+' forward · click it to open'; }
+    function startFor(){ var st=cfg.start; if(st!=null&&typeof st==='object') st=st[state.line]; return st==null?null:st; }   // the card a line opens on: one index for every line, or {line:index}
+    function hintText(){ hint.textContent=rolls?(state.touch?'Drag across the deck to roll through the '+cfg.noun+'s · tap one to open':'Drag the deck to roll through the '+cfg.noun+'s · click one to open'):(state.touch?'Drag a finger across the tabs to pull a '+cfg.noun+' forward · tap it to open':'Run across the tabs to pull a '+cfg.noun+' forward · click it to open'); }
+    // rolling deck: slide the strip so card i sits in the middle of the screen
+    function shiftTo(i){ if(!rolls||i<0) return; var cs=getComputedStyle(dk), left=parseFloat(cs.paddingLeft)||0; row.style.transform='translateX('+Math.round(dk.clientWidth/2-(left+padL()+i*curStep+140))+'px)'; }
+    // which card's tab sits under a point on a fitted deck: tabs are laid out every step px from the row's left edge (the spread collections deck has no overlap, so the element under the point is the card)
+    function indexAt(cx,cy){
+      var n=cards.length; if(!n) return -1;
+      if(cfg.cls==='deck-coll'){ var el=document.elementFromPoint(cx,cy), c=el&&el.closest('.dk'); return c?cards.indexOf(c):-1; }
+      var r=row.getBoundingClientRect(), x=cx-r.left-padL(), s=curStep||1;
+      if(x<0||x>280+(n-1)*s) return -1;
+      var i=Math.floor(x/s), a=state.active;
+      if(shifted&&a>=0){ if(i>a) i=Math.max(a,Math.floor((x-14)/s)); else if(i<a) i=Math.min(a,Math.floor((x+8)/s)); }
+      return Math.min(n-1,Math.max(0,i));
+    }
+    function inBand(cy){ var r=row.getBoundingClientRect(); return cy>=r.top-56&&cy<=r.bottom+6; }   // the cards, not the tag above the lifted one
+    function clampI(i){ return Math.max(0,Math.min(cards.length-1,i)); }
+    // the mouse running across the tabs of a fitted deck pulls the card under it forward
+    dk.addEventListener('pointermove',function(e){
+      if(e.pointerType==='touch'||e.pointerType==='pen'||drag) return;
+      if(e.pointerType==='mouse') lastPointer='mouse'; if(touchLike()||rolls) return;
+      if(inBand(e.clientY)){ var i=indexAt(e.clientX,e.clientY); if(i>=0) activate(i); }
+    });
+    // a drag: on a fitted deck the finger pulls the card under it forward; on a rolling deck any pointer rolls the cards by distance
+    dk.addEventListener('pointerdown',function(e){
+      var touch=e.pointerType==='touch'||e.pointerType==='pen'; if(!touch&&!rolls) return; if(!touch&&e.button!==0) return;
+      cancelAnimationFrame(fling); fling=0;
+      drag={id:e.pointerId,x:e.clientX,y:e.clientY,on:false,from:state.active>=0?state.active:0,last:e.clientX,t:e.timeStamp,v:0};
+    });
+    function dragMove(e){
+      if(!drag||e.pointerId!==drag.id) return;
+      if(!drag.on){ var dx=e.clientX-drag.x, dy=e.clientY-drag.y; if(Math.abs(dx)<8&&Math.abs(dy)<8) return; if(Math.abs(dy)>Math.abs(dx)){ drag=null; return; } drag.on=true; }
+      var dt=e.timeStamp-drag.t; if(dt>0){ drag.v=0.6*drag.v+0.4*(e.clientX-drag.last)/dt; } drag.last=e.clientX; drag.t=e.timeStamp;
+      if(rolls){ var k=clampI(drag.from-Math.round((e.clientX-drag.x)/ROLL_PX)); activate(k); shiftTo(k); e.preventDefault(); return; }
+      var j=indexAt(e.clientX,e.clientY); if(j>=0) activate(j);
+    }
+    function dragEnd(e){
+      if(!drag||(e&&e.pointerId!==drag.id)) return; var d=drag; drag=null;
+      if(!rolls||!d.on||e.type==='pointercancel') return;
+      // a flick keeps rolling a little: the velocity decays and each ROLL_PX px of virtual travel is one more card
+      var v=d.v, travel=0, prev=state.active, t=performance.now();
+      if(Math.abs(v)<0.25) return;
+      (function step(){ var now=performance.now(), dt=Math.min(40,now-t); t=now; travel+=v*dt; v*=Math.pow(0.9,dt/16);
+        var k=clampI(prev-Math.round(travel/ROLL_PX)); if(k!==state.active){ activate(k); shiftTo(k); }
+        if(Math.abs(v)>0.05&&k>0&&k<cards.length-1) fling=requestAnimationFrame(step); else fling=0; })();
+    }
+    window.addEventListener('pointermove',dragMove,{passive:false}); window.addEventListener('pointerup',dragEnd); window.addEventListener('pointercancel',dragEnd);
+    var rt=0; window.addEventListener('resize',function(){ clearTimeout(rt); rt=setTimeout(function(){ if(state.open>=0) return; var lay=layoutFor(list().length); if(lay.step!==curStep||lay.rolls!==rolls) build(); },150); });
     function paint(){
       dk.classList.toggle('live',state.active>=0);
       cards.forEach(function(c,i){ c.classList.toggle('on',i===state.active); c.classList.toggle('after',state.active>=0&&i>state.active); c.classList.toggle('before',state.active>=0&&i<state.active); c.style.zIndex=i===state.active?200:i+1; });
     }
     function activate(i){ if(state.active!==i){ state.active=i; paint(); } }
     function setLine(l){ if(state.line===l){ if(state.open>=0) closeIt(); return; } state.line=l; state.active=-1; state.open=-1; open.hidden=true; dk.hidden=false; foot.hidden=false; build(); }
-    dk.addEventListener('mouseleave',function(){ if(lastPointer==='mouse'&&state.active>=0){ state.active=cfg.start!=null?cfg.start:-1; paint(); } });
-    dk.addEventListener('scroll',function(){
-      // touch screens: swiping the deck steps a card forward
-      if(dk.scrollWidth<=dk.clientWidth+2||!cards.length) return;
-      // a tap on a tab is not a swipe: the few pixels the deck drifts under a finger must not hand the step to the card in the middle
-      if(tapAt!==null){ if(Math.abs(dk.scrollLeft-tapAt)<48) return; tapAt=null; }
-      // the scroll range maps onto the deck end to end: fully left is the first card, fully right the last, and the step walks along in between
-      // (on a phone that is the card nearest the middle of the screen; on a wider screen the deck overflows less and the ends still reach the end cards)
-      var range=dk.scrollWidth-dk.clientWidth, idx=Math.round(dk.scrollLeft/range*(cards.length-1));
-      idx=Math.max(0,Math.min(cards.length-1,idx)); pending=idx;
-      if(raf) return; raf=requestAnimationFrame(function(){ raf=0; activate(pending); });
-    });
+    dk.addEventListener('mouseleave',function(){ if(!rolls&&lastPointer==='mouse'&&state.active>=0){ var st=startFor(); state.active=st!=null?st:-1; paint(); } });
 
     function openIt(i){ var it=list()[i]; track(cfg.openEvent,{item:it.slug,via:'deck'}); if(cfg.go){ cfg.go(it); return; } state.open=i; state.view=cfg.defaultView(it); render(); }
-    function closeIt(){ var i=state.open; state.open=-1; open.hidden=true; dk.hidden=false; foot.hidden=false; state.active=i; paint(); var f=cards[i]&&cards[i].querySelector('.dk-face'); if(f) f.focus({preventScroll:true}); }
+    function closeIt(){ var i=state.open; state.open=-1; open.hidden=true; dk.hidden=false; foot.hidden=false; state.active=i; paint(); shiftTo(i); var f=cards[i]&&cards[i].querySelector('.dk-face'); if(f) f.focus({preventScroll:true}); }
     function render(){
       var L=list(), it=L[state.open]; if(!it) return;
       dk.hidden=true; foot.hidden=true; open.hidden=false;
@@ -146,17 +195,20 @@ window.DS=(function(){
   };
 
   // The sticker packs deck: 37 kiss-cut sheets in three lines; a card opens the sheet proof and what is on it
-  DS.packsCfg=function(o){ o=o||{}; var NAME={themed:'Themed',classic:'Classic die-cuts',brand:'Brand set'};
+  DS.packsCfg=function(o){ o=o||{}; var NAME={set:'Achievement set',themed:'Themed',classic:'Classic die-cuts',brand:'Brand set'};
    function inside(it){ return it.sub.replace(/\s*·\s*\$\d+\s*$/,''); }
+   function fillers(it){ return /fillers/.test(it.cap||''); }
    return {
-    lines:o.lines||[['themed','Themed'],['classic','Classic die-cuts'],['brand','Brand']], step:{themed:36,classic:64,brand:64}, noun:'pack', price:'$10', openEvent:'pack-open', cls:'deck-packs', custom:false, contact:o.contact||'/#contact',
-    footNote:'three kiss-cut stickers on one 5.83 &times; 8.27 in sheet', facts:false,
+    lines:o.lines||[['set','Achievement set'],['themed','Themed'],['classic','Classic die-cuts'],['brand','Brand']], step:{set:64,themed:36,classic:64,brand:64}, noun:'pack', price:'$10', openEvent:'pack-open', cls:'deck-packs', custom:false, contact:o.contact||'/#contact',
+    start:{set:0},   // the deck opens on the Achievement set, the opener
+    footNote:function(line){ return line==='set'?'all twelve badges, the Achievement Hunter and 100% Complete badges and three DS marks &mdash; seventeen UV DTF rub-on stickers on one 10&frac34; &times; 5&frac34; in sheet':'three kiss-cut stickers on one 4 &times; 6 in sheet, most with small fillers'; }, facts:false,
     eyebrow:function(it){ return NAME[it.line]||'Sticker pack'; },
-    sub:function(it){ return inside(it); },
+    sub:function(it){ return it.line==='set'?'All twelve badges + five extras':inside(it); },
     blurb:function(it){ return it.text||'Three kiss-cut stickers on one sheet. Peel them one at a time for the tank, the dive box, the laptop and the logbook.'; },
     defaultView:function(){ return 'front'; },
-    caption:function(){ return 'The sheet · proof of the three stickers, 5.83 × 8.27 in'; },
-    specs:function(it){ var c=inside(it); return [['Sheet','5.83 × 8.27 in kiss-cut sheet, three stickers'],['Stickers',/^three stickers$/i.test(c)?'Three, drawn for the pack':esc(c)],['Vinyl','Printed vinyl, glossy film, waterproof'],['Mark','The DS mark on every sticker'],['Price',it.price||'$10']]; }
+    caption:function(it){ return it.line==='set'?'The sheet · proof of the full set, seventeen UV DTF stickers':'The sheet · proof of the three stickers'+(fillers(it)?' and the fillers':'')+', 4 × 6 in'; },
+    specs:function(it){ var c=inside(it); if(it.line==='set') return [['Sheet','Seventeen UV DTF stickers on one 10¾ × 5¾ in sheet'],['Badges','Freshly Certified · Not On My Watch · Master Diver · Along For The Ride · Hover Mode · Spicy Air · Photobombed · Lost & Found · Dual Wield · Friendly NPC · Bestiary · High Score'],['Extras','Achievement Hunter · 100% Complete · the seal · the horizontal logo · Do A Little Scuba'],['Finish','Rub-on transfers: peel the film, press, rub, lift — no clear border · badges 3½ × 1 in, headers ¾ in · UV-cured ink, waterproof'],['Price',it.price||'$15']];
+      return [['Sheet','4 × 6 in kiss-cut sheet, three stickers'+(fillers(it)?' and small fillers':'')],['Stickers',/^three stickers$/i.test(c)?'Three, drawn for the pack':esc(c)],['Vinyl','Printed vinyl, glossy film, waterproof'],['Mark','The DS mark on every sticker'],['Price',it.price||'$10']]; }
    };
   };
 
