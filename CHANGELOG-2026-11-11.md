@@ -22,3 +22,16 @@ Full ids, file names and the compromises: `SHOPIFY-STORE.md`, 2026-11-11.
 - **Merged to main** (126d842), live. Open: the Navy LLCAT front reads "Hovercraft (LLCAT)".
 
 Full ids and details: `SHOPIFY-STORE.md`, 11 Nov evening.
+
+## Late — the decks roll properly on every screen
+
+Eric: *"Stickers scroll extremely too fast and caps and shirts don't rolling scroll only click to pull forward."*
+
+The cause: the deck mapped its **whole scroll range** onto the cards. A deck that barely overflowed the screen (the 26 themed packs on a tablet or a 1100 px desktop) flipped through all 26 within a few pixels of scroll, while a deck that fit the screen (hats, shirts) never scrolled, so a finger could not roll it at all — only a tap pulled a card forward. On desktop, hovering also jumped several cards at a time because the lifted card covered its neighbours' tabs. And on desktop the 30-card Off-World lines overflowed with no scrollbar, so the last ten were unreachable with a mouse.
+
+`js/deck.js`, one change of model:
+- **Tabs fit the width.** A line keeps its own tab width when the whole deck fits; when narrower tabs would make it fit (down to 26 px) it uses those — Off-World's 30 now sit at 28 px on a desktop, all reachable; the packs at 33 px. Only when even that overflows (phones) does the deck scroll, and then at no less than **48 px of scroll per card** so a swipe rolls at a readable pace. Re-fitted on resize.
+- **Rolling is geometric.** On a deck that fits, the card under the pointer's x pulls forward — the mouse running across the tabs, or a finger dragged across them (`touch-action: pan-y`, so vertical swipes still scroll the page) — one card per tab, no jumps, in order. On a deck that scrolls, the card whose body is in the middle of the screen steps forward, one card per tab width.
+- Hints say which: *run across the tabs* (mouse), *drag a finger across the tabs* (touch, fitted), *swipe the deck* (touch, scrolling).
+
+Checked by script at 1440, iPad landscape (finger drag rolls the hats 14→0 and the packs 25→0 one by one) and iPhone (56 px per cap, 48 px per pack). No visual change to the cards themselves beyond narrower tabs where a deck now fits.
