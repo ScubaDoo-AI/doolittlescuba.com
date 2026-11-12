@@ -159,7 +159,8 @@
    "uv_sheet": "sheet1",
    "master": "DS-PK-T08_Gear-Up_5.83x8.27.png",
    "hex": "#151D2A",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-T08_Gear-Up_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T09",
