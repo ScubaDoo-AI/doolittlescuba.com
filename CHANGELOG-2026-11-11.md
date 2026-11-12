@@ -83,3 +83,6 @@ Eric, with the gang sheet: *"15 on these uv stickers gang sheets were ordered fr
 
 ## 12 Nov, small hours — Navy LLCAT
 Eric: the front reads **Navy LLCAT**. Chest print files (both inks) and the embroidered cap front rebuilt with the new title, uploaded, Printful re-linked for the 14 Navy LLCAT variants (0 failures), the cap's store image and the site's render replaced, the embroiderer pack updated. Details: `SHOPIFY-STORE.md`, 12 Nov.
+
+## 12 Nov — The pairs
+28 set products (cap + tee of the same site, light and dark tee) as Shopify fixed bundles at $69 / $72, combined mockups, a Pairs collection; the pair line on every site cap and Signature tee page; **Add the pair** on every site guide and site cap on the home page. Untested with Printful until the first pair order. Details: `SHOPIFY-STORE.md`, 12 Nov.
