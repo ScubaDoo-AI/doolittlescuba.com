@@ -35,3 +35,9 @@ The cause: the deck mapped its **whole scroll range** onto the cards. A deck tha
 - Hints say which: *run across the tabs* (mouse), *drag a finger across the tabs* (touch, fitted), *swipe the deck* (touch, scrolling).
 
 Checked by script at 1440, iPad landscape (finger drag rolls the hats 14→0 and the packs 25→0 one by one) and iPhone (56 px per cap, 48 px per pack). No visual change to the cards themselves beyond narrower tabs where a deck now fits.
+
+### Later — the phone deck no longer bounces
+
+Eric: *"Sticker scroll bounces back to screen centered item can not see last couple of designs."*
+
+On a phone the deck still relied on the browser's own momentum scrolling, and the cards change layout as they step (the lifted card, its tag) — Safari answers that by snapping the scroll position back, so the end of the deck could never be reached. Native scrolling is gone from the decks now. A deck that cannot fit the screen is a **drag-rolled strip**: a finger (or a mouse, on a narrow window) dragged across it rolls the cards one per 48 px of travel, a flick carries on a little further, and the strip slides to keep the pulled card in the middle of the screen — so the last card is reached by construction. Vertical swipes still scroll the page; a tap on a tab pulls it forward and centres it; a tap on the pulled card opens it. Decks that fit the screen are unchanged (the card under the pointer or finger). Checked at iPhone width by script: 26 packs rolled end to end in three flicks, the hats likewise.
