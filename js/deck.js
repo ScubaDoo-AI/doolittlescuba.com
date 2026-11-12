@@ -194,31 +194,30 @@ window.DS=(function(){
    };
   };
 
-  // The sticker packs deck: 37 kiss-cut sheets in three lines; a card opens the sheet proof and what is on it
-  DS.packsCfg=function(o){ o=o||{}; var NAME={set:'Achievement set',themed:'Themed',classic:'Classic die-cuts',brand:'Brand set'};
+  // The sticker packs deck: 37 kiss-cut sheets in three lines; a card opens the sheet proof and what is on it. The Achievement set sits above the deck as its own block (stickers_page.py opener()), not as a card.
+  DS.packsCfg=function(o){ o=o||{}; var NAME={themed:'Themed',classic:'Classic die-cuts',brand:'Brand set'};
    function inside(it){ return it.sub.replace(/\s*·\s*\$\d+\s*$/,''); }
    function fillers(it){ return /fillers/.test(it.cap||''); }
    return {
-    lines:o.lines||[['set','Achievement set'],['themed','Themed'],['classic','Classic die-cuts'],['brand','Brand']], step:{set:64,themed:36,classic:64,brand:64}, noun:'pack', price:'$10', openEvent:'pack-open', cls:'deck-packs', custom:false, contact:o.contact||'/#contact',
-    start:{set:0},   // the deck opens on the Achievement set, the opener
-    footNote:function(line){ return line==='set'?'all twelve badges, the Achievement Hunter and 100% Complete badges and three DS marks &mdash; seventeen UV DTF rub-on stickers on one 10&frac34; &times; 5&frac34; in sheet':'three kiss-cut stickers on one 4 &times; 6 in sheet, most with small fillers'; }, facts:false,
+    lines:o.lines||[['themed','Themed'],['classic','Classic die-cuts'],['brand','Brand']], step:{themed:36,classic:64,brand:64}, noun:'pack', price:'$10', openEvent:'pack-open', cls:'deck-packs', custom:false, contact:o.contact||'/#contact',
+    footNote:'three kiss-cut stickers on one 4 &times; 6 in sheet, most with small fillers', facts:false,
     eyebrow:function(it){ return NAME[it.line]||'Sticker pack'; },
-    sub:function(it){ return it.line==='set'?'All twelve badges + five extras':inside(it); },
+    sub:function(it){ return inside(it); },
     blurb:function(it){ return it.text||'Three kiss-cut stickers on one sheet. Peel them one at a time for the tank, the dive box, the laptop and the logbook.'; },
     defaultView:function(){ return 'front'; },
-    caption:function(it){ return it.line==='set'?'The sheet · proof of the full set, seventeen UV DTF stickers':'The sheet · proof of the three stickers'+(fillers(it)?' and the fillers':'')+', 4 × 6 in'; },
-    specs:function(it){ var c=inside(it); if(it.line==='set') return [['Sheet','Seventeen UV DTF stickers on one 10¾ × 5¾ in sheet'],['Badges','Freshly Certified · Not On My Watch · Master Diver · Along For The Ride · Hover Mode · Spicy Air · Photobombed · Lost & Found · Dual Wield · Friendly NPC · Bestiary · High Score'],['Extras','Achievement Hunter · 100% Complete · the seal · the horizontal logo · Do A Little Scuba'],['Finish','Rub-on transfers: peel the film, press, rub, lift — no clear border · badges 3½ × 1 in, headers ¾ in · UV-cured ink, waterproof'],['Price',it.price||'$15']];
+    caption:function(it){ return 'The sheet · proof of the three stickers'+(fillers(it)?' and the fillers':'')+', 4 × 6 in'; },
+    specs:function(it){ var c=inside(it);
       return [['Sheet','4 × 6 in kiss-cut sheet, three stickers'+(fillers(it)?' and small fillers':'')],['Stickers',/^three stickers$/i.test(c)?'Three, drawn for the pack':esc(c)],['Vinyl','Printed vinyl, glossy film, waterproof'],['Mark','The DS mark on every sticker'],['Price',it.price||'$10']]; }
    };
   };
 
-  // The photo viewer: every .sh-grid (shirts, hats, stickers) opens its photos in the #sh-lb dialog
+  // The photo viewer: every .sh-grid (shirts, hats, stickers) and the stickers' opener block open their photos in the #sh-lb dialog
   DS.lightbox=function(){
   var lb=document.getElementById('sh-lb'), im=document.getElementById('sh-lb-img'), cap=document.getElementById('sh-lb-cap'); if(!lb) return;
   lb.querySelector('.lb-x').addEventListener('click',function(){lb.close();});
   lb.addEventListener('click',function(e){ if(e.target===lb) lb.close(); });
   lb.addEventListener('close',function(){ im.removeAttribute('src'); });
-  document.querySelectorAll('.sh-grid').forEach(function(grid){
+  document.querySelectorAll('.sh-grid, .opener').forEach(function(grid){
   grid.querySelectorAll('.sh-flip button').forEach(function(b){
     b.addEventListener('click',function(){
       var fig=b.closest('.sh'), btn=fig.querySelector('.sh-img'), img=btn.querySelector('img'), side=b.dataset.side;

@@ -7,9 +7,9 @@ Packs come from tools/packs.json (built from the print package's Pack_Index.csv;
 the single-sticker sheets are harvested from the page itself (or, the first time, from the home page's #stickers
 section) and put back unchanged, so this can be re-run after a copy or theme change. The home page's #stickers
 section carries the same packs deck between <!-- PACKS:START --> and <!-- PACKS:END --> (rebuilt every run; the first
-run converts the old sheets / teaser section). Both pages show the packs as a stacked deck (js/deck.js, DS.packsCfg:
-run across the tabs, open a card for the sheet and what is on it); the figures under #pk-grid are the no-JS fallback
-and what the deck is built from. Shell pieces (shop-status flag, wide-screen block, social links, nav) are shared with
+run converts the old sheets / teaser section). Both pages show the Achievement set as a hero shot (opener(): the sheet
+large, the specs, $15) above the packs as a stacked deck (js/deck.js, DS.packsCfg: run across the tabs, open a card for
+the sheet and what is on it); the figures under #pk-grid are the no-JS fallback and what the deck is built from. Shell pieces (shop-status flag, wide-screen block, social links, nav) are shared with
 tools/line_pages.py. Run tools/bust.py afterwards.
 """
 import html as H, json, os, re, sys
@@ -63,10 +63,41 @@ def card(p):
             f'<span class="dz-s">{H.escape(inner) if inner != "three stickers" else ("Three stickers + fillers" if p.get("fillers") else "Three stickers")} &middot; ${price(p):.0f}</span></figcaption></figure>')
 
 
+SET = next(p for p in P['packs'] if p['line'] == 'set')
+BADGES = 'Freshly Certified · Not On My Watch · Master Diver · Along For The Ride · Hover Mode · Spicy Air · Photobombed · Lost & Found · Dual Wield · Friendly NPC · Bestiary · High Score'
+EXTRAS = 'Achievement Hunter · 100% Complete · the seal · the horizontal logo · Do A Little Scuba'
+
+
+def opener(contact, singles_href):
+    """The Achievement set as a hero shot above the packs deck: the sheet large (img/packs/achievement-set-sheet.webp, the
+    customer's 10.7 x 5.7 in set rendered from the Ninja Transfers gang sheet), the specs and the price. Not part of the deck."""
+    cap = f'{SET["name"]} — the full set · seventeen UV DTF rub-on stickers on one 10¾ × 5¾ in sheet · ${price(SET):.0f}'
+    alt = f'Achievement Unlocked, the full set on one sheet: the twelve badges — {BADGES} — and five extras: {EXTRAS}'
+    return f'''<div class="opener" id="opener" data-sku="{SET["sku"]}">
+  <figure class="sheet" style="margin:0">
+    <div class="coord mono" aria-label="The opener: seventeen UV DTF stickers">THE OPENER &nbsp;&middot;&nbsp; 17 UV DTF STICKERS</div>
+    <button type="button" class="sh-img" data-front="/img/packs/achievement-set-sheet.webp" data-cap="{H.escape(cap, quote=True)}" data-umami-event="pack-open" data-umami-event-pack="{SET["sku"]}"><img src="/img/packs/achievement-set-sheet.webp" width="1600" height="890" loading="lazy" decoding="async" draggable="false" alt="{H.escape(alt, quote=True)}"></button>
+  </figure>
+  <div class="info">
+    <p class="eyebrow">Achievement set &middot; the opener <span class="pill available">Coming soon</span></p>
+    <h3>{SET["name"]}</h3>
+    <p>{LINE_BLURB["set"]}</p>
+    <dl class="specs">
+      <dt>Sheet</dt><dd>Seventeen UV DTF stickers on one 10&frac34; &times; 5&frac34; in sheet</dd>
+      <dt>Badges</dt><dd>{H.escape(BADGES)}</dd>
+      <dt>Extras</dt><dd>{EXTRAS}</dd>
+      <dt>Finish</dt><dd>Rub-on transfers: peel the film, press, rub, lift &mdash; no clear border &middot; badges 3&frac12; &times; 1 in, headers &frac34; in &middot; UV-cured ink, waterproof</dd>
+      <dt>Price</dt><dd class="price">${price(SET):.0f}</dd>
+    </dl>
+    <div class="cta"><a class="btn" href="{contact}" data-umami-event="opener-launch-news">Coming soon &middot; get launch news</a><a class="txt" href="{singles_href}" data-umami-event="opener-singles">The badges one at a time &rarr;</a></div>
+  </div>
+</div>'''
+
+
 def groups():
-    """The 37 cards in three groups under #pk-grid: the deck is built from them and hides them; without JS they show as grids."""
+    """The 37 pack cards in three groups under #pk-grid: the deck is built from them and hides them; without JS they show as grids. The Achievement set is not a card: opener()."""
     out = []
-    for line in ('set', 'themed', 'classic', 'brand'):
+    for line in ('themed', 'classic', 'brand'):
         packs = [p for p in P['packs'] if p['line'] == line]
         out.append(f'<div class="pk-group" id="packs-{line}"><h3>{LINE_NAME[line]} <span class="mono">{len(packs)}</span></h3><p>{LINE_COPY[line]}</p>'
                    f'<div class="sh-grid pk-grid">{"".join(card(p) for p in packs)}</div></div>')
@@ -170,8 +201,9 @@ def page(home_src, page_src):
     <section id="packs" aria-labelledby="packs-h">
       <div class="head">
         <h2 id="packs-h">The packs</h2>
-        <p>The opener is the Achievement set: all twelve badges on one sheet, $15. Then {n} packs of three on a 4 &times; 6 in kiss-cut sheet, ${PRICE:.0f} a pack, most with a few small fillers in the spare space. Peel them one at a time for the tank, the dive box, the laptop and the logbook. {DECK_HINT} All coming soon &mdash; <a href="/#contact" data-umami-event="packs-contact">get the launch email</a>.</p>
+        <p>First the Achievement set: seventeen UV DTF stickers on one sheet, $15. Then {n} packs of three on a 4 &times; 6 in kiss-cut sheet, ${PRICE:.0f} a pack, most with a few small fillers in the spare space. Peel them one at a time for the tank, the dive box, the laptop and the logbook. {DECK_HINT} All coming soon &mdash; <a href="/#contact" data-umami-event="packs-contact">get the launch email</a>.</p>
       </div>
+      {opener('/#contact', '#singles')}
       {groups()}
       <p class="dz-note">All artwork &copy; 2026 Doolittle Scuba L.L.C. Copying, printing or reuse of any design without written permission is prohibited.</p>
     </section>
@@ -234,15 +266,16 @@ def page(home_src, page_src):
 
 
 def home_section(home_src):
-    """The home page's #stickers section: intro, the packs deck (between PACKS markers) and a link to the singles. Idempotent."""
+    """The home page's #stickers section: intro, the Achievement set opener and the packs deck (between PACKS markers), a link to the singles. Idempotent."""
     i = home_src.index('<section id="stickers"'); j = home_src.index('</section>', i) + len('</section>')
     n = n_packs()
     sec = f'''<section id="stickers" aria-labelledby="stickers-h">
       <div class="head">
         <h2 id="stickers-h">The stickers</h2>
-        <p>The Achievement Unlocked full set to start, $15, then {n} packs of three kiss-cut stickers &mdash; themed sets, the classic die-cuts and the brand marks, ${PRICE:.0f} a pack. {DECK_HINT} Printed vinyl, waterproof, the DS mark on every one. All coming soon. The singles &mdash; Achievement Unlocked badges, die-cuts and the brand set &mdash; are on <a href="/stickers/#singles" data-umami-event="stickers-singles">the stickers page</a>.</p>
+        <p>The Achievement Unlocked set first &mdash; seventeen UV DTF stickers on one sheet, $15 &mdash; then {n} packs of three kiss-cut stickers: themed sets, the classic die-cuts and the brand marks, ${PRICE:.0f} a pack. {DECK_HINT} Waterproof, the DS mark on every one. All coming soon. The singles &mdash; Achievement Unlocked badges, die-cuts and the brand set &mdash; are on <a href="/stickers/#singles" data-umami-event="stickers-singles">the stickers page</a>.</p>
       </div>
 <!-- PACKS:START -->
+{opener('#contact', '/stickers/#singles')}
 {groups()}
 <!-- PACKS:END -->
       <p class="line-links" style="margin-top:14px"><a class="btn" href="/stickers/" data-umami-event="stickers-page">The stickers page: all {n} packs and the singles</a></p>
