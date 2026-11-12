@@ -1,6 +1,6 @@
 {
  "price": 10.0,
- "sheet": "5.83 x 8.27 in kiss-cut sheet, Printful product 505 / variant 12917, $5.15",
+ "sheet": "4 x 6 in kiss-cut sheet (PDF with CutContour); Printful product 505 / variant 12917 is 5.83 x 8.27 in",
  "packs": [
   {
    "sku": "DS-STK-A-SET12",
@@ -47,7 +47,8 @@
    "uv_sheet": "sheet1",
    "master": "DS-PK-T01_Reef-Cuties_5.83x8.27.png",
    "hex": "#D4AC6A",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-T01_Reef-Cuties_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T02",
@@ -62,7 +63,8 @@
    "uv_sheet": "sheet1",
    "master": "DS-PK-T02_Lazy-Reef_5.83x8.27.png",
    "hex": "#D4CB8A",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-T02_Lazy-Reef_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T03",
@@ -77,7 +79,8 @@
    "uv_sheet": "sheet1",
    "master": "DS-PK-T03_Pun-Pack_5.83x8.27.png",
    "hex": "#6AACD4",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-T03_Pun-Pack_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T04",
@@ -92,7 +95,8 @@
    "uv_sheet": "sheet1",
    "master": "DS-PK-T04_Bubble-Puns_5.83x8.27.png",
    "hex": "#D46A92",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-T04_Bubble-Puns_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T05",
@@ -107,7 +111,8 @@
    "uv_sheet": "sheet1",
    "master": "DS-PK-T05_Dive-Computer-Says_5.83x8.27.png",
    "hex": "#6AD4C7",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-T05_Dive-Computer-Says_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T06",
@@ -122,7 +127,8 @@
    "uv_sheet": "sheet1",
    "master": "DS-PK-T06_Diver-Truths_5.83x8.27.png",
    "hex": "#197F72",
-   "fillers": false
+   "fillers": true,
+   "print": "DS-PK-T06_Diver-Truths_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T07",
@@ -137,7 +143,8 @@
    "uv_sheet": "sheet1",
    "master": "DS-PK-T07_Kit-Bag_5.83x8.27.png",
    "hex": "#D4BF2A",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-T07_Kit-Bag_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T08",
@@ -167,7 +174,8 @@
    "uv_sheet": "sheet1",
    "master": "DS-PK-T09_Critter-Cafe-Crew_5.83x8.27.png",
    "hex": "#D4776A",
-   "fillers": false
+   "fillers": true,
+   "print": "DS-PK-T09_Critter-Cafe-Crew_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T10",
@@ -182,7 +190,8 @@
    "uv_sheet": "sheet1",
    "master": "DS-PK-T10_Reef-Pros_5.83x8.27.png",
    "hex": "#7F573F",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-T10_Reef-Pros_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T11",
@@ -197,7 +206,8 @@
    "uv_sheet": "sheet1",
    "master": "DS-PK-T11_Wreck-Divers_5.83x8.27.png",
    "hex": "#3F577F",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-T11_Wreck-Divers_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T12",
@@ -212,7 +222,8 @@
    "uv_sheet": "sheet1",
    "master": "DS-PK-T12_Into-the-Dark_5.83x8.27.png",
    "hex": "#7F673F",
-   "fillers": false
+   "fillers": true,
+   "print": "DS-PK-T12_Into-the-Dark_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T13",
@@ -227,7 +238,8 @@
    "uv_sheet": "sheet1",
    "master": "DS-PK-T13_Retro-Patches_5.83x8.27.png",
    "hex": "#08152A",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-T13_Retro-Patches_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T14",
@@ -242,7 +254,8 @@
    "uv_sheet": "sheet1",
    "master": "DS-PK-T14_Vintage-Classics_5.83x8.27.png",
    "hex": "#D46A2A",
-   "fillers": false
+   "fillers": true,
+   "print": "DS-PK-T14_Vintage-Classics_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T15",
@@ -257,7 +270,8 @@
    "uv_sheet": "sheet1",
    "master": "DS-PK-T15_Pacific-Bucket-List_5.83x8.27.png",
    "hex": "#3F197F",
-   "fillers": false
+   "fillers": true,
+   "print": "DS-PK-T15_Pacific-Bucket-List_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T16",
@@ -272,7 +286,8 @@
    "uv_sheet": "sheet2",
    "master": "DS-PK-T16_Atlantic-Red-Sea_5.83x8.27.png",
    "hex": "#2AD4BF",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-T16_Atlantic-Red-Sea_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T17",
@@ -287,7 +302,8 @@
    "uv_sheet": "sheet2",
    "master": "DS-PK-T17_Reef-Heroes_5.83x8.27.png",
    "hex": "#6AC7D4",
-   "fillers": false
+   "fillers": true,
+   "print": "DS-PK-T17_Reef-Heroes_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T18",
@@ -302,7 +318,8 @@
    "uv_sheet": "sheet2",
    "master": "DS-PK-T18_Ocean-Pledge_5.83x8.27.png",
    "hex": "#6AD4C7",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-T18_Ocean-Pledge_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T19",
@@ -317,7 +334,8 @@
    "uv_sheet": "sheet2",
    "master": "DS-PK-T19_Deep-Weird_5.83x8.27.png",
    "hex": "#D48A93",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-T19_Deep-Weird_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T20",
@@ -332,7 +350,8 @@
    "uv_sheet": "sheet2",
    "master": "DS-PK-T20_Strange-Beauty_5.83x8.27.png",
    "hex": "#573F7F",
-   "fillers": false
+   "fillers": true,
+   "print": "DS-PK-T20_Strange-Beauty_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T21",
@@ -347,7 +366,8 @@
    "uv_sheet": "sheet2",
    "master": "DS-PK-T21_Ocean-Masterpieces_5.83x8.27.png",
    "hex": "#D46A77",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-T21_Ocean-Masterpieces_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T22",
@@ -362,7 +382,8 @@
    "uv_sheet": "sheet2",
    "master": "DS-PK-T22_Art-History-Dive_5.83x8.27.png",
    "hex": "#3F577F",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-T22_Art-History-Dive_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T23",
@@ -377,7 +398,8 @@
    "uv_sheet": "sheet2",
    "master": "DS-PK-T23_Dive-Science-101_5.83x8.27.png",
    "hex": "#197F3F",
-   "fillers": false
+   "fillers": true,
+   "print": "DS-PK-T23_Dive-Science-101_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T24",
@@ -392,7 +414,8 @@
    "uv_sheet": "sheet2",
    "master": "DS-PK-T24_Pre-Dive-Check_5.83x8.27.png",
    "hex": "#3F197F",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-T24_Pre-Dive-Check_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T25",
@@ -407,7 +430,8 @@
    "uv_sheet": "sheet2",
    "master": "DS-PK-T25_Turtle-Trio_5.83x8.27.png",
    "hex": "#ACD46A",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-T25_Turtle-Trio_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-T26",
@@ -422,7 +446,8 @@
    "uv_sheet": "sheet2",
    "master": "DS-PK-T26_Octopus-Trio_5.83x8.27.png",
    "hex": "#D4776A",
-   "fillers": false
+   "fillers": true,
+   "print": "DS-PK-T26_Octopus-Trio_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-C01",
@@ -437,7 +462,8 @@
    "uv_sheet": "sheet2",
    "master": "DS-PK-C01_Certified_5.83x8.27.png",
    "hex": "#3F777F",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-C01_Certified_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-C02",
@@ -452,7 +478,8 @@
    "uv_sheet": "sheet2",
    "master": "DS-PK-C02_Master-Diver_5.83x8.27.png",
    "hex": "#673F7F",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-C02_Master-Diver_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-C03",
@@ -467,7 +494,8 @@
    "uv_sheet": "sheet2",
    "master": "DS-PK-C03_The-Deep-End_5.83x8.27.png",
    "hex": "#3F777F",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-C03_The-Deep-End_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-C04",
@@ -482,7 +510,8 @@
    "uv_sheet": "sheet2",
    "master": "DS-PK-C04_Specialty-Mix_5.83x8.27.png",
    "hex": "#D4776A",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-C04_Specialty-Mix_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-C05",
@@ -497,7 +526,8 @@
    "uv_sheet": "sheet3",
    "master": "DS-PK-C05_Chill-Dives_5.83x8.27.png",
    "hex": "#3F777F",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-C05_Chill-Dives_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-B01",
@@ -512,7 +542,8 @@
    "uv_sheet": "sheet3",
    "master": "DS-PK-B01_Classic-Trio_5.83x8.27.png",
    "hex": "#122A55",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-B01_Classic-Trio_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-B02",
@@ -527,7 +558,8 @@
    "uv_sheet": "sheet3",
    "master": "DS-PK-B02_Navy-Trio_5.83x8.27.png",
    "hex": "#0E2140",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-B02_Navy-Trio_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-B03",
@@ -542,7 +574,8 @@
    "uv_sheet": "sheet3",
    "master": "DS-PK-B03_Black-Trio_5.83x8.27.png",
    "hex": "#1C1C1E",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-B03_Black-Trio_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-B04",
@@ -557,7 +590,8 @@
    "uv_sheet": "sheet3",
    "master": "DS-PK-B04_Red-Trio_5.83x8.27.png",
    "hex": "#C8202A",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-B04_Red-Trio_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-B05",
@@ -572,7 +606,8 @@
    "uv_sheet": "sheet3",
    "master": "DS-PK-B05_The-Seal-Set_5.83x8.27.png",
    "hex": "#2F4F7F",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-B05_The-Seal-Set_4x6_kisscut.pdf"
   },
   {
    "sku": "DS-PK-B06",
@@ -587,7 +622,8 @@
    "uv_sheet": "sheet3",
    "master": "DS-PK-B06_Do-A-Little-Scuba_5.83x8.27.png",
    "hex": "#5A7FA8",
-   "fillers": true
+   "fillers": true,
+   "print": "DS-PK-B06_Do-A-Little-Scuba_4x6_kisscut.pdf"
   }
  ]
 }

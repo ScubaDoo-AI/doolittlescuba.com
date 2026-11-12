@@ -52,7 +52,7 @@ def contents(pack):
 
 
 def card(p):
-    what = 'the full set · seventeen kiss-cut stickers on one 5.83 × 8.27 in sheet' if p['line'] == 'set' else ('sticker pack · three kiss-cut stickers' + (' and small fillers' if p.get('fillers') else '') + ' on one 5.83 × 8.27 in sheet')
+    what = 'the full set · seventeen kiss-cut stickers on one 5.83 × 8.27 in sheet' if p['line'] == 'set' else ('sticker pack · three kiss-cut stickers' + (' and small fillers' if p.get('fillers') else '') + ' on one 4 × 6 in sheet')
     cap = f'{p["name"]} — {what} · ${price(p):.0f}'
     inner = contents(p)
     return (f'<figure class="sh pk" data-sku="{p["sku"]}" data-line="{p["line"]}" data-slug="{p["slug"]}" data-code="{"" if p["line"] == "set" else p["sku"][-3:]}" data-price="${price(p):.0f}" '
@@ -160,7 +160,7 @@ def page(home_src, page_src):
         </div>
       </div>
       <figure class="sheet" style="margin:0">
-        <div class="coord mono" aria-label="{n} packs, three stickers each, kiss-cut, 5.83 by 8.27 inch sheet">{n} PACKS &nbsp;&middot;&nbsp; THREE STICKERS EACH &nbsp;&middot;&nbsp; KISS-CUT &nbsp;&middot;&nbsp; 5.83 &times; 8.27 IN</div>
+        <div class="coord mono" aria-label="{n} packs, three stickers each, kiss-cut, 4 by 6 inch sheet">{n} PACKS &nbsp;&middot;&nbsp; THREE STICKERS EACH &nbsp;&middot;&nbsp; KISS-CUT &nbsp;&middot;&nbsp; 4 &times; 6 IN</div>
         <img src="/img/packs/hero-trio.webp" alt="Three sticker packs side by side: Reef Cuties, Retro Patches and the Navy Trio, three stickers on each sheet" width="1800" height="900">
       </figure>
     </div>
@@ -170,7 +170,7 @@ def page(home_src, page_src):
     <section id="packs" aria-labelledby="packs-h">
       <div class="head">
         <h2 id="packs-h">The packs</h2>
-        <p>The opener is the Achievement set: all twelve badges on one sheet, $15. Then {n} packs of three on a 5.83 &times; 8.27 in kiss-cut sheet, ${PRICE:.0f} a pack, most with a few small fillers in the spare space. Peel them one at a time for the tank, the dive box, the laptop and the logbook. {DECK_HINT} All coming soon &mdash; <a href="/#contact" data-umami-event="packs-contact">get the launch email</a>.</p>
+        <p>The opener is the Achievement set: all twelve badges on one sheet, $15. Then {n} packs of three on a 4 &times; 6 in kiss-cut sheet, ${PRICE:.0f} a pack, most with a few small fillers in the spare space. Peel them one at a time for the tank, the dive box, the laptop and the logbook. {DECK_HINT} All coming soon &mdash; <a href="/#contact" data-umami-event="packs-contact">get the launch email</a>.</p>
       </div>
       {groups()}
       <p class="dz-note">All artwork &copy; 2026 Doolittle Scuba L.L.C. Copying, printing or reuse of any design without written permission is prohibited.</p>

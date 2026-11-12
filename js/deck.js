@@ -201,14 +201,14 @@ window.DS=(function(){
    return {
     lines:o.lines||[['set','Achievement set'],['themed','Themed'],['classic','Classic die-cuts'],['brand','Brand']], step:{set:64,themed:36,classic:64,brand:64}, noun:'pack', price:'$10', openEvent:'pack-open', cls:'deck-packs', custom:false, contact:o.contact||'/#contact',
     start:{set:0},   // the deck opens on the Achievement set, the opener
-    footNote:function(line){ return line==='set'?'all twelve badges, the Achievement Hunter and 100% Complete badges and three DS marks on one 5.83 &times; 8.27 in sheet':'three kiss-cut stickers on one 5.83 &times; 8.27 in sheet, most with small fillers'; }, facts:false,
+    footNote:function(line){ return line==='set'?'all twelve badges, the Achievement Hunter and 100% Complete badges and three DS marks on one 5.83 &times; 8.27 in sheet':'three kiss-cut stickers on one 4 &times; 6 in sheet, most with small fillers'; }, facts:false,
     eyebrow:function(it){ return NAME[it.line]||'Sticker pack'; },
     sub:function(it){ return it.line==='set'?'All twelve badges + five extras':inside(it); },
     blurb:function(it){ return it.text||'Three kiss-cut stickers on one sheet. Peel them one at a time for the tank, the dive box, the laptop and the logbook.'; },
     defaultView:function(){ return 'front'; },
-    caption:function(it){ return it.line==='set'?'The sheet · proof of the full set, 5.83 × 8.27 in':'The sheet · proof of the three stickers'+(fillers(it)?' and the fillers':'')+', 5.83 × 8.27 in'; },
+    caption:function(it){ return it.line==='set'?'The sheet · proof of the full set, 5.83 × 8.27 in':'The sheet · proof of the three stickers'+(fillers(it)?' and the fillers':'')+', 4 × 6 in'; },
     specs:function(it){ var c=inside(it); if(it.line==='set') return [['Sheet','5.83 × 8.27 in kiss-cut sheet, seventeen stickers'],['Badges','Freshly Certified · Not On My Watch · Master Diver · Along For The Ride · Hover Mode · Spicy Air · Photobombed · Lost & Found · Dual Wield · Friendly NPC · Bestiary · High Score'],['Extras','Achievement Hunter · 100% Complete · the seal · the horizontal logo · Do A Little Scuba'],['Vinyl','Printed vinyl, glossy film, waterproof'],['Price',it.price||'$15']];
-      return [['Sheet','5.83 × 8.27 in kiss-cut sheet, three stickers'+(fillers(it)?' and small fillers':'')],['Stickers',/^three stickers$/i.test(c)?'Three, drawn for the pack':esc(c)],['Vinyl','Printed vinyl, glossy film, waterproof'],['Mark','The DS mark on every sticker'],['Price',it.price||'$10']]; }
+      return [['Sheet','4 × 6 in kiss-cut sheet, three stickers'+(fillers(it)?' and small fillers':'')],['Stickers',/^three stickers$/i.test(c)?'Three, drawn for the pack':esc(c)],['Vinyl','Printed vinyl, glossy film, waterproof'],['Mark','The DS mark on every sticker'],['Price',it.price||'$10']]; }
    };
   };
 
