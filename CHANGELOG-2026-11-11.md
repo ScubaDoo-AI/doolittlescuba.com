@@ -14,3 +14,11 @@ Eric, 11 Nov (caps Project): *"Let's add the 14 front signature series shirt des
 - The renders live on the branch `caps-embroidered-2026-11-11` under `renders/caps-2026-11-11/` (the store imported them from there). The home page's `img/hats/dark/` and hats copy are still the 24 Oct DTF-style set — a separate pass.
 
 Full ids, file names and the compromises: `SHOPIFY-STORE.md`, 2026-11-11.
+
+## Evening — Eric's answers: sample staged, DTF option gone, coordinates corrected, merged
+- **Price** stays $35 / $40. **Printful sample** staged as draft order 186447389 (Blue Water Park, Black, L/XL): $22.41 + $5.09 shipping + $12.40 one-time digitization + $3.21 tax = $43.11, unconfirmed. The Sample order job now takes the caps and has a `show` mode.
+- **No more DTF caps:** `tools/hats_v3.py` put the embroidered-front renders in the home page deck and rewrote the hats copy and spec sheet; Home Port is embroidered to order (store tags and description updated).
+- **Coordinates:** seven sites' website and store values were brought up to the chest blocks, which checked out against the ground; Dive Land Park moves from "Ider" to Glencoe, AL. 28 store descriptions and the site's own data, guides and plates updated.
+- **Merged to main** (126d842), live. Open: the Navy LLCAT front reads "Hovercraft (LLCAT)".
+
+Full ids and details: `SHOPIFY-STORE.md`, 11 Nov evening.
