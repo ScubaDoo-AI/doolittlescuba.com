@@ -284,6 +284,7 @@ section{padding-block:clamp(40px,7vw,72px);border-top:1px solid var(--rule)}
 .has-deck #sh-grid,.has-deck #ht-grid,.has-deck #pk-grid,.deck[hidden],.deck-foot[hidden],.sh-open[hidden]{display:none}
 .deck-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px}
 .deck{position:relative;overflow-x:auto;overflow-y:hidden;margin:0 calc(-1 * var(--gut));padding:238px var(--gut) 36px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.deck:not(.scrolls){touch-action:pan-y}
 .deck::-webkit-scrollbar{display:none}
 .deck-hint{position:absolute;top:206px;left:0;right:0;margin:0;text-align:center;font-family:var(--f-data);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);pointer-events:none;transition:opacity .25s}
 .deck.live .deck-hint{opacity:0}

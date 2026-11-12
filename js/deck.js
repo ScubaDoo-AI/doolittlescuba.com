@@ -31,7 +31,8 @@ window.DS=(function(){
         status:pill?pill.textContent:(cfg.status!=null?cfg.status:'Coming soon'), statusClass:pill?pill.className.replace('pill','').trim():'available',
         guide:f.dataset.guide||'', custom:f.dataset.custom||'/custom/', site:site, price:f.dataset.price||'', finish:f.dataset.finish||'', parts:(function(){ var o={}; (f.dataset.custom||'').replace(/^[^#]*#/,'').split('&').forEach(function(kv){ var q=kv.split('='); o[q[0]]=q[1]; }); return o; })()};
     });
-    var state={line:cfg.lines[0][0], active:-1, open:-1, view:'front', touch:false}, lastPointer='mouse', raf=0, pending=-1, tapAt=null;
+    var state={line:cfg.lines[0][0], active:-1, open:-1, view:'front', touch:false}, lastPointer='mouse', raf=0, pending=-1, tapAt=null, curStep=0, drag=null;
+    var MIN_FIT=26, TOUCH_STEP=48, shifted=false; try{ shifted=matchMedia('(hover: hover)').matches; }catch(e){}
     try{ if(matchMedia('(hover: none)').matches){ lastPointer='touch'; state.touch=true; } }catch(e){}
     var list=function(){ return items.filter(function(x){return x.line===state.line;}); };
 
@@ -49,15 +50,25 @@ window.DS=(function(){
     grid.parentNode.insertBefore(wrap, grid);
 
     var cards=[];
+    // the tab width: the line's own step when the whole deck fits; narrower tabs when that makes it fit; otherwise the deck scrolls
+    // (phones), at no less than TOUCH_STEP px of scroll per card so a swipe rolls through it at a readable pace
+    function padL(){ return parseFloat(getComputedStyle(row).paddingLeft)||0; }
+    function padX(){ var cs=getComputedStyle(row); return (parseFloat(cs.paddingLeft)||0)+(parseFloat(cs.paddingRight)||0); }
+    function stepFor(n){
+      var base=cfg.step[state.line]; if(cfg.cls==='deck-coll'||n<2||!dk.clientWidth) return base;
+      var cs=getComputedStyle(dk), avail=dk.clientWidth-(parseFloat(cs.paddingLeft)||0)-(parseFloat(cs.paddingRight)||0)-padX()-2, fit=Math.floor((avail-280)/(n-1));
+      if(fit>=base) return base;
+      if(fit>=MIN_FIT) return fit;
+      return Math.max(base,TOUCH_STEP);
+    }
     function build(){
-      row.innerHTML=''; cards=[]; var L=list(), step=cfg.step[state.line];
+      row.innerHTML=''; cards=[]; var L=list(), step=stepFor(L.length); curStep=step;
       row.style.setProperty('--step',step+'px');
       L.forEach(function(it,i){
         var card=h('div','dk'); card.dataset.line=it.line; card.style.setProperty('--hex',it.hex); card.style.setProperty('--step',step+'px');
         var face=h('button','dk-face'); face.type='button'; face.setAttribute('aria-label',it.name+', '+(it.colour||'').toLowerCase()+'. Pull forward or open');
         face.innerHTML='<span class="dk-tab'+(dark(it.hex)?' dark':'')+'" style="background:'+it.hex+'"><span class="nm">'+esc(it.name)+'</span>'+(step>=56&&it.code?'<span class="cd">No. '+esc(it.code)+'</span>':'')+'</span><span class="dk-pic"><img src="'+esc(it.thumb)+'" width="600" height="600" loading="lazy" decoding="async" alt=""></span>';
         var tag=h('div','dk-tag','<div class="r"><span class="ln">'+esc(cfg.eyebrow(it))+(it.code?' &middot; No. '+esc(it.code):'')+'</span>'+(it.status?'<span class="pill '+esc(it.statusClass)+'">'+esc(it.status)+'</span>':'')+'</div><p class="t">'+esc(it.name)+'</p><p class="s">'+esc(cfg.sub(it))+'</p><button type="button" class="dk-open"><span class="c"><i></i>'+esc(it.colour)+'</span><span class="g">'+(cfg.openLabel?esc(cfg.openLabel(it)):(it.price||cfg.price)+' &middot; Open')+'</span></button>');
-        face.addEventListener('pointerenter',function(e){ if(e.pointerType&&e.pointerType!=='mouse') return; if(!e.pointerType&&touchLike()) return; activate(i); });
         face.addEventListener('pointerdown',function(e){ lastPointer=e.pointerType||'mouse'; if(touchLike()){ tapAt=dk.scrollLeft; if(!state.touch){ state.touch=true; hintText(); } } });
         face.addEventListener('keydown',function(){ lastPointer='key'; });
         face.addEventListener('focus',function(){ if(!touchLike()) activate(i); });
@@ -68,10 +79,33 @@ window.DS=(function(){
       if(state.active<0&&cfg.start!=null&&L[cfg.start]) state.active=cfg.start;
       foot.querySelector('.cnt').innerHTML=L.length+' '+cfg.noun+(L.length>1?'s':'')+' &middot; '+cfg.footNote;
       Object.keys(chips).forEach(function(k){ var on=k===state.line; chips[k].classList.toggle('on',on); chips[k].setAttribute('aria-pressed',on); });
-      hintText(); paint();
+      scrolls(); hintText(); paint();
     }
+    function scrolls(){ var o=dk.scrollWidth>dk.clientWidth+2; dk.classList.toggle('scrolls',o); return o; }
     function touchLike(){ return lastPointer==='touch'||lastPointer==='pen'; }
-    function hintText(){ hint.textContent=state.touch?(dk.scrollWidth>dk.clientWidth+2?'Swipe the deck: the '+cfg.noun+' in the middle steps forward · tap it to open':'Tap a tab to pull a '+cfg.noun+' forward · tap it again to open'):'Run across the tabs to pull a '+cfg.noun+' forward · click it to open'; }
+    function hintText(){ hint.textContent=state.touch?(dk.classList.contains('scrolls')?'Swipe the deck: the '+cfg.noun+' in the middle steps forward · tap it to open':'Drag a finger across the tabs to pull a '+cfg.noun+' forward · tap it to open'):'Run across the tabs to pull a '+cfg.noun+' forward · click it to open'; }
+    // which card's tab sits under a point: tabs are laid out every step px from the row's left edge (the spread collections deck has no overlap, so the element under the point is the card)
+    function indexAt(cx,cy){
+      var n=cards.length; if(!n) return -1;
+      if(cfg.cls==='deck-coll'){ var el=document.elementFromPoint(cx,cy), c=el&&el.closest('.dk'); return c?cards.indexOf(c):-1; }
+      var r=row.getBoundingClientRect(), x=cx-r.left-padL(), s=curStep||1;
+      if(x<0||x>280+(n-1)*s) return -1;
+      var i=Math.floor(x/s), a=state.active;
+      if(shifted&&a>=0){ if(i>a) i=Math.max(a,Math.floor((x-14)/s)); else if(i<a) i=Math.min(a,Math.floor((x+8)/s)); }
+      return Math.min(n-1,Math.max(0,i));
+    }
+    function inBand(cy){ var r=row.getBoundingClientRect(); return cy>=r.top-56&&cy<=r.bottom+6; }   // the cards, not the tag above the lifted one
+    // rolling: the mouse running across the tabs, or a finger dragged across them on a deck that fits the screen, pulls the card under it forward
+    dk.addEventListener('pointermove',function(e){
+      var touch=e.pointerType==='touch'||e.pointerType==='pen';
+      if(!touch){ if(e.pointerType==='mouse') lastPointer='mouse'; if(touchLike()) return; if(inBand(e.clientY)){ var i=indexAt(e.clientX,e.clientY); if(i>=0) activate(i); } return; }
+      if(!drag||dk.classList.contains('scrolls')) return;
+      if(!drag.on){ var dx=e.clientX-drag.x, dy=e.clientY-drag.y; if(Math.abs(dx)<10) return; if(Math.abs(dy)>Math.abs(dx)){ drag=null; return; } drag.on=true; }
+      var j=indexAt(e.clientX,e.clientY); if(j>=0) activate(j);
+    });
+    dk.addEventListener('pointerdown',function(e){ if(e.pointerType==='touch'||e.pointerType==='pen') drag={x:e.clientX,y:e.clientY,on:false}; });
+    dk.addEventListener('pointerup',function(){ drag=null; }); dk.addEventListener('pointercancel',function(){ drag=null; });
+    var rt=0; window.addEventListener('resize',function(){ clearTimeout(rt); rt=setTimeout(function(){ if(state.open>=0) return; if(stepFor(list().length)!==curStep) build(); else { scrolls(); hintText(); } },150); });
     function paint(){
       dk.classList.toggle('live',state.active>=0);
       cards.forEach(function(c,i){ c.classList.toggle('on',i===state.active); c.classList.toggle('after',state.active>=0&&i>state.active); c.classList.toggle('before',state.active>=0&&i<state.active); c.style.zIndex=i===state.active?200:i+1; });
@@ -84,9 +118,8 @@ window.DS=(function(){
       if(dk.scrollWidth<=dk.clientWidth+2||!cards.length) return;
       // a tap on a tab is not a swipe: the few pixels the deck drifts under a finger must not hand the step to the card in the middle
       if(tapAt!==null){ if(Math.abs(dk.scrollLeft-tapAt)<48) return; tapAt=null; }
-      // the scroll range maps onto the deck end to end: fully left is the first card, fully right the last, and the step walks along in between
-      // (on a phone that is the card nearest the middle of the screen; on a wider screen the deck overflows less and the ends still reach the end cards)
-      var range=dk.scrollWidth-dk.clientWidth, idx=Math.round(dk.scrollLeft/range*(cards.length-1));
+      // the card whose body sits in the middle of the screen steps forward: one card per step px of scroll, whatever the deck's length
+      var idx=Math.round((dk.scrollLeft+dk.clientWidth/2-row.offsetLeft-padL()-140)/(curStep||1));
       idx=Math.max(0,Math.min(cards.length-1,idx)); pending=idx;
       if(raf) return; raf=requestAnimationFrame(function(){ raf=0; activate(pending); });
     });
