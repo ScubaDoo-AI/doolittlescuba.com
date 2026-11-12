@@ -6,6 +6,8 @@ Each item is a SKU, written `SKU` or `SKU:Name` or `SKU:Name1:Name2`:
     store link uses (tools/printful_*.py plans), so the sample is the shirt a customer would get.
   - Aquatic personalized tees (DS-AC[WRBCM]nn-TD-<size>) render the names with tools/aquatic_print.py and upload the
     files to Shopify Files first, the same way tools/aquatic_order.py does.
+  - Embroidered caps (DS-<code>-CD-SM / -LXL, tools/printful_caps.py) carry their three embroidery files and the
+    item-level options (flat embroidery, thread colours per placement) exactly as the link sends them.
 The order is created as a DRAFT (v1 confirm=false). Printful's costs are printed. Confirm in the Printful dashboard,
 or run with --confirm-id <order id>.
 
@@ -42,6 +44,10 @@ def catalog():
         files = [dict(f, type='front' if f['type'] == 'default' else f['type']) for f in p['files']]
         for v in p['variants']:
             out[v['sku']] = (v['variant_id'], files, f"{p['title']} {v['size']}", v['price'])
+    for p in load('printful_caps').plan():                      # embroidered caps: files + item-level options
+        label = p['handle'].replace('-dark-cap', '').replace('-', ' ').title() + f" dark cap ({p['colour']})"
+        for v in p['variants']:
+            out[v['sku']] = (v['variant_id'], p['files'], f"{label} {v['size']}", v['price'], p['options'])
     return out
 
 
@@ -77,11 +83,13 @@ def main():
                      'position': {'area_width': 1800, 'area_height': 2400, 'width': 1800, 'height': 2400, 'top': 0, 'left': 0}} for pl in v2['placements']]
             label, price = v2['name'], float(v2['retail_price'])
         elif sku in cat:
-            vid, files, label, price = cat[sku]
+            vid, files, label, price, *opts = cat[sku]
         else:
-            sys.exit(f'{sku}: not a known SKU (linked tee lines or DS-AC[WRBCM]nn-TD-<size>)')
-        items.append({'variant_id': vid, 'quantity': 1, 'name': f'SAMPLE {label}', 'retail_price': f'{price:.2f}', 'files': files})
-        print(f'{sku:18s} → variant {vid}  {label}  [{", ".join(f["type"] for f in files)}]')
+            sys.exit(f'{sku}: not a known SKU (linked tee lines, caps DS-<code>-CD-SM/-LXL, or DS-AC[WRBCM]nn-TD-<size>)')
+        item = {'variant_id': vid, 'quantity': 1, 'name': f'SAMPLE {label}', 'retail_price': f'{price:.2f}', 'files': files}
+        if opts and opts[0]: item['options'] = opts[0]
+        items.append(item)
+        print(f'{sku:18s} → variant {vid}  {label}  [{", ".join(f["type"] for f in files)}]' + ('  + options' if 'options' in item else ''))
     ship = os.environ.get('SAMPLE_SHIP_TO')
     if dry:
         print(json.dumps(items, indent=1)[:4000]); print('\ndry run: no upload, no Printful order'); return

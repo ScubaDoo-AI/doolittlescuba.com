@@ -1,6 +1,7 @@
 name: Sample order
 # One Printful DRAFT order of sample tees, shipped to the SAMPLE_SHIP_TO secret (tools/sample_order.py).
-#   items: SKUs separated by spaces; a personalized Aquatic tee takes names after colons, e.g. DS-ACW01-TD-XL:Eric
+#   items: SKUs separated by spaces; a personalized Aquatic tee takes names after colons, e.g. DS-ACW01-TD-XL:Eric;
+#          an embroidered cap is DS-<code>-CD-SM or -LXL (tools/printful_caps.py)
 #   draft    create the draft (not charged) and print Printful's costs
 #   confirm  confirm a draft by its Printful order id (charges the card, starts production)
 on:
