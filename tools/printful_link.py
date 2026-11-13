@@ -67,6 +67,10 @@ def targets(only):
         for p in load('printful_beanie').plan():
             for v in p['variants']:
                 out[v['sku']] = dict(line='beanie', ext=str(v['shopify_variant']), variant_id=v['variant_id'], files=p['files'], options=p['options'])
+    if 'jackets' in only:   # Champion CO200 anorak + SOL'S 32000 windbreaker (printful_jackets.py): left-chest DS mark, matched by SKU
+        for p in load('printful_jackets').plan():
+            for v in p['variants']:
+                out[v['sku']] = dict(line='jackets', ext='sku:' + v['sku'], variant_id=v['variant_id'], files=p['files'], options=p['options'])
     if 'organic' in only:   # the organic editions (tools/organic.py): STTU169 tees, EC7000 caps, Atlantis beanie — matched by SKU
         for p in load('organic').plan():
             for v in p['variants']:
@@ -117,7 +121,7 @@ if __name__ == '__main__':
     # only open the products whose name belongs to the lines asked for (a 295-product store took 20+ min opening all)
     NAMES = {'aquatic': ['aquatic comic'], 'signature': ['signature series'], 'certifiedish': ['certified-ish'],
              'n73': ['1n73ll1g3nc3'], 'offworld': ['off-world'], 'stickers': ['sticker', 'achievement', 'seal', 'logo', 'bumper', 'kit'],
-             'caps': ['dark cap'], 'beanie': ['beanie'], 'organic': ['organic']}
+             'caps': ['dark cap'], 'beanie': ['beanie'], 'organic': ['organic'], 'jackets': ['anorak', 'windbreaker']}
     keys = [k for l in only for k in NAMES.get(l, [])]
     if keys and '--all-products' not in sys.argv:
         picked = [sp for sp in items if any(k in (sp.get('name') or '').lower() for k in keys)]
