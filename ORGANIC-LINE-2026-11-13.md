@@ -95,7 +95,8 @@ Caps: Black → Black · Dark Navy, Royal Blue → Pacific · Dark Grey → Char
 ## 13 Nov 12:10 — in the store
 - Eric added `read_products, write_products` to the Doolittle Order Bot (version V2) and approved it on the store.
 - The **Organic import** workflow (`tools/organic_import.py`) created the 228 new drafts: 0 errors, every image READY. It also created the smart collection **The organic line** (`gid://shopify/Collection/493643301050`, handle `organic`, tag `organic-line`), which holds all 242 products. Nothing is Active or published.
-- **Printful:** it imported all 242 automatically. The link dry run matched all 1,358 variants: 1,104 tee, 18 cap and 2 beanie variants to link, plus 234 personalized Aquatic variants to ignore. - **First apply run (17:23 UTC):** it hit the 90-minute job limit and was cancelled.
+- **Printful:** it imported all 242 automatically. The link dry run matched all 1,358 variants: 1,104 tee, 18 cap and 2 beanie variants to link, plus 234 personalized Aquatic variants to ignore.
+- **First apply run (17:23 UTC):** it hit the 90-minute job limit and was cancelled.
   - Linked 140: the 18 caps, the beanie, and the 120 Boat Banter Aquatic sizes.
   - Failed 560: every Off-World and 1N73LL1G3NC3 organic size, with "One or more provided placements are not available for product". The organic line passed the 1717's `default` front placement through; the other lines rename it to `front` with `fix()`, and organic didn't. Fixed in `printful_link.py`.
   - Not reached: the Signature, Certified-ish and remaining Aquatic organic tees.
