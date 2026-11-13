@@ -1,0 +1,32 @@
+name: Organic import
+# Creates the organic products in Shopify as DRAFTS (tools/organic_import.py) and the "The organic line" collection.
+# Needs write_products on the Doolittle Order Bot app. Leave "apply" off first: the dry run only lists.
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: 'Apply (create the drafts). Off = dry run'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency: shopify-import
+jobs:
+  import:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - run: pip install pillow numpy scipy scikit-image
+      - name: Import
+        env:
+          SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
+          SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
+          APPLY: ${{ inputs.apply }}
+        run: |
+          set -o pipefail
+          if [ "$APPLY" = "true" ]; then FLAG=--apply; else FLAG=; fi
+          python tools/organic_import.py $FLAG | tee import.log
+          { echo '## Organic import'; echo; echo '```'; tail -n 30 import.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
