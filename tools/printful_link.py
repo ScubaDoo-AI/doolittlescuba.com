@@ -131,6 +131,8 @@ if __name__ == '__main__':
             if sku not in T: sku = by_ext.get(str(sv.get('external_id')), '')
             if not sku: continue
             seen.add(sku); t = T[sku]
+            if '--show' in sys.argv:   # read back what Printful stores per file (placement + position), e.g. to check a left-chest offset
+                print('stored', sku, json.dumps([{k: f.get(k) for k in ('type', 'filename', 'position')} for f in sv.get('files', [])]), flush=True)
             if not apply: continue
             if t.get('ignore'):   # personalized: made per order by tools/aquatic_order.py, never by the sync
                 if sv.get('is_ignored') and '--force' not in sys.argv: continue
@@ -142,7 +144,10 @@ if __name__ == '__main__':
             body = {'variant_id': t['variant_id'], 'files': t['files'], 'is_ignored': False}
             if t.get('options'): body['options'] = t['options']   # embroidery: thread colours + embroidery_type ride on the variant, not the file
             r = api(token, 'PUT', f'/sync/variant/{sv["id"]}', body)
-            if r.get('code') == 200: linked += 1; print('linked', sku, '→', t['variant_id'], flush=True)
+            if r.get('code') == 200:
+                linked += 1; print('linked', sku, '→', t['variant_id'], flush=True)
+                if '--show' in sys.argv:
+                    print('  now', json.dumps([{k: f.get(k) for k in ('type', 'filename', 'position')} for f in r['result'].get('files', [])]), flush=True)
             else: failed.append((sku, r.get('error'))); print('FAILED', sku, r.get('error'), flush=True)
             time.sleep(0.6)
     missing = sorted(set(T) - seen)
