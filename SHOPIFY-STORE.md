@@ -310,4 +310,8 @@ Eric (02:02): *"Set product pages with combined mockup"* and *"Add the pair butt
   - Both have options Colour × Size and SKUs `DS-MRK-{CHA|WND}-{BLK|NVY}-{S..2XL}`, tags `jacket brand coming-soon embroidered fulfil:printful-co200|32000`.
   - Smart collection **Jackets** `gid://shopify/Collection/493648412858` (tag `jacket`).
 - **Site:** a "The jackets" section after the hats on the home page, with 4 cards (each jacket in each colour). Worn / Close-up views open in the lightbox.
-- **Printful:** `printful_link.py --only jackets`, added as a choice in the workflow. The link run is queued behind the organic run.
+- **Printful: linked, 20 / 20, 0 failures** (`printful_link.py --only jackets`, workflow choice `jackets`).
+  - Dry run 43526038326 matched 20 of 20; apply run 43526121203 linked them.
+  - Anorak Black 11008–11012 and Navy 11014–11018; windbreaker Black 16424–16428 and Navy 16434–16438.
+  - Each carries the left-chest file plus the white / red thread options.
+- **Sample:** Eric added a Champion anorak to the sample order (13 Nov, 15:46 ET).
