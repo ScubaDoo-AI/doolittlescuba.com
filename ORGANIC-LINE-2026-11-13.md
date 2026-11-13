@@ -60,3 +60,11 @@ Caps: Black → Black · Dark Navy, Royal Blue → Pacific · Dark Grey → Char
 1. **Shopify:** the connector failed to connect on 13 Nov. When it is back: query the regular products by key, run `organic_shopify.py`, push the 25 batches, then create the collection. Update the 14 "<Site>, organic tee" drafts from 12 Nov in place.
 2. **Printful:** the link job with lines `organic`, dry run first, then apply. Expect 1,124 linked and 234 ignored.
 3. **Samples:** one organic light tee and one dark tee, plus an EC7000 cap, before anything goes Active.
+
+## Status — 13 Nov (end of session)
+- 14 Signature organic tees are live in Shopify as DRAFT. These are the 12 Nov drafts, converted in place with productSet (`identifier:{id}`). Each has 6 variants (DS-<code>-TO-S…3XL) and 2 media, both READY.
+- The other 228 products are in `tools/organic_products_import.csv`: draft, Published FALSE. The connector blocks bulk mutations, so Eric imports this file in Shopify admin (Products → Import).
+- After the import:
+  - Create the smart collection "The organic line" (tag `organic-line`, handle `organic`).
+  - Run the Printful link workflow with `lines=organic`: dry run first, then `--apply`.
+- No donation or charity wording anywhere, per Eric ("Hold off on claim yet").

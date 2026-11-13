@@ -1,86 +1,119 @@
 #!/usr/bin/env python3
-"""Shopify inputs for the organic editions (tools/organic.py), as productSet batches. The store write itself goes through the
-Shopify connector (productSet, ten per call), like the other lines.
+"""Shopify inputs for the organic editions (tools/organic.py): one productSet input per product, as JSONL for a bulk mutation.
 
-  tools/organic_shopify.py <regular.json> <out_dir>
-      regular.json: the regular products, one object per product key (DS-THI-T, DS-BAL-CD, DS-MRK-BN, ...):
-                    {"key": {"id", "handle", "title", "tags": [...], "descriptionHtml", "productType"}}
-                    (a Shopify query by SKU prefix; see QUERY below)
-      out_dir/batch-NN.json   productSet inputs, ten per file
-      out_dir/collection.json the "The organic line" smart collection (tag organic-line)
+  tools/organic_shopify.py <out.jsonl>     -> {"input": ProductSetInput} per line (242 lines) + <out>.collection.json
 
-Every organic product: own product (Eric: keep eco separate), DRAFT, handle <regular handle>-organic, title "<Name> — organic tee"
-(cap / beanie), vendor Doolittle Scuba, the regular product's type and its non-colour tags plus `organic-line`, `eco`,
-`organic:<series>`, `colour:<organic colour>`, `fulfil:printful-<blank>`. Same prices as the regular variants. Images: the
-re-dyed mockups from the live site (img/organic/...), front then back. Descriptions: an organic paragraph, then the regular
-description with the garment line rewritten. The 14 drafts "<Site>, organic tee" made on 12 Nov are the Signature light
-editions: the push updates them in place (productSet by id) instead of adding duplicates.
+Every organic edition is its own product (Eric: keep eco separate), DRAFT, vendor Doolittle Scuba, titled like its regular
+product with "organic" before the noun ("Black Bart — Signature Series organic tee", "Bali — organic cap", "The Mark — organic
+beanie"). Shopify makes the handle from the title. Tags: the line's tags + organic-line, eco, organic:<series>, colour:<organic
+colour>, fulfil:printful-<blank>, coming-soon. Same prices as the regular variants. Images: the re-dyed mockups on the live site
+(img/organic/...). No charity or donation wording (Eric, 13 Nov: hold off on that claim).
+The 14 "<Site>, organic tee" drafts made on 12 Nov (White / Black options, DS-<code>-TE-… SKUs) are rewritten in place as the
+Signature Series light organic editions (productSet with their ids), so nothing is duplicated.
 """
 import os, re, sys, json, html as H
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import organic, organic_site as OS
+import organic, organic_site as OS, organic_mockups as OM
 
 ORIGIN = 'https://doolittlescuba.com'
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAN = json.load(open(f'{SITE}/img/organic/manifest.json'))
-QUERY = '''query($q: String!) { products(first: 1, query: $q) { nodes { id handle title tags descriptionHtml productType } } }'''
-BLANK_TXT = {'tee': 'a Stanley/Stella Creator 2.0, 100% organic ring-spun cotton, 180 g/m²',
-             'cap': 'an Econscious EC7000 organic cotton baseball cap, one size, adjustable',
-             'beanie': 'an Atlantis organic rib beanie, 100% organic cotton, one size'}
+AQD = json.load(open(f'{SITE}/tools/aquatic_designs.json'))
+AQ_SUB = {v['key']: v for v in AQD['subsets'].values()}
+PERS = {0: None, 1: 'personalize:1'}
+EXISTING = {'BBT': 10429329801402, 'BSP': 10429348610234, 'BGR': 10429349396666, 'BWP': 10429349986490, 'DAM': 10429350576314,
+            'BAL': 10429376856250, 'RRV': 10429377642682, 'NAV': 10429378298042, 'DLP': 10429378953402, 'THD': 10429379674298,
+            'THI': 10429400875194, 'SOM': 10429401759930, 'RRF': 10429402513594, 'VUN': 10429403070650}   # 12 Nov drafts
+BLANK = {'tee': 'a Stanley/Stella Creator 2.0 tee, 100% organic ring-spun cotton, 180 g/m²',
+         'cap': 'an Econscious EC7000 baseball cap in organic cotton twill, one size, adjustable strap',
+         'beanie': 'an Atlantis rib beanie, 100% organic cotton, one size'}
 FULFIL = {'tee': 'fulfil:printful-sttu169', 'cap': 'fulfil:printful-ec7000', 'beanie': 'fulfil:printful-atlantis-449'}
-NOUN = {'tee': 'tee', 'cap': 'cap', 'beanie': 'beanie'}
 
 
 def slug(s): return re.sub(r'[^a-z0-9]+', '-', s.lower()).strip('-')
 
 
-def build(regular):
+def describe(p):
+    code = p['regular_key'].split('-')[1]; dark = p.get('group') == 'dark'
+    name = OS.title(p); line = p['line']; tags = []; extra = ''
+    if line == 'signature':
+        s = OM.SIG[code]; site = s.replace('the-', '') if s.startswith('the-') and s != 'the-thistlegorm' else s
+        site = 'thistlegorm' if 'thistlegorm' in s else site
+        title = f'{name} — Signature Series{" Dark" if dark else ""} organic tee'
+        tags = ['signature-series', f'site:{site}'] + (['signature-series-dark', 'dark-line'] if dark else [])
+        extra = 'Back: the full site illustration with facts, species and water. Chest: site name, dive flag and coordinates. Sleeve: the signature shark mark.'
+    elif line == 'certifiedish':
+        title = f'Certified-ish{" Dark" if dark else ""} — {name} organic tee'
+        tags = ['certified-ish'] + (['certified-ish-dark', 'dark-line'] if dark else [])
+        extra = 'Back: the full Certified-ish diagram. Front: the Certified-ish logo. Sleeve: the DS mark.'
+    elif line == 'offworld':
+        x = OM.OW[int(code[2:])]
+        title = f'Off-World Hunt Club{" Dark" if dark else ""} — {name} organic tee'
+        tags = ['off-world-hunt-club', f'ow:{x["slug"].replace("ow-", "")}'] + (['off-world-hunt-club-dark', 'dark-line'] if dark else [])
+        extra = f'Back: “{H.escape(x["text"])}” in the off-world script, translated beneath it. Chest: the DS mark with the punch word in glyphs.'
+    elif line == 'n73':
+        x = OM.N73[int(code[1:])]
+        title = f'1N73LL1G3NC3 — {name} organic tee'; tags = ['1n73ll1g3nc3', f'n73-{x["cat"]}']
+        extra = f'{H.escape(x["text"])} Front: the design, full front. Sleeve: the DS mark.'
+    elif line == 'aquatic':
+        x = OM.AQ[code[2:]]; sub = AQ_SUB[x['subset']]
+        title = f'Aquatic Comic · {sub["name"]} — {name} organic tee'
+        tags = ['aquatic-comic', f'ac:{x["subset"]}', 'dark-line']
+        if sub['names']:
+            tags += ['personalized', 'personalize:' + ('1' if sub['names'] == 1 else 'couple' if x['subset'] in ('till-surface', 'master-class') else 'buddy')]
+            extra = f'Personalized: {H.escape(sub.get("label", "your names"))}, added when you order. '
+        extra += 'Front: the DS mark over the slogan. Back: the joke, the punch words in red.'
+    elif line == 'caps':
+        site = OM.CAPS[code]; brand = code in ('MRK', 'SEA', 'STK', 'WDM')
+        title = f'{name} — organic cap'
+        tags = ['cap', 'hat', 'embroidered', 'front:embroidered'] + (['brand', 'brand-cap'] if brand else ['site-cap', f'site:{site.replace("the-thistlegorm", "thistlegorm")}'])
+        extra = 'Embroidered in the same threads and placements as the Flexfit cap: the front design, the DS mark on the side and the tagline on the back where the regular cap has them.'
+    else:
+        title = 'The Mark — organic beanie'; tags = ['beanie', 'hat', 'embroidered', 'front:embroidered', 'brand', 'brand-beanie']
+        extra = 'The DS mark, 1.5 in, embroidered in white and red on the cuff.'
+    return title, tags, extra
+
+
+def build():
     out = []
     for p in organic.plan():
-        r = regular.get(p['regular_key'])
-        if not r: print('no regular product for', p['key']); continue
-        name = OS.title(p); kind = p['kind']; colour = p['colour']
-        dark_tee = kind == 'tee' and p['group'] == 'dark'
-        title = f'{name} — organic {"dark " if dark_tee and p["line"] in ("signature", "certifiedish", "offworld") else ""}{NOUN[kind]}'
-        tags = [t for t in r['tags'] if not t.startswith(('colour:', 'fulfil:', 'flexfit-'))]
-        tags += ['organic-line', 'eco', f'organic:{p["line"]}', FULFIL[kind]]
-        tags += [f'colour:{slug(c)}' for c in (['Black', 'Oxford Navy'] if kind == 'beanie' else [colour])]
-        body = re.sub(r'Comfort Colors 1717[^<.]*', 'Stanley/Stella Creator 2.0, 100% organic cotton', r['descriptionHtml'] or '')
-        body = re.sub(r'Flexfit 6277[^<.]*', 'Econscious EC7000 organic cotton cap, one size', body)
-        lead = (f'<p><strong>Organic edition.</strong> The same design as the regular {H.escape(r["title"])}, on {BLANK_TXT[kind]}'
-                f'{", in " + H.escape(colour) if kind != "beanie" else ", in Black or Oxford Navy"}. Same art, same price; printed or embroidered to order.</p>')
+        kind = p['kind']; title, tags, extra = describe(p)
+        colours = ['Black', 'Oxford Navy'] if kind == 'beanie' else [p['colour']]
+        tags = sorted(set(tags + ['organic-line', 'eco', f'organic:{p["line"]}', FULFIL[kind], 'coming-soon',
+                                  {'tee': 'tee', 'cap': 'cap', 'beanie': 'beanie'}[kind]] + [f'colour:{slug(c)}' for c in colours]))
+        col = 'Black or Oxford Navy' if kind == 'beanie' else p['colour']
+        body = (f'<p><strong>Organic edition.</strong> {H.escape(OS.title(p))}, the same design as the regular {"tee" if kind == "tee" else kind}, '
+                f'on {BLANK[kind]}, in {H.escape(col)}. Same art, same price.</p><p>{extra}</p>'
+                f'<p>Printed or embroidered to order. Shown as a mockup, not a photograph: samples are on the way.</p>')
         if kind == 'beanie':
             imgs = [f'{ORIGIN}/img/organic/beanie/beanie-the-mark-organic-black.webp', f'{ORIGIN}/img/organic/beanie/beanie-the-mark-organic-oxford-navy.webp']
-            options = [{'name': 'Colour', 'values': [{'name': 'Black'}, {'name': 'Oxford Navy'}]}]
-            variants = [{'optionValues': [{'optionName': 'Colour', 'name': v['colour']}], 'price': f'{v["price"]:.2f}', 'sku': v['sku'],
-                         'inventoryPolicy': 'DENY'} for v in p['variants']]
+            opt = 'Colour'; values = [(v['colour'], v) for v in p['variants']]
         elif kind == 'cap':
-            imgs = [ORIGIN + u for u in MAN[p['key']]['images']]
-            options = [{'name': 'Size', 'values': [{'name': 'One size'}]}]
-            variants = [{'optionValues': [{'optionName': 'Size', 'name': 'One size'}], 'price': f'{p["variants"][0]["price"]:.2f}',
-                         'sku': p['variants'][0]['sku'], 'inventoryPolicy': 'DENY'}]
+            imgs = [ORIGIN + u for u in MAN[p['key']]['images']]; opt = 'Size'; values = [('One size', p['variants'][0])]
         else:
             imgs = [ORIGIN + u for u in MAN[p['key']]['images']]
             if p['line'] in ('certifiedish', 'offworld', 'aquatic'): imgs = imgs[::-1]   # these lines lead with the back
-            options = [{'name': 'Size', 'values': [{'name': v['size']} for v in p['variants']]}]
-            variants = [{'optionValues': [{'optionName': 'Size', 'name': v['size']}], 'price': f'{v["price"]:.2f}', 'sku': v['sku'],
-                         'inventoryPolicy': 'DENY'} for v in p['variants']]
-        alt = f'{name}, organic edition in {colour}: mockup'
-        inp = {'title': title, 'handle': f'{r["handle"]}-organic', 'status': 'DRAFT', 'vendor': 'Doolittle Scuba',
-               'productType': r['productType'], 'tags': sorted(set(tags)), 'descriptionHtml': lead + body,
-               'productOptions': options, 'variants': variants,
-               'files': [{'originalSource': u, 'contentType': 'IMAGE', 'alt': alt + (' · back' if i else '')} for i, u in enumerate(imgs)]}
-        out.append(dict(key=p['key'], regular_id=r['id'], input=inp))
+            opt = 'Size'; values = [(v['size'], v) for v in p['variants']]
+        inp = {'title': title, 'status': 'DRAFT', 'vendor': 'Doolittle Scuba',
+               'productType': {'tee': 'T-shirt', 'cap': 'Cap', 'beanie': 'Beanie'}[kind], 'tags': tags, 'descriptionHtml': body,
+               'productOptions': [{'name': opt, 'values': [{'name': n} for n, _ in values]}],
+               'variants': [{'optionValues': [{'optionName': opt, 'name': n}], 'price': f'{v["price"]:.2f}', 'sku': v['sku'],
+                             'inventoryPolicy': 'DENY'} for n, v in values],
+               'files': [{'originalSource': u, 'contentType': 'IMAGE', 'alt': f'{OS.title(p)}, organic edition in {col}: mockup' + (', back' if i else '')}
+                         for i, u in enumerate(imgs)]}
+        code = p['regular_key'].split('-')[1]
+        if p['line'] == 'signature' and p['group'] == 'light' and code in EXISTING:
+            inp['id'] = f'gid://shopify/Product/{EXISTING[code]}'
+        out.append(inp)
     return out
 
 
 if __name__ == '__main__':
-    reg = json.load(open(sys.argv[1])); od = sys.argv[2]; os.makedirs(od, exist_ok=True)
-    P = build(reg)
-    for i in range(0, len(P), 10):
-        json.dump(P[i:i + 10], open(f'{od}/batch-{i // 10:02d}.json', 'w'), indent=1)
+    P = build(); dst = sys.argv[1] if len(sys.argv) > 1 else '/tmp/organic_products.jsonl'
+    with open(dst, 'w') as f:
+        for i in P: f.write(json.dumps({'input': i}, ensure_ascii=False) + '\n')
     json.dump({'title': 'The organic line', 'handle': 'organic',
                'descriptionHtml': '<p>Every Doolittle Scuba design again on organic cotton: the five tee series, the caps and the beanie. Same art, same price.</p>',
                'ruleSet': {'appliedDisjunctively': False, 'rules': [{'column': 'TAG', 'relation': 'EQUALS', 'condition': 'organic-line'}]}},
-              open(f'{od}/collection.json', 'w'), indent=1)
-    print(len(P), 'products in', (len(P) + 9) // 10, 'batches')
+              open(dst.replace('.jsonl', '.collection.json'), 'w'), indent=1)
+    print(len(P), 'products ->', dst, '·', sum(1 for i in P if 'id' in i), 'update existing drafts')
