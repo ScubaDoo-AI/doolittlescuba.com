@@ -72,7 +72,7 @@ def targets(only):
             for v in p['variants']:
                 if p['personalized']:   # made per order by aquatic_order.py (TDO SKUs), never by the sync
                     out[v['sku']] = dict(line='organic-ignored', ext='sku:' + v['sku'], variant_id=None, files=[], ignore=True); continue
-                t = dict(line='organic-' + p['kind'], ext='sku:' + v['sku'], variant_id=v['variant_id'], files=p['files'])
+                t = dict(line='organic-' + p['kind'], ext='sku:' + v['sku'], variant_id=v['variant_id'], files=fix(p['files']))
                 if p.get('options'): t['options'] = p['options']
                 out[v['sku']] = t
     if 'aquatic' in only:   # Boat Banter S01–S20 only; the personalized Aquatic Comic tees are ordered by hand
