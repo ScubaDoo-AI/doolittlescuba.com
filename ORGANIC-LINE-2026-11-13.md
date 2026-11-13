@@ -91,3 +91,8 @@ Caps: Black → Black · Dark Navy, Royal Blue → Pacific · Dark Grey → Char
 - This can't be done from here. The "Doolittle Order Bot" app has only read_files, read_orders and write_files (no write_products). Bulk mutations are blocked on the connector, and Claude in Chrome wasn't connected.
 - Eric imports `tools/organic_products_import.csv` in Shopify admin (Products → Import, a desktop browser) → 228 drafts.
 - Alternative: add `write_products` to the bot app. Then a workflow could create them with productSet from `tools/organic_shopify.py`.
+
+## 13 Nov 12:10 — in the store
+- Eric added `read_products, write_products` to the Doolittle Order Bot (version V2) and approved it on the store.
+- The **Organic import** workflow (`tools/organic_import.py`) created the 228 new drafts: 0 errors, every image READY. It also created the smart collection **The organic line** (`gid://shopify/Collection/493643301050`, handle `organic`, tag `organic-line`), which holds all 242 products. Nothing is Active or published.
+- **Printful:** it imported all 242 automatically. The link dry run matched all 1,358 variants: 1,104 tee, 18 cap and 2 beanie variants to link, plus 234 personalized Aquatic variants to ignore. The apply run followed.
