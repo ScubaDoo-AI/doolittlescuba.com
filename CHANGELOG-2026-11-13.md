@@ -21,3 +21,11 @@ Eric asked for a sample order of everything still unproofed, then: small sizes, 
   - The sample order's Wormhole line was swapped for a fresh one from the fixed product.
 - Printful's order editor only keeps changes when "Save as a draft" is clicked for real; a scripted click left the stored draft unchanged.
 - Left out of the sample: a kiss-cut sticker — no sticker products appear in Printful's synced list any more; worth a look.
+
+### 15:20–16:00 — Signature + Certified-ish chest lockup lowered to 2 in; sample: Thurmond Dam cap, Navy anorak
+- **Chest height.** Eric on the Black Bart S proof: the chest lockup sat tight under the collar. Signature (28) and Certified-ish (40) fronts had the ink at centre 9.5 in / **top 0.5 in** of the 12 × 16 area (~1½ in below the 1717 collar seam, the same physical spot on every size). Eric: **top 2 in, centre 9.5 in** (same height as the Off-World mark).
+  - `tools/chest_lower.py` moves the ink straight down (pixels copied, centre checked at 9.50 in) and writes `…_top2in.png`; all 30 masters went 0.50 → 2.00 in and are in Shopify Files (e.g. Black Bart BLACK = MediaImage 47434035232954). The masters workflow gained `what: chest-lower`.
+  - `printful_signature.py` (`CHEST_POS = '_top2in'`) and `printful_certifiedish.py` send the new fronts. The organic editions reuse these plans, so the organic relink picks them up too.
+  - One relink for all three tee lines: Printful link `lines=offworld,signature,certifiedish`, apply + force — run 43501433557 (replaced the Off-World-only run). Queued behind another Printful job.
+- **Sample order** (draft #sample-202611120318, not charged): Blue Water Park cap → **Thurmond Dam cap, Dark Navy, S/M**; added **Champion Packable Anorak (CO200), Navy, XL** from the catalog (the jackets aren't synced yet — Shopify Draft): `DS_mark_HEAVY_PF-beanie-front` on the left chest (only placement, 4 × 4 in), true size 1.60 × 1.74 in canvas, top-centre, flat, 1801 White + 1839 Red; $43.42 + $2.95 digitization. Printful's mockup shows the mark on the wearer's left chest.
+- **Still to do:** once run 43501433557 relinks DS-BBT-T-S, swap the order's Black Bart line for a fresh one (the order keeps a copy of the old file).
