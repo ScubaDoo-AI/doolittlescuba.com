@@ -7,16 +7,16 @@ Eric (13 Nov): *"Add beanie to the 'system' (DoolittleScuba.com, Shopify and the
 - **Caps:** Econscious EC7000 organic baseball cap (491), $16.92 (+$0.41 vs the 6277). Black / Charcoal / Pacific / Jungle, one size, the same embroidery files.
 - **Beanie:** Atlantis organic rib (449), 100% organic, $17.94, Black / Oxford Navy, the same cuff file. (The STAU295 "The Mark" beanie stays the regular one; it is 90% organic.)
 - **Price:** the same as the regular item. A per-sale donation (ocean conservation or schools) is under discussion; no donation claim is made anywhere until it is decided.
-- **Colours:** for each design, the nearest organic colour within its ink group (CIEDE2000 on Printful swatches). Only the eight colours Printful stocks in S–3XL are used. Watermelon goes to Cotton Pink to keep the colour family.
+- **Colours:** for each design, the nearest organic colour within its ink group (CIEDE2000 on Printful swatches). Only colours Printful stocks in S–3XL are used, and no pastels (Cotton Pink dropped later on 13 Nov; see below).
 - **Kept separate:** each organic edition is its own product (tag `organic-line`, `eco`, `organic:<series>`), on its own page, `/organic/`. That page is listed first in the collections switcher and the home collections deck.
 
 ## Colour map (tees)
 | Ink | Regular colour (Comfort Colors) | Organic colour (STTU169) | Designs |
 |---|---|---|---|
-| black | Blossom | Cotton Pink | 2 (signature 1, certifiedish 1) |
-| black | Crunchberry | Cotton Pink | 1 (signature 1) |
-| black | Orchid | Cotton Pink | 1 (signature 1) |
-| black | Watermelon | Cotton Pink | 2 (signature 1, certifiedish 1) |
+| black | Blossom | Heather Grey (was Cotton Pink) | 2 (signature 1, certifiedish 1) |
+| black | Crunchberry | Heather Grey (was Cotton Pink) | 1 (signature 1) |
+| black | Orchid | Heather Grey (was Cotton Pink) | 1 (signature 1) |
+| black | Watermelon | Heather Grey (was Cotton Pink) | 2 (signature 1, certifiedish 1) |
 | black | Butter | Desert Dust | 12 (signature 1, certifiedish 7, offworld 4) |
 | black | Ivory | Desert Dust | 6 (signature 1, offworld 4, n73 1) |
 | black | Terracotta | Desert Dust | 1 (signature 1) |
