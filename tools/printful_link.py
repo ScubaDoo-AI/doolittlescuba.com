@@ -15,6 +15,7 @@ The 37 three-sticker packs (DS-PK-*) are not on Printful: Sticker Mule prints th
   PRINTFUL_TOKEN=… tools/printful_link.py --apply          # write the links
   PRINTFUL_TOKEN=… tools/printful_link.py --apply --only stickers,n73,offworld
   PRINTFUL_TOKEN=… tools/printful_link.py --apply --only caps        # the 18 embroidered Flexfit 6277 caps (printful_caps.py)
+  PRINTFUL_TOKEN=… tools/printful_link.py --apply --only organic     # every organic edition (tools/organic.py)
   PRINTFUL_TOKEN=… tools/printful_link.py --apply --only beanie      # The Mark — Beanie, Stanley/Stella STAU295 (printful_beanie.py)
   PRINTFUL_TOKEN=… tools/printful_link.py --apply --force --only signature,caps --sku DS-NAV   # one site, after a print-file change
 
@@ -66,6 +67,14 @@ def targets(only):
         for p in load('printful_beanie').plan():
             for v in p['variants']:
                 out[v['sku']] = dict(line='beanie', ext=str(v['shopify_variant']), variant_id=v['variant_id'], files=p['files'], options=p['options'])
+    if 'organic' in only:   # the organic editions (tools/organic.py): STTU169 tees, EC7000 caps, Atlantis beanie — matched by SKU
+        for p in load('organic').plan():
+            for v in p['variants']:
+                if p['personalized']:   # made per order by aquatic_order.py (TDO SKUs), never by the sync
+                    out[v['sku']] = dict(line='organic-ignored', ext='sku:' + v['sku'], variant_id=None, files=[], ignore=True); continue
+                t = dict(line='organic-' + p['kind'], ext='sku:' + v['sku'], variant_id=v['variant_id'], files=p['files'])
+                if p.get('options'): t['options'] = p['options']
+                out[v['sku']] = t
     if 'aquatic' in only:   # Boat Banter S01–S20 only; the personalized Aquatic Comic tees are ordered by hand
         for p in load('printful_aquatic').plan('dtg'):
             for v in p['variants']:
@@ -108,7 +117,7 @@ if __name__ == '__main__':
     # only open the products whose name belongs to the lines asked for (a 295-product store took 20+ min opening all)
     NAMES = {'aquatic': ['aquatic comic'], 'signature': ['signature series'], 'certifiedish': ['certified-ish'],
              'n73': ['1n73ll1g3nc3'], 'offworld': ['off-world'], 'stickers': ['sticker', 'achievement', 'seal', 'logo', 'bumper', 'kit'],
-             'caps': ['dark cap'], 'beanie': ['beanie']}
+             'caps': ['dark cap'], 'beanie': ['beanie'], 'organic': ['organic']}
     keys = [k for l in only for k in NAMES.get(l, [])]
     if keys and '--all-products' not in sys.argv:
         picked = [sp for sp in items if any(k in (sp.get('name') or '').lower() for k in keys)]

@@ -52,7 +52,7 @@ BY_CODE = {d['code']: d for d in D['designs']}
 SHOP = os.environ.get('SHOPIFY_STORE', 'x00ytr-y9.myshopify.com')
 API_VER = '2026-10'
 PF_STORE = os.environ.get('PRINTFUL_STORE', '18960047')
-SKU_RE = re.compile(r'^DS-AC([WRBCM]\d\d)-TD-(S|M|L|XL|2XL|3XL)$')
+SKU_RE = re.compile(r'^DS-AC([WRBCM]\d\d)-TD(O?)-(S|M|L|XL|2XL|3XL)$')   # TDO = the organic edition (Stanley/Stella STTU169, tools/organic.py)
 FULL_AREA = {'top': 0, 'left': 0, 'width': 12, 'height': 16}          # inches, Printful v2 LayerPosition
 
 
@@ -130,8 +130,8 @@ def from_shopify(number):
     for li in o['lineItems']['nodes']:
         m = SKU_RE.match(li['sku'] or '')
         if not m: skipped.append(li['sku'] or li['name']); continue
-        code, size = m.groups()
-        shirts.append(dict(code=code, size=size, qty=li['quantity'], names=names_from(code, li['customAttributes']),
+        code, organic, size = m.groups()
+        shirts.append(dict(code=code, size=size, organic=bool(organic), qty=li['quantity'], names=names_from(code, li['customAttributes']),
                            external_id=li['id'].rsplit('/', 1)[-1]))
     return o['name'], recipient, shirts, skipped
 
@@ -193,8 +193,14 @@ def item(shirt, front_url, back_url):
     d = BY_CODE[shirt['code']]
     v = next(x for x in PA.plan(all_designs=True) if x['code'] == shirt['code'])['variants']
     var = next(x for x in v if x['size'] == shirt['size'])
+    if shirt.get('organic'):   # same files and price, organic blank: the STTU169 variant from tools/organic.py
+        import importlib.util as _u
+        _s = _u.spec_from_file_location('organic', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'organic.py'))
+        _m = _u.module_from_spec(_s); _s.loader.exec_module(_m)
+        o = next(x for x in _m.tee_plans() if x['line'] == 'aquatic' and x['regular_key'] == f'DS-AC{shirt["code"]}-TD')
+        var = dict(var, variant_id=next(x for x in o['variants'] if x['size'] == shirt['size'])['variant_id'])
     it = {'source': 'catalog', 'catalog_variant_id': var['variant_id'], 'quantity': shirt.get('qty', 1),
-          'name': f'Aquatic Comic {shirt["code"]} {d["name"]} ({" & ".join(shirt["names"])}) {shirt["size"]}',
+          'name': f'Aquatic Comic {shirt["code"]}{" organic" if shirt.get("organic") else ""} {d["name"]} ({" & ".join(shirt["names"])}) {shirt["size"]}',
           'retail_price': f'{var["price"]:.2f}',
           'placements': [{'placement': 'front', 'technique': 'dtg', 'layers': [{'type': 'file', 'url': front_url, 'position': FULL_AREA}]},
                          {'placement': 'back', 'technique': 'dtg', 'layers': [{'type': 'file', 'url': back_url, 'position': FULL_AREA}]}]}

@@ -487,3 +487,6 @@ section{padding-block:clamp(40px,7vw,72px);border-top:1px solid var(--rule)}
 .find-out a:hover .t{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 .find-note{font-size:var(--s-1);color:var(--muted)}
 .find-note[hidden]{display:none}
+
+/* the organic line link, first in the collections switcher (organic_site.py) */
+.coll a.org{color:#3E6B3A}.coll a.org::before{content:"\2618\FE0E\00a0"}

@@ -328,7 +328,8 @@ def nav(line_dir):
 
 def switcher(cur):
     links = ''.join(f'<a href="/{l["dir"]}/"{" aria-current=\"page\"" if l is cur else ""} data-umami-event="coll-switch" data-umami-event-line="{l["key"]}">{H.escape(l["name"])}</a>' for l in LINES)
-    return f'<nav class="coll" aria-label="Collections"><div class="wrap"><span class="lbl">The collections</span>{links}</div></nav>'
+    org = '<a href="/organic/" class="org" data-umami-event="coll-switch" data-umami-event-line="organic">Organic</a>'   # eco first (organic_site.py)
+    return f'<nav class="coll" aria-label="Collections"><div class="wrap"><span class="lbl">The collections</span>{org}{links}</div></nav>'
 
 
 def chips(dz_cards, line):

@@ -198,6 +198,22 @@ window.DS=(function(){
    };
   };
 
+  // The organic line (/organic/): one tab per series + Caps & beanie; the card carries its own price and blank.  [organic_site.py]
+  DS.organicCfg=function(o){ o=o||{}; var lines=o.lines||[], step={}; lines.forEach(function(l){ step[l[0]]=44; });
+   var NAME={'org-signature':'Signature Series','org-certifiedish':'Certified-ish','org-offworld':'Off-World Hunt Club','org-n73':'1N73LL1G3NC3','org-aquatic':'Aquatic Comic','org-hats':'Caps & beanie'};
+   return {
+    lines:lines, step:step, noun:'piece', price:'', openEvent:'organic-open', contact:o.contact||'#contact', custom:false,
+    footNote:'100% organic cotton &middot; same art, same price', facts:false,
+    eyebrow:function(it){ return (NAME[it.line]||'Organic')+' · organic'; },
+    sub:function(it){ return it.sub; },
+    blurb:function(it){ return 'The organic edition: the same design on '+esc(it.text)+'. Printed or embroidered to order.'; },
+    views:function(it){ return it.slug==='ds-mrk-bno'?[['front','Black'],['back','Oxford Navy']]:null; },
+    defaultView:function(it){ return it.line==='org-signature'||it.line==='org-hats'||it.line==='org-n73'?'front':'back'; },
+    caption:function(it,v){ return esc(it.cap)+(v==='back'?' · back':''); },
+    specs:function(it){ return [['Blank',esc(it.text)],['Colour','<span class="sw"></span>'+esc(it.colour)],['Art','The same files as the regular edition'],['Price',esc(it.price||'')]]; }
+   };
+  };
+
   // The sticker packs deck: 37 kiss-cut sheets in three lines; a card opens the sheet proof and what is on it. The Achievement set sits above the deck as its own block (stickers_page.py opener()), not as a card.
   DS.packsCfg=function(o){ o=o||{}; var NAME={themed:'Themed',classic:'Classic die-cuts',brand:'Brand set'};
    function inside(it){ return it.sub.replace(/\s*·\s*\$\d+\s*$/,''); }
