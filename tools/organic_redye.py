@@ -37,10 +37,20 @@ def redye(src, dst, hexc, size=0, thumb=0):
     if bC >= 10:
         bh = np.degrees(np.arctan2(np.median(np.sin(np.radians(h[core]))), np.median(np.cos(np.radians(h[core])))))
         dh = np.abs((h - bh + 180) % 360 - 180)
-        fab = region & (dh < 28) & (C > bC * 0.35) & (C < bC * 2.2) & (Lc > bL - 38) & (Lc < bL + 30)
+        fab = region & (dh < 28) & (C > bC * 0.35) & (C < max(bC * 2.2, bC + 25)) & (Lc > bL - 45) & (Lc < bL + 30)
+        # red / pink garments sit next to skin tones in hue (skin ~35-75 deg): keep skin out unless the garment is itself in that band
+        if not 35 <= (bh % 360) <= 75:
+            dskin = np.abs((h - bh + 180) % 360 - 180) > np.abs((h - 55 + 180) % 360 - 180)
+            fab &= ~(dskin & (C < 50))
     else:   # near-neutral garment
         fab = region & (C < max(10, bC + 7)) & (np.abs(Lc - bL) < 22)
     fab = nd.binary_closing(fab, iterations=1)
+    # keep only fabric connected to the garment body (drops stray specks on arms, hands and background)
+    fl, fn = nd.label(fab)
+    if fn:
+        keep = np.unique(fl[core & fab]); keep = keep[keep > 0]
+        sizes = nd.sum(fab, fl, keep) if len(keep) else []
+        fab = np.isin(fl, [k for k, z in zip(keep, sizes) if z > 200])
     # soft edge so the fabric/print boundary stays anti-aliased
     a = nd.gaussian_filter(fab.astype(float), 0.8) * fab + nd.gaussian_filter(fab.astype(float), 0.8) * (~fab) * 0.0
     base_lin = lin(np.median(im[core & fab], axis=0) if (core & fab).any() else np.median(im[core], axis=0))

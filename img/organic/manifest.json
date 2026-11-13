@@ -2,8 +2,8 @@
  "DS-THI-TO": {
   "line": "signature",
   "name": "thistlegorm",
-  "colour": "Cotton Pink",
-  "hex": "#FFE9EB",
+  "colour": "Heather Grey",
+  "hex": "#CFCBC8",
   "images": [
    "/img/organic/signature/thistlegorm-front.webp",
    "/img/organic/signature/thistlegorm-back.webp"
@@ -182,8 +182,8 @@
  "DS-RRF-TO": {
   "line": "signature",
   "name": "rainbow-reef",
-  "colour": "Cotton Pink",
-  "hex": "#FFE9EB",
+  "colour": "Heather Grey",
+  "hex": "#CFCBC8",
   "images": [
    "/img/organic/signature/rainbow-reef-front.webp",
    "/img/organic/signature/rainbow-reef-back.webp"
@@ -202,8 +202,8 @@
  "DS-SOM-TO": {
   "line": "signature",
   "name": "somosomo-strait",
-  "colour": "Cotton Pink",
-  "hex": "#FFE9EB",
+  "colour": "Heather Grey",
+  "hex": "#CFCBC8",
   "images": [
    "/img/organic/signature/somosomo-strait-front.webp",
    "/img/organic/signature/somosomo-strait-back.webp"
@@ -232,8 +232,8 @@
  "DS-VUN-TO": {
   "line": "signature",
   "name": "vuna-reef",
-  "colour": "Cotton Pink",
-  "hex": "#FFE9EB",
+  "colour": "Heather Grey",
+  "hex": "#CFCBC8",
   "images": [
    "/img/organic/signature/vuna-reef-front.webp",
    "/img/organic/signature/vuna-reef-back.webp"
@@ -252,8 +252,8 @@
  "DS-OWD-TO": {
   "line": "certifiedish",
   "name": "cert-open-water",
-  "colour": "Cotton Pink",
-  "hex": "#FFE9EB",
+  "colour": "Heather Grey",
+  "hex": "#CFCBC8",
   "images": [
    "/img/organic/certifiedish/cert-open-water-front.webp",
    "/img/organic/certifiedish/cert-open-water-back.webp"
@@ -272,8 +272,8 @@
  "DS-AOW-TO": {
   "line": "certifiedish",
   "name": "cert-advanced-open-water",
-  "colour": "Cotton Pink",
-  "hex": "#FFE9EB",
+  "colour": "Heather Grey",
+  "hex": "#CFCBC8",
   "images": [
    "/img/organic/certifiedish/cert-advanced-open-water-front.webp",
    "/img/organic/certifiedish/cert-advanced-open-water-back.webp"

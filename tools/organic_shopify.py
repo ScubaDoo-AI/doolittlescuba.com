@@ -15,7 +15,15 @@ import os, re, sys, json, html as H
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import organic, organic_site as OS, organic_mockups as OM
 
+SITE_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ORIGIN = 'https://doolittlescuba.com'
+
+
+def vurl(u):
+    """Site image URL with the content-hash query the site uses (Porkbun's CDN caches by URL for 30 days)."""
+    import hashlib
+    p = os.path.join(SITE_ROOT, u.replace(ORIGIN, '').lstrip('/'))
+    return u + '?v=' + hashlib.sha1(open(p, 'rb').read()).hexdigest()[:8] if os.path.exists(p) else u
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAN = json.load(open(f'{SITE}/img/organic/manifest.json'))
 AQD = json.load(open(f'{SITE}/tools/aquatic_designs.json'))
@@ -86,12 +94,12 @@ def build():
                 f'on {BLANK[kind]}, in {H.escape(col)}. Same art, same price.</p><p>{extra}</p>'
                 f'<p>Printed or embroidered to order. Shown as a mockup, not a photograph: samples are on the way.</p>')
         if kind == 'beanie':
-            imgs = [f'{ORIGIN}/img/organic/beanie/beanie-the-mark-organic-black.webp', f'{ORIGIN}/img/organic/beanie/beanie-the-mark-organic-oxford-navy.webp']
+            imgs = [vurl(f'{ORIGIN}/img/organic/beanie/beanie-the-mark-organic-black.webp'), vurl(f'{ORIGIN}/img/organic/beanie/beanie-the-mark-organic-oxford-navy.webp')]
             opt = 'Colour'; values = [(v['colour'], v) for v in p['variants']]
         elif kind == 'cap':
-            imgs = [ORIGIN + u for u in MAN[p['key']]['images']]; opt = 'Size'; values = [('One size', p['variants'][0])]
+            imgs = [vurl(ORIGIN + u) for u in MAN[p['key']]['images']]; opt = 'Size'; values = [('One size', p['variants'][0])]
         else:
-            imgs = [ORIGIN + u for u in MAN[p['key']]['images']]
+            imgs = [vurl(ORIGIN + u) for u in MAN[p['key']]['images']]
             if p['line'] in ('certifiedish', 'offworld', 'aquatic'): imgs = imgs[::-1]   # these lines lead with the back
             opt = 'Size'; values = [(v['size'], v) for v in p['variants']]
         inp = {'title': title, 'status': 'DRAFT', 'vendor': 'Doolittle Scuba',

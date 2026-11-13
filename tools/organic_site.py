@@ -45,6 +45,14 @@ def price(p):
     return f'${lo:.0f}' if lo == hi else f'${lo:.0f} · ${hi:.0f} in 2XL and 3XL'
 
 
+def change(p):
+    """The colour move from the regular shirt, called out on the card (the organic line has no pastels)."""
+    a, b = p.get('regular_colour', ''), p.get('colour', '')
+    if p['kind'] == 'beanie' or not a or a == b:
+        return '<span class="dz-s" style="font-size:.8em;opacity:.75">Same colour as the regular</span>'
+    return (f'<span class="dz-s" style="font-size:.8em;font-weight:700;color:#c8102e">Colour changes: {H.escape(a)} &rarr; {H.escape(b)}</span>')
+
+
 def card(p):
     line = {'beanie': 'org-hats', 'caps': 'org-hats'}.get(p['line'], 'org-' + p['line'])
     if p['kind'] == 'beanie':
@@ -64,7 +72,7 @@ def card(p):
             f'data-cap="{H.escape(name)} · organic · {H.escape(colour)}" data-umami-event="organic-open" data-umami-event-key="{p["key"]}" '
             f'aria-label="Open mockup: {H.escape(name)}, organic, {H.escape(colour)}"><img src="{t(imgs[0])}" width="600" height="600" loading="lazy" '
             f'decoding="async" alt="{H.escape(alt)}"></button><figcaption><span class="dz-row"><span class="dz-t">{H.escape(name)}</span>'
-            f'<span class="pill available">Coming soon</span></span><span class="dz-s">{H.escape(colour)} · {tag}</span>'
+            f'<span class="pill available">Coming soon</span></span><span class="dz-s">{H.escape(colour)} · {tag}</span>{change(p)}'
             f'<span class="sh-flip" role="group" aria-label="Show front or back"><button type="button" class="on" data-side="front" aria-pressed="true">'
             f'{"Black" if p["kind"] == "beanie" else "Front"}</button><button type="button" data-side="back" aria-pressed="false">'
             f'{"Oxford Navy" if p["kind"] == "beanie" else "Back"}</button></span></figcaption></figure>')
@@ -90,7 +98,7 @@ def page():
     head = head.replace('aria-current="page" ', '')
     head = coll_nav(head, current=True)
     cards = ''.join(card(p) for p in sorted(P, key=lambda p: [l[2] for l in LINES].index('caps' if p['line'] == 'beanie' else p['line'])))
-    sw = [('Cotton Pink', '#FFE9EB'), ('Desert Dust', '#DCCCB4'), ('White', '#FFFFFF'), ('Heather Grey', '#CFCBC8'),
+    sw = [('Desert Dust', '#DCCCB4'), ('White', '#FFFFFF'), ('Heather Grey', '#CFCBC8'),
           ('Black', '#111111'), ('French Navy', '#112537'), ('Khaki', '#6E6B4D'), ('Stargazer', '#3D737D')]
     hero_img = MAN['DS-THI-TDO']['images'][1] if 'DS-THI-TDO' in MAN else ''
     main = f'''<main>
@@ -101,6 +109,7 @@ def page():
         <p class="eyebrow">Doolittle Scuba &middot; The organic line</p>
         <h1>Every design, on organic cotton.</h1>
         <p class="lede">The whole shop again, printed on 100% organic cotton: all five tee series, the caps and the beanie. Same drawings, same placements, same price. Only the shirt changes.</p>
+        <p class="lede" style="font-size:1rem"><strong>No pastels in this line.</strong> Pastel and pink shirts move to the nearest organic colour, so some designs change colour; each card says how. In the cart, one button converts your <strong>whole order</strong> to organic, or tick just the pieces you want, and every colour change is shown before you confirm.</p>
         <div class="cta">
           <a class="btn" data-umami-event="organic-hero-shirts" href="#shirts">See the organic line</a>
           <a class="btn ghost" data-umami-event="organic-hero-why" href="#why">Why organic</a>

@@ -198,6 +198,8 @@ window.DS=(function(){
    };
   };
 
+
+
   // The organic line (/organic/): one tab per series + Caps & beanie; the card carries its own price and blank.  [organic_site.py]
   DS.organicCfg=function(o){ o=o||{}; var lines=o.lines||[], step={}; lines.forEach(function(l){ step[l[0]]=44; });
    var NAME={'org-signature':'Signature Series','org-certifiedish':'Certified-ish','org-offworld':'Off-World Hunt Club','org-n73':'1N73LL1G3NC3','org-aquatic':'Aquatic Comic','org-hats':'Caps & beanie'};

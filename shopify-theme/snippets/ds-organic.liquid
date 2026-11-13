@@ -1,0 +1,36 @@
+{%- comment -%}
+  Doolittle Scuba: "Make it organic" cart converter. Rendered once from layout/theme.liquid.
+  Script: assets/ds-organic.js. Colour connections: assets/ds-organic-map.json (tools/organic_cart_map.py).
+{%- endcomment -%}
+<script id="ds-organic-config" data-map="{{ 'ds-organic-map.json' | asset_url }}" type="application/json">{}</script>
+<script src="{{ 'ds-organic.js' | asset_url }}" defer></script>
+<style>
+  .dso-panel{margin:var(--margin-lg,20px) 0;padding:18px 20px;border:2px solid #0f2a44;border-radius:10px;background:#f4f8f2;color:#0f2a44;font-size:14px;line-height:1.45}
+  .cart-drawer__content .dso-panel{margin:12px var(--cart-drawer-padding,16px)}
+  .dso-panel[hidden]{display:none}
+  .dso-kicker{margin:0;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#2f6b3a;font-weight:700}
+  .dso-title{margin:2px 0 6px;font-size:19px;line-height:1.2}
+  .dso-sub{margin:0 0 12px}
+  .dso-list{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:8px}
+  .dso-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 14px;padding:8px 10px;background:#fff;border-radius:8px;border:1px solid #d9e2d6}
+  .dso-row--change{border-color:#c8102e;box-shadow:inset 4px 0 0 #c8102e}
+  .dso-row label{display:flex;align-items:center;gap:8px;cursor:pointer;min-width:0}
+  .dso-pick{width:18px;height:18px;accent-color:#2f6b3a;flex:none}
+  .dso-name{font-weight:600}
+  .dso-var{font-weight:400;opacity:.75}
+  .dso-swap{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .dso-sw{width:20px;height:20px;border-radius:50%;background:var(--c);border:1px solid rgba(0,0,0,.25);flex:none}
+  .dso-cn{font-size:13px}
+  .dso-arrow{font-weight:700;margin:0 2px}
+  .dso-badge{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 7px;border-radius:99px;background:#e6efe3;color:#2f6b3a}
+  .dso-row--change .dso-badge{background:#c8102e;color:#fff}
+  .dso-note{margin:4px 0;font-size:13px;opacity:.8}
+  .dso-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .dso-btn{font:inherit;font-weight:700;padding:10px 14px;border-radius:8px;border:2px solid #2f6b3a;cursor:pointer;background:#fff;color:#2f6b3a}
+  .dso-btn--all{background:#2f6b3a;color:#fff}
+  .dso-btn:focus-visible{outline:3px solid #c8102e;outline-offset:2px}
+  .dso-busy .dso-btn{opacity:.5;pointer-events:none}
+  .dso-msg{margin:8px 0 0;font-weight:600}
+  .dso-msg:empty{display:none}
+  .dso-done{margin:0}
+</style>
