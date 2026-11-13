@@ -100,4 +100,8 @@ Caps: Black → Black · Dark Navy, Royal Blue → Pacific · Dark Grey → Char
   - Linked 140: the 18 caps, the beanie, and the 120 Boat Banter Aquatic sizes.
   - Failed 560: every Off-World and 1N73LL1G3NC3 organic size, with "One or more provided placements are not available for product". The organic line passed the 1717's `default` front placement through; the other lines rename it to `front` with `fix()`, and organic didn't. Fixed in `printful_link.py`.
   - Not reached: the Signature, Certified-ish and remaining Aquatic organic tees.
-- The job limit is now 240 minutes. The organic run is queued again (run 43487195817, behind another session's Off-World link run). It skips sizes already linked.
+- The job limit is now 240 minutes. The organic run was queued again (run 43487195817, behind another session's Off-World link run). It skips sizes already linked.
+- **Second apply run (43487195817, 19:05–21:07 UTC, success):** linked 984, failed 0.
+  - Signature 168, Certified-ish 240, 1N73LL1G3NC3 216, Off-World 360. The placement fix held.
+  - With the first run's 140, **all 1,124 linkable organic variants are linked**.
+  - The 234 personalized Aquatic organic sizes were already set to ignored at Printful (nothing to send); they're made per order by `aquatic_order.py`.
