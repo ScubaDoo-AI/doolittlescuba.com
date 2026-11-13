@@ -84,5 +84,10 @@ Caps: Black → Black · Dark Navy, Royal Blue → Pacific · Dark Grey → Char
     - If any colour changes, a confirm box lists them before anything happens.
     - It adds the organic lines first and then removes the regular ones, so nothing is lost if a step fails. Line properties (Aquatic names) carry over, plus a hidden `_organic_from` with the original SKU. It skips items with no organic edition and says so.
   - `snippets/ds-organic.liquid` holds the config + styles. `snippets/view-transition-opt-in.liquid` (rendered once in <head>) gains `{% render 'ds-organic' %}`.
-  - **Not installed yet:** the theme-file write to "Horizon — Doolittle Scuba" (unpublished) was refused by the session's permission check. Install it in admin → Online Store → Themes → … → Edit code, or approve the upload.
+  - **Installed 13 Nov 11:05** on "Horizon — Doolittle Scuba" (unpublished theme 160959234234), after Eric approved the upload. All 4 files' MD5s match the repo. The two snippets went up by URL. The assets had to go as TEXT: a URL upload to `assets/` silently does nothing. It goes live when that theme is published.
   - It only works once the organic products are Active, because draft products aren't visible to `/products/<handle>.js`.
+
+## Import of the 228 new products
+- This can't be done from here. The "Doolittle Order Bot" app has only read_files, read_orders and write_files (no write_products). Bulk mutations are blocked on the connector, and Claude in Chrome wasn't connected.
+- Eric imports `tools/organic_products_import.csv` in Shopify admin (Products → Import, a desktop browser) → 228 drafts.
+- Alternative: add `write_products` to the bot app. Then a workflow could create them with productSet from `tools/organic_shopify.py`.
