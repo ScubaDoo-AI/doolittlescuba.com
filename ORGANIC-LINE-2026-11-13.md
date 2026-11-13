@@ -68,3 +68,21 @@ Caps: Black → Black · Dark Navy, Royal Blue → Pacific · Dark Grey → Char
   - Create the smart collection "The organic line" (tag `organic-line`, handle `organic`).
   - Run the Printful link workflow with `lines=organic`: dry run first, then `--apply`.
 - No donation or charity wording anywhere, per Eric ("Hold off on claim yet").
+
+## 13 Nov (later): no pastels, colour changes called out, cart converter
+- **No pastels.** Cotton Pink is gone from the organic palette. Blossom, Crunchberry, Orchid and Watermelon now go to Heather Grey, the nearest remaining colour (CIEDE2000 15.6–32.6). Six designs moved:
+  - Signature: Thistlegorm, Rainbow Reef, Somosomo Strait, Vuna Reef.
+  - Certified-ish: Open Water, Advanced Open Water.
+  - Their mockups were re-rendered. `organic_redye.py` now keeps skin out of the fabric mask, which matters for red and pink garments. The 4 Signature drafts were updated in Shopify (media READY), and the CSV was regenerated (`tools/organic_csv.py`).
+  - Organic palette now: light Desert Dust, White, Heather Grey; dark Black, French Navy, Khaki, Stargazer. Caps: Black, Charcoal, Pacific, Jungle. Beanie: Black, Oxford Navy.
+- **Colour changes are called out.** Every card on /organic/ says "Colour changes: X → Y" (198 cards) or "Same colour as the regular" (44). The hero has a note: no pastels; convert the whole order or just some pieces in the cart.
+- **Cart converter** (`shopify-theme/`):
+  - `assets/ds-organic-map.json` comes from `tools/organic_cart_map.py`. It covers 243 regular SKU keys, and for each one gives the organic key, the organic handle, the from-colour + hex, the to-colour + hex, and the size rule. All 1,356 variant connections were tested.
+  - `assets/ds-organic.js` adds a panel under the items on the cart page and in the cart drawer:
+    - Each convertible line gets a checkbox and from→to swatches. Lines that change colour get a red "Colour changes" badge.
+    - Two buttons: "Convert whole order to organic" and "Convert selected (n)".
+    - If any colour changes, a confirm box lists them before anything happens.
+    - It adds the organic lines first and then removes the regular ones, so nothing is lost if a step fails. Line properties (Aquatic names) carry over, plus a hidden `_organic_from` with the original SKU. It skips items with no organic edition and says so.
+  - `snippets/ds-organic.liquid` holds the config + styles. `snippets/view-transition-opt-in.liquid` (rendered once in <head>) gains `{% render 'ds-organic' %}`.
+  - **Not installed yet:** the theme-file write to "Horizon — Doolittle Scuba" (unpublished) was refused by the session's permission check. Install it in admin → Online Store → Themes → … → Edit code, or approve the upload.
+  - It only works once the organic products are Active, because draft products aren't visible to `/products/<handle>.js`.
