@@ -40,7 +40,8 @@ def plan(route='dtg'):
     out = []
     for code, name, light, dark in DESIGNS:
         for line, colour, ink, sfx in (('light', light, 'BLACK', 'T'), ('dark', dark, 'WHITE', 'TD')):
-            files = [{'type': 'front', 'url': f'{CDN}CI-front-leftchest_Certified-ish_12x16in_{ink}.png', 'position': AREA},
+            # front: ink top 2 in (was 0.5 in) since 13 Nov 2026, tools/chest_lower.py
+            files = [{'type': 'front', 'url': f'{CDN}CI-front-leftchest_Certified-ish_12x16in_{ink}_top2in.png', 'position': AREA},
                      {'type': 'back', 'url': f'{CDN}CI-{code}_back_12x16in_{ink}.png', 'position': AREA},
                      {'type': 'sleeve_right', 'url': f'{CDN}DS_mark_PF-sleeve-right_3.5x4in_{"NAVYRED" if line == "light" else "WHITERED"}.png'}]
             variants = [dict(sku=f'DS-{code}-{sfx}-{z}', size=z, variant_id=PF[colour][i], cost=round(GARMENT[z] + BACK, 2), price=PRICE[z],
