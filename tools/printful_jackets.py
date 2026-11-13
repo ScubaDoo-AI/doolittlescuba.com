@@ -85,7 +85,8 @@ def mockups(out):
         for colour, (hexc, ids) in j['colours'].items():
             body = dict(variant_ids=[ids[1]], format='jpg', width=1600,
                         files=[dict(placement='embroidery_chest_left', image_url=CDN + CHEST, position=pos)],
-                        product_options={'thread_colors_chest_left': [WHITE, RED]})
+                        product_options={'thread_colors_chest_left': [WHITE, RED]},
+                        option_groups=["Men's", "Men's Lifestyle", "Women's", 'Flat'])
             task = pf('POST', f"/mockup-generator/create-task/{j['product']}", body)
             for _ in range(60):
                 time.sleep(6); t = pf('GET', f"/mockup-generator/task?task_key={task['task_key']}")
