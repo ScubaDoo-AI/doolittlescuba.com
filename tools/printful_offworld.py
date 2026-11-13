@@ -17,8 +17,10 @@ Garment (Printful catalog, Nov 2026): Comfort Colors 1717 = product 586, 350 var
 in stock in the US: S–XL $15.60, 2XL $17.60, 3XL $19.60 (4XL $21.60, not offered). DTG front print is included,
 the back print adds $5.95; DTF charges $5.95 per placement. So a light or dark tee costs $21.55 / $23.55 / $25.55
 on DTG against our $42 / $45 / $45 — about $20 a shirt before shipping. Placement positions are in Printful's
-150-dpi print-area pixels (12 × 16 in = 1800 × 2400): the back fills the area; the chest art is 525 × 600 at
-top 300, left 1200 — wearer's left chest, 3.75 in off centre, 2 in down. Adjust in Printful's mockup editor.
+150-dpi print-area pixels (12 × 16 in = 1800 × 2400): the back and the front both fill the area. The front file is
+OW-<nn>_front-leftchest_12x16in_<ink>.png, the 3.5 × 4 in chest art placed at left 8 in / top 2 in — wearer's left
+chest, 3.75 in off centre, 2 in down — by tools/offworld_chest_fullarea.py. (Until 13 Nov 2026 the bare chest file was
+sent with a 525 × 600 @ left 1200 / top 300 offset; Printful dropped the offset and centred it.)
 """
 import os, sys, json, time, urllib.request, urllib.error
 
@@ -88,8 +90,11 @@ def files(code, line, route):
     area = {'area_width': 1800, 'area_height': 2400}
     return [{'type': 'back' if route == 'dtg' else 'back_dtf', 'url': f'{CDN}OW-{n}_back_{tag}.png',
              'position': dict(area, width=1800, height=2400, top=0, left=0)},
-            {'type': 'default' if route == 'dtg' else 'front_dtf', 'url': f'{CDN}OW-{n}_chest_{tag}.png',
-             'position': dict(area, width=525, height=600, top=300, left=1200)}]
+            # front: the chest mark already placed on a full 12 x 16 in master (tools/offworld_chest_fullarea.py, left 8 in /
+            # top 2 in = wearer's left chest). Printful's v1 sync variants dropped the old 525 x 600 @ (1200, 300) offset and
+            # centred the 3.5 x 4 in chest file (sample proof, 13 Nov 2026), so the offset now lives in the file itself.
+            {'type': 'default' if route == 'dtg' else 'front_dtf', 'url': f'{CDN}OW-{n}_front-leftchest_12x16in_{tag}.png',
+             'position': dict(area, width=1800, height=2400, top=0, left=0)}]
 
 
 def plan(route):

@@ -1,0 +1,45 @@
+name: Off-World chest masters
+# Puts each Off-World chest mark on a full 12 x 16 in front master at the wearer's left chest (left 8 in, top 2 in)
+# and uploads the 60 files to Shopify Files (tools/offworld_chest_fullarea.py). Leave "upload" off first: the run
+# only renders and checks the geometry, and keeps the PNGs as an artifact to look at.
+on:
+  workflow_dispatch:
+    inputs:
+      upload:
+        description: 'Upload to Shopify Files. Off = render + check only'
+        type: boolean
+        default: false
+      only:
+        description: 'Only these designs, comma-separated (e.g. OW03). Blank = all 30'
+        type: string
+        default: ''
+permissions:
+  contents: read
+jobs:
+  masters:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - run: pip install pillow numpy scipy scikit-image
+      - name: Render (and upload)
+        env:
+          SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
+          SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
+          UPLOAD: ${{ inputs.upload }}
+          ONLY: ${{ inputs.only }}
+        run: |
+          set -o pipefail
+          FLAG=
+          if [ "$UPLOAD" = "true" ]; then FLAG=--upload; fi
+          if [ -n "$ONLY" ]; then [[ "$ONLY" =~ ^[A-Z0-9,]+$ ]] || { echo "::error::only: codes like OW03,OW26"; exit 1; }; FLAG="$FLAG --only $ONLY"; fi
+          echo "mode: upload=$UPLOAD only=$ONLY" | tee run.log
+          python tools/offworld_chest_fullarea.py --out offworld-front $FLAG | tee -a run.log
+          { echo '## Off-World chest masters'; echo; echo '```'; tail -n 30 run.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: offworld-front-masters
+          path: offworld-front/
+          retention-days: 14
