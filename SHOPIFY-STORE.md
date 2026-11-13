@@ -295,3 +295,19 @@ Eric (02:02): *"Set product pages with combined mockup"* and *"Add the pair butt
 ## 2026-11-13 — Policies: where they live and how the site reaches them
 - Privacy, Terms of service, Shipping and Refund policies are in Shopify (Settings → Policies; `shop.shopPolicies`). The storefront is password-protected, so `doolittlescuba.myshopify.com/policies/…` redirects to `/password`; the public copies are the checkout-hosted pages `https://checkout.shopify.com/78733508794/policies/<id>.html?locale=en` — privacy 43085070522, terms 43703533754, shipping 43703566522, refund 43703435450 (contact 43703632058).
 - The website links them through `doolittlescuba.com/privacy/ · /terms/ · /shipping/ · /returns/` (redirect pages) and a footer line on every page, both kept by `tools/policies.py`. When the storefront opens, point the redirects at the storefront's `/policies/…` pages in that script.
+
+## 2026-11-13 — Jackets (Champion CO200 anorak, SOL'S 32000 windbreaker)
+- Eric (13 Nov): "Create these jackets in realistic mockups and add to the system": Champion Packable Anorak CO200 at $43.42 and SOL'S 32000 Basic Windbreaker at $20.76, **left chest only**.
+- **Art:** the heavy DS mark at 1.50 x 1.64 in, white D and red S (threads 1801 / 1839), flat embroidery. It's the same Shopify Files image as the beanie cuff. Placement `embroidery_chest_left` (Printful area 4 x 4 in), placed at true size, centered at the top. Embroidery adds $2.95.
+- **Colours:** Black and Navy for both, S–2XL, all in stock (catalog API, 13 Nov).
+- **Prices (my proposal, change any time):**
+  - Anorak $89 (2XL $92). Cost $46.37 / $48.37, margin about $42.6.
+  - Windbreaker $49 (2XL $52). Cost $23.71 / $25.71, margin about $25.3.
+- **Mockups:** these are real Printful Mockup Generator images of our file on the jacket, not re-renders. Workflow `printful-mockups.yml` runs `tools/printful_jackets.py --mockups` and returns them as an artifact. Chosen shots are in `img/jackets/` (worn, flat, close-up, plus women's / men's / back).
+- **Shopify (Draft):**
+  - The Mark — Champion Packable Anorak `gid://shopify/Product/10432500465850`, handle `the-mark-champion-packable-anorak`.
+  - The Mark — SOL'S Basic Windbreaker `gid://shopify/Product/10432500498618`, handle `the-mark-basic-windbreaker`.
+  - Both have options Colour × Size and SKUs `DS-MRK-{CHA|WND}-{BLK|NVY}-{S..2XL}`, tags `jacket brand coming-soon embroidered fulfil:printful-co200|32000`.
+  - Smart collection **Jackets** `gid://shopify/Collection/493648412858` (tag `jacket`).
+- **Site:** a "The jackets" section after the hats on the home page, with 4 cards (each jacket in each colour). Worn / Close-up views open in the lightbox.
+- **Printful:** `printful_link.py --only jackets`, added as a choice in the workflow. The link run is queued behind the organic run.
