@@ -1,0 +1,23 @@
+name: Printful mockups
+# Real product mockups from Printful's Mockup Generator for the jackets (tools/printful_jackets.py --mockups).
+# Read-only on the store: it creates mockup tasks only. Images come back as the run's artifact.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  mockups:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - name: Mockups
+        env:
+          PRINTFUL_TOKEN: ${{ secrets.PRINTFUL_TOKEN }}
+        run: python tools/printful_jackets.py --mockups mockups | tee mockups.log
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jacket-mockups
+          path: mockups/
