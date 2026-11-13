@@ -20,3 +20,5 @@ Source of the Doolittle Scuba L.L.C. website, published by Porkbun static hostin
 - Wide-screen scaling block on every page: `tools/wide_screen.py`.
 
 Change log: `CHANGELOG-2026-10-18.md`, `CHANGELOG-2026-10-20.md`, … `CHANGELOG-2026-11-09.md`, `CHANGELOG-2026-11-10.md`, then the commit history. Status report: `STATUS-2026-11-04.md`.
+
+**Store policies.** Privacy, Terms, Shipping and Returns live in Shopify (Settings → Policies). The storefront is password-protected, so the public copies are the checkout-hosted pages; `tools/policies.py` keeps four redirect pages on the site (`/privacy/`, `/terms/`, `/shipping/`, `/returns/`) pointing at them and the footer line between `POLICIES` markers on every page. Re-run it after adding a page or when a policy URL changes; the page generators carry the line from the home page.

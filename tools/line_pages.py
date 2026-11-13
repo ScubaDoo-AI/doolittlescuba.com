@@ -366,6 +366,7 @@ def page(line, sh, dz, home_src):
     status = block(home_src, '<!-- STATUS:START -->', '<!-- STATUS:END -->')
     wide = block(home_src, '<!-- WIDE:START -->', '<!-- WIDE:END -->')
     social = block(home_src, '<!-- SOCIAL:START -->', '<!-- SOCIAL:END -->')
+    policies = '      ' + block(home_src, '<!-- POLICIES:START -->', '<!-- POLICIES:END -->')
     url = f'{ORIGIN}/{line["dir"]}/'
     fonts = f'<link rel="stylesheet" href="{FONTS_BASE}">' + (f'\n<link rel="stylesheet" href="{FONTS[line["key"]]}">' if line['key'] in FONTS else '')
     html_attr = ' data-theme="dark"' if line['key'] in FIXED_DARK else ''
@@ -483,6 +484,7 @@ def page(line, sh, dz, home_src):
       <p>Based in Newnan, Georgia</p>
 {social}
       <p class="mono">hello@doolittlescuba.com &middot; orders@doolittlescuba.com</p>
+{policies}
       <p>diveplate designs &copy; 2026 Doolittle Scuba L.L.C. All rights reserved.</p>
     </div>
   </div>

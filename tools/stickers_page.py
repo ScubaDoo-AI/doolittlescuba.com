@@ -124,6 +124,7 @@ def page(home_src, page_src):
     status = LP.block(home_src, '<!-- STATUS:START -->', '<!-- STATUS:END -->')
     wide = LP.block(home_src, '<!-- WIDE:START -->', '<!-- WIDE:END -->')
     social = LP.block(home_src, '<!-- SOCIAL:START -->', '<!-- SOCIAL:END -->')
+    policies = '      ' + LP.block(home_src, '<!-- POLICIES:START -->', '<!-- POLICIES:END -->')
     url = f'{LP.ORIGIN}/stickers/'
     desc = 'The Achievement Unlocked full set and thirty-seven packs of three kiss-cut stickers — themed sets, the classic die-cuts and the brand marks — plus the singles. Printed vinyl, waterproof, the DS mark on every one.'
     jsonld = json.dumps({"@context": "https://schema.org", "@type": "CollectionPage", "name": "Stickers · Doolittle Scuba", "url": url, "description": desc,
@@ -245,6 +246,7 @@ def page(home_src, page_src):
       <p>Based in Newnan, Georgia</p>
 {social}
       <p class="mono">hello@doolittlescuba.com &middot; orders@doolittlescuba.com</p>
+{policies}
       <p>diveplate designs &copy; 2026 Doolittle Scuba L.L.C. All rights reserved.</p>
     </div>
   </div>

@@ -264,6 +264,10 @@ section{padding-block:clamp(40px,7vw,72px);border-top:1px solid var(--rule)}
 .foot-meta .social{margin:4px 0;justify-content:flex-end}
 .foot-meta .social a{color:var(--on-deep);border-color:rgba(255,255,255,.45)}
 .foot-meta .social a:hover{background:var(--on-deep);color:var(--deep)}
+.foot-meta .policies{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px 8px;font-size:var(--s-2,.8rem);letter-spacing:.08em;text-transform:uppercase;color:var(--on-deep-muted)}
+.foot-meta .policies a{color:var(--on-deep);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.35);padding-bottom:1px}
+.foot-meta .policies a:hover{border-bottom-color:var(--on-deep)}
+@media (max-width:640px){.foot-meta .policies{justify-content:flex-start}}
 @media (max-width:640px){.foot-meta .social{justify-content:flex-start}}
 
 /* The shirts */
