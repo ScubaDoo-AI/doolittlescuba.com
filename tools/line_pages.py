@@ -319,7 +319,7 @@ def swatches(sh_cards):
 
 # -------------------------------------------------------------------------------------------------------------- the page
 def nav(line_dir):
-    return ('<nav aria-label="Site"><a href="/#lines" data-umami-event="nav-collections">Collections</a><a href="/#hats" data-umami-event="nav-hats">Hats</a>'
+    return ('<nav aria-label="Site"><a href="/#lines" data-umami-event="nav-collections">Collections</a><a href="/#hats" data-umami-event="nav-hats">Hats</a><a href="/#jackets" data-umami-event="nav-jackets">Jackets</a>'
             '<a href="/stickers/" data-umami-event="nav-stickers">Stickers</a><a href="/custom/" data-umami-event="nav-custom">Custom</a>'
             '<a href="/#map" data-umami-event="nav-map">Dive map</a><a href="/#logbook" data-umami-event="nav-logbook">Logbook</a>'
             '<a href="/about/" data-umami-event="nav-about">About us</a><a href="/workshop/" data-umami-event="nav-workshop">Workshop</a>'

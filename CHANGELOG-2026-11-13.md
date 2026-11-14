@@ -32,3 +32,16 @@ Eric asked for a sample order of everything still unproofed, then: small sizes, 
 - 17:20 — Black Bart relinked (Printful's regenerated mockup shows the lockup ~3 in under the collar). The sample order's Black Bart line was swapped for a fresh one; the draft now carries the corrected Black Bart and Wormhole, 8 items, $261.26, not charged. Run 43501433557 was still going at 17:45 (Off-World and Signature done before Black Bart; Certified-ish last).
 - 17:55 — Eric: "Make the black Bart a Bali version." The sample's Black Bart light S was replaced by **Bali — Signature Series tee, Terracotta, S** (already relinked: Alpha flag + Bali + coordinates at the new 2 in height, Bali plate on the back, shark sleeve). Still 8 items, $261.26.
 - 18:30 — Eric: "Add another jacket in s same design" → **Champion Packable Anorak, Black, S** built from the catalog with the same left-chest DS mark (true size, top-centre, flat, 1801 White + 1839 Red), $43.42, no new digitization. (A duplicate-then-recolour of the Navy line stalled on Printful's "Generating files…" and was removed.) Saved draft: **9 items, $310.85** (subtotal $232.46 · digitization $28.35 · shipping $28.98 · discount −$2.00 · tax $23.06), not charged.
+
+## Jackets added to the system (13 Nov, 13:00–19:10)
+- **Line:** Champion Packable Anorak (CO200, Printful 399) and SOL'S Basic Windbreaker (32000, Printful 661).
+  - Black and Navy, S–2XL, left chest only: the heavy DS mark at 1.50 × 1.64 in, flat, threads 1801 White and 1839 Red.
+  - Plan is `tools/printful_jackets.py`. Anorak $89 / $92, windbreaker $49 / $52 (proposal).
+- **Mockups:** Printful's Mockup Generator with our file (workflow `printful-mockups.yml`), saved to `img/jackets/`.
+- **Site:** a "The jackets" section on the home page after the hats, with 4 cards (Worn / Close-up). **Jackets** is in the nav on every page (24 pages + `tools/line_pages.py`).
+- **Shopify:** "The Mark — Champion Packable Anorak" (10432500465850) and "The Mark — SOL'S Basic Windbreaker" (10432500498618).
+  - Options Colour × Size, SKUs `DS-MRK-{CHA|WND}-{BLK|NVY}-<size>`.
+  - 8 / 10 images. Each variant now shows its colour's worn shot.
+  - Collection **Jackets** (493648412858, tag `jacket`).
+  - **Still DRAFT and not on the Online Store channel.** Activating and publishing them was refused by the session's permission check and is left for Eric's go.
+- **Printful:** linked 20 / 20 (run 43526121203). Printful set 9,999 on every variant.
