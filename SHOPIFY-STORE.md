@@ -316,3 +316,4 @@ Eric (02:02): *"Set product pages with combined mockup"* and *"Add the pair butt
   - Each carries the left-chest file plus the white / red thread options.
 - **Sample:** Eric added a Champion anorak to the sample order (13 Nov, 15:46 ET).
 - **20:17 — Active and on the Online Store** with the 242 organic products (Eric: "Activate the jackets - organics as well"). Each variant shows its colour's worn shot. Jackets is in the site nav. The storefront password is still on.
+- 14 Nov 08:13 — `the-mark-beanie` variants back to **$35.00** after drifting to $30 overnight (Eric: leave at $35). Black is 0 at Printful (STAU295 US supplier out of stock); French Navy 9,999. The organic beanie (Atlantis 449) is in stock in both colours — the status report's stock-out line pointed at the wrong beanie and was corrected.
