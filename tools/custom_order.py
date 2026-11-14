@@ -153,6 +153,11 @@ def handle(o, dry):
 def main():
     a = sys.argv[1:]
     def opt(k, d=None): return a[a.index(k) + 1] if k in a else d
+    if opt('--catalog'):   # catalog facts only (placements, techniques, options): no store or buyer data
+        d = AO.printful('GET', f'/v2/catalog-products/{int(opt("--catalog"))}')['data']
+        for pl in d.get('placements', []): print(json.dumps(pl))
+        print('product_options', json.dumps(d.get('product_options')))
+        return
     if opt('--confirm'):
         AO.printful('POST', f'/v2/orders/{opt("--confirm")}/confirmation'); print('confirmed: in production'); return
     dry = '--dry' in a

@@ -10,7 +10,7 @@ on:
       mode:
         description: 'run = check new orders · dry = render only · confirm = confirm a checked Printful draft'
         type: choice
-        options: [run, dry, confirm]
+        options: [run, dry, confirm, catalog]
         default: run
       order:
         description: 'Shopify order number (optional: just this order)'
@@ -46,6 +46,7 @@ jobs:
         run: |
           set -o pipefail
           [[ "$ORDER" =~ ^#?[0-9]*$ && "$PFID" =~ ^[0-9]*$ && "$DAYS" =~ ^[0-9]+$ ]] || { echo "::error::bad input"; exit 1; }
+          if [ "$MODE" = "catalog" ]; then python tools/custom_order.py --catalog 140; exit 0; fi
           if [ "$MODE" = "confirm" ]; then python tools/custom_order.py --confirm "$PFID"; exit 0; fi
           FLAG="--days $DAYS"; [ -n "$ORDER" ] && FLAG="$FLAG --order ${ORDER#\#}"; [ "$MODE" = "dry" ] && FLAG="$FLAG --dry"
           python tools/custom_order.py $FLAG | tee run.log
