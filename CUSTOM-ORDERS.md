@@ -85,6 +85,23 @@ The drafts are made through Printful's API. Printful's Shopify integration there
 
 Regular (synced) shirts in the same order are left to Printful's own integration.
 
+## Policies and the daily reminder (14 Nov)
+
+**Policies:**
+- The refund and shipping policies now cover personalized and custom items:
+  - no change-of-mind returns;
+  - we print exactly what's typed, with a 12-hour window to fix a typo;
+  - long names are fitted as agreed;
+  - every design is reviewed by hand and offensive text may be declined (refunded);
+  - the digitization fee is refundable until production;
+  - a misprint is remade free;
+  - custom items ship in 3–8 business days.
+- The text lives in `policies/*.html` and is pushed by Actions → **Policy push** (`tools/policy_push.py`, dry run by default, old text kept as an artifact).
+
+**Daily reminder:** **Custom drafts reminder** (`tools/custom_reminder.py`) runs every morning at 12:23 UTC.
+- If custom drafts are waiting at Printful, it opens or comments on the issue "Custom drafts waiting for approval", listing order, Printful id and hours waiting (⚠ past a day).
+- It closes the issue when none are left.
+
 ## Holds
 
 Some orders need a person, so the pipeline sends nothing to Printful and reports the reason (`reason_kind`) instead:
