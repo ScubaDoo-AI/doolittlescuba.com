@@ -128,12 +128,12 @@ Some orders need a person, so the pipeline sends nothing to Printful and reports
 - [x] Name fields on every name tee. The live theme's `product.personalized` template carries the "Personalize (names)" block; it reads the `personalize:1 / buddy / couple` tags.
   - The 39 regular tees already used it.
   - The **39 organic twins did not**: their template suffix was empty, so no name boxes showed. All 39 were set to `personalized` on 14 Nov, 05:50.
-- [ ] Name rules on the product page (Eric, 14 Nov). `shopify-theme/blocks/aquatic-personalize.liquid`:
+- [x] Name rules on the product page (Eric, 14 Nov). `shopify-theme/blocks/aquatic-personalize.liquid`:
   - **Missing names:** a name can't be missing. Every add-to-cart path is guarded with a note, and express checkout is hidden on name tees.
   - **Long names:** allowed up to 20 characters (one name) or 16 each (two names). The standard is 12 / 10.
     - Past the standard, the page explains the resize or two-line setting and what it can mean (smaller letters, a different line break, the joke sitting lower).
     - The buyer must tick to agree, which adds the property **Name fit**.
-  - **Waiting on:** write access to the live theme. The chat connector is refused on the published theme. Add `write_themes` + `read_themes` to the Doolittle Order Bot app, then run Actions → **Theme push** (dry run, then apply).
+  - **Live since 14 Nov, 06:25.** The Order Bot app V3 has `read_themes` + `write_themes`. Pushed with Actions → **Theme push** (run 43589832784) to the live theme "Horizon — Doolittle Scuba (Home Port map v2)". The checksum matches the repo file. The old block (3,409 chars) is in that run's `theme-backups` artifact.
 - [x] **Fit and flag (job):**
   - `aquatic_print.fit_report()` compares the buyer's names with a standard-length name.
     - Front shrinks to 80 %, then the line wraps to two lines instead. Back wraps and shrinks.
