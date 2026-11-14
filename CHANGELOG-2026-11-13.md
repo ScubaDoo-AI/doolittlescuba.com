@@ -79,3 +79,22 @@ Eric: *"check and render all mock ups for a dark desktop theme don't lose dark a
 
 ### ⚠️ TO DO — Eric, 21:57: "All item renders need to be revisited."
 Every product render (the dark re-renders above and the mockups they came from) needs a full review pass before launch — look at each product page in the dark theme, flag any edge halos, lost shadows, wrong crops or colour shifts, and redo those.
+
+## Automated custom shirts pipeline — phase 1 (13 Nov, late)
+Eric: *"Let's get the automated custom shirts pipeline up."*
+
+- **Approval and scope:**
+  - Approval is by draft: Eric approves every order.
+  - The three products are added one at a time, Make it yours tee first.
+  - Logo orders are held.
+- **What was built:**
+  - /custom/ has an **Add to cart** button: tier A/B variant, design in `_design`.
+  - `tools/custom_tee.py` renders the print files.
+  - `tools/custom_order.py` turns paid orders into Printful v2 drafts.
+  - `tools/custom_order_issues.py` opens one issue per draft or hold.
+  - Workflow **Custom orders** runs every 15 min.
+- **Eric's rules:**
+  - When the chest is a custom logo, the DS mark goes on the sleeve and there is no shark signature.
+  - Logo shirts are aimed at wholesale and dive shops. /custom/ shows "Wholesale quote" and emails sales@ instead of offering Add to cart.
+- **First dry run:** run 43556984598, OK (no custom orders in 60 days). Before it, scipy was added to the workflow.
+- **Details:** in `CUSTOM-ORDERS.md`, including the pre-launch checklist.
