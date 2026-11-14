@@ -43,7 +43,7 @@ Eric asked for a sample order of everything still unproofed, then: small sizes, 
   - Options Colour × Size, SKUs `DS-MRK-{CHA|WND}-{BLK|NVY}-<size>`.
   - 8 / 10 images. Each variant now shows its colour's worn shot.
   - Collection **Jackets** (493648412858, tag `jacket`).
-  - **Still DRAFT and not on the Online Store channel.** Activating and publishing them was refused by the session's permission check and is left for Eric's go.
+  - Active and on the Online Store channel since 20:17 (see below).
 - **Printful:** linked 20 / 20 (run 43526121203). Printful set 9,999 on every variant.
 - 19:20 — **Organic relink for the lowered chest:** the organic link run (43487195817) checked out before `eb4c1c5`, so the organic Signature and Certified-ish tees went to Printful with the old 0.5 in chest. Organic Off-World already had the full-area left-chest fronts (`c0395cb`).
   - Re-sent with `force`: run 43532402942, lines organic, sku = the 34 `DS-<code>-T` prefixes, 408 variants expected.
@@ -51,3 +51,12 @@ Eric asked for a sample order of everything still unproofed, then: small sizes, 
   - Status was set by the bot app (`organic_import.py --activate`, Organic import workflow run 43540346270).
   - All 244 are published to the **Online Store** channel (`publicationUpdate` in batches of 50), as are the collections **The organic line** and **Jackets**.
   - The storefront password is still on (checked), so nothing is public — the same state as the 12 Nov pass. Launch is still Online Store → Preferences → remove the password.
+
+## Shopify storefront hero (13 Nov, 18:06–20:20, chat session)
+- **Live work is on "Horizon — Doolittle Scuba"** (`gid://shopify/OnlineStoreTheme/160959234234`, unpublished — the project's working theme with `ds-brand.css`, the organic cart script, the Aquatic personalize block). Committed 20:20 (theme commit b466d77):
+  - Hero image `hero-pair-blue.jpg` → Eric + Allie underwater selfie `shopify://shop_images/GOPR0150_Copy_Copy.jpg` (in Files since 13 Nov).
+  - New `assets/ds-horizontal-on-black.svg` — the Project's official `DS_horizontal_on-black_7p28in.svg` (white + red #C82026, Almendra outlined), unchanged.
+  - New first block in the hero, `brand_overlay` (custom-liquid, "Brand overlay"): the lockup in the open water top-left, desktop `clamp(384px,54vw,832px)`, phones centred top `min(56vw,224px)`, soft navy drop shadow. A small script moves it into `.hero__media-wrapper` so it sits on the photo even where the hero CSS doesn't load (Shopify's screenshot tool and the Shopify app preview render hero content below the image).
+  - Hero copy, button, overlay colour and height unchanged ("Dive art, drawn by hand." / subhead / "See the shirts").
+- **"Horizon – Dive Hero"** (161576157370) was a first pass duplicated from the stock live Horizon; it lacks the Doolittle Scuba theme's files and is **superseded — don't publish it**; delete it in Online Store → Themes when convenient.
+- Open: collection order on the home page (checklist: Signature Series · Certified-ish · Hats; the product list currently shows "all"); an organic-line mention in the hero; header logo size check on a real device.
