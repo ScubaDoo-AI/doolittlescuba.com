@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
         with: { python-version: '3.12' }
-      - run: pip install pillow numpy
+      - run: pip install pillow numpy scipy scikit-image
       - name: Custom orders
         env:
           SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
