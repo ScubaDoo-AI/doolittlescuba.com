@@ -315,3 +315,4 @@ Eric (02:02): *"Set product pages with combined mockup"* and *"Add the pair butt
   - Anorak Black 11008–11012 and Navy 11014–11018; windbreaker Black 16424–16428 and Navy 16434–16438.
   - Each carries the left-chest file plus the white / red thread options.
 - **Sample:** Eric added a Champion anorak to the sample order (13 Nov, 15:46 ET).
+- **20:17 — Active and on the Online Store** with the 242 organic products (Eric: "Activate the jackets - organics as well"). Each variant shows its colour's worn shot. Jackets is in the site nav. The storefront password is still on.

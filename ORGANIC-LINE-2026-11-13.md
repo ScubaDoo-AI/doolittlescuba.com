@@ -105,3 +105,6 @@ Caps: Black → Black · Dark Navy, Royal Blue → Pacific · Dark Grey → Char
   - Signature 168, Certified-ish 240, 1N73LL1G3NC3 216, Off-World 360. The placement fix held.
   - With the first run's 140, **all 1,124 linkable organic variants are linked**.
   - The 234 personalized Aquatic organic sizes were already set to ignored at Printful (nothing to send); they're made per order by `aquatic_order.py`.
+
+## 13 Nov 20:17 — Active
+- All 242 organic products are ACTIVE and published to the Online Store, with the collection The organic line (Eric's go). The storefront password is on, so nothing is public yet. The cart converter goes live when the "Horizon — Doolittle Scuba" theme is published.
