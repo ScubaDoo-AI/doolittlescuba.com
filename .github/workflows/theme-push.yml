@@ -1,0 +1,43 @@
+name: Theme push
+# Writes files from shopify-theme/ to the live Shopify theme (tools/theme_push.py) through the Doolittle Order Bot app.
+# Needs write_themes (and read_themes) on the app. Dry run first; the theme's old copies are kept as an artifact.
+on:
+  workflow_dispatch:
+    inputs:
+      files:
+        description: 'Theme paths, space separated (e.g. blocks/aquatic-personalize.liquid)'
+        required: true
+        default: 'blocks/aquatic-personalize.liquid'
+      apply:
+        description: 'Apply (write to the theme). Off = dry run'
+        type: boolean
+        default: false
+      theme:
+        description: 'Numeric theme id (empty = the live theme)'
+        default: ''
+permissions:
+  contents: read
+concurrency: theme-push
+jobs:
+  push:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - run: pip install pillow numpy scipy
+      - name: Push
+        env:
+          SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
+          SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
+          FILES: ${{ inputs.files }}
+          APPLY: ${{ inputs.apply }}
+          THEME: ${{ inputs.theme }}
+        run: |
+          [[ "$FILES" =~ ^[A-Za-z0-9_./\ -]+$ && "$THEME" =~ ^[0-9]*$ ]] || { echo "::error::bad input"; exit 1; }
+          A=(); [ "$APPLY" = "true" ] && A+=(--apply); [ -n "$THEME" ] && A+=(--theme "$THEME")
+          python tools/theme_push.py "${A[@]}" $FILES
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: theme-backups, path: theme-backups, if-no-files-found: ignore, retention-days: 30 }

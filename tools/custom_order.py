@@ -118,11 +118,16 @@ def handle(o, dry):
             try:
                 if not l['names'][0] or (d['names'] == 2 and not l['names'][1]): raise T.Hold('missing name(s) on the line')
                 nm = AO.AP.names_for(d, l['names'][0], l['names'][1] if d['names'] == 2 else None)
+                fit = AO.AP.fit_report(d, nm)
+                if fit['hold']: raise T.Hold('name problem: too long to fit even at the smallest lettering (hand edit)')
             except SystemExit as e: h = T.Hold(f'name problem: {e}')
             except T.Hold as e: h = e
             else:
-                h = None; l['names'] = list(nm.values()); plans.append((l, None))
-                rep['lines'].append(dict(size=l['size'], qty=l['qty'], summary=f'Aquatic {l["code"]}{" organic" if l["organic"] else ""} · {d["name"]} · {len(nm)} name(s)'))
+                h = None; l['names'] = list(nm.values()); l['edits'] = fit['edits']; plans.append((l, None))
+                if fit['edits']: rep.setdefault('design_edits', []).append(f'line {i + 1}: ' + '; '.join(fit['edits']))
+                rep['lines'].append(dict(size=l['size'], qty=l['qty'], edits=fit['edits'],
+                                         summary=f'Aquatic {l["code"]}{" organic" if l["organic"] else ""} · {d["name"]} · {len(nm)} name(s)'
+                                         + (' · DESIGN EDIT: ' + '; '.join(fit['edits']) if fit['edits'] else '')))
             if h:
                 holds.append(f'{l["name"]}: {h}'); rep['lines'].append(dict(size=l['size'], qty=l['qty'], hold=str(h)))
             continue
@@ -178,6 +183,7 @@ def handle(o, dry):
             rep['lines'][n]['files'] = {'front': fp, 'back': bp}
             fu, bu = ('file://' + fp, 'file://' + bp) if dry else AO.upload([fp, bp], f'{o["name"]} aquatic tee {n + 1}')
             it = AO.item(dict(code=l['code'], size=l['size'], organic=l['organic'], qty=l['qty'], names=l['names'], external_id=l['line_id']), fu, bu)
+            if l.get('edits'): it['name'] = '⚠ DESIGN EDIT · ' + it['name']   # seen in Printful while approving the draft
             it['retail_price'] = f'{float(l["price"]):.2f}'; items.append(it); continue
         files = T.render(p, os.path.join(out, f'line{n + 1}'))
         rep['lines'][n]['files'] = files
@@ -217,7 +223,7 @@ def main():
         if '--verbose' in a:
             for l in r['lines']: print('   ', l.get('summary') or ('HOLD ' + l.get('hold', '')))
     if not reps: print('no custom orders in the window')
-    json.dump([{k: v for k, v in r.items() if k in ('order', 'status', 'printful_id', 'external_id', 'costs', 'dashboard', 'reason_kind', 'fee_due', 'fee_paid', 'fee_refund')}
+    json.dump([{k: v for k, v in r.items() if k in ('order', 'status', 'printful_id', 'external_id', 'costs', 'dashboard', 'reason_kind', 'fee_due', 'fee_paid', 'fee_refund', 'design_edits')}
                | {'lines': len(r['lines'])} for r in reps], open(opt('--report', 'custom_orders.json'), 'w'), indent=1, default=str)
 
 

@@ -1,0 +1,154 @@
+{%- comment -%}
+  Doolittle Scuba — name fields for personalized tees (Aquatic Comic, regular and organic).
+  Shows on products tagged personalize:1 (one name), personalize:buddy (two divers) or personalize:couple (husband and wife).
+  The inputs belong to the buy-buttons form of the same section (form attribute), so the names travel as line item
+  properties on the order and show in Shopify admin, the order email and Printful.
+
+  Eric, 14 Nov:
+  - A missing name can't go to the cart. Every add-to-cart path on the page is guarded, the express checkout buttons
+    are hidden (they skip the names), and the order job holds any order that still arrives without one.
+  - A long name is allowed up to a hard cap (20 for one name, 16 each for two). Past the standard length (12 / 10)
+    the page explains that the lettering is resized or the line is set on two lines, and what that can mean. The buyer
+    ticks to agree, which adds "Name fit" to the order. The job then marks the Printful draft
+    "⚠ DESIGN EDIT" for approval.
+{%- endcomment -%}
+{%- liquid
+  assign product = closest.product
+  assign form_id = 'BuyButtons-ProductForm-' | append: section.id
+  assign mode = ''
+  if product.tags contains 'personalize:1'
+    assign mode = 'one'
+  elsif product.tags contains 'personalize:buddy'
+    assign mode = 'buddy'
+  elsif product.tags contains 'personalize:couple'
+    assign mode = 'couple'
+  endif
+  if mode == 'one'
+    assign std = 12
+    assign cap = 20
+  else
+    assign std = 10
+    assign cap = 16
+  endif
+-%}
+{%- if mode != '' -%}
+  <div class="ds-personalize" id="ds-personalize-{{ section.id }}" data-form="{{ form_id }}" data-std="{{ std }}" data-cap="{{ cap }}" {{ block.shopify_attributes }}>
+    <p class="ds-personalize__title">{{ block.settings.heading }}</p>
+    {%- if mode == 'one' -%}
+      <label class="ds-personalize__field">
+        <span>Name on the shirt <small class="ds-personalize__count" aria-live="polite"></small></span>
+        <input type="text" name="properties[Name on the shirt]" form="{{ form_id }}" maxlength="{{ cap }}" required autocomplete="off" placeholder="Up to {{ std }} characters fits best" data-ds-name>
+      </label>
+    {%- else -%}
+      {%- if mode == 'buddy' -%}
+        {%- assign l1 = 'Diver 1' -%}{%- assign l2 = 'Diver 2' -%}
+      {%- else -%}
+        {%- assign l1 = 'Husband' -%}{%- assign l2 = 'Wife' -%}
+      {%- endif -%}
+      <div class="ds-personalize__pair">
+        <label class="ds-personalize__field">
+          <span>{{ l1 }} <small class="ds-personalize__count" aria-live="polite"></small></span>
+          <input type="text" name="properties[{{ l1 }}]" form="{{ form_id }}" maxlength="{{ cap }}" required autocomplete="off" placeholder="Up to {{ std }} characters fits best" data-ds-name>
+        </label>
+        <label class="ds-personalize__field">
+          <span>{{ l2 }} <small class="ds-personalize__count" aria-live="polite"></small></span>
+          <input type="text" name="properties[{{ l2 }}]" form="{{ form_id }}" maxlength="{{ cap }}" required autocomplete="off" placeholder="Up to {{ std }} characters fits best" data-ds-name>
+        </label>
+      </div>
+    {%- endif -%}
+
+    <div class="ds-personalize__fit" hidden>
+      <p><strong>Longer than {{ std }} characters{% if mode != 'one' %} for a name{% endif %}?</strong> We'll still print it. To fit the design we resize the lettering, or set the name line on two lines instead of one.</p>
+      <p>What that can mean: smaller letters that are harder to read from a distance, a line break different from the photo, and the joke sitting a little lower on the shirt. We check every resized design by hand before it prints, and if it can't be made to read well we'll email you before making it.</p>
+      <label class="ds-personalize__ack">
+        <input type="checkbox" name="properties[Name fit]" value="Resized to fit (customer agreed)" form="{{ form_id }}" data-ds-ack>
+        <span>I understand my name will be resized or set on two lines to fit.</span>
+      </label>
+    </div>
+
+    <p class="ds-personalize__error" role="alert" hidden></p>
+    <p class="ds-personalize__note">{{ block.settings.note }} {{ std }} characters fits the design as drawn; up to {{ cap }} is fitted for you.{% if mode != 'one' %} {{ block.settings.pair_note }}{% endif %}</p>
+  </div>
+  <style>
+    .ds-personalize{display:flex;flex-direction:column;gap:10px;width:100%}
+    .ds-personalize__title{margin:0;font-weight:600}
+    .ds-personalize__pair{display:flex;flex-wrap:wrap;gap:12px}
+    .ds-personalize__pair .ds-personalize__field{flex:1 1 180px}
+    .ds-personalize__field{display:flex;flex-direction:column;gap:4px;font-size:.9em}
+    .ds-personalize__field input{min-height:44px;padding:0 12px;border:1px solid rgb(var(--color-foreground-rgb,0 0 0) / .45);border-radius:4px;background:transparent;color:inherit;font:inherit}
+    .ds-personalize__field input[aria-invalid="true"]{border-color:#C8202A;box-shadow:0 0 0 1px #C8202A}
+    .ds-personalize__count{font-weight:400;opacity:.75}
+    .ds-personalize__count.is-long{color:#E8A33A;opacity:1}
+    .ds-personalize__fit{border:1px solid #E8A33A;border-radius:6px;padding:10px 12px;font-size:.85em;display:flex;flex-direction:column;gap:6px}
+    .ds-personalize__fit p{margin:0}
+    .ds-personalize__ack{display:flex;gap:8px;align-items:flex-start;font-weight:600}
+    .ds-personalize__ack input{margin-top:3px;min-width:18px;min-height:18px}
+    .ds-personalize__error{margin:0;color:#FF6B6B;font-weight:600;font-size:.9em}
+    .ds-personalize__note{margin:0;font-size:.85em;opacity:.8}
+    .ds-personalize [hidden]{display:none!important}
+    /* express checkout skips the name fields, so it is off on name tees */
+    shopify-accelerated-checkout, shopify-accelerated-checkout-cart, .shopify-payment-button, [data-shopify="payment-button"]{display:none!important}
+  </style>
+  <script>
+    (function () {
+      var box = document.getElementById('ds-personalize-{{ section.id }}');
+      if (!box || box.dataset.ready) return; box.dataset.ready = '1';
+      var std = +box.dataset.std, cap = +box.dataset.cap, formId = box.dataset.form;
+      var names = [].slice.call(box.querySelectorAll('[data-ds-name]'));
+      var fit = box.querySelector('.ds-personalize__fit'), ack = box.querySelector('[data-ds-ack]');
+      var err = box.querySelector('.ds-personalize__error');
+      function clean(v) { return (v || '').replace(/\s+/g, ' ').trim(); }
+      function long() { return names.some(function (i) { return clean(i.value).length > std; }); }
+      function update() {
+        names.forEach(function (i) {
+          var n = clean(i.value).length, c = i.closest('label').querySelector('.ds-personalize__count');
+          c.textContent = n ? n + ' / ' + std : ''; c.classList.toggle('is-long', n > std);
+          if (n) i.removeAttribute('aria-invalid');
+        });
+        var l = long(); fit.hidden = !l; ack.required = l; ack.disabled = !l;   // disabled: not sent when not needed
+        if (!l) ack.checked = false;
+        if (!err.hidden && problem() === '') err.hidden = true;
+      }
+      function problem() {
+        var empty = names.filter(function (i) { return !clean(i.value); });
+        if (empty.length) return names.length > 1 ? 'Type both names before adding the shirt to your cart: they are printed on it.' : 'Type the name to print before adding the shirt to your cart.';
+        if (long() && !ack.checked) return 'One name is longer than ' + std + ' characters: tick the box to agree to the resize, or shorten it.';
+        return '';
+      }
+      function guard(e) {
+        var p = problem(); if (!p) return true;
+        e.preventDefault(); e.stopPropagation(); if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+        err.textContent = p; err.hidden = false;
+        var first = names.filter(function (i) { return !clean(i.value); })[0];
+        if (first) { first.setAttribute('aria-invalid', 'true'); first.focus(); } else if (long() && !ack.checked) ack.focus();
+        box.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        return false;
+      }
+      names.forEach(function (i) { i.addEventListener('input', update); i.addEventListener('blur', function () { i.value = clean(i.value); update(); }); });
+      ack.addEventListener('change', update);
+      // every way the page can add to cart: the form's submit, the main and the sticky add-to-cart buttons
+      document.addEventListener('submit', function (e) { if (e.target && e.target.id === formId) guard(e); }, true);
+      document.addEventListener('click', function (e) {
+        var b = e.target.closest && e.target.closest('button, [type="submit"]'); if (!b) return;
+        var f = b.form || b.closest('form');
+        var ours = (f && f.id === formId) || b.getAttribute('form') === formId ||
+                   !!b.closest('sticky-add-to-cart, .sticky-add-to-cart, [data-sticky-add-to-cart]');   // not other products' quick-add
+        if (ours && (b.name === 'add' || b.type === 'submit' || b.closest('add-to-cart-component, sticky-add-to-cart, .sticky-add-to-cart'))) guard(e);
+      }, true);
+      update();
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Personalize (names)",
+  "tag": null,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Make it yours" },
+    { "type": "textarea", "id": "note", "label": "Note", "default": "Printed exactly as you type it, in the joke on the chest and on the back." },
+    { "type": "textarea", "id": "pair_note", "label": "Note for two names", "default": "Made as a matching pair: add one shirt for each of you, with the same two names." }
+  ],
+  "presets": [ { "name": "Personalize (names)", "category": "Product" } ]
+}
+{% endschema %}

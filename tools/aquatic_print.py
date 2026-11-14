@@ -50,6 +50,13 @@ def fill_names(text, names):
     return t
 
 
+STD = {1: 12, 2: 10}      # the length the layout is drawn for (one name / each of two)
+CAP = {1: 20, 2: 16}      # the most the page accepts: longer than STD is fitted (smaller, or the line wraps) and flagged
+FLOOR = 0.80              # front lettering below 80 % of its size wraps onto two lines instead of shrinking further
+MIN_SCALE = 0.60
+REF = {1: 'Alexanderson', 2: 'Alexandria'}   # standard-length reference names (12 / 10) for the fit check          # never smaller than this on the front or the back: below it, hold for a hand edit
+
+
 def clean_name(s, maxlen):
     s = re.sub(r'\s+', ' ', s.strip()).replace("'", '’').replace('"', '')
     if not s: raise SystemExit('empty name')
@@ -174,9 +181,15 @@ def save(im, path):
 def front(text):
     s = FRONT; lines = text.split('\n'); scale = 1.0
     placed, widest, bh = layout(lines, s, scale, wrap=False)
-    lim = s['maxw'] * DPI * SS
+    lim = s['maxw'] * DPI * SS; wrapped = False; rows0 = len(placed)
     if widest > lim:
-        scale = lim / widest * 0.995; placed, widest, bh = layout(lines, s, scale, wrap=False)
+        scale = lim / widest * 0.995
+        if scale < FLOOR:          # a long name: keep the letters readable, let the line wrap (text reorientation)
+            scale = 1.0; wrapped = True; placed, widest, bh = layout(lines, s, scale, wrap=True)
+            while widest > lim and scale > MIN_SCALE:
+                scale *= 0.97; placed, widest, bh = layout(lines, s, scale, wrap=True)
+        else:
+            placed, widest, bh = layout(lines, s, scale, wrap=False)
     mh = int(round(s['mark_h'] * DPI)); mw_, mr_ = mark_masks(mh)
     cx = s['cx'] * DPI; top = s['top'] * DPI
     white = np.zeros((H, W), bool); red = np.zeros((H, W), bool)
@@ -186,7 +199,8 @@ def front(text):
     wm, rm = draw(placed, cx * SS, ty, (W * SS, H * SS))
     white |= binarise(wm); red |= binarise(rm)
     white, red = op25(white), op25(red)
-    return compose(white, red), dict(scale=round(scale, 3), width_in=round(max(widest / SS, mw_.shape[1]) / DPI, 2))
+    return compose(white, red), dict(scale=round(scale, 3), width_in=round(max(widest / SS, mw_.shape[1]) / DPI, 2),
+                                     wrapped=wrapped and len(placed) > rows0, rows=len(placed))
 
 
 def back(text):
@@ -202,9 +216,26 @@ def back(text):
 def names_for(d, n1=None, n2=None):
     g = d['code'][0]; smp = D['sample']
     if d['names'] == 0: return {}
-    if d['names'] == 1: return {'N': clean_name(n1 or smp['N'], 12)}
+    if d['names'] == 1: return {'N': clean_name(n1 or smp['N'], CAP[1])}
     k1, k2 = ('A', 'B') if g == 'B' else ('H', 'W')
-    return {k1: clean_name(n1 or smp[k1], 10), k2: clean_name(n2 or smp[k2], 10)}
+    return {k1: clean_name(n1 or smp[k1], CAP[2]), k2: clean_name(n2 or smp[k2], CAP[2])}
+
+
+def fit_report(d, names):
+    """How a set of names fits this design: what had to change from the standard layout (empty = nothing).
+    Used to flag a design edit for approval. Renders front and back once (the same work build() does)."""
+    std = STD[1 if d['names'] == 1 else 2]; edits = []
+    long = [v for v in names.values() if len(v) > std]
+    if long: edits.append(f'{len(long)} name(s) over {std} characters')
+    _, fi = front(fill_names(d['front'], names)); _, bi = back(fill_names(d['back'], names))
+    ref = {k: REF[1 if d['names'] == 1 else 2] for k in names}      # the longest name the layout is drawn for
+    _, f0 = front(fill_names(d['front'], ref)); _, b0 = back(fill_names(d['back'], ref))
+    if fi['wrapped']: edits.append(f'front line wrapped onto {fi["rows"]} lines (standard: {f0["rows"]})')
+    elif fi['scale'] < f0['scale'] - 0.005: edits.append(f'front lettering {round(fi["scale"] * 100)} % (standard {round(f0["scale"] * 100)} %)')
+    if bi['rows'] > b0['rows']: edits.append(f'back runs {bi["rows"]} lines (standard: {b0["rows"]})')
+    if bi['scale'] < b0['scale'] - 0.005: edits.append(f'back lettering {round(bi["scale"] * 100)} % (standard {round(b0["scale"] * 100)} %)')
+    hold = fi['scale'] < MIN_SCALE + 0.001 or bi['scale'] < MIN_SCALE + 0.001
+    return dict(edits=edits, hold=hold, front=fi, back=bi)
 
 
 def build(d, out, names, tag=''):
