@@ -66,3 +66,14 @@ Eric asked for a sample order of everything still unproofed, then: small sizes, 
   - Hero copy, button, overlay colour and height unchanged ("Dive art, drawn by hand." / subhead / "See the shirts").
 - **"Horizon – Dive Hero"** (161576157370) was a first pass duplicated from the stock live Horizon; it lacks the Doolittle Scuba theme's files and is **superseded — don't publish it**; delete it in Online Store → Themes when convenient.
 - Open: collection order on the home page (checklist: Signature Series · Certified-ish · Hats; the product list currently shows "all"); an organic-line mention in the hero; header logo size check on a real device.
+
+## Product images on dark backgrounds (13 Nov, 21:00–22:10, chat session)
+Eric: *"check and render all mock ups for a dark desktop theme don't lose dark apparel on dark backgrounds"* → chose **replace in place**.
+- **Scope:** 1,297 product images checked; **1,020 re-rendered** (528 products) — the light studio background swapped for a navy spotlight (#3E557E centre → #162645 edge) so black/navy apparel keeps a visible edge on the #0E1B33 theme. Shadows kept (multiply ratio). White/light organic tees used their regular-line sibling's mask; on-model light shirts used rembg (u2net_human_seg).
+- **Left as is (277):** print-file previews and sticker-pack sheets on white (181), images already on dark or photographic backgrounds (95), 1 noisy light image.
+- **Method:** each image swapped with `fileUpdate(originalSource)` on its existing MediaImage, so URL, position and alt text are unchanged. (`bulkOperationRunMutation` is blocked by the Shopify connector; done as 11 batches of ≤100.) **Verified:** all 1,020 live CDN images compared to the local renders — 0 mismatches.
+- **Undo:** originals backed up in Shopify Files as `ds-product-images-light-originals-2026-11-13-part1/2/3.zip` (GenericFile 47438979760314 / …793082 / …825850; 18.5 + 18.6 + 10.5 MB). Restore = `fileUpdate` each MediaImage from its original in the zip.
+- Known flaw: one white Black Bart organic back has a small notch at the hem.
+
+### ⚠️ TO DO — Eric, 21:57: "All item renders need to be revisited."
+Every product render (the dark re-renders above and the mockups they came from) needs a full review pass before launch — look at each product page in the dark theme, flag any edge halos, lost shadows, wrong crops or colour shifts, and redo those.
