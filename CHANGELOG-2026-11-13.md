@@ -45,3 +45,5 @@ Eric asked for a sample order of everything still unproofed, then: small sizes, 
   - Collection **Jackets** (493648412858, tag `jacket`).
   - **Still DRAFT and not on the Online Store channel.** Activating and publishing them was refused by the session's permission check and is left for Eric's go.
 - **Printful:** linked 20 / 20 (run 43526121203). Printful set 9,999 on every variant.
+- 19:20 — **Organic relink for the lowered chest:** the organic link run (43487195817) checked out before `eb4c1c5`, so the organic Signature and Certified-ish tees went to Printful with the old 0.5 in chest. Organic Off-World already had the full-area left-chest fronts (`c0395cb`).
+  - Re-sent with `force`: run 43532402942, lines organic, sku = the 34 `DS-<code>-T` prefixes, 408 variants expected.
