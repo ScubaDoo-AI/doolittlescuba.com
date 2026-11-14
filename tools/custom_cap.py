@@ -5,7 +5,8 @@ The design is the page's cap query string: colour, cf (front), site, cs (side), 
 Every element that already exists as a catalog cap file is sent as THAT file (Shopify CDN URL), so Printful reuses the
 digitized stitch file and charges nothing new:
   front  site block → the site cap's front file · dsmark / seal / stack / wordmark → The Mark / Seal / Stack / Wordmark fronts
-  side   dsmark → the heavy DS mark side file (0.92 x 1.00 in) · seal → the seal fitted 1.00 in tall (ours: digitized once)
+  side   dsmark → the heavy DS mark side file (0.92 x 1.00 in): the preferred brand spot, and the only side option
+         (Eric, 14 Nov: no seal on the side; every custom cap carries Doolittle Scuba branding)
   back   tagline → DO A LITTLE over SCUBA · dsmark → the side DS mark file
 Only "Your line" makes a NEW stitch file, so only it carries the digitization fee (Eric, 14 Nov): Printful's charge
 ($6.50 for the first new file, $2.95 for each further one) + $0.50, ONCE per design however many caps — Shopify product
@@ -117,9 +118,6 @@ def plan(q, size='LXL'):
     # side
     side = {'left': 'embroidery_left', 'right': 'embroidery_right'}.get(S['csp']) or (_ for _ in ()).throw(Hold(f'side {S["csp"]!r}'))
     if S['cs'] == 'dsmark': P[side] = catalog(PC.SIDE_FILE, [WHITE, RED])
-    elif S['cs'] == 'seal':
-        im = T.fit(T.ink_crop(T.asset('DS_seal_PF-front_2.25in_A2-bezel-star_white-red.png')), 2.0, 1.0)
-        P[side] = dict(kind='ours', image=im, threads=[WHITE, RED], name='side-seal')
     elif S['cs'] != 'none': raise Hold(f'side {S["cs"]!r}')
     # back
     if S['cb'] == 'tagline': P['embroidery_back'] = catalog(PC.BACK_FILE, [WHITE])
@@ -130,8 +128,8 @@ def plan(q, size='LXL'):
         if im is None: raise Hold('back line too long to stitch (keep it to about 20 characters)')
         P['embroidery_back'] = dict(kind='new', image=im, threads=[WHITE], name='back-line')
     elif S['cb'] != 'none': raise Hold(f'back {S["cb"]!r}')
-    # every cap carries the DS mark (the page enforces it too)
-    if not any(S[k] in ('dsmark', 'seal', 'stack') for k in ('cf', 'cs', 'cb')): raise Hold('no DS mark on the cap')
+    # every custom cap carries Doolittle Scuba branding: a DS front (mark, seal, stack, wordmark) or the DS mark (the page enforces it too)
+    if not (S['cf'] in MARK_FRONT or S['cs'] == 'dsmark' or S['cb'] == 'dsmark'): raise Hold('no Doolittle Scuba branding on the cap')
     if not P: raise Hold('empty cap')
     colour = COLOURS[S['colour']]
     n_new = sum(1 for v in P.values() if v['kind'] == 'new')
@@ -147,7 +145,7 @@ def position(k, im):
 
 
 def render(p, out):
-    """Write the files that are not catalog files (new text, our side seal) → {placement: path}."""
+    """Write the files that are not catalog files (new text) → {placement: path}."""
     os.makedirs(out, exist_ok=True); files = {}
     for k, v in p['placements'].items():
         if v['kind'] == 'catalog': continue

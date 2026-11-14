@@ -125,3 +125,9 @@ Eric: *"Let's get the automated custom shirts pipeline up."*
 - **`custom_order.py`:** cap lines; a fee check (hold if missing, refund note if paid twice); shared uploads per design.
 - **Workflow:** new `catalog` mode (Printful catalog facts only).
 - Details in `CUSTOM-ORDERS.md`.
+- 00:45 (14 Nov) — Eric: "No seal on side of cap; all custom hats must carry a logo, branding colorway or the DS mark. DS mark on the side is preferred."
+  - **Side options:** /custom/ dropped the side Seal and the side "Your logo" options. The side is now the DS mark or none.
+  - **Branding rule:** every cap needs a DS front (Mark / Seal / Stack / Wordmark) or the DS mark. If a cap has neither, the DS mark goes on the side.
+  - **Logo caps:** a customer logo puts the DS mark on the side.
+  - **Old links:** links that carry `cs=seal` or `cs=logo` become the DS mark.
+  - **The job:** `custom_cap.py` lost the side seal and holds an unbranded cap.

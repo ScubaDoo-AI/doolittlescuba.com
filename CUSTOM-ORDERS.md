@@ -49,7 +49,13 @@ Eric's rule (14 Nov): pass the digitizing charge to the customer the first time 
   - the side DS mark;
   - the "DO A LITTLE / SCUBA" back;
   - a DS mark on the back (the side file).
-- A side **seal** is our own art. It is digitized once, at our cost, on its first order.
+
+**Cap branding (Eric, 14 Nov):**
+- Every custom cap carries Doolittle Scuba branding: a DS front (The Mark, Seal, Stack or Wordmark) or the DS mark.
+- **The DS mark on the side is preferred.** It is the default, and the page puts it there whenever branding is missing.
+- No seal on the side; the side is the DS mark or nothing.
+- A customer logo (front or back) always gets the DS mark on the side.
+- The job holds a cap with no branding.
 
 **Logo caps** stay a **wholesale quote by email**. The page and the quote state the logo's digitization (the same rule, once per design, and not again for a logo already digitized).
 
@@ -125,5 +131,4 @@ Some orders need a person, so the pipeline sends nothing to Printful and reports
 - [ ] First cap draft:
   - check that Printful places the catalog files as the synced caps do (position = file size, fitted to the area);
   - check whether reusing a catalog file's URL is charged digitization again. If it is, the fee rule needs a look.
-  - check the 1 in side seal's detail.
 - [ ] Make sure the Make it yours products' Printful sync variants are ignored. (The 39 Aquatic name tees are already ignored: `printful_link.py --only aquatic`.) If they aren't, Printful auto-imports a blank duplicate order.

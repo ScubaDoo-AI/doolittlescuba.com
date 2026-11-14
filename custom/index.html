@@ -329,7 +329,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
       </div>
       <div class="step" id="st-cside" data-for="cap" hidden>
         <div class="step-h"><span class="n"></span><h2>Side</h2><span class="sub">a small mark on a side panel</span></div>
-        <div class="row"><span class="lbl">Print</span><button type="button" class="chip on" data-cs="dsmark">DS mark</button><button type="button" class="chip" data-cs="seal">Seal</button><button type="button" class="chip" data-cs="logo" data-needs-logo disabled>Your logo</button><button type="button" class="chip" data-cs="none">None</button></div>
+        <div class="row"><span class="lbl">Print</span><button type="button" class="chip on" data-cs="dsmark">DS mark</button><button type="button" class="chip" data-cs="none">None</button></div>
         <div class="row"><span class="lbl">Which</span><button type="button" class="chip on" data-csp="left">Left side</button><button type="button" class="chip" data-csp="right">Right side</button></div>
       </div>
       <div class="step" id="st-cback" data-for="cap" hidden>
@@ -402,7 +402,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
     var q=new URLSearchParams(location.hash.slice(1)), keys=['product','colour','tab','back','bsize','chest','site','cpos','sleeve','spos','upper','text','font','tpos','view','cf','cs','csp','cb','ccert'];
     keys.forEach(function(k){ if(q.has(k)) S[k]=q.get(k); });
     if(S.chest==='logo') S.chest='site'; if(S.sleeve==='logo') S.sleeve='shark'; if(S.upper==='logo') S.upper='none'; if(S.cf==='logo') S.cf='site'; if(S.cs==='logo') S.cs='dsmark'; if(S.cb==='logo') S.cb='tagline';
-    if(S.cf==='shark') S.cf='dsmark'; if(S.cs==='shark') S.cs='dsmark'; if(S.cb==='shark') S.cb='dsmark';
+    if(S.cf==='shark') S.cf='dsmark'; if(S.cs==='shark'||S.cs==='seal'||S.cs==='logo') S.cs='dsmark'; if(S.cb==='shark') S.cb='dsmark';
     if(S.product!=='cap') S.product='shirt';
     if(S.back!=='none' && !byId[S.back]) S.back='black-bart'; if(byId[S.back]&&byId[S.back].ow) S.tab='offworld';
     if(!byId[S.site]) S.site='black-bart';
@@ -537,15 +537,18 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
     shrink($('#cap'));
   }
 
-  var DS={dsmark:1,seal:1,stack:1};   /* the seal and the stacked lockup carry the DS mark inside them */
+  var DS={dsmark:1,seal:1,stack:1};
+  var CAPBRAND={dsmark:1,seal:1,stack:1,wordmark:1};   /* cap fronts that are Doolittle Scuba branding */   /* the seal and the stacked lockup carry the DS mark inside them */
   function plateBack(){ return S.product!=='cap' && S.back!=='none' && !!(byId[S.back]&&byId[S.back].flag); }
   function ensureMark(){
     var note=$('#mark-note'); note.textContent='';
     if(S.product==='cap'){
-      if(DS[S.cf]||DS[S.cs]||DS[S.cb]) return;
-      if(S.cs==='none'){ S.cs='dsmark'; note.textContent='Every cap carries the DS mark: it went on the side.'; }
-      else if(S.cb==='none'){ S.cb='dsmark'; note.textContent='Every cap carries the DS mark: it went on the back.'; }
-      else { S.cs='dsmark'; note.textContent='Every cap carries the DS mark: the side is now the DS mark.'; }
+      /* Eric, 14 Nov: every custom cap carries Doolittle Scuba branding (a DS logo front or the DS mark); the side DS mark is
+         the preferred place, so it is the default and the fix. No seal on the side; a customer logo means the DS mark goes on the side. */
+      if(S.cs==='seal'||S.cs==='logo') S.cs='dsmark';
+      if((S.cf==='logo'||S.cb==='logo')&&S.cs!=='dsmark'){ S.cs='dsmark'; note.textContent='Your logo is on the cap, so the DS mark goes on the side.'; return; }
+      if(CAPBRAND[S.cf]||S.cs==='dsmark'||S.cb==='dsmark') return;
+      S.cs='dsmark'; note.textContent='Every cap carries Doolittle Scuba branding: the DS mark went on the side.';
       return;
     }
     /* the shark mark belongs to Signature Series shirts only (a plate on the back) */
@@ -624,7 +627,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
       L.push('Front: '+label(S.cf)); L.push('Side: '+label(S.cs)+(S.cs==='none'?'':', '+S.csp+' side')); L.push('Back: '+label(S.cb));
       if(S.text.trim()&&(S.cf==='line'||S.cb==='line')) L.push('Lettering: '+{hand:'hand-lettered',plain:'plain',mono:'mono'}[S.font]);
       if(S.logo) L.push('Logo: '+S.logo.name+' (attached to this email)');
-      L.push('Brand mark: '+(DS[S.cf]?label(S.cf)+' on the front':DS[S.cs]?label(S.cs)+' on the side':label(S.cb)+' on the back'));
+      L.push('Brand mark: '+(S.cs==='dsmark'?'DS mark on the side':CAPBRAND[S.cf]?label(S.cf)+' on the front':label(S.cb)+' on the back'));
       L.push('Sizes: '+(S.capqty>0?['SM','LXL'].filter(function(z){return S.capq[z]>0}).map(function(z){return (z==='SM'?'S/M':'L/XL')+' x '+S.capq[z]}).join(', '):'(not filled in yet)'));
       var cp=price();
       if(hasLogo()) L.push('Price: wholesale quote by quantity, plus the one-time embroidery digitization of the logo (the embroiderer\'s fee + $0.50, once per design: not charged again for a logo we have already digitized)');
@@ -655,7 +658,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
   /* ---------- the price ---------- */
   /* Catalog tee $42 ($45 in 2XL and 3XL), catalog site cap $35 (Flexfit 6277). Personalization, either product: +$5 for your design and colour, +$6 when a line of your own or your logo goes on it. */
   var PRICE={base:42,big:45,bigFrom:['2XL','3XL'],cap:35,tierA:5,tierB:6};
-  function hasLogo(){ return !!S.logo && (S.product==='cap' ? (S.cf==='logo'||S.cs==='logo'||S.cb==='logo') : (S.chest==='logo'||S.sleeve==='logo'||S.upper==='logo')); }
+  function hasLogo(){ return !!S.logo && (S.product==='cap' ? (S.cf==='logo'||S.cb==='logo') : (S.chest==='logo'||S.sleeve==='logo'||S.upper==='logo')); }
   function hasLine(){ return !!S.text.trim() && (S.product==='cap' ? (S.cf==='line'||S.cb==='line') : !!S.tpos); }
   function personal(){ return hasLogo()||hasLine(); }
   /* Embroidery digitization (Eric, 14 Nov): the embroiderer's fee ($6.50 first new file, $2.95 each further one) + $0.50, ONCE per design.
