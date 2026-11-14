@@ -7,7 +7,9 @@ Each run:
        Make it yours tee        SKU DS-MY[AB]-T-<size>, the design in the line property _design (set by /custom/'s Add to cart)
        personalized Aquatic tee SKU DS-AC[WRBCM]nn-TD(O)-<size>, the names in the line properties the product page collects
                                 ("Name on the shirt", "Diver 1"/"Diver 2", "Husband"/"Wife"); rendered by tools/aquatic_print.py
-     (the Make it yours cap joins this job next; see CUSTOM-ORDERS.md)
+       Make it yours cap        SKU DS-MY[AB]-C-(SM|LXL), _design as above; embroidered (tools/custom_cap.py)
+       digitization fee         SKU DS-DIGI-<n>, once per cap design with "Your line" (the page adds it): checked, not sent
+     (see CUSTOM-ORDERS.md)
   3. Skips any order Printful already has (external_id MY<order number>, or <order number> from a hand run of
      tools/aquatic_order.py), so a run can repeat safely.
   4. Builds the print files with tools/custom_tee.py, uploads them to Shopify Files (Printful takes files by URL),
@@ -29,8 +31,11 @@ import os, sys, re, json, time, tempfile, datetime
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import aquatic_order as AO
 import custom_tee as T
+import custom_cap as CAP
 
 MY_RE = re.compile(r'^DS-MY([AB])-T-(S|M|L|XL|2XL|3XL)$')
+CAP_RE = re.compile(r'^DS-MY([AB])-C-(SM|LXL)$')
+DIGI_RE = re.compile(r'^DS-DIGI-(\d)$')
 AREA = {'front': (12, 16), 'back': (12, 16), 'sleeve_left': (3.5, 4), 'sleeve_right': (3.5, 4)}
 
 ORDERS_Q = '''query($q: String!, $a: String) { orders(first: 50, after: $a, query: $q, sortKey: CREATED_AT, reverse: true) {
@@ -68,9 +73,18 @@ def custom_lines(o):
                           names=[n for n in AO.names_from(code, li['customAttributes'])], mockup='',
                           price=li['originalUnitPriceSet']['shopMoney']['amount'], line_id=li['id'].rsplit('/', 1)[-1], name=li['name']))
             continue
+        attrs = {x['key']: x['value'] for x in li['customAttributes']}
+        g = DIGI_RE.match(li['sku'] or '')
+        if g:
+            L.append(dict(kind='fee', n=int(g.group(1)), qty=li['quantity'], design=attrs.get('_design', ''),
+                          price=li['originalUnitPriceSet']['shopMoney']['amount'], name=li['name'])); continue
+        c = CAP_RE.match(li['sku'] or '')
+        if c:
+            L.append(dict(kind='cap', tier=c.group(1), size=c.group(2), qty=li['quantity'], design=attrs.get('_design', ''),
+                          mockup=attrs.get('Mockup', ''), price=li['originalUnitPriceSet']['shopMoney']['amount'],
+                          line_id=li['id'].rsplit('/', 1)[-1], name=li['name'])); continue
         m = MY_RE.match(li['sku'] or '')
         if not m: continue
-        attrs = {x['key']: x['value'] for x in li['customAttributes']}
         L.append(dict(kind='myt', tier=m.group(1), size=m.group(2), qty=li['quantity'], design=attrs.get('_design', ''),
                       mockup=attrs.get('Mockup', ''), price=li['originalUnitPriceSet']['shopMoney']['amount'],
                       line_id=li['id'].rsplit('/', 1)[-1], name=li['name']))
@@ -88,6 +102,7 @@ def recipient(o):
 def handle(o, dry):
     ext = 'MY' + re.sub(r'\D', '', o['name'])
     L = custom_lines(o)
+    fees = [l for l in L if l['kind'] == 'fee']; L = [l for l in L if l['kind'] != 'fee']
     if not L: return None
     rep = dict(order=o['name'], external_id=ext, lines=[], created=o['createdAt'])
     if o.get('cancelledAt'): return dict(rep, status='skipped', reason='order cancelled')
@@ -111,19 +126,53 @@ def handle(o, dry):
             if h:
                 holds.append(f'{l["name"]}: {h}'); rep['lines'].append(dict(size=l['size'], qty=l['qty'], hold=str(h)))
             continue
+        if l['kind'] == 'cap':
+            if not l['design']: holds.append(f'{l["name"]}: no design on the line (bought without the custom page?)'); continue
+            try:
+                p = CAP.plan(l['design'], l['size']); plans.append((l, p))
+                rep['lines'].append(dict(size=l['size'], qty=l['qty'], summary=CAP.summary(p), mockup=l['mockup']))
+            except T.Hold as h:
+                holds.append(f'{l["name"]}: {h}'); rep['lines'].append(dict(size=l['size'], qty=l['qty'], hold=str(h), mockup=l['mockup']))
+            continue
         if not l['design']: holds.append(f'{l["name"]}: no design on the line (bought without the custom page?)'); continue
         try:
             p = T.plan(l['design'], l['size']); plans.append((l, p))
             rep['lines'].append(dict(size=l['size'], qty=l['qty'], summary=T.summary(p), mockup=l['mockup']))
         except T.Hold as h:
             holds.append(f'{l["name"]}: {h}'); rep['lines'].append(dict(size=l['size'], qty=l['qty'], hold=str(h), mockup=l['mockup']))
+    # digitization: one fee per cap design with new stitch files, however many caps (Eric, 14 Nov)
+    due = {}
+    for l, p in plans:
+        if l['kind'] == 'cap' and p['new_files']: due[p['fee_key']] = p
+    paid = {}
+    for f in fees:
+        try: k = CAP.plan(f['design'], 'SM')['fee_key']
+        except T.Hold: k = '?'
+        paid.setdefault(k, []).append(f)
+    rep['fee_due'] = round(sum(p['fee'] for p in due.values()), 2)
+    rep['fee_paid'] = round(sum(float(f['price']) * f['qty'] for v in paid.values() for f in v), 2)
+    for k, p in due.items():
+        if sum(float(f['price']) * f['qty'] for f in paid.get(k, [])) + 0.005 < p['fee']:
+            holds.append(f'digitization fee not paid for a cap design (${p["fee"]:.2f} due)')
+    rep['fee_refund'] = round(max(0.0, rep['fee_paid'] - rep['fee_due']), 2)   # e.g. the same design added to the cart twice
     if not to: holds.append('no shipping address on the order (or the app can\'t see it: protected customer data)')
     if holds:
-        kind = 'logo' if any('logo' in h for h in holds) else 'name' if any(('missing name' in h or 'name problem' in h) for h in holds) else 'home-port' if any('Home Port' in h for h in holds) else \
+        kind = 'logo' if any('logo' in h for h in holds) else 'name' if any(('missing name' in h or 'name problem' in h) for h in holds) else \
+               'fee' if any('digitization fee' in h for h in holds) else 'cap-text' if any('to stitch' in h for h in holds) else 'home-port' if any('Home Port' in h for h in holds) else \
                'no-address' if any('shipping address' in h for h in holds) else 'no-design' if any('no design' in h for h in holds) else 'other'
         return dict(rep, status='held', reason='; '.join(holds), reason_kind=kind)
-    out = os.path.join(tempfile.gettempdir(), 'custom_orders', ext); items = []
+    out = os.path.join(tempfile.gettempdir(), 'custom_orders', ext); items = []; cap_urls = {}
     for n, (l, p) in enumerate(plans):
+        if l['kind'] == 'cap':
+            # one stitch file per design: the S/M and L/XL lines of one design share the same uploaded files,
+            # so Printful digitizes (and charges) it once
+            dk = (p['fee_key'], p['design']['cs'], p['design']['csp'])
+            if dk not in cap_urls:
+                files = CAP.render(p, os.path.join(out, f'line{n + 1}'))
+                cap_urls[dk] = ({k: 'file://' + v for k, v in files.items()} if dry else dict(zip(files, AO.upload(list(files.values()), f'{o["name"]} custom cap {n + 1}')))) if files else {}
+            urls = cap_urls[dk]; rep['lines'][n]['files'] = urls
+            items.append(CAP.item(p, urls, l['qty'], l['price'], l['line_id'], f'Make it yours cap · {p["colour"]} · {l["size"]}'))
+            continue
         if l['kind'] == 'ac':
             _, fp, bp = AO.render(dict(code=l['code'], names=l['names']), os.path.join(out, f'line{n + 1}'))
             rep['lines'][n]['files'] = {'front': fp, 'back': bp}
@@ -168,7 +217,7 @@ def main():
         if '--verbose' in a:
             for l in r['lines']: print('   ', l.get('summary') or ('HOLD ' + l.get('hold', '')))
     if not reps: print('no custom orders in the window')
-    json.dump([{k: v for k, v in r.items() if k in ('order', 'status', 'printful_id', 'external_id', 'costs', 'dashboard', 'reason_kind')}
+    json.dump([{k: v for k, v in r.items() if k in ('order', 'status', 'printful_id', 'external_id', 'costs', 'dashboard', 'reason_kind', 'fee_due', 'fee_paid', 'fee_refund')}
                | {'lines': len(r['lines'])} for r in reps], open(opt('--report', 'custom_orders.json'), 'w'), indent=1, default=str)
 
 

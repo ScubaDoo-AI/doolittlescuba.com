@@ -108,3 +108,20 @@ Eric: *"Let's get the automated custom shirts pipeline up."*
 - Hold kind `name`: a missing name or a too-long name.
 - Orders already sent by hand with `aquatic_order.py` are skipped.
 - Local fake-order tests passed. Dry run 43558694991 OK.
+
+### 00:05–01:30 (14 Nov) — custom orders phase 3: Make it yours cap + digitization fee
+- **Eric:** pass the digitization charge to the customer, plus $0.50, once per design. 5 identical caps = 1 fee; a cap + a jacket = 2 fees.
+- **His answers:**
+  - Logo caps stay a wholesale quote, with the fee on the quote.
+  - Text caps pay the fee at checkout.
+- **Shopify:** new product "Embroidery digitization — one time per design" (`DS-DIGI-1/2/3`: $7.00 / $9.95 / $12.90), Active on the Online Store, no shipping.
+- **/custom/:**
+  - cap S/M and L/XL quantities, cap Add to cart, one fee line per design;
+  - the fee is shown in the price;
+  - a back-line limit of about 20 characters;
+  - the logo-cap quote explains the fee.
+- **Fixed:** the cap view showed the shirt sizes, shirt-only colours and rows. A CSS display rule beat the `hidden` attribute.
+- **New `tools/custom_cap.py`:** catalog cap files reused by URL, the text line rendered at the 0.25 in floor, Printful v2 embroidery placements.
+- **`custom_order.py`:** cap lines; a fee check (hold if missing, refund note if paid twice); shared uploads per design.
+- **Workflow:** new `catalog` mode (Printful catalog facts only).
+- Details in `CUSTOM-ORDERS.md`.

@@ -21,7 +21,12 @@ for r in todo:
     else:
         why = {'logo': 'wholesale / dive shop logo order: quote by quantity (DS mark on the sleeve, no shark signature)', 'home-port': 'Home Port chest block (made by hand)',
                'no-address': 'no shipping address visible to the app', 'no-design': 'a Make it yours line without a design',
-               'name': 'a personalized Aquatic tee with a missing or too-long name'}.get(r.get('reason_kind'), 'see the order in Shopify')
+               'name': 'a personalized Aquatic tee with a missing or too-long name',
+               'fee': 'a cap design with a new line of text but no embroidery digitization fee in the order',
+               'cap-text': 'a cap line too long to stitch at the 0.25 in letter floor'}.get(r.get('reason_kind'), 'see the order in Shopify')
         body += [f'Held: {why}.', 'Nothing was sent to Printful. Open the order in Shopify admin for the details.']
+    if r.get('fee_due') or r.get('fee_paid'):
+        body += ['', f'Embroidery digitization: due ${r.get("fee_due", 0):.2f}, paid ${r.get("fee_paid", 0):.2f}.'
+                 + (f' **Refund ${r["fee_refund"]:.2f}** of it (charged once per design).' if r.get('fee_refund') else '')]
     subprocess.run(['gh', 'issue', 'create', '--title', title, '--body', '\n'.join(body)], check=True)
     print('opened:', title)

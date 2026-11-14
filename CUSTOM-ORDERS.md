@@ -2,8 +2,9 @@
 
 Custom shirts bought on DoolittleScuba.com become **Printful drafts automatically**.
 
-Two products are in the job:
+Three products are in the job:
 - the **Make it yours tee**;
+- the **Make it yours cap** (Flexfit 6277, embroidered);
 - the **personalized Aquatic Comic name tees**, regular and organic. These are the 39 designs: Self-Logged, Buddy Check, Buddy System, Till Surface Do Us Part and Master Class.
 
 One Shopify order makes one Printful draft, whatever mix of custom lines it has. Nothing prints and nothing is charged until Eric checks and confirms a draft.
@@ -28,6 +29,42 @@ One Shopify order makes one Printful draft, whatever mix of custom lines it has.
 3. The workflow opens **one GitHub issue per draft or hold**. The issue has no buyer data, because the repo is public.
 4. Eric checks the draft in Printful and confirms it. He can do this in the Printful dashboard, or with the workflow: mode `confirm` + `printful_id`.
 
+## Caps and the digitization fee
+
+Eric's rule (14 Nov): pass the digitizing charge to the customer the first time a design is stitched.
+- **The fee is Printful's own digitization charge + $0.50.** Printful charges $6.50 for the first new embroidery file and $2.95 for each further one.
+- **It is charged once per design, however many caps.** 5 identical caps pay 1 fee. The same artwork on a cap and on a jacket is 2 digitizations, so 2 fees.
+- **Shopify product:** "Embroidery digitization — one time per design" (handle `embroidery-digitization`, product 10434482700474). It ships nothing.
+
+| SKU | Covers | Price |
+|---|---|---|
+| `DS-DIGI-1` | 1 new placement | $7.00 |
+| `DS-DIGI-2` | 2 new placements | $9.95 |
+| `DS-DIGI-3` | 3 new placements | $12.90 |
+
+**What counts as new on a cap.** Only **"Your line"** creates a new stitch file. It can go on the front, the back, or both (both = 2 placements).
+- These reuse existing catalog cap files, so they carry no fee:
+  - site blocks;
+  - The Mark, the Seal, the Stack and the Wordmark fronts;
+  - the side DS mark;
+  - the "DO A LITTLE / SCUBA" back;
+  - a DS mark on the back (the side file).
+- A side **seal** is our own art. It is digitized once, at our cost, on its first order.
+
+**Logo caps** stay a **wholesale quote by email**. The page and the quote state the logo's digitization (the same rule, once per design, and not again for a logo already digitized).
+
+**On /custom/:**
+- Cap quantities are entered per size, S/M and L/XL.
+- **Add to cart** adds the cap lines (tier A $40, tier B $41 with a line). It also adds **one** `DS-DIGI-n` line for the design.
+- A back line over about 20 characters disables Add to cart. The back is 2 in wide and letters must be at least 0.25 in tall.
+
+**The job (`tools/custom_cap.py`):**
+- Sends catalog files by their CDN URL and new text files once per design. The S/M and L/XL lines share the same upload, so Printful digitizes once.
+- Uses thread colours as a layer option, flat (no 3D puff).
+- Checks the fee:
+  - **missing or short:** the order is held (`fee`);
+  - **paid twice** (the same design added to the cart twice): the draft goes ahead, and the issue says how much to **refund**.
+
 ## Holds
 
 Some orders need a person, so the pipeline sends nothing to Printful and reports the reason (`reason_kind`) instead:
@@ -38,6 +75,8 @@ Some orders need a person, so the pipeline sends nothing to Printful and reports
 | home-port | A Home Port design. |
 | no-design | The line has no `_design` property. |
 | name | An Aquatic name tee with a missing name, or a name too long (12 characters for one name, 10 each for two). |
+| fee | A cap design with a new line but no digitization fee in the order. |
+| cap-text | A cap line too long to stitch at the 0.25 in letter floor. |
 | no-address | No shipping address could be read. |
 | other | Invalid input: a design the page doesn't offer. |
 
@@ -68,11 +107,23 @@ Some orders need a person, so the pipeline sends nothing to Printful and reports
    - First dry run: 13 Nov, run 43556984598. It succeeded and found no custom orders in 60 days.
 2. **Personalized Aquatic tees** are live (drafts only), as of 13 Nov.
    - Tested locally on fake orders: single name, two-name organic, mixed with a Make it yours tee, a missing name and a long name.
-3. **Make it yours cap** comes after that. It is embroidery, so it has digitization fees.
+3. **Make it yours cap** is live (drafts only), as of 14 Nov, with the digitization fee.
+   - Tested locally:
+     - a two-line cap in S/M + L/XL with the fee paid;
+     - a missing fee (held);
+     - a fee paid twice (refund flagged);
+     - a site cap with no fee;
+     - a cap + tee order;
+     - a logo cap (held).
+   - The page was tested in headless Chrome: 5 caps + $9.95 = $214.95, and one fee line is posted.
 
 ## Before the first real order
 
 - [ ] Place a test order through Add to cart. This needs the storefront password preview or the launch.
 - [ ] Check that the order query can read the shipping address. Protected customer data may hide it; if so, the order is held as `no-address`.
 - [ ] Check that Printful accepts v2 API orders on the Shopify-connected store.
+- [ ] First cap draft:
+  - check that Printful places the catalog files as the synced caps do (position = file size, fitted to the area);
+  - check whether reusing a catalog file's URL is charged digitization again. If it is, the fee rule needs a look.
+  - check the 1 in side seal's detail.
 - [ ] Make sure the Make it yours products' Printful sync variants are ignored. (The 39 Aquatic name tees are already ignored: `printful_link.py --only aquatic`.) If they aren't, Printful auto-imports a blank duplicate order.

@@ -142,6 +142,7 @@ p{margin:0}
 .dz span{font-size:.78rem;line-height:1.2}
 .dz small{font-family:var(--f-data);font-size:.62rem;color:var(--muted);letter-spacing:.04em}
 .field{display:flex;flex-direction:column;gap:4px}.field[hidden],.price[hidden]{display:none}
+main [hidden]{display:none!important}   /* rows, swatches, sizes: shirt-only or cap-only parts hide when the other product is shown */
 .field label,.req label{font-family:var(--f-data);font-size:var(--s-1);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .field input,.field select,.req input,.req select,.req textarea{font:inherit;color:var(--text);background:var(--panel);border:1.5px solid var(--rule);border-radius:3px;padding:10px 12px;width:100%;min-width:0}
 .field input:focus-visible,.req input:focus-visible,.req select:focus-visible,.req textarea:focus-visible{outline:2px solid var(--red);outline-offset:1px;border-color:var(--ink)}
@@ -206,7 +207,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
       <p class="eyebrow" style="color:var(--on-deep-muted)">Custom shirts</p>
       <h1>Make it yours</h1>
       <p class="lede">Pick a colour, pick a design, put it where you want it. Add a line of your own or your logo, see it on the shirt, and send us the request.</p>
-      <p>Every shirt is still printed by hand in Newnan, one at a time, on the same Comfort Colors 1717 tee as the catalog. A personalized tee is <strong>$47</strong>, or <strong>$48</strong> with your own line ($3 more in 2XL and 3XL); a personalized cap (Flexfit 6277, S/M or L/XL) is <strong>$40</strong>, or <strong>$41</strong> with your line. <strong>Logo shirts are for dive shops, clubs and resellers</strong>: your logo on the chest, the DS mark on the sleeve, priced by quantity. We reply with a proof before anything is printed.</p>
+      <p>Every shirt is still printed by hand in Newnan, one at a time, on the same Comfort Colors 1717 tee as the catalog. A personalized tee is <strong>$47</strong>, or <strong>$48</strong> with your own line ($3 more in 2XL and 3XL); a personalized cap (Flexfit 6277, S/M or L/XL) is <strong>$40</strong>, or <strong>$41</strong> with your line, plus a one-time <strong>$7</strong> to digitize your line for embroidery ($9.95 for a line on the front and the back), charged once per design however many caps. <strong>Logo shirts are for dive shops, clubs and resellers</strong>: your logo on the chest, the DS mark on the sleeve, priced by quantity. We reply with a proof before anything is printed.</p>
       <a class="back" href="/#shirts" data-umami-event="custom-back">&larr; Back to the shirts</a>
     </div>
     <div class="rules" aria-label="How the placements work">
@@ -337,7 +338,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
       </div>
       <div class="step" id="st-text">
         <div class="step-h"><span class="n"></span><h2>Your line</h2><span class="sub">a boat, a club, a trip, a name</span></div>
-        <p class="hint" data-for="cap" hidden>On a cap your line goes where you put it: choose "Your line" in Front or Back.</p>
+        <p class="hint" data-for="cap" hidden>On a cap your line goes where you put it: choose "Your line" in Front or Back. The back of a cap is 2 in wide: about 20 characters fit there, on up to two lines.</p>
         <div class="field"><label for="line">Text <span style="text-transform:none;letter-spacing:0">(up to 28 characters)</span></label><input id="line" maxlength="28" placeholder="e.g. Fiji 2024 · Taveuni" autocomplete="off"></div>
         <div class="row"><span class="lbl">Lettering</span><button type="button" class="chip on" data-font="hand">Hand-lettered</button><button type="button" class="chip" data-font="plain">Plain</button><button type="button" class="chip" data-font="mono">Mono</button></div>
         <div class="row" data-for="shirt"><span class="lbl">Where</span><button type="button" class="chip on" data-tpos="chest">Under the chest print</button><button type="button" class="chip" data-tpos="upper">Upper back</button><button type="button" class="chip" data-tpos="sleeve">Other sleeve</button></div>
@@ -353,7 +354,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
         <div class="step-h"><span class="n"></span><h2 id="order-h">Sizes and the request</h2></div>
         <div class="price" id="price" aria-live="polite"><span class="each" id="price-each"></span><span class="why" id="price-why"></span><span class="total" id="price-total"></span></div>
         <div class="sizes" id="sizes" data-for="shirt"></div>
-        <div class="field" data-for="cap" hidden style="max-width:220px"><label for="cap-qty">Caps <span style="text-transform:none;letter-spacing:0">(S/M or L/XL: say which in the note)</span></label><input id="cap-qty" type="number" min="0" max="500" inputmode="numeric" placeholder="0"></div>
+        <div class="field" data-for="cap" hidden style="max-width:320px"><span class="lbl" style="display:block">Caps <span style="text-transform:none;letter-spacing:0">(Flexfit 6277 fitted)</span></span><div style="display:flex;gap:12px"><label style="flex:1">S/M <span style="text-transform:none;letter-spacing:0">(6⅞–7¼)</span><input id="cap-qty-sm" data-capsize="SM" type="number" min="0" max="500" inputmode="numeric" placeholder="0"></label><label style="flex:1">L/XL <span style="text-transform:none;letter-spacing:0">(7⅛–7⅝)</span><input id="cap-qty-lxl" data-capsize="LXL" type="number" min="0" max="500" inputmode="numeric" placeholder="0"></label></div></div>
         <form class="req" id="custom-form" novalidate data-to="orders@doolittlescuba.com" data-subject="Custom shirt">
           <div class="row2">
             <div><label for="c-name">Your name</label><input id="c-name" required autocomplete="name"></div>
@@ -389,7 +390,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
   var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
   var SVGNS='http://www.w3.org/2000/svg', XL='http://www.w3.org/1999/xlink';
   var FONTS={hand:'"Almendra","Palatino Linotype",Palatino,Georgia,serif',plain:'"Alegreya Sans","Gill Sans","Trebuchet MS",system-ui,sans-serif',mono:'"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace'};
-  var S={product:'shirt',colour:'light-blue',tab:'plates',back:'black-bart',bsize:'full',chest:'site',site:'black-bart',cpos:'left',sleeve:'shark',spos:'right',upper:'none',text:'',font:'hand',tpos:'chest',logo:null,view:'front',qty:{},ccert:'cert-night',capqty:0,cf:'site',cs:'dsmark',csp:'left',cb:'tagline'};
+  var S={product:'shirt',colour:'light-blue',tab:'plates',back:'black-bart',bsize:'full',chest:'site',site:'black-bart',cpos:'left',sleeve:'shark',spos:'right',upper:'none',text:'',font:'hand',tpos:'chest',logo:null,view:'front',qty:{},ccert:'cert-night',capqty:0,capq:{SM:0,LXL:0},cf:'site',cs:'dsmark',csp:'left',cb:'tagline'};
   var byId={}; D.plates.forEach(function(p){byId[p.slug]=p}); D.certs.forEach(function(c){byId[c.slug]=c}); (D.offworld||[]).forEach(function(c){c.ow=true; byId[c.slug]=c}); (D.extra||[]).forEach(function(p){byId[p.slug]=p});
   var MARKS={shark:{src:'art/mark.webp',wsrc:'art/mark-w.webp',w:D.marks.mark[0],h:D.marks.mark[1],blend:true,name:'Shark signature mark'},dsmark:{src:'art/ds-mark.webp',wsrc:'art/ds-mark-w.webp',w:D.marks['ds-mark'][0],h:D.marks['ds-mark'][1],blend:false,name:'DS mark'},seal:{src:'art/seal.webp',w:D.marks.seal[0],h:D.marks.seal[1],blend:false,name:'Seal'},stack:{src:'art/stack.webp',wsrc:'art/stack-w.webp',w:D.marks.stack[0],h:D.marks.stack[1],blend:false,name:'DS stacked lockup'},wordmark:{src:'art/wordmark.webp',wsrc:'art/wordmark-w.webp',w:D.marks.wordmark[0],h:D.marks.wordmark[1],blend:false,name:'Wordmark'}};
   function colour(){ return D.colours.filter(function(x){return x.slug===S.colour})[0]; }
@@ -418,7 +419,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
   var sel=$('#chest-site'), sel2=$('#cap-site'); D.plates.forEach(function(p){ [sel,sel2].forEach(function(x){ var o=document.createElement('option'); o.value=p.slug; o.textContent=p.name; x.appendChild(o); }); }); (D.extra||[]).forEach(function(p){ var o=document.createElement('option'); o.value=p.slug; o.textContent=p.name+' (Newnan)'; sel2.appendChild(o); });
   sel.addEventListener('change',function(){ S.site=sel.value; render(); }); sel2.addEventListener('change',function(){ S.site=sel2.value; render(); });
   var selc=$('#chest-cert'); D.certs.forEach(function(c){ var o=document.createElement('option'); o.value=c.slug; o.textContent=c.name; selc.appendChild(o); }); selc.addEventListener('change',function(){ S.ccert=selc.value; render(); });
-  $('#cap-qty').addEventListener('input',function(e){ S.capqty=parseInt(e.target.value,10)||0; summary(); });
+  $$('[data-capsize]').forEach(function(i){ i.addEventListener('input',function(){ S.capq[i.getAttribute('data-capsize')]=parseInt(i.value,10)||0; S.capqty=S.capq.SM+S.capq.LXL; summary(); }); });
   var sizes=$('#sizes'); D.sizes.forEach(function(z){ var d=document.createElement('div'); d.className='size'; d.innerHTML='<span>'+z+'</span><input type="number" min="0" max="500" inputmode="numeric" placeholder="0" aria-label="Quantity, size '+z+'" data-size="'+z+'">'; sizes.appendChild(d); });
   $$('#sizes input').forEach(function(i){ i.addEventListener('input',function(){ S.qty[i.getAttribute('data-size')]=parseInt(i.value,10)||0; summary(); }); });
 
@@ -586,7 +587,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
     [['data-dtab','tab'],['data-bsize','bsize'],['data-chest','chest'],['data-cpos','cpos'],['data-sleeve','sleeve'],['data-spos','spos'],['data-upper','upper'],['data-font','font'],['data-tpos','tpos'],['data-view','view'],['data-cf','cf'],['data-cs','cs'],['data-csp','csp'],['data-cb','cb'],['data-product','product']].forEach(function(pair){
       $$('['+pair[0]+']').forEach(function(b){ var on=b.getAttribute(pair[0])===S[pair[1]]; b.classList.toggle('on',on); b.setAttribute('aria-pressed',on); });
     });
-    $('#cap-site-row').style.display=S.cf==='site'?'':'none'; $('#cap-site').value=S.site; $('#cap-qty').value=S.capqty||'';
+    $('#cap-site-row').style.display=S.cf==='site'?'':'none'; $('#cap-site').value=S.site; $('#cap-qty-sm').value=S.capq.SM||''; $('#cap-qty-lxl').value=S.capq.LXL||'';
     $$('[data-needs-logo]').forEach(function(b){ b.disabled=!S.logo; });
     $$('[data-needs-plate]').forEach(function(b){ b.disabled=!plateBack(); b.title=plateBack()?'':'The shark mark is for Signature Series backs'; });
     suggest(c);
@@ -619,13 +620,16 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
   function lines(){
     var L=[];
     if(S.product==='cap'){
-      L.push('Item: Flexfit 6277 fitted cap, '+cname()+' (size: S/M or L/XL, say which)');
+      L.push('Item: Flexfit 6277 fitted cap, '+cname());
       L.push('Front: '+label(S.cf)); L.push('Side: '+label(S.cs)+(S.cs==='none'?'':', '+S.csp+' side')); L.push('Back: '+label(S.cb));
       if(S.text.trim()&&(S.cf==='line'||S.cb==='line')) L.push('Lettering: '+{hand:'hand-lettered',plain:'plain',mono:'mono'}[S.font]);
       if(S.logo) L.push('Logo: '+S.logo.name+' (attached to this email)');
       L.push('Brand mark: '+(DS[S.cf]?label(S.cf)+' on the front':DS[S.cs]?label(S.cs)+' on the side':label(S.cb)+' on the back'));
-      L.push('Quantity: '+(S.capqty>0?S.capqty+' cap'+(S.capqty>1?'s':''):'(not filled in yet)'));
-      var cp=price(); L.push('Price: $'+cp.each+' each ('+cp.why+')'+(cp.n?' · '+cp.n+' cap'+(cp.n>1?'s':'')+' = $'+cp.total:''));
+      L.push('Sizes: '+(S.capqty>0?['SM','LXL'].filter(function(z){return S.capq[z]>0}).map(function(z){return (z==='SM'?'S/M':'L/XL')+' x '+S.capq[z]}).join(', '):'(not filled in yet)'));
+      var cp=price();
+      if(hasLogo()) L.push('Price: wholesale quote by quantity, plus the one-time embroidery digitization of the logo (the embroiderer\'s fee + $0.50, once per design: not charged again for a logo we have already digitized)');
+      else { L.push('Price: $'+cp.each+' each ('+cp.why+')'+(cp.n?' · '+cp.n+' cap'+(cp.n>1?'s':'')+' = $'+(cp.total-cp.fee):''));
+        if(cp.fee) L.push('Embroidery digitization: $'+cp.fee.toFixed(2)+' once for this design ('+cp.newp+' new stitch file'+(cp.newp>1?'s':'')+'), however many caps'); }
       L.push('Mockup link: '+link()); return L;
     }
     L.push('Garment: Comfort Colors 1717, '+cname());
@@ -654,20 +658,27 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
   function hasLogo(){ return !!S.logo && (S.product==='cap' ? (S.cf==='logo'||S.cs==='logo'||S.cb==='logo') : (S.chest==='logo'||S.sleeve==='logo'||S.upper==='logo')); }
   function hasLine(){ return !!S.text.trim() && (S.product==='cap' ? (S.cf==='line'||S.cb==='line') : !!S.tpos); }
   function personal(){ return hasLogo()||hasLine(); }
+  /* Embroidery digitization (Eric, 14 Nov): the embroiderer's fee ($6.50 first new file, $2.95 each further one) + $0.50, ONCE per design.
+     Only "Your line" makes a new stitch file on a cap: every other element reuses a catalog file. Shopify "Embroidery digitization" DS-DIGI-n. */
+  var DIGI={1:51027378864314,2:51027378897082,3:51027378929850};
+  function newPlacements(){ return S.product!=='cap'||!S.text.trim()?0:(S.cf==='line'?1:0)+(S.cb==='line'?1:0); }
+  function digiFee(n){ return n?Math.round((6.50+2.95*(n-1)+0.50)*100)/100:0; }
+  function backTooLong(){ return S.product==='cap'&&S.cb==='line'&&S.text.trim().length>20; }
   function price(){
     var cap=S.product==='cap', add=personal()?PRICE.tierB:PRICE.tierA, base=cap?PRICE.cap:PRICE.base, each=base+add, big=PRICE.big+add, n=0, total=0;
-    if(cap){ n=S.capqty||0; total=n*each; }
+    var newp=newPlacements(), fee=cap&&!hasLogo()?digiFee(newp):0;
+    if(cap){ n=S.capqty||0; total=n*each+(n?fee:0); }
     else D.sizes.forEach(function(z){ var q=S.qty[z]||0; n+=q; total+=q*(PRICE.bigFrom.indexOf(z)>-1?big:each); });
     var item=cap?'cap':'tee';
-    return {each:each,big:big,add:add,n:n,total:total,cap:cap,why:personal()?'your design, colour and your '+(hasLogo()?'logo':'line')+': the $'+base+' '+item+' + $'+add:'your design and colour: the $'+base+' '+item+' + $'+add};
+    return {each:each,big:big,add:add,n:n,total:total,cap:cap,fee:fee,newp:newp,why:personal()?'your design, colour and your '+(hasLogo()?'logo':'line')+': the $'+base+' '+item+' + $'+add:'your design and colour: the $'+base+' '+item+' + $'+add};
   }
   function showPrice(){
     var p=price();
-    if(hasLogo()){ $('#price-each').textContent='Wholesale quote'; $('#price-why').textContent='Logo shirts for dive shops and resellers are priced by quantity: send the request and we reply with a proof and a quote.'; $('#price-total').textContent=''; var r=$('#c-shop-row'); if(r) r.hidden=false; return; }
+    if(hasLogo()){ $('#price-each').textContent='Wholesale quote'; $('#price-why').textContent=p.cap?'Logo caps for dive shops and resellers are priced by quantity, plus a one-time embroidery digitization of your logo (the embroiderer\'s fee + $0.50, once per design). Send the request and we reply with a proof and a quote.':'Logo shirts for dive shops and resellers are priced by quantity: send the request and we reply with a proof and a quote.'; $('#price-total').textContent=''; var r=$('#c-shop-row'); if(r) r.hidden=false; return; }
     var rr=$('#c-shop-row'); if(rr) rr.hidden=true;
     $('#price-each').textContent='$'+p.each+' each';
-    $('#price-why').textContent=p.why+(p.cap?' · S/M or L/XL':' · $'+p.big+' in 2XL and 3XL');
-    $('#price-total').textContent=p.n?p.n+' '+(p.cap?'cap':'shirt')+(p.n>1?'s':'')+' · $'+p.total:'';
+    $('#price-why').textContent=p.why+(p.cap?' · S/M or L/XL'+(p.fee?' · + $'+p.fee.toFixed(2)+' one-time embroidery digitization for your line, once per design however many caps':''):' · $'+p.big+' in 2XL and 3XL');
+    $('#price-total').textContent=p.n?p.n+' '+(p.cap?'cap':'shirt')+(p.n>1?'s':'')+(p.fee?' + digitization':'')+' · $'+(p.cap?p.total.toFixed(2).replace(/\.00$/,''):p.total):'';
   }
   function summary(){ showPrice(); $('#summary').textContent=lines().join('\n'); if(typeof buyState==='function') buyState(); }
   function copy(text,st,msg){ var done=function(){ st.textContent=msg; setTimeout(function(){st.textContent='';},4000); }; if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done,function(){ st.textContent='Could not copy; select the text and copy it by hand.'; }); } else { st.textContent='Copy is not available in this browser.'; } }
@@ -695,15 +706,26 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
      The order watcher (tools/custom_order.py, GitHub "Custom orders") reads _design, builds the print files and drafts the
      Printful order. A logo needs a person, so a logo design goes by email instead. Caps: email for now. */
   var SHOP='https://doolittlescuba.myshopify.com', MYV={A:{S:50824329199802,M:50824329232570,L:50824329265338,XL:50824329298106,'2XL':50824329330874,'3XL':50824329363642},B:{S:50824329396410,M:50824329429178,L:50824329461946,XL:50824329494714,'2XL':50824329527482,'3XL':50824329560250}};
-  function design(){ var q=new URLSearchParams(); ['colour','tab','back','bsize','chest','site','ccert','cpos','sleeve','spos','upper','text','font','tpos'].forEach(function(k){ if(S[k]!==undefined&&S[k]!==null&&S[k]!=='') q.set(k,S[k]); }); return q.toString(); }
+  var MYC={A:{SM:50828254871738,LXL:50873148473530},B:{SM:50828254904506,LXL:50873148506298}};
+  function design(){ var q=new URLSearchParams(); (S.product==='cap'?['colour','site','cf','cs','csp','cb','text','font']:['colour','tab','back','bsize','chest','site','ccert','cpos','sleeve','spos','upper','text','font','tpos']).forEach(function(k){ if(S[k]!==undefined&&S[k]!==null&&S[k]!=='') q.set(k,S[k]); }); return q.toString(); }
   function buyState(){ var b=$('#buy-now'); if(!b) return; var cap=S.product==='cap', logo=hasLogo(), n=D.sizes.reduce(function(a,z){return a+(S.qty[z]||0)},0);
-    b.hidden=cap; b.disabled=logo||!n; b.title=logo?'A logo needs a quick check by hand: send the request email with the file attached':!n?'Pick your sizes first':''; }
+    if(cap) n=S.capqty||0; var long=backTooLong();
+    b.hidden=false; b.disabled=logo||!n||long; b.title=logo?'A logo needs a quick check by hand: send the request email with the file attached':long?'About 20 characters fit on the back of a cap: shorten the line or put it on the front':!n?(cap?'Pick how many caps first':'Pick your sizes first'):''; }
   $('#buy-now').addEventListener('click',function(){
-    if(S.product==='cap'||hasLogo()) return;
-    var tier=hasLine()?'B':'A', f=document.createElement('form'), i=0;
+    if(hasLogo()||backTooLong()) return;
+    var tier=hasLine()?'B':'A', f=document.createElement('form'), i=0, cap=S.product==='cap';
     f.method='POST'; f.action=SHOP+'/cart/add'; f.style.display='none';
     var add=function(k,v){ var e=document.createElement('input'); e.type='hidden'; e.name=k; e.value=v; f.appendChild(e); };
-    var desc=lines().filter(function(l){ return !/^(Sizes|Price|Mockup link):/.test(l); }).join(' · ');
+    var desc=lines().filter(function(l){ return !/^(Sizes|Price|Mockup link|Embroidery digitization):/.test(l); }).join(' · ');
+    if(cap){
+      ['SM','LXL'].forEach(function(z){ var q=S.capq[z]||0; if(!q) return;
+        add('items['+i+'][id]',MYC[tier][z]); add('items['+i+'][quantity]',q);
+        add('items['+i+'][properties][Your design]',desc.slice(0,480)); add('items['+i+'][properties][Mockup]',link());
+        add('items['+i+'][properties][_design]',design()); i++; });
+      var np=newPlacements();   /* one digitization line for the design, however many caps */
+      if(i&&np){ add('items['+i+'][id]',DIGI[np]); add('items['+i+'][quantity]',1);
+        add('items['+i+'][properties][For design]',desc.slice(0,480)); add('items['+i+'][properties][_design]',design()); i++; }
+    } else
     D.sizes.forEach(function(z){ var q=S.qty[z]||0; if(!q) return;
       add('items['+i+'][id]',MYV[tier][z]); add('items['+i+'][quantity]',q);
       add('items['+i+'][properties][Your design]',desc.slice(0,480)); add('items['+i+'][properties][Mockup]',link());
