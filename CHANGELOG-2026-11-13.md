@@ -98,3 +98,13 @@ Eric: *"Let's get the automated custom shirts pipeline up."*
   - Logo shirts are aimed at wholesale and dive shops. /custom/ shows "Wholesale quote" and emails sales@ instead of offering Add to cart.
 - **First dry run:** run 43556984598, OK (no custom orders in 60 days). Before it, scipy was added to the workflow.
 - **Details:** in `CUSTOM-ORDERS.md`, including the pre-launch checklist.
+
+### 23:50 — custom orders phase 2: personalized Aquatic name tees
+- Eric: "Aquatic tees". The 39 name tees (regular and organic) are now in the **Custom orders** job.
+- How it works:
+  - The names come from the product page's line properties.
+  - The job renders with `aquatic_print.py`.
+  - It makes one Printful draft per order, together with any Make it yours lines.
+- Hold kind `name`: a missing name or a too-long name.
+- Orders already sent by hand with `aquatic_order.py` are skipped.
+- Local fake-order tests passed. Dry run 43558694991 OK.
