@@ -1,0 +1,57 @@
+name: Custom orders
+# Every 15 minutes: paid Make it yours orders → print files → Printful DRAFT (tools/custom_order.py).
+# Nothing prints or is charged until Eric confirms the draft. Held orders (logo, Home Port …) wait for a person.
+# One GitHub issue per draft or hold, so Eric gets an email/notification for each.
+on:
+  schedule:
+    - cron: '4,19,34,49 * * * *'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'run = check new orders · dry = render only · confirm = confirm a checked Printful draft'
+        type: choice
+        options: [run, dry, confirm]
+        default: run
+      order:
+        description: 'Shopify order number (optional: just this order)'
+        required: false
+      printful_id:
+        description: 'Printful order id (for confirm)'
+        required: false
+      days:
+        description: 'How many days back to look'
+        default: '3'
+permissions:
+  contents: read
+  issues: write
+concurrency: custom-orders
+jobs:
+  orders:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - run: pip install pillow numpy
+      - name: Custom orders
+        env:
+          SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
+          SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
+          PRINTFUL_TOKEN: ${{ secrets.PRINTFUL_TOKEN }}
+          MODE: ${{ inputs.mode || 'run' }}
+          ORDER: ${{ inputs.order }}
+          PFID: ${{ inputs.printful_id }}
+          DAYS: ${{ inputs.days || '3' }}
+        run: |
+          set -o pipefail
+          [[ "$ORDER" =~ ^#?[0-9]*$ && "$PFID" =~ ^[0-9]*$ && "$DAYS" =~ ^[0-9]+$ ]] || { echo "::error::bad input"; exit 1; }
+          if [ "$MODE" = "confirm" ]; then python tools/custom_order.py --confirm "$PFID"; exit 0; fi
+          FLAG="--days $DAYS"; [ -n "$ORDER" ] && FLAG="$FLAG --order ${ORDER#\#}"; [ "$MODE" = "dry" ] && FLAG="$FLAG --dry"
+          python tools/custom_order.py $FLAG | tee run.log
+          { echo '## Custom orders'; echo; echo '```'; cat run.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+      - name: Issue per draft / hold
+        if: ${{ (inputs.mode || 'run') == 'run' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/custom_order_issues.py custom_orders.json

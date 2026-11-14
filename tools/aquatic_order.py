@@ -177,7 +177,7 @@ def upload(paths, label):
         if code not in (200, 201, 204): sys.exit(f'staged upload {os.path.basename(p)}: {code} {r}')
         srcs.append(t['resourceUrl'])
     fc = shopify(FILE_M, {'files': [{'originalSource': s, 'contentType': 'IMAGE', 'filename': os.path.basename(p),
-                                     'alt': f'Aquatic Comic custom print · {label} · {os.path.basename(p)}'} for s, p in zip(srcs, paths)]})['fileCreate']
+                                     'alt': f'Custom print · {label} · {os.path.basename(p)}'} for s, p in zip(srcs, paths)]})['fileCreate']
     if fc['userErrors']: sys.exit(f'fileCreate: {fc["userErrors"]}')
     ids = [f['id'] for f in fc['files']]
     for _ in range(40):                                       # wait for Shopify to process (usually < 10 s)

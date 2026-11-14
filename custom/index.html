@@ -206,7 +206,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
       <p class="eyebrow" style="color:var(--on-deep-muted)">Custom shirts</p>
       <h1>Make it yours</h1>
       <p class="lede">Pick a colour, pick a design, put it where you want it. Add a line of your own or your logo, see it on the shirt, and send us the request.</p>
-      <p>Every shirt is still printed by hand in Newnan, one at a time, on the same Comfort Colors 1717 tee as the catalog. A personalized tee is <strong>$47</strong>, or <strong>$48</strong> with your own line or logo ($3 more in 2XL and 3XL); a personalized cap (Flexfit 6277, S/M or L/XL) is <strong>$40</strong>, or <strong>$41</strong> with your line or logo. We reply with a proof before anything is printed.</p>
+      <p>Every shirt is still printed by hand in Newnan, one at a time, on the same Comfort Colors 1717 tee as the catalog. A personalized tee is <strong>$47</strong>, or <strong>$48</strong> with your own line ($3 more in 2XL and 3XL); a personalized cap (Flexfit 6277, S/M or L/XL) is <strong>$40</strong>, or <strong>$41</strong> with your line. <strong>Logo shirts are for dive shops, clubs and resellers</strong>: your logo on the chest, the DS mark on the sleeve, priced by quantity. We reply with a proof before anything is printed.</p>
       <a class="back" href="/#shirts" data-umami-event="custom-back">&larr; Back to the shirts</a>
     </div>
     <div class="rules" aria-label="How the placements work">
@@ -344,9 +344,9 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
       </div>
 
       <div class="step" id="st-logo">
-        <div class="step-h"><span class="n"></span><h2>Your logo</h2><span class="sub">optional</span></div>
+        <div class="step-h"><span class="n"></span><h2>Your logo</h2><span class="sub">dive shops &amp; wholesale</span></div>
         <div class="filebox"><input type="file" id="logo" accept="image/png,image/jpeg,image/svg+xml,image/webp"><img class="logo-prev" id="logo-prev" alt=""><button type="button" class="chip" id="logo-clear" hidden>Remove</button></div>
-        <p class="hint">Your file stays in your browser; nothing is uploaded. Once it is on the mockup, "Your logo" becomes available in steps 3, 4 and 5. Attach the file to the request email. One-colour artwork prints best.</p>
+        <p class="hint">For dive shops, clubs and resellers: shirts with your logo are made to order and priced by quantity, so they go by request, not the cart. Your file stays in your browser; nothing is uploaded. Once it is on the mockup, "Your logo" becomes available in steps 3, 4 and 5; on the chest, the DS mark goes on the sleeve. Attach the file to the request email. One-colour artwork prints best.</p>
       </div>
 
       <div class="step" id="st-order">
@@ -359,9 +359,10 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
             <div><label for="c-name">Your name</label><input id="c-name" required autocomplete="name"></div>
             <div><label for="c-email">Email</label><input id="c-email" type="email" required autocomplete="email" inputmode="email"></div>
           </div>
+          <div id="c-shop-row" hidden><label for="c-shop">Dive shop or business</label><input id="c-shop" autocomplete="organization" placeholder="Shop, club or resort name"></div>
           <div><label for="c-notes">Anything else <span style="text-transform:none;letter-spacing:0">(optional)</span></label><textarea id="c-notes" placeholder="Ink colour, a date you need them by, a different garment, questions."></textarea></div>
           <details><summary class="lbl" style="cursor:pointer">What the email will say</summary><pre class="summary" id="summary"></pre></details>
-          <div class="go"><button class="btn" type="submit" data-umami-event="custom-submit">Write my request email</button><button type="button" class="btn quiet" id="copy-summary" data-umami-event="custom-copy-summary">Copy the summary</button><p class="status" role="status" aria-live="polite" id="form-status"></p></div>
+          <div class="go"><button class="btn" type="button" id="buy-now" data-umami-event="custom-buy">Add to cart</button><button class="btn quiet" type="submit" data-umami-event="custom-submit">Write my request email</button><button type="button" class="btn quiet" id="copy-summary" data-umami-event="custom-copy-summary">Copy the summary</button><p class="status" role="status" aria-live="polite" id="form-status"></p></div>
         </form>
         <p class="fine">Custom shirts are printed to order after you approve a proof. Artwork &copy; 2026 Doolittle Scuba L.L.C.; your own logo stays yours, and we only print logos you have the right to use.</p>
       </div>
@@ -552,6 +553,11 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
       ['chest','sleeve','upper'].forEach(function(k){ if(S[k]==='shark'){ S[k]='dsmark'; swapped=true; } });
       if(swapped) note.textContent='The shark mark is for Signature Series backs; the DS mark took its place.';
     }
+    /* a logo or your own artwork on the chest: the DS mark goes on the sleeve, always (Eric, 13 Nov) */
+    /* and no shark signature with it, even on a Signature Series back: the signature belongs to our own artwork */
+    if(S.chest==='logo'){ var msg=''; if(S.upper==='shark'){ S.upper='none'; msg=' The shark signature stays off a logo shirt.'; }
+      if(S.sleeve!=='dsmark'){ S.sleeve='dsmark'; msg='Your logo is on the chest, so the DS mark goes on the sleeve.'+msg; }
+      if(msg) note.textContent=msg.trim(); return; }
     var has=function(k){ return S[k]==='shark'||DS[S[k]]; };
     if(has('chest')||has('sleeve')||has('upper')) return;
     var m=plateBack()?'shark':'dsmark', nm=m==='shark'?'the shark mark':'the DS mark';
@@ -633,7 +639,8 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
     if(S.logo) L.push('Logo: '+S.logo.name+' (attached to this email)');
     var q=D.sizes.filter(function(z){return S.qty[z]>0}).map(function(z){return z+' x '+S.qty[z]});
     L.push('Sizes: '+(q.length?q.join(', '):'(not filled in yet)'));
-    var p=price(); L.push('Price: $'+p.each+' each, $'+p.big+' in 2XL and 3XL ('+p.why+')'+(p.n?' · '+p.n+' shirt'+(p.n>1?'s':'')+' = $'+p.total:''));
+    var p=price(); if(hasLogo()){ var shop=($('#c-shop')&&$('#c-shop').value.trim())||'(shop name not filled in)'; L.unshift('Wholesale / dive shop logo shirts for: '+shop); L.push('Price: wholesale quote by quantity'); }
+    else L.push('Price: $'+p.each+' each, $'+p.big+' in 2XL and 3XL ('+p.why+')'+(p.n?' · '+p.n+' shirt'+(p.n>1?'s':'')+' = $'+p.total:''));
     L.push('Mockup link: '+link());
     return L;
   }
@@ -656,11 +663,13 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
   }
   function showPrice(){
     var p=price();
+    if(hasLogo()){ $('#price-each').textContent='Wholesale quote'; $('#price-why').textContent='Logo shirts for dive shops and resellers are priced by quantity: send the request and we reply with a proof and a quote.'; $('#price-total').textContent=''; var r=$('#c-shop-row'); if(r) r.hidden=false; return; }
+    var rr=$('#c-shop-row'); if(rr) rr.hidden=true;
     $('#price-each').textContent='$'+p.each+' each';
     $('#price-why').textContent=p.why+(p.cap?' · S/M or L/XL':' · $'+p.big+' in 2XL and 3XL');
     $('#price-total').textContent=p.n?p.n+' '+(p.cap?'cap':'shirt')+(p.n>1?'s':'')+' · $'+p.total:'';
   }
-  function summary(){ showPrice(); $('#summary').textContent=lines().join('\n'); }
+  function summary(){ showPrice(); $('#summary').textContent=lines().join('\n'); if(typeof buyState==='function') buyState(); }
   function copy(text,st,msg){ var done=function(){ st.textContent=msg; setTimeout(function(){st.textContent='';},4000); }; if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done,function(){ st.textContent='Could not copy; select the text and copy it by hand.'; }); } else { st.textContent='Copy is not available in this browser.'; } }
   $('#copy-link').addEventListener('click',function(){ copy(link(),$('#link-status'),'Link copied. It reopens this mockup (without your logo file).'); });
   $('#copy-summary').addEventListener('click',function(){ copy(lines().join('\n'),$('#form-status'),'Summary copied.'); });
@@ -674,11 +683,34 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
     var notes=$('#c-notes').value.trim(); if(notes) body.push('','Notes:',notes);
     if(S.logo) body.push('','(Logo file attached: '+S.logo.name+')');
     var subj=S.product==='cap'?'Custom cap: '+label(S.cf)+' on '+cname():'Custom shirt: '+(S.back==='none'?label(S.chest):byId[S.back].name)+' on '+cname();
+    var to=form.getAttribute('data-to');
+    if(hasLogo()){ var shop=$('#c-shop').value.trim(); subj='Wholesale logo '+(S.product==='cap'?'caps':'shirts')+(shop?' for '+shop:'')+': '+cname(); to='sales@doolittlescuba.com'; }
     track('custom-send',{design:S.back,colour:S.colour});
-    location.href='mailto:'+form.getAttribute('data-to')+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body.join('\n'));
+    location.href='mailto:'+to+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body.join('\n'));
     st.textContent='Your email app should open with everything filled in. '+(S.logo?'Attach your logo file, then press send.':'Just press send.');
   });
   function track(n,d){ try{ window.umami && umami.track(n,d||{}); }catch(err){} }
+
+  /* ---------- Add to cart: the Make it yours tee, with the design on the order line ----------
+     The order watcher (tools/custom_order.py, GitHub "Custom orders") reads _design, builds the print files and drafts the
+     Printful order. A logo needs a person, so a logo design goes by email instead. Caps: email for now. */
+  var SHOP='https://doolittlescuba.myshopify.com', MYV={A:{S:50824329199802,M:50824329232570,L:50824329265338,XL:50824329298106,'2XL':50824329330874,'3XL':50824329363642},B:{S:50824329396410,M:50824329429178,L:50824329461946,XL:50824329494714,'2XL':50824329527482,'3XL':50824329560250}};
+  function design(){ var q=new URLSearchParams(); ['colour','tab','back','bsize','chest','site','ccert','cpos','sleeve','spos','upper','text','font','tpos'].forEach(function(k){ if(S[k]!==undefined&&S[k]!==null&&S[k]!=='') q.set(k,S[k]); }); return q.toString(); }
+  function buyState(){ var b=$('#buy-now'); if(!b) return; var cap=S.product==='cap', logo=hasLogo(), n=D.sizes.reduce(function(a,z){return a+(S.qty[z]||0)},0);
+    b.hidden=cap; b.disabled=logo||!n; b.title=logo?'A logo needs a quick check by hand: send the request email with the file attached':!n?'Pick your sizes first':''; }
+  $('#buy-now').addEventListener('click',function(){
+    if(S.product==='cap'||hasLogo()) return;
+    var tier=hasLine()?'B':'A', f=document.createElement('form'), i=0;
+    f.method='POST'; f.action=SHOP+'/cart/add'; f.style.display='none';
+    var add=function(k,v){ var e=document.createElement('input'); e.type='hidden'; e.name=k; e.value=v; f.appendChild(e); };
+    var desc=lines().filter(function(l){ return !/^(Sizes|Price|Mockup link):/.test(l); }).join(' · ');
+    D.sizes.forEach(function(z){ var q=S.qty[z]||0; if(!q) return;
+      add('items['+i+'][id]',MYV[tier][z]); add('items['+i+'][quantity]',q);
+      add('items['+i+'][properties][Your design]',desc.slice(0,480)); add('items['+i+'][properties][Mockup]',link());
+      add('items['+i+'][properties][_design]',design()); i++; });
+    if(!i){ st.textContent='Pick your sizes first.'; return; }
+    add('return_to','/cart'); document.body.appendChild(f); track('custom-add-to-cart',{design:S.back,colour:S.colour,tier:tier}); f.submit();
+  });
 
   render();
 })();
