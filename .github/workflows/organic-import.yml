@@ -8,6 +8,10 @@ on:
         description: 'Apply (create the drafts). Off = dry run'
         type: boolean
         default: false
+      activate:
+        description: 'Activate (Draft -> Active) the organic line and the jackets instead of importing'
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency: shopify-import
@@ -25,8 +29,10 @@ jobs:
           SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
           SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
           APPLY: ${{ inputs.apply }}
+          ACTIVATE: ${{ inputs.activate }}
         run: |
           set -o pipefail
           if [ "$APPLY" = "true" ]; then FLAG=--apply; else FLAG=; fi
+          if [ "$ACTIVATE" = "true" ]; then FLAG="$FLAG --activate"; fi
           python tools/organic_import.py $FLAG | tee import.log
           { echo '## Organic import'; echo; echo '```'; tail -n 30 import.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"

@@ -56,5 +56,30 @@ def main(apply):
     if failed: sys.exit(1)
 
 
+ACT_Q = '''query($a: String) { products(first: 100, after: $a, query: "(tag:organic-line OR tag:jacket) AND status:draft") {
+  nodes { id title } pageInfo { hasNextPage endCursor } } }'''
+ACT = '''mutation($id: ID!) { productUpdate(product: {id: $id, status: ACTIVE}) { product { status } userErrors { message } } }'''
+
+
+def activate(apply):
+    """Draft -> ACTIVE for the organic line and the jackets (Eric, 13 Nov: "Activate the jackets - organics as well").
+    The storefront is password-protected, so Active + Online Store shows nothing publicly (same as the 12 Nov pass)."""
+    ids, a = [], None
+    while True:
+        r = AO.shopify(ACT_Q, {'a': a})['products']; ids += r['nodes']
+        if not r['pageInfo']['hasNextPage']: break
+        a = r['pageInfo']['endCursor']
+    print(len(ids), 'draft products (organic-line or jacket)')
+    bad = 0
+    for n, p in enumerate(ids, 1):
+        if not apply: print('would activate', p['title']); continue
+        e = AO.shopify(ACT, {'id': p['id']})['productUpdate']['userErrors']
+        if e: bad += 1; print('ERROR', p['title'], e)
+        time.sleep(0.3)
+    print(f"{len(ids)} {'activated' if apply else 'to activate'} · errors {bad}")
+    if bad: sys.exit(1)
+
+
 if __name__ == '__main__':
-    main('--apply' in sys.argv)
+    if '--activate' in sys.argv: activate('--apply' in sys.argv)
+    else: main('--apply' in sys.argv)
