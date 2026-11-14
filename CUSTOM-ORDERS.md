@@ -135,7 +135,7 @@ Some orders need a person, so the pipeline sends nothing to Printful and reports
     - The buyer must tick to agree, which adds the property **Name fit**.
   - **Live since 14 Nov, 06:25.** The Order Bot app V3 has `read_themes` + `write_themes`. Pushed with Actions → **Theme push** (run 43589832784) to the live theme "Horizon — Doolittle Scuba (Home Port map v2)". The checksum matches the repo file. The old block (3,409 chars) is in that run's `theme-backups` artifact.
 - [x] **Name rules** (Eric, 14 Nov, 06:32–06:33). `tools/name_rules.py`; page asset `shopify-theme/assets/ds-name-rules.json`.
-  - **Format:** letters (accents allowed), numbers and hyphens between letters (Mary-Jo).
+  - **Format:** letters (accents allowed), numbers, and hyphens or apostrophes between letters (Mary-Jo, O'Brien, O'Neil-Smith). ' and ’ are both accepted; ’ is printed (06:39).
   - **Spaces:** one at most, so one or two words (John Eric).
   - **@:** the only special character, and only at the start (@name).
   - **Language:** no vulgarity, profanity or slurs.

@@ -59,12 +59,13 @@ REF = {1: 'Alexanderson', 2: 'Alexandria'}   # standard-length reference names (
 
 
 def clean_name(s, maxlen):
-    """Eric, 14 Nov: letters / numbers / inner hyphens, one space at most, @ only as @name, no profanity (tools/name_rules.py)."""
+    """Eric, 14 Nov: letters / numbers / inner hyphens and apostrophes, one space at most, @ only as @name, no profanity (tools/name_rules.py)."""
     import name_rules
     s = re.sub(r'\s+', ' ', s.strip())
     if not s: raise SystemExit('empty name')
     why = name_rules.problem(s)
     if why: raise SystemExit(f'name not allowed ({why})')
+    s = s.replace("'", '’')                     # printed with the typographic apostrophe
     if len(s) > maxlen: raise SystemExit(f'name "{s}" is {len(s)} characters; the line allows {maxlen}')
     return s
 

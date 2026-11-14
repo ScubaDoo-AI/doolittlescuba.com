@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Name rules for printed names (Aquatic Comic name tees; Eric, 14 Nov):
   - letters and numbers only (Latin letters with accents allowed, since the IM Fell font has them)
-  - hyphens inside a name (Mary-Jo, Smith-Jones), never at an end or doubled (Eric, 14 Nov)
+  - hyphens and apostrophes inside a name (Mary-Jo, O'Brien, O'Neil-Smith), never at an end or doubled
+    (Eric, 14 Nov); ' and ’ both accepted, printed as ’
   - at most ONE space: one or two words ("John Eric")
   - the only special character is @, and only at the start: "@name"
   - no vulgarity, profanity or slurs
@@ -23,7 +24,7 @@ SRC = os.path.join(HERE, 'data', 'profanity_wordlist_better-profanity-0.7.0_MIT.
 ASSET = os.path.join(os.path.dirname(HERE), 'shopify-theme', 'assets', 'ds-name-rules.json')
 
 LETTERS = 'A-Za-zÀ-ÖØ-öø-ÿ0-9'
-WORD = rf'[{LETTERS}]+(?:-[{LETTERS}]+)*'
+WORD = rf"[{LETTERS}]+(?:[-'’][{LETTERS}]+)*"
 FORMAT = re.compile(rf'^@?{WORD}(?: {WORD})?$')
 LEET = str.maketrans({'0': 'o', '1': 'i', '3': 'e', '4': 'a', '5': 's', '7': 't', '8': 'b', '9': 'g'})
 ALLOW = set('''
@@ -62,9 +63,9 @@ def problem(name):
     if not FORMAT.match(s):
         if s.count(' ') > 1: return 'more than one space'
         if '@' in s[1:] or s == '@': return '@ only at the start, as @name'
-        if '-' in s: return 'hyphens only between letters (Mary-Jo)'
-        return 'letters, numbers and hyphens only (and @ at the start)'
-    toks = [norm(t) for t in re.split(r'[ -]', s)]
+        if re.search(r"[-'’]", s): return "hyphens and apostrophes only between letters (Mary-Jo, O'Brien)"
+        return 'letters, numbers, hyphens and apostrophes only (and @ at the start)'
+    toks = [norm(t) for t in re.split(r"[ \-'’]", s)]
     cands = set(toks) | {' '.join(toks), ''.join(toks)} | {squash(t) for t in toks} | {squash(''.join(toks))}
     if cands & _W: return 'not allowed: language'
     flat = squash(''.join(toks))

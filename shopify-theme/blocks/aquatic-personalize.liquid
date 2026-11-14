@@ -11,7 +11,7 @@
     the page explains that the lettering is resized or the line is set on two lines, and what that can mean. The buyer
     ticks to agree, which adds "Name fit" to the order. The job then marks the Printful draft
     "⚠ DESIGN EDIT" for approval.
-  - Name rules: letters, numbers and inner hyphens; one space at most (two words); @ only at the start (@name);
+  - Name rules: letters, numbers, inner hyphens and apostrophes; one space at most (two words); @ only at the start (@name);
     no vulgarity or profanity. Rules and word list come from assets/ds-name-rules.json, built by tools/name_rules.py,
     which the order job also runs, so a name that slips past the page is still held.
 {%- endcomment -%}
@@ -70,7 +70,7 @@
     </div>
 
     <p class="ds-personalize__error" role="alert" hidden></p>
-    <p class="ds-personalize__note">Letters, numbers and hyphens, one space at most (John Eric, Mary-Jo); @ only at the start, as @name. {{ block.settings.note }} {{ std }} characters fits the design as drawn; up to {{ cap }} is fitted for you.{% if mode != 'one' %} {{ block.settings.pair_note }}{% endif %}</p>
+    <p class="ds-personalize__note">Letters, numbers, hyphens and apostrophes, one space at most (John Eric, Mary-Jo, O’Brien); @ only at the start, as @name. {{ block.settings.note }} {{ std }} characters fits the design as drawn; up to {{ cap }} is fitted for you.{% if mode != 'one' %} {{ block.settings.pair_note }}{% endif %}</p>
   </div>
   <style>
     .ds-personalize{display:flex;flex-direction:column;gap:10px;width:100%}
@@ -113,10 +113,10 @@
         if (!RULES.fmt.test(s)) {
           if ((s.match(/ /g) || []).length > 1) return 'One space at most: one or two words, like John Eric.';
           if (s.slice(1).indexOf('@') >= 0 || s === '@') return 'The @ goes only at the start, as @name.';
-          if (s.indexOf('-') >= 0) return 'Hyphens only between letters, like Mary-Jo.';
-          return 'Letters, numbers and hyphens only (and @ at the start, as @name).';
+          if (/[-'’]/.test(s)) return 'Hyphens and apostrophes only between letters, like Mary-Jo or O’Brien.';
+          return 'Letters, numbers, hyphens and apostrophes only (and @ at the start, as @name).';
         }
-        var toks = s.split(/[ -]/).map(norm), c = new Set(toks.concat([toks.join(' '), toks.join('')], toks.map(squash), [squash(toks.join(''))]));
+        var toks = s.split(/[ \-'’]/).map(norm), c = new Set(toks.concat([toks.join(' '), toks.join('')], toks.map(squash), [squash(toks.join(''))]));
         var bad = false; c.forEach(function (t) { if (RULES.words.has(t)) bad = true; });
         var flat = squash(toks.join(''));
         if (!bad) bad = RULES.inside.some(function (w) { return flat.indexOf(squash(w)) >= 0; });
