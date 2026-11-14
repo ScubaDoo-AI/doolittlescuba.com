@@ -71,6 +71,20 @@ Eric's rule (14 Nov): pass the digitizing charge to the customer the first time 
   - **missing or short:** the order is held (`fee`);
   - **paid twice** (the same design added to the cart twice): the draft goes ahead, and the issue says how much to **refund**.
 
+## Shipping and tracking back to Shopify (14 Nov)
+
+The drafts are made through Printful's API. Printful's Shopify integration therefore doesn't know they belong to a Shopify order, and the custom products sit at "Shop location", not Printful. Without help, the Shopify order would stay Unfulfilled and the buyer would never get a shipping email.
+
+**`tools/custom_fulfil.py`** fixes this. It runs every 15 minutes in the same workflow, after the drafts:
+- It finds paid orders from the last 45 days with unfulfilled custom lines, and their Printful order (`@MY<n>`).
+- For each Printful shipment, it looks up the lines that shipment carried. Each Printful item's external id is its Shopify line id.
+- It creates a Shopify fulfillment for those lines with the carrier, tracking number and link. Shopify emails the buyer.
+- The digitization fee line closes with the first cap shipment.
+- It is idempotent: only remaining quantities are fulfilled.
+- It needs `read/write_merchant_managed_fulfillment_orders` on the Order Bot app (granted 14 Nov).
+
+Regular (synced) shirts in the same order are left to Printful's own integration.
+
 ## Holds
 
 Some orders need a person, so the pipeline sends nothing to Printful and reports the reason (`reason_kind`) instead:
@@ -149,6 +163,8 @@ Some orders need a person, so the pipeline sends nothing to Printful and reports
     - Front shrinks to 80 %, then the line wraps to two lines instead. Back wraps and shrinks.
     - Below 60 % the order is held for a hand edit.
   - Any change is a **design edit**: the Printful item is named **⚠ DESIGN EDIT · …** and the GitHub issue title ends **· ⚠ DESIGN EDIT**. The issue lists what changed (no names, public repo).
+- [x] Language check on the Make it yours "Your line" (tee and cap): the same word list, words only (punctuation is fine). Spelled-out letters (F.U.C.K) are caught; phrases are not joined across words ("Push it" passes). On the page the button is disabled with a note, and the job holds the order. The site copy of the rules is `js/ds-name-rules.json`.
+- [ ] First real shipment: check that the Shopify order turns Fulfilled with tracking and the buyer gets the email.
 - [ ] One test name-tee order: check the names arrive as line properties and the job drafts it.
 
 - [ ] Place a test order through Add to cart. This needs the storefront password preview or the launch.

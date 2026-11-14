@@ -1,5 +1,6 @@
 name: Custom orders
-# Every 15 minutes: paid Make it yours orders → print files → Printful DRAFT (tools/custom_order.py).
+# Every 15 minutes: paid Make it yours orders → print files → Printful DRAFT (tools/custom_order.py);
+# shipped custom orders → Shopify fulfillment with tracking, buyer emailed (tools/custom_fulfil.py).
 # Nothing prints or is charged until Eric confirms the draft. Held orders (logo, Home Port …) wait for a person.
 # One GitHub issue per draft or hold, so Eric gets an email/notification for each.
 on:
@@ -56,3 +57,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python tools/custom_order_issues.py custom_orders.json
+      - name: Shipped → Shopify fulfillment with tracking
+        if: ${{ (inputs.mode || 'run') == 'run' || inputs.mode == 'dry' }}
+        env:
+          SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
+          SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
+          PRINTFUL_TOKEN: ${{ secrets.PRINTFUL_TOKEN }}
+          MODE: ${{ inputs.mode || 'run' }}
+        run: |
+          F=""; [ "$MODE" = "dry" ] && F="--dry"
+          python tools/custom_fulfil.py --days 45 $F | tee fulfil.log
+          { echo '## Shipped'; echo; echo '```'; cat fulfil.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
