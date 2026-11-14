@@ -102,6 +102,23 @@ Regular (synced) shirts in the same order are left to Printful's own integration
 - If custom drafts are waiting at Printful, it opens or comments on the issue "Custom drafts waiting for approval", listing order, Printful id and hours waiting (⚠ past a day).
 - It closes the issue when none are left.
 
+## Shipping rates for custom items (14 Nov, option B)
+
+**Problem:** the custom products are stocked at "Shop location", so they had fallen into Shopify's General profile: $8 Standard, free Standard on orders of $70+, $15 Express. Regular shirts and caps charge Printful's rates.
+
+**Why not Printful's profiles:** they only cover the Printful location, so the custom items can't join them.
+
+**What was done instead:** `tools/ship_profiles.py` (Actions → **Shipping profiles (custom items)**) made two profiles at Shop location, US only, with Printful's US prices:
+
+| Profile | Covers | Standard | Express |
+|---|---|---|---|
+| Custom tees (made to order, Printful rates) | 480 variants: 78 name tees + Make it yours tee | $4.95 | $9.99 |
+| Custom caps (made to order, Printful rates) | 4 variants: Make it yours cap | $4.69 | $11.99 |
+
+- **Re-run** the job after adding personalized products. It only moves what isn't in yet.
+- **Digitization fee:** ships nothing and stays where it is.
+- **General profile:** keeps its free-over-$70 rate for the 22 variants still in it.
+
 ## Holds
 
 Some orders need a person, so the pipeline sends nothing to Printful and reports the reason (`reason_kind`) instead:
