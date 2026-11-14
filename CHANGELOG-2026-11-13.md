@@ -47,6 +47,7 @@ Eric asked for a sample order of everything still unproofed, then: small sizes, 
 - **Printful:** linked 20 / 20 (run 43526121203). Printful set 9,999 on every variant.
 - 19:20 — **Organic relink for the lowered chest:** the organic link run (43487195817) checked out before `eb4c1c5`, so the organic Signature and Certified-ish tees went to Printful with the old 0.5 in chest. Organic Off-World already had the full-area left-chest fronts (`c0395cb`).
   - Re-sent with `force`: run 43532402942, lines organic, sku = the 34 `DS-<code>-T` prefixes, 408 variants expected.
+  - **Done: 408 / 408 relinked, 0 failures** (finished 01:07 UTC, 14 Nov). Every organic tee now carries its line's current chest position.
 - 20:17 — Eric: *"Activate the jackets - organics as well."* **244 products → ACTIVE** (242 organic-line, 2 jackets), 0 errors.
   - Status was set by the bot app (`organic_import.py --activate`, Organic import workflow run 43540346270).
   - All 244 are published to the **Online Store** channel (`publicationUpdate` in batches of 50), as are the collections **The organic line** and **Jackets**.

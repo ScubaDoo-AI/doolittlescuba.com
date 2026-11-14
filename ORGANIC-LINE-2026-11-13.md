@@ -108,3 +108,4 @@ Caps: Black → Black · Dark Navy, Royal Blue → Pacific · Dark Grey → Char
 
 ## 13 Nov 20:17 — Active
 - All 242 organic products are ACTIVE and published to the Online Store, with the collection The organic line (Eric's go). The storefront password is on, so nothing is public yet. The cart converter goes live when the "Horizon — Doolittle Scuba" theme is published.
+- **Chest relink (run 43532402942, done 01:07 UTC 14 Nov):** the 408 organic Signature and Certified-ish sizes were re-sent with the `_top2in` left-chest fronts. 408 / 408, 0 failures.
