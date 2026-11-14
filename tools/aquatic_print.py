@@ -21,6 +21,7 @@ Assets (default /home/claude/aquatic/assets, or $AQUATIC_ASSETS): IMFellItalic.t
 DS_mark_transparent.png (the project's navy + red mark; navy is turned white here).
 """
 import os, sys, json, re, io
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageCms
 from scipy import ndimage as nd
@@ -58,8 +59,12 @@ REF = {1: 'Alexanderson', 2: 'Alexandria'}   # standard-length reference names (
 
 
 def clean_name(s, maxlen):
-    s = re.sub(r'\s+', ' ', s.strip()).replace("'", '’').replace('"', '')
+    """Eric, 14 Nov: letters / numbers / inner hyphens, one space at most, @ only as @name, no profanity (tools/name_rules.py)."""
+    import name_rules
+    s = re.sub(r'\s+', ' ', s.strip())
     if not s: raise SystemExit('empty name')
+    why = name_rules.problem(s)
+    if why: raise SystemExit(f'name not allowed ({why})')
     if len(s) > maxlen: raise SystemExit(f'name "{s}" is {len(s)} characters; the line allows {maxlen}')
     return s
 

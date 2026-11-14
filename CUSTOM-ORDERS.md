@@ -134,6 +134,16 @@ Some orders need a person, so the pipeline sends nothing to Printful and reports
     - Past the standard, the page explains the resize or two-line setting and what it can mean (smaller letters, a different line break, the joke sitting lower).
     - The buyer must tick to agree, which adds the property **Name fit**.
   - **Live since 14 Nov, 06:25.** The Order Bot app V3 has `read_themes` + `write_themes`. Pushed with Actions → **Theme push** (run 43589832784) to the live theme "Horizon — Doolittle Scuba (Home Port map v2)". The checksum matches the repo file. The old block (3,409 chars) is in that run's `theme-backups` artifact.
+- [x] **Name rules** (Eric, 14 Nov, 06:32–06:33). `tools/name_rules.py`; page asset `shopify-theme/assets/ds-name-rules.json`.
+  - **Format:** letters (accents allowed), numbers and hyphens between letters (Mary-Jo).
+  - **Spaces:** one at most, so one or two words (John Eric).
+  - **@:** the only special character, and only at the start (@name).
+  - **Language:** no vulgarity, profanity or slurs.
+    - Word list: better-profanity 0.7.0 (MIT), curated. Real names and harmless words are allowed (Dick, Willy, Wang, Dong, Massa, Seaman, god, rum, …).
+    - Look-alike digits are read as letters (0→o, 1→i, 3→e, 4→a, 5→s, 7→t).
+    - Doubled letters are collapsed.
+    - A short list of the worst words is caught even inside a longer name.
+  - **Where it runs:** the page blocks the cart with a message as the buyer types. `aquatic_print.clean_name` holds any order that still breaks a rule (`name`). The issue never echoes the name.
 - [x] **Fit and flag (job):**
   - `aquatic_print.fit_report()` compares the buyer's names with a standard-length name.
     - Front shrinks to 80 %, then the line wraps to two lines instead. Back wraps and shrinks.

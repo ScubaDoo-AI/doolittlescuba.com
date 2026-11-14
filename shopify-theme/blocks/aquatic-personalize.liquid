@@ -11,6 +11,9 @@
     the page explains that the lettering is resized or the line is set on two lines, and what that can mean. The buyer
     ticks to agree, which adds "Name fit" to the order. The job then marks the Printful draft
     "⚠ DESIGN EDIT" for approval.
+  - Name rules: letters, numbers and inner hyphens; one space at most (two words); @ only at the start (@name);
+    no vulgarity or profanity. Rules and word list come from assets/ds-name-rules.json, built by tools/name_rules.py,
+    which the order job also runs, so a name that slips past the page is still held.
 {%- endcomment -%}
 {%- liquid
   assign product = closest.product
@@ -32,7 +35,7 @@
   endif
 -%}
 {%- if mode != '' -%}
-  <div class="ds-personalize" id="ds-personalize-{{ section.id }}" data-form="{{ form_id }}" data-std="{{ std }}" data-cap="{{ cap }}" {{ block.shopify_attributes }}>
+  <div class="ds-personalize" id="ds-personalize-{{ section.id }}" data-rules="{{ 'ds-name-rules.json' | asset_url }}" data-form="{{ form_id }}" data-std="{{ std }}" data-cap="{{ cap }}" {{ block.shopify_attributes }}>
     <p class="ds-personalize__title">{{ block.settings.heading }}</p>
     {%- if mode == 'one' -%}
       <label class="ds-personalize__field">
@@ -67,7 +70,7 @@
     </div>
 
     <p class="ds-personalize__error" role="alert" hidden></p>
-    <p class="ds-personalize__note">{{ block.settings.note }} {{ std }} characters fits the design as drawn; up to {{ cap }} is fitted for you.{% if mode != 'one' %} {{ block.settings.pair_note }}{% endif %}</p>
+    <p class="ds-personalize__note">Letters, numbers and hyphens, one space at most (John Eric, Mary-Jo); @ only at the start, as @name. {{ block.settings.note }} {{ std }} characters fits the design as drawn; up to {{ cap }} is fitted for you.{% if mode != 'one' %} {{ block.settings.pair_note }}{% endif %}</p>
   </div>
   <style>
     .ds-personalize{display:flex;flex-direction:column;gap:10px;width:100%}
@@ -98,20 +101,44 @@
       var fit = box.querySelector('.ds-personalize__fit'), ack = box.querySelector('[data-ds-ack]');
       var err = box.querySelector('.ds-personalize__error');
       function clean(v) { return (v || '').replace(/\s+/g, ' ').trim(); }
+      var RULES = null;
+      fetch(box.dataset.rules).then(function (r) { return r.json(); }).then(function (j) {
+        var dec = function (b) { return new TextDecoder().decode(Uint8Array.from(atob(b), function (c) { return c.charCodeAt(0); })).split('\n'); };
+        RULES = { fmt: new RegExp(j.format), words: new Set(dec(j.w)), inside: dec(j.i), leet: j.leet }; update();
+      }).catch(function () { /* rules unreachable: the order job still checks every name */ });
+      function norm(t) { return t.toLowerCase().replace(/^@/, '').replace(/[0-9]/g, function (d) { return (RULES.leet || {})[d] || d; }); }
+      function squash(t) { return t.replace(/(.)\1+/g, '$1'); }
+      function nameProblem(v) {      // the same checks as tools/name_rules.py problem()
+        var s = clean(v); if (!s || !RULES) return '';
+        if (!RULES.fmt.test(s)) {
+          if ((s.match(/ /g) || []).length > 1) return 'One space at most: one or two words, like John Eric.';
+          if (s.slice(1).indexOf('@') >= 0 || s === '@') return 'The @ goes only at the start, as @name.';
+          if (s.indexOf('-') >= 0) return 'Hyphens only between letters, like Mary-Jo.';
+          return 'Letters, numbers and hyphens only (and @ at the start, as @name).';
+        }
+        var toks = s.split(/[ -]/).map(norm), c = new Set(toks.concat([toks.join(' '), toks.join('')], toks.map(squash), [squash(toks.join(''))]));
+        var bad = false; c.forEach(function (t) { if (RULES.words.has(t)) bad = true; });
+        var flat = squash(toks.join(''));
+        if (!bad) bad = RULES.inside.some(function (w) { return flat.indexOf(squash(w)) >= 0; });
+        return bad ? 'That name can\'t be printed. Please choose another.' : '';
+      }
       function long() { return names.some(function (i) { return clean(i.value).length > std; }); }
       function update() {
         names.forEach(function (i) {
           var n = clean(i.value).length, c = i.closest('label').querySelector('.ds-personalize__count');
           c.textContent = n ? n + ' / ' + std : ''; c.classList.toggle('is-long', n > std);
-          if (n) i.removeAttribute('aria-invalid');
+          var np = nameProblem(i.value); i.setCustomValidity(np);
+          if (n && !np) i.removeAttribute('aria-invalid'); else if (np) i.setAttribute('aria-invalid', 'true');
         });
         var l = long(); fit.hidden = !l; ack.required = l; ack.disabled = !l;   // disabled: not sent when not needed
         if (!l) ack.checked = false;
-        if (!err.hidden && problem() === '') err.hidden = true;
+        var live = names.map(function (i) { return nameProblem(i.value); }).filter(Boolean)[0];
+        if (live) { err.textContent = live; err.hidden = false; } else if (!err.hidden && problem() === '') err.hidden = true;
       }
       function problem() {
         var empty = names.filter(function (i) { return !clean(i.value); });
         if (empty.length) return names.length > 1 ? 'Type both names before adding the shirt to your cart: they are printed on it.' : 'Type the name to print before adding the shirt to your cart.';
+        for (var k = 0; k < names.length; k++) { var np = nameProblem(names[k].value); if (np) return np; }
         if (long() && !ack.checked) return 'One name is longer than ' + std + ' characters: tick the box to agree to the resize, or shorten it.';
         return '';
       }
@@ -119,7 +146,7 @@
         var p = problem(); if (!p) return true;
         e.preventDefault(); e.stopPropagation(); if (e.stopImmediatePropagation) e.stopImmediatePropagation();
         err.textContent = p; err.hidden = false;
-        var first = names.filter(function (i) { return !clean(i.value); })[0];
+        var first = names.filter(function (i) { return !clean(i.value) || nameProblem(i.value); })[0];
         if (first) { first.setAttribute('aria-invalid', 'true'); first.focus(); } else if (long() && !ack.checked) ack.focus();
         box.scrollIntoView({ block: 'center', behavior: 'smooth' });
         return false;

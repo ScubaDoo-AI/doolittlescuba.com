@@ -22,7 +22,7 @@ for r in todo:
     else:
         why = {'logo': 'wholesale / dive shop logo order: quote by quantity (DS mark on the sleeve, no shark signature)', 'home-port': 'Home Port chest block (made by hand)',
                'no-address': 'no shipping address visible to the app', 'no-design': 'a Make it yours line without a design',
-               'name': 'a personalized Aquatic tee with a missing or too-long name',
+               'name': 'a personalized Aquatic tee whose name is missing, too long, or breaks the name rules (format or language)',
                'fee': 'a cap design with a new line of text but no embroidery digitization fee in the order',
                'cap-text': 'a cap line too long to stitch at the 0.25 in letter floor'}.get(r.get('reason_kind'), 'see the order in Shopify')
         body += [f'Held: {why}.', 'Nothing was sent to Printful. Open the order in Shopify admin for the details.']
