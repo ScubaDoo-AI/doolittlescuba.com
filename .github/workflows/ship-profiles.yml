@@ -1,0 +1,26 @@
+name: Shipping profiles (custom items)
+# Puts the custom / personalized products on Printful-matched US rates (tools/ship_profiles.py). Re-run after adding
+# personalized products. Needs write_shipping on the Doolittle Order Bot app.
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: 'Apply. Off = dry run'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  ship:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - run: pip install pillow numpy scipy
+      - env:
+          SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
+          SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
+          APPLY: ${{ inputs.apply }}
+        run: python tools/ship_profiles.py $([ "$APPLY" = "true" ] && echo --apply)
