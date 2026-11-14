@@ -20,7 +20,8 @@ for r in todo:
                  f'Then confirm in Printful, or Actions → Custom orders → mode **confirm**, printful_id **{r["printful_id"]}**.']
     else:
         why = {'logo': 'wholesale / dive shop logo order: quote by quantity (DS mark on the sleeve, no shark signature)', 'home-port': 'Home Port chest block (made by hand)',
-               'no-address': 'no shipping address visible to the app', 'no-design': 'a Make it yours line without a design'}.get(r.get('reason_kind'), 'see the order in Shopify')
+               'no-address': 'no shipping address visible to the app', 'no-design': 'a Make it yours line without a design',
+               'name': 'a personalized Aquatic tee with a missing or too-long name'}.get(r.get('reason_kind'), 'see the order in Shopify')
         body += [f'Held: {why}.', 'Nothing was sent to Printful. Open the order in Shopify admin for the details.']
     subprocess.run(['gh', 'issue', 'create', '--title', title, '--body', '\n'.join(body)], check=True)
     print('opened:', title)
