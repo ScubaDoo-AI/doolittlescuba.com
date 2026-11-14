@@ -125,6 +125,11 @@ Some orders need a person, so the pipeline sends nothing to Printful and reports
 
 ## Before the first real order
 
+- [x] Name fields on every name tee. The live theme's `product.personalized` template carries the "Personalize (names)" block; it reads the `personalize:1 / buddy / couple` tags.
+  - The 39 regular tees already used it.
+  - The **39 organic twins did not**: their template suffix was empty, so no name boxes showed. All 39 were set to `personalized` on 14 Nov, 05:50.
+- [ ] One test name-tee order: check the names arrive as line properties and the job drafts it.
+
 - [ ] Place a test order through Add to cart. This needs the storefront password preview or the launch.
 - [ ] Check that the order query can read the shipping address. Protected customer data may hide it; if so, the order is held as `no-address`.
 - [ ] Check that Printful accepts v2 API orders on the Shopify-connected store.
