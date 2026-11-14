@@ -16,6 +16,7 @@ Word source: better-profanity 0.7.0 word list (MIT), tools/data/…_MIT.txt, cur
   INSIDE  the few words caught even inside a longer name (no real-name clashes), after doubled letters collapse
   python3 tools/name_rules.py --build      # writes the page's asset
   python3 tools/name_rules.py "Name" ...   # checks names
+  python3 tools/name_rules.py --text "Some line"   # checks a free line (Make it yours)
 """
 import os, re, sys, json, base64
 
@@ -73,16 +74,43 @@ def problem(name):
     return ''
 
 
+def language_problem(text):
+    """Free text (the Make it yours "Your line" on tees and caps): words only, any punctuation. '' = fine."""
+    global _W
+    if _W is None: _W = set(words())
+    toks = [norm(t) for t in re.split(rf"[^{LETTERS}@]+", text or '') if t]
+    if not toks: return ''
+    pairs = [toks[i] + toks[i + 1] for i in range(len(toks) - 1)] + [toks[i] + ' ' + toks[i + 1] for i in range(len(toks) - 1)]
+    runs, cur = [], ''                       # spelled-out letters: "F.U.C.K", "s h i t" -> one word
+    for t in toks + ['']:
+        if len(t) == 1: cur += t
+        else:
+            if len(cur) > 1: runs.append(cur)
+            cur = ''
+    pairs += runs
+    cands = set(toks) | set(pairs) | {squash(t) for t in toks + runs}
+    if cands & _W: return 'not allowed: language'
+    if any(squash(w) in squash(t) for t in toks + runs for w in INSIDE): return 'not allowed: language'   # not across words ("Push it")
+    return ''
+
+
+SITE_ASSET = os.path.join(os.path.dirname(HERE), 'js', 'ds-name-rules.json')
+
+
 def build():
     data = {'v': 1, 'format': FORMAT.pattern, 'leet': dict(zip('0134578 9'.replace(' ', ''), 'oieastbg')),
             'w': base64.b64encode('\n'.join(words()).encode()).decode(),
             'i': base64.b64encode('\n'.join(INSIDE).encode()).decode()}
     os.makedirs(os.path.dirname(ASSET), exist_ok=True)
-    json.dump(data, open(ASSET, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+    for a in (ASSET, SITE_ASSET):   # the store theme's copy and the static site's copy (Make it yours)
+        os.makedirs(os.path.dirname(a), exist_ok=True)
+        json.dump(data, open(a, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
     print('wrote', ASSET, len(words()), 'words,', len(INSIDE), 'inside')
 
 
 if __name__ == '__main__':
     if sys.argv[1:2] == ['--build']: build()
+    elif sys.argv[1:2] == ['--text']:
+        for n in sys.argv[2:]: print(f'{n!r:32} {language_problem(n) or "ok"}')
     else:
         for n in sys.argv[1:]: print(f'{n!r:24} {problem(n) or "ok"}')

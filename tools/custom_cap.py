@@ -56,6 +56,8 @@ def parse(q):
     d = dict(colour='navy', cf='site', site='black-bart', cs='dsmark', csp='left', cb='tagline', text='', font='hand')
     d.update({k: v for k, v in S.items() if k in KEYS})
     d['text'] = re.sub(r'\s+', ' ', d.get('text') or '').strip()[:28]
+    import name_rules
+    if d['text'] and name_rules.language_problem(d['text']): raise Hold('text not allowed (language)')
     return d
 
 

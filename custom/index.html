@@ -339,7 +339,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
       <div class="step" id="st-text">
         <div class="step-h"><span class="n"></span><h2>Your line</h2><span class="sub">a boat, a club, a trip, a name</span></div>
         <p class="hint" data-for="cap" hidden>On a cap your line goes where you put it: choose "Your line" in Front or Back. The back of a cap is 2 in wide: about 20 characters fit there, on up to two lines.</p>
-        <div class="field"><label for="line">Text <span style="text-transform:none;letter-spacing:0">(up to 28 characters)</span></label><input id="line" maxlength="28" placeholder="e.g. Fiji 2024 · Taveuni" autocomplete="off"></div>
+        <div class="field"><label for="line">Text <span style="text-transform:none;letter-spacing:0">(up to 28 characters)</span></label><input id="line" maxlength="28" placeholder="e.g. Fiji 2024 · Taveuni" autocomplete="off"><small id="line-bad" role="alert" hidden style="color:#C8202A;font-weight:600">That line can't be printed. Please choose other words.</small></div>
         <div class="row"><span class="lbl">Lettering</span><button type="button" class="chip on" data-font="hand">Hand-lettered</button><button type="button" class="chip" data-font="plain">Plain</button><button type="button" class="chip" data-font="mono">Mono</button></div>
         <div class="row" data-for="shirt"><span class="lbl">Where</span><button type="button" class="chip on" data-tpos="chest">Under the chest print</button><button type="button" class="chip" data-tpos="upper">Upper back</button><button type="button" class="chip" data-tpos="sleeve">Other sleeve</button></div>
       </div>
@@ -666,6 +666,25 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
   var DIGI={1:51027378864314,2:51027378897082,3:51027378929850};
   function newPlacements(){ return S.product!=='cap'||!S.text.trim()?0:(S.cf==='line'?1:0)+(S.cb==='line'?1:0); }
   function digiFee(n){ return n?Math.round((6.50+2.95*(n-1)+0.50)*100)/100:0; }
+  /* Language check on "Your line" (Eric, 14 Nov): the same word list and rules as the store's name fields and the
+     order job (tools/name_rules.py → /js/ds-name-rules.json). Words only: any punctuation is fine here. */
+  var LANG=null;
+  fetch('/js/ds-name-rules.json').then(function(r){return r.json()}).then(function(j){
+    var dec=function(b){ return new TextDecoder().decode(Uint8Array.from(atob(b),function(c){return c.charCodeAt(0)})).split('\n'); };
+    LANG={words:new Set(dec(j.w)),inside:dec(j.i),leet:j.leet}; summary();
+  }).catch(function(){ /* unreachable: the order job still checks the line */ });
+  function textBad(){
+    if(!LANG||!S.text) return false;
+    var norm=function(t){ return t.toLowerCase().replace(/^@/,'').replace(/[0-9]/g,function(d){return LANG.leet[d]||d}); };
+    var sq=function(t){ return t.replace(/(.)\1+/g,'$1'); };
+    var toks=S.text.split(/[^A-Za-zÀ-ÖØ-öø-ÿ0-9@]+/).filter(Boolean).map(norm); if(!toks.length) return false;
+    var pairs=[],runs=[],cur='';
+    for(var i=0;i<toks.length-1;i++){ pairs.push(toks[i]+toks[i+1]); pairs.push(toks[i]+' '+toks[i+1]); }
+    toks.concat(['']).forEach(function(t){ if(t.length===1) cur+=t; else { if(cur.length>1) runs.push(cur); cur=''; } });
+    var c=toks.concat(pairs,runs,toks.map(sq),runs.map(sq));
+    if(c.some(function(t){return LANG.words.has(t)})) return true;
+    return toks.concat(runs).some(function(t){ return LANG.inside.some(function(w){ return sq(t).indexOf(sq(w))>=0; }); });
+  }
   function backTooLong(){ return S.product==='cap'&&S.cb==='line'&&S.text.trim().length>20; }
   function price(){
     var cap=S.product==='cap', add=personal()?PRICE.tierB:PRICE.tierA, base=cap?PRICE.cap:PRICE.base, each=base+add, big=PRICE.big+add, n=0, total=0;
@@ -712,10 +731,10 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
   var MYC={A:{SM:50828254871738,LXL:50873148473530},B:{SM:50828254904506,LXL:50873148506298}};
   function design(){ var q=new URLSearchParams(); (S.product==='cap'?['colour','site','cf','cs','csp','cb','text','font']:['colour','tab','back','bsize','chest','site','ccert','cpos','sleeve','spos','upper','text','font','tpos']).forEach(function(k){ if(S[k]!==undefined&&S[k]!==null&&S[k]!=='') q.set(k,S[k]); }); return q.toString(); }
   function buyState(){ var b=$('#buy-now'); if(!b) return; var cap=S.product==='cap', logo=hasLogo(), n=D.sizes.reduce(function(a,z){return a+(S.qty[z]||0)},0);
-    if(cap) n=S.capqty||0; var long=backTooLong();
-    b.hidden=false; b.disabled=logo||!n||long; b.title=logo?'A logo needs a quick check by hand: send the request email with the file attached':long?'About 20 characters fit on the back of a cap: shorten the line or put it on the front':!n?(cap?'Pick how many caps first':'Pick your sizes first'):''; }
+    if(cap) n=S.capqty||0; var long=backTooLong(), bad=textBad(); $('#line-bad').hidden=!bad;
+    b.hidden=false; b.disabled=logo||!n||long||bad; b.title=bad?'That line can\'t be printed: choose other words':logo?'A logo needs a quick check by hand: send the request email with the file attached':long?'About 20 characters fit on the back of a cap: shorten the line or put it on the front':!n?(cap?'Pick how many caps first':'Pick your sizes first'):''; }
   $('#buy-now').addEventListener('click',function(){
-    if(hasLogo()||backTooLong()) return;
+    if(hasLogo()||backTooLong()||textBad()) return;
     var tier=hasLine()?'B':'A', f=document.createElement('form'), i=0, cap=S.product==='cap';
     f.method='POST'; f.action=SHOP+'/cart/add'; f.style.display='none';
     var add=function(k,v){ var e=document.createElement('input'); e.type='hidden'; e.name=k; e.value=v; f.appendChild(e); };

@@ -160,6 +160,8 @@ def parse(q):
              sleeve='shark', spos='right', upper='none', text='', font='hand', tpos='chest', ccert='cert-night')
     d.update({k: v for k, v in S.items() if k in KEYS})
     d['text'] = re.sub(r'\s+', ' ', d.get('text') or '').strip()[:40]
+    import name_rules
+    if d['text'] and name_rules.language_problem(d['text']): raise Hold('text not allowed (language)')
     return d
 
 
