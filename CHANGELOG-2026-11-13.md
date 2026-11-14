@@ -38,6 +38,7 @@ Eric asked for a sample order of everything still unproofed, then: small sizes, 
   - Saved draft #sample-202611120318: **16 items, $492.36** (subtotal $382.02 · digitization $34.85 · shipping $44.49 · discount −$2.00 · tax $33.00), not charged. Printful's estimated delivery: Dec 14 (flat rate).
 - 22:05–22:20 — Eric: Desert Dust and Butter to XL; Off-World jokes 27 and 3. Nitrox (Butter) changed to XL in place. Desert Dust XL is greyed out in Printful's size dialog ("default selling preferences"), so the Dampier Strait organic tee Desert Dust XL (variant 51012373315770) was added from the synced product and the S removed. Off-World Hunter (Bay S) swapped for **Out Late** (OW27, "Mothership says I can stay out late", Lagoon Blue S); Wormhole (OW03, True Navy S) kept. Saved draft and checked the order modal: **16 items, $492.34** (subtotal $382.02 · shipping $44.48 · tax $32.99), not charged.
 - 22:25 — Eric: "Swap seal cap and Thurmond Dam sizes." **The Seal — Dark cap, Black → S/M**; **Thurmond Dam — Dark cap, Dark Navy → L/XL** (Flexfit 6277, size dialog). Saved and checked in the order modal: 16 items, still $492.34, not charged.
+- 22:30 — Eric: "Remove Aquatic Comic." Boat Banter — Born to Dive organic tee (Black S) removed. Saved and checked: **15 items, $470.24** (subtotal $362.12 · shipping $44.48 → $42.28 · tax $32.99 as shown), not charged.
 
 ## Jackets added to the system (13 Nov, 13:00–19:10)
 - **Line:** Champion Packable Anorak (CO200, Printful 399) and SOL'S Basic Windbreaker (32000, Printful 661).
