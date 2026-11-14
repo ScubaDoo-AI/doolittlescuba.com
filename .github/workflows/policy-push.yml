@@ -1,0 +1,37 @@
+name: Policy push
+# Writes store policies from policies/*.html to Shopify (tools/policy_push.py) through the Doolittle Order Bot app.
+on:
+  workflow_dispatch:
+    inputs:
+      policies:
+        description: 'Which (space separated): refund shipping terms privacy contact'
+        required: true
+        default: 'refund shipping'
+      apply:
+        description: 'Apply (write). Off = dry run'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  push:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - run: pip install pillow numpy scipy
+      - name: Push
+        env:
+          SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
+          SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
+          P: ${{ inputs.policies }}
+          APPLY: ${{ inputs.apply }}
+        run: |
+          [[ "$P" =~ ^[a-z\ ]+$ ]] || { echo "::error::bad input"; exit 1; }
+          A=""; [ "$APPLY" = "true" ] && A="--apply"
+          python tools/policy_push.py $A $P
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: policy-backups, path: policy-backups, if-no-files-found: ignore, retention-days: 90 }

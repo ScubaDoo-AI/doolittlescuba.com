@@ -1,0 +1,23 @@
+name: Custom drafts reminder
+# Every morning (07:23 New York in winter): custom-order drafts still waiting for approval at Printful →
+# one GitHub issue, commented daily, closed when none are left (tools/custom_reminder.py).
+on:
+  schedule:
+    - cron: '23 12 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  remind:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - run: pip install pillow numpy scipy
+      - env:
+          PRINTFUL_TOKEN: ${{ secrets.PRINTFUL_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/custom_reminder.py
