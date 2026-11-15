@@ -14,6 +14,7 @@ The hand-made line was on nearly every page. It now appears in just a few places
 - **Reworded:** "Five lines, one hand" → "one artist" (home + every collection page); "Every mark by hand" → "Every mark original"; the Signature tile is now "Dive sites, plate by plate" (new `tile` field in `tools/line_pages.py`, so the hero keeps its tagline); the meta descriptions of the 12 site guides; the About page and the Certified-ish and Signature design intros.
 - **Corrected:** "printed by hand (in Newnan)" / "pressed by hand" → **"printed to order" / "pressed to order"**. Printful prints the shirts, so the old line wasn't accurate. Changed in the shirt and cap spec panels (`js/deck.js` + `tools/darkline.py`, `certdarkline.py`, `hats_v2.py`), the craft facts, Make it yours, `tools/offworld_shopify.py`, and the refund and shipping policy sources.
 - "Checked by hand" lines in the policies and the Aquatic personalize block now read "we check every custom design".
+- **Follow-up (Eric):** the Signature Series and Certified-ish art really was drawn by hand, so "drawn by hand" is back on those two lines: the Signature tile on every page, both design intros, the home "Every mark by hand" craft section (Signature plates) and the About line on Eric's plates. The `tile` field in `tools/line_pages.py` is gone again. **Rule from here:** "by hand" goes only on Signature Series and Certified-ish art. "Printed by hand" stays corrected to "printed to order."
 
 ### Not live yet
 - **Policies:** run Actions → **Policy push** to send the new refund and shipping text to Shopify.
