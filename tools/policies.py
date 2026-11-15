@@ -19,7 +19,7 @@ POLICIES = [  # path, label, Shopify policy page (ids from shop.shopPolicies, 13
     ('returns',  'Returns',  SHOP + '43703435450.html?locale=en'),   # Shopify calls it the refund policy
 ]
 START, END = '<!-- POLICIES:START -->', '<!-- POLICIES:END -->'
-ANCHOR = '<p class="mono"><a href="mailto:shop@doolittlescuba.com" style="color:inherit" data-umami-event="contact" data-umami-event-via="email">shop@doolittlescuba.com</a> &middot; <a href="tel:+17708288899" style="color:inherit" data-umami-event="contact" data-umami-event-via="phone">(770) 828-8899</a></p>'
+ANCHOR = '<p class="mono"><a href="mailto:shop@doolittlescuba.com" style="color:inherit" data-umami-event="contact" data-umami-event-via="email">shop@doolittlescuba.com</a></p>'
 
 REDIRECT = """<!doctype html>
 <html lang="en">

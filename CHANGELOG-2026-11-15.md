@@ -1,10 +1,11 @@
 # Changelog — 15 Nov 2026
 
 ## Footer contact line (from the Doolittle Scuba L.L.C. contact card)
-- Every page footer now reads **shop@doolittlescuba.com · (770) 828-8899**, both tappable (mailto / tel). It replaces `hello@ · orders@`.
-- Clicks are tracked in Umami as `contact` events (`via` = email / phone).
+- Every page footer now reads **shop@doolittlescuba.com** (tappable mailto). It replaces `hello@ · orders@`.
+- **The business phone is not listed anywhere on the site (Eric, 15 Nov).** It was added briefly and removed the same day.
+- Clicks are tracked in Umami as `contact` events (`via` = email).
 - The page generators (`tools/line_pages.py`, `tools/stickers_page.py`) and the policies footer anchor (`tools/policies.py`) carry the new line, so regenerated pages keep it.
-- Home page Organization JSON-LD: email → shop@, telephone added.
+- Home page Organization JSON-LD: email → shop@.
 - Social links already matched the card (Instagram, Facebook, TikTok, X). No change.
 
 ## Still open
