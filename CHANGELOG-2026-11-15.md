@@ -25,6 +25,15 @@ The hand-made line was on nearly every page. It now appears in just a few places
 - The shirts are printed to order by Printful, not screen-printed. "screen-printed" → "printed to order" in the home page meta and share descriptions and the Signature Series description (meta, share card, JSON-LD, and its generator `tools/line_pages.py`).
 - Left alone: the old match string in `tools/darkline.py` (a one-off patch script; it doesn't put copy on the site).
 
+## Shopify product descriptions fixed (Eric, 15 Nov)
+All 130 tee and cap descriptions that said "printed by hand in Newnan, Georgia" now say **"printed to order"**, edited directly in Shopify (Admin API, in batches). That covers Signature Series light and dark (28), Certified-ish light and dark (40), Off-World Hunt Club light and dark (60), Make it yours, and the Home Port cap ("Where the shirts are printed." → "Home port for Doolittle Scuba."). The Signature site intros now read "dived and drawn for the Doolittle Scuba line"; "drawn by hand" stays on the plate backs and the Certified-ish art. Organic, 1N73LL1G3NC3, Aquatic Comic and sticker descriptions had none of this wording.
+
+### Policies: run Policy push
+The connection can't write store policies (`write_legal_policies`), so they're staged here:
+- `policies/refund.html` and `policies/shipping.html`: "pressed by hand" and "by hand" removed, dated 15 Nov.
+- **New `policies/terms.html`**: a copy of the live Terms with §4 changed from "Our designs are hand-drawn and each shirt is pressed or printed individually" to "Each shirt is printed to order individually". Dated 15 Nov.
+- To publish: Actions → **Policy push**, policies `refund shipping terms`, Apply on.
+
 ## Still open
 - Other spots on the site still use hello@ (home page forms and the "Email us your photo" links) and sales@ (custom orders). Change them only if the inboxes are being consolidated.
 - The card's mailing address (8735 Dunwoody Place, Ste N, Atlanta) already appears in the refund policy. The footer still reads "Based in Newnan, Georgia".
