@@ -49,6 +49,9 @@ The Company project repriced the store on 15 Nov. The site now shows the same pr
 - **Make it yours tee (Shopify):** the description now reads $47 ($50) = the $42 catalog tee + $5, and $48 ($51) with a line or logo. Logo files go to **shop@**.
 - **To publish the theme changes:** Actions → **Theme push**, files `assets/ds-organic.js blocks/aquatic-personalize.liquid`, Apply on. The live copies of both files were confirmed identical to the repo's previous versions, so nothing else gets overwritten.
 
+## Retired name removed (Design & Production brand rule, 15 Nov)
+- "diveplate" was still in customer-facing copy: the footer on 8 pages ("diveplate designs © 2026 …" → "Designs © 2026 Doolittle Scuba L.L.C.") and the home page meta description. Both are fixed, and so are the generators `tools/line_pages.py` and `tools/stickers_page.py`. Internal CSS classes and analytics names still say diveplate, as the Design & Production review allows.
+
 ## Still open
 - Other spots on the site still use hello@ (home page forms and the "Email us your photo" links) and sales@ (custom orders). Change them only if the inboxes are being consolidated.
 - The card's mailing address (8735 Dunwoody Place, Ste N, Atlanta) already appears in the refund policy. The footer still reads "Based in Newnan, Georgia".

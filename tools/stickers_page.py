@@ -247,7 +247,7 @@ def page(home_src, page_src):
 {social}
       <p class="mono"><a href="mailto:shop@doolittlescuba.com" style="color:inherit" data-umami-event="contact" data-umami-event-via="email">shop@doolittlescuba.com</a></p>
 {policies}
-      <p>diveplate designs &copy; 2026 Doolittle Scuba L.L.C. All rights reserved.</p>
+      <p>Designs &copy; 2026 Doolittle Scuba L.L.C. All rights reserved.</p>
     </div>
   </div>
 </footer>
