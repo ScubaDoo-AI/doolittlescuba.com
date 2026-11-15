@@ -40,7 +40,7 @@ def product(d, line, collection):
              f'This one reads <em>{H.escape(t).replace('&#x27;', '&rsquo;')}</em> Full back on {article(low)} {low} tee; the DS mark with the word in glyphs on the chest.</p>'
              f'<ul>\n<li>\n<strong>Back:</strong> the line in the off-world script, 12 × 16 in, with its translation beneath and {punch} in red.</li>\n'
              f'<li>\n<strong>Chest:</strong> the DS mark with {punch} in glyphs, left chest, 3.5 in.</li>\n'
-             f'<li>\n<strong>Shirt:</strong> Comfort Colors 1717, garment-dyed, {low}. Water-based {ink} ink, printed by hand in Newnan, Georgia.</li>\n</ul>'
+             f'<li>\n<strong>Shirt:</strong> Comfort Colors 1717, garment-dyed, {low}. Water-based {ink} ink, printed to order.</li>\n</ul>'
              f'<p>Shown on a mockup, not a photograph; the design preview is watermarked. <a href="{CUSTOM.format(c=d[line], s=s)}">Make it yours</a>: another colour, your own line.</p>')
     folder = 'img/offworld/dark' if dark else 'img/offworld'
     files = [{'originalSource': url(f'{folder}/{s}-back.webp'), 'contentType': 'IMAGE', 'alt': f'{title[:-4]} in {low}, back: the line in the off-world script, translated, {punch.lower()} in red'},

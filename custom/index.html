@@ -207,7 +207,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
       <p class="eyebrow" style="color:var(--on-deep-muted)">Custom shirts</p>
       <h1>Make it yours</h1>
       <p class="lede">Pick a colour, pick a design, put it where you want it. Add a line of your own or your logo, see it on the shirt, and send us the request.</p>
-      <p>Every shirt is still printed by hand in Newnan, one at a time, on the same Comfort Colors 1717 tee as the catalog. A personalized tee is <strong>$47</strong>, or <strong>$48</strong> with your own line ($3 more in 2XL and 3XL); a personalized cap (Flexfit 6277, S/M or L/XL) is <strong>$40</strong>, or <strong>$41</strong> with your line, plus a one-time <strong>$7</strong> to digitize your line for embroidery ($9.95 for a line on the front and the back), charged once per design however many caps. <strong>Logo shirts are for dive shops, clubs and resellers</strong>: your logo on the chest, the DS mark on the sleeve, priced by quantity. We reply with a proof before anything is printed.</p>
+      <p>Every shirt is printed to order, one at a time, on the same Comfort Colors 1717 tee as the catalog. A personalized tee is <strong>$47</strong>, or <strong>$48</strong> with your own line ($3 more in 2XL and 3XL); a personalized cap (Flexfit 6277, S/M or L/XL) is <strong>$40</strong>, or <strong>$41</strong> with your line, plus a one-time <strong>$7</strong> to digitize your line for embroidery ($9.95 for a line on the front and the back), charged once per design however many caps. <strong>Logo shirts are for dive shops, clubs and resellers</strong>: your logo on the chest, the DS mark on the sleeve, priced by quantity. We reply with a proof before anything is printed.</p>
       <a class="back" href="/#shirts" data-umami-event="custom-back">&larr; Back to the shirts</a>
     </div>
     <div class="rules" aria-label="How the placements work">
@@ -281,7 +281,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
         </svg>
       </div>
       <p class="stage-note" id="mark-note" style="color:var(--red)" role="status" aria-live="polite"></p>
-      <p class="stage-note" id="stage-note">The mockup is to scale but not a proof: the chest block is set in type here, the real one is hand-drawn, and the art carries the preview watermark. We send a real proof before anything prints.</p>
+      <p class="stage-note" id="stage-note">The mockup is to scale but not a proof: the chest block is set in type here, the real one is Eric's drawing, and the art carries the preview watermark. We send a real proof before anything prints.</p>
       <div class="stage-actions">
         <button type="button" class="btn quiet" id="copy-link" data-umami-event="custom-copy-link">Copy a link to this mockup</button>
         <span class="status" id="link-status"></span>
@@ -585,7 +585,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
     $$('.sw').forEach(function(b){ var col=D.colours.filter(function(x){return x.slug===b.getAttribute('data-colour')})[0]; b.hidden=cap?!col.cap:(!!col.cap&&!col.tee); });
     $('#colour-h').textContent=cap?'Cap colour':'Garment colour'; $('#colour-sub').textContent=cap?'Flexfit 6277 fitted cap · S/M or L/XL':'Comfort Colors 1717, garment-dyed';
     $('#order-h').textContent=cap?'How many, and the request':'Sizes and the request';
-    $('#stage-note').textContent=cap?'The mockup is to scale but not a proof: the site block is set in type here, the real one is embroidered from the hand-drawn art. We send a real proof before anything is stitched.':'The mockup is to scale but not a proof: the chest block is set in type here, the real one is hand-drawn, and the art carries the preview watermark. We send a real proof before anything prints.';
+    $('#stage-note').textContent=cap?'The mockup is to scale but not a proof: the site block is set in type here, the real one is embroidered from Eric's drawing. We send a real proof before anything is stitched.':'The mockup is to scale but not a proof: the chest block is set in type here, the real one is Eric's drawing, and the art carries the preview watermark. We send a real proof before anything prints.';
     $$('.sw').forEach(function(b){ var on=b.getAttribute('data-colour')===S.colour; b.classList.toggle('on',on); b.setAttribute('aria-pressed',on); });
     [['data-dtab','tab'],['data-bsize','bsize'],['data-chest','chest'],['data-cpos','cpos'],['data-sleeve','sleeve'],['data-spos','spos'],['data-upper','upper'],['data-font','font'],['data-tpos','tpos'],['data-view','view'],['data-cf','cf'],['data-cs','cs'],['data-csp','csp'],['data-cb','cb'],['data-product','product']].forEach(function(pair){
       $$('['+pair[0]+']').forEach(function(b){ var on=b.getAttribute(pair[0])===S[pair[1]]; b.classList.toggle('on',on); b.setAttribute('aria-pressed',on); });
@@ -732,7 +732,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
   function design(){ var q=new URLSearchParams(); (S.product==='cap'?['colour','site','cf','cs','csp','cb','text','font']:['colour','tab','back','bsize','chest','site','ccert','cpos','sleeve','spos','upper','text','font','tpos']).forEach(function(k){ if(S[k]!==undefined&&S[k]!==null&&S[k]!=='') q.set(k,S[k]); }); return q.toString(); }
   function buyState(){ var b=$('#buy-now'); if(!b) return; var cap=S.product==='cap', logo=hasLogo(), n=D.sizes.reduce(function(a,z){return a+(S.qty[z]||0)},0);
     if(cap) n=S.capqty||0; var long=backTooLong(), bad=textBad(); $('#line-bad').hidden=!bad;
-    b.hidden=false; b.disabled=logo||!n||long||bad; b.title=bad?'That line can\'t be printed: choose other words':logo?'A logo needs a quick check by hand: send the request email with the file attached':long?'About 20 characters fit on the back of a cap: shorten the line or put it on the front':!n?(cap?'Pick how many caps first':'Pick your sizes first'):''; }
+    b.hidden=false; b.disabled=logo||!n||long||bad; b.title=bad?'That line can\'t be printed: choose other words':logo?'A logo needs a quick check first: send the request email with the file attached':long?'About 20 characters fit on the back of a cap: shorten the line or put it on the front':!n?(cap?'Pick how many caps first':'Pick your sizes first'):''; }
   $('#buy-now').addEventListener('click',function(){
     if(hasLogo()||backTooLong()||textBad()) return;
     var tier=hasLine()?'B':'A', f=document.createElement('form'), i=0, cap=S.product==='cap';

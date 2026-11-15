@@ -75,8 +75,8 @@ if f"['{KEY}','{LINE}']" not in h:
             f"it.line==='offworld-dark'||it.line==='{KEY}'?'Back · mockup, white ink':'Back · mockup'")
     h = rep(h, ":'Front · mockup, DS mark along the sleeve'); },",
             f":it.line==='{KEY}'?'Front · mockup, DS mark along the sleeve in white and red':'Front · mockup, DS mark along the sleeve'); }},")
-    h = rep(h, "['Mark','DS mark along the sleeve · the shark stays on the Signature Series'],['Shirt',sw],['Ink','Water-based black, printed by hand']",
-            f"['Mark','DS mark along the sleeve · the shark stays on the Signature Series'],['Shirt',sw],['Ink',it.line==='{KEY}'?'Water-based white, printed by hand · the DS mark in white and red':'Water-based black, printed by hand']")
+    h = rep(h, "['Mark','DS mark along the sleeve · the shark stays on the Signature Series'],['Shirt',sw],['Ink','Water-based black, printed to order']",
+            f"['Mark','DS mark along the sleeve · the shark stays on the Signature Series'],['Shirt',sw],['Ink',it.line==='{KEY}'?'Water-based white, printed to order · the DS mark in white and red':'Water-based black, printed to order']")
     h = rep(h, '.dk[data-line="certifiedish"] .dk-pic img{', f'.dk[data-line="certifiedish"] .dk-pic img,.dk[data-line="{KEY}"] .dk-pic img{{')
     # the collection tile and the shirts intro
     h = rep(h, '<a class="btn" href="#shirts" data-deck-line="certifiedish" data-umami-event="line-open" data-umami-event-line="certifiedish">See the Certified-ish shirts</a>',

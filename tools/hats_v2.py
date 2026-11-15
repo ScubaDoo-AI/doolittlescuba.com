@@ -34,13 +34,13 @@ h = h.replace('site=black-bart&cf=dsmark&cs=dsmark&csp=left&cb=none', 'site=blac
 # The Stack: side plain, back plain
 h = h.replace('site=black-bart&cf=stack&cs=dsmark&csp=left&cb=none', 'site=black-bart&cf=stack&cs=none&csp=left&cb=none')
 # spec sheet
-old = "specs:function(it){ var q=it.parts, emb=it.finish==='embroidered'; return [['Front',(MARK[q.cf]||'—')+(emb?', embroidered':', in white')],['Side',q.cs&&q.cs!=='none'?(MARK[q.cs]||q.cs)+' in white and red'+(q.csp?', '+q.csp+' side':''):'plain'],['Back',q.cb&&q.cb!=='none'?(MARK[q.cb]||q.cb)+' in white':'plain'],['Cap','<span class=\"sw\"></span>Flexfit 6277 structured fitted cap, closed stretch back · '+esc(it.colour)],['Sizes','S/M (6¾–7¼) · L/XL (7⅛–7⅝)'],['Finish',emb?'Embroidered':'DTF print, white ink, pressed by hand in Newnan, Georgia'],['Price',it.price||'$35']]; }"
+old = "specs:function(it){ var q=it.parts, emb=it.finish==='embroidered'; return [['Front',(MARK[q.cf]||'—')+(emb?', embroidered':', in white')],['Side',q.cs&&q.cs!=='none'?(MARK[q.cs]||q.cs)+' in white and red'+(q.csp?', '+q.csp+' side':''):'plain'],['Back',q.cb&&q.cb!=='none'?(MARK[q.cb]||q.cb)+' in white':'plain'],['Cap','<span class=\"sw\"></span>Flexfit 6277 structured fitted cap, closed stretch back · '+esc(it.colour)],['Sizes','S/M (6¾–7¼) · L/XL (7⅛–7⅝)'],['Finish',emb?'Embroidered':'DTF print, white ink, pressed to order'],['Price',it.price||'$35']]; }"
 new = ("specs:function(it){ var q=it.parts, emb=it.finish==='embroidered', hp=it.slug==='cap-dark-home-port', thread=/maroon/i.test(it.colour||'')?'white and navy':'white and red'; "
        "var rows=[['Front',hp?'Your home port — name, dive flag and coordinates — printed to order in white':(MARK[q.cf]||'—')+(emb?', embroidered':', printed to order in white')],"
        "['Side',q.cs&&q.cs!=='none'?(MARK[q.cs]||q.cs)+', embroidered in '+thread+(q.csp?', '+q.csp+' side':''):'plain'],"
        "['Back',q.cb&&q.cb!=='none'?(MARK[q.cb]||q.cb)+', embroidered in white':'plain'],"
        "['Cap','<span class=\"sw\"></span>Flexfit 6277 structured fitted cap, closed stretch back · '+esc(it.colour)],['Sizes','S/M (6¾–7¼) · L/XL (7⅛–7⅝)'],"
-       "['Finish',emb?'Embroidered — raised satin stitch':'Embroidered mark and tagline; the site block printed to order in white DTF, pressed by hand in Newnan, Georgia'],"
+       "['Finish',emb?'Embroidered — raised satin stitch':'Embroidered mark and tagline; the site block printed to order in white DTF, pressed to order'],"
        "['Price',it.price||'$35']]; if(hp){rows.splice(5,0,['Custom','made to order once your coordinates are confirmed']);} return rows; }")
 assert old in h, 'specs function not found'
 h = h.replace(old, new)
