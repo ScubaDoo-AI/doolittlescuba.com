@@ -142,7 +142,7 @@ Some orders need a person, so the pipeline sends nothing to Printful and reports
   - The page enforces both rules, and so does `custom_tee.py`.
 - **Logo shirts are for wholesale and dive shops:**
   - /custom/ shows "Wholesale quote" instead of a price, and asks for the shop name.
-  - The request is emailed to sales@doolittlescuba.com.
+  - The request is emailed to shop@doolittlescuba.com.
   - There is no Add to cart.
   - Wholesale pricing and minimums are not set yet. Eric decides these.
 - **Light shirts:** white marks are recoloured navy, and the Signature / Off-World masters use their light versions.

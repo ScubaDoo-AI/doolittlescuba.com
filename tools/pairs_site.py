@@ -34,7 +34,7 @@ for slug, code, name, *_ in SITES:
         old = '<p class="more"><a href="/#craft">How the plates are made &rarr;</a></p>'
         assert s.count(old) == 1, p
         the = '' if name.startswith('The ') else 'the '
-        s = s.replace(old, f'<p class="pair"><strong>The pair.</strong> This shirt and {the}{name} cap together, $8 under the two apart: '
+        s = s.replace(old, f'<p class="pair"><strong>The pair.</strong> Any tee with any cap is $8 off the two apart. This site&rsquo;s pair: {the}{name} cap '
                            f'<a href="{light}" data-umami-event="guide-pair-light">with the light tee</a> or <a href="{dark}" data-umami-event="guide-pair-dark">the dark tee</a>, $72 ($75 in 2XL&ndash;3XL).</p>\n      ' + old)
         s = s.replace('.more{margin-top:20px}', '.pair{margin-top:20px;max-width:62ch}.pair a{color:var(--red)}\n.more{margin-top:20px}', 1)
     # normalise the label (the first version read "Add the pair · $72")

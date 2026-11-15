@@ -21,7 +21,7 @@ STATUS = {
                 "from the home page. We're still spot-proofing physical samples before the shop opens; "
                 "designs stay “Coming soon” until the samples pass."),
     "link_text": "Get word when it opens",
-    "link_href": "mailto:sales@doolittlescuba.com?subject=Tell%20me%20when%20the%20shop%20opens",
+    "link_href": "mailto:shop@doolittlescuba.com?subject=Tell%20me%20when%20the%20shop%20opens",
 }
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
