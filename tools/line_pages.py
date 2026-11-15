@@ -31,7 +31,7 @@ LINES = [
     dict(key='signature', dir='signature', name='Signature Series', short='Signature', tab='',
          deck=[('plates', 'Light tees'), ('dark', 'Dark tees')], dz=['plates'], og_img='img/shirts/black-bart-back.webp',
          tile='img/designs/blue-grotto.webp', tile_alt='Blue Grotto plate preview, watermarked',
-         title='Signature Series · dive sites, drawn by hand', desc='Fourteen wrecks, springs and reefs we have dived, drawn plate by plate with depths, landmarks and species, and screen-printed on tees: black ink on soft pastels, white on the dark line.',
+         title='Signature Series · dive sites, drawn by hand', desc='Fourteen wrecks, springs and reefs we have dived, drawn plate by plate with depths, landmarks and species, and printed to order on tees: black ink on soft pastels, white on the dark line.',
          tagline='Dive sites, drawn by hand', count_note='designs',
          shirts_intro='Fourteen sites, each photographed on the shirt it ships on, and the same fourteen again as the dark line: white ink on a dark garment, shown as mockups built from those photographs. Every site has its own garment colour, so the deck is the palette of the line.',
          shirts_note='Colours are the garment colours each site was printed on; the final run may add or swap a colour per site. <a href="/#contact" data-umami-event="shirts-contact">Get the launch email</a> to hear when yours ships, or <a href="/custom/" data-umami-event="shirts-custom">make your own</a>: any design, any colour, your line or logo.',

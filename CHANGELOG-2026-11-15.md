@@ -21,6 +21,10 @@ The hand-made line was on nearly every page. It now appears in just a few places
 - **Shopify product descriptions:** the Off-World products already in Shopify still say "printed by hand in Newnan, Georgia". The generator is fixed, but the products need a re-push.
 - **Theme block:** `shopify-theme/blocks/aquatic-personalize.liquid` changes when the theme is next pushed.
 
+## Screen printing references removed (Eric, 15 Nov)
+- The shirts are printed to order by Printful, not screen-printed. "screen-printed" → "printed to order" in the home page meta and share descriptions and the Signature Series description (meta, share card, JSON-LD, and its generator `tools/line_pages.py`).
+- Left alone: the old match string in `tools/darkline.py` (a one-off patch script; it doesn't put copy on the site).
+
 ## Still open
 - Other spots on the site still use hello@ (home page forms and the "Email us your photo" links) and sales@ (custom orders). Change them only if the inboxes are being consolidated.
 - The card's mailing address (8735 Dunwoody Place, Ste N, Atlanta) already appears in the refund policy. The footer still reads "Based in Newnan, Georgia".
