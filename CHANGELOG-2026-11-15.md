@@ -69,6 +69,9 @@ The Company project repriced the store on 15 Nov. The site now shows the same pr
 - **Policy push** (`refund shipping terms`): all three written. Checked in Shopify: the live Refund, Shipping and Terms are dated 15 Nov and no longer say "by hand" or "hand-drawn".
 - **Theme push** (`assets/ds-organic.js blocks/aquatic-personalize.liquid`): both written to the live theme "Horizon — Doolittle Scuba (Home Port map v2)". The organic cart converter now reads "same art, a few dollars more".
 
+## D8 discount checked (15 Nov, 18:07 ET)
+"Mix & match: tee + cap $8 off" (automatic, buy-1-get-$8-off) starts 15 Nov at 18:10 ET. It covers the "All tees (pair discount)" collection (447, every active tee) and "All caps (pair discount)" (57). None of the 28 pair bundles is in either collection, so no order gets $16 off. There is no per-order limit, so it applies once per tee + cap pair, and it combines with no other discount. The site copy ("Any tee with any cap is $8 off the two apart") now matches the store. Still to do (Company): one test order with an unmatched tee and cap.
+
 ## Still open
 - Other spots on the site still use hello@ (home page forms and the "Email us your photo" links) and sales@ (custom orders). Change them only if the inboxes are being consolidated.
 - The card's mailing address (8735 Dunwoody Place, Ste N, Atlanta) already appears in the refund policy. The footer still reads "Based in Newnan, Georgia".
