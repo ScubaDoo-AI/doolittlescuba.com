@@ -52,6 +52,10 @@ The Company project repriced the store on 15 Nov. The site now shows the same pr
 ## Retired name removed (Design & Production brand rule, 15 Nov)
 - "diveplate" was still in customer-facing copy: the footer on 8 pages ("diveplate designs © 2026 …" → "Designs © 2026 Doolittle Scuba L.L.C.") and the home page meta description. Both are fixed, and so are the generators `tools/line_pages.py` and `tools/stickers_page.py`. Internal CSS classes and analytics names still say diveplate, as the Design & Production review allows.
 
+## Company corrections note applied (late 15 Nov)
+- **Dive rating:** the home page now uses the full title, "PADI Master Scuba Diver(s)", in the meta/share description, the hero line, the craft section, the About heading and the About blurb. The About page already used it. The sticker names "Master Diver" are product and artwork titles, so they stay. No page says "instructor" (except "We are not instructors") or "co-owner".
+- **Organic pricing:** closed. Tees are the line price + $3 and caps + $2 (decided by Eric, 15 Nov). The site already matches: organic site caps $40, organic brand caps $38.
+
 ## Still open
 - Other spots on the site still use hello@ (home page forms and the "Email us your photo" links) and sales@ (custom orders). Change them only if the inboxes are being consolidated.
 - The card's mailing address (8735 Dunwoody Place, Ste N, Atlanta) already appears in the refund policy. The footer still reads "Based in Newnan, Georgia".
