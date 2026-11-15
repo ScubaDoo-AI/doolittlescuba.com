@@ -13,7 +13,7 @@ SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 D = json.load(open(f'{SITE}/tools/offworld_designs.json'))
 BASE = 'https://doolittlescuba.com/'
 SIZES = ['S', 'M', 'L', 'XL', '2XL', '3XL']
-PRICE = {'S': '42.00', 'M': '42.00', 'L': '42.00', 'XL': '42.00', '2XL': '45.00', '3XL': '45.00'}
+PRICE = {'S': '38.00', 'M': '38.00', 'L': '38.00', 'XL': '38.00', '2XL': '41.00', '3XL': '41.00'}  # 15 Nov 2026 per-series price
 CUSTOM = 'https://doolittlescuba.com/custom/#colour={c}&amp;tab=offworld&amp;back={s}&amp;bsize=full&amp;chest=dsmark&amp;cpos=left&amp;sleeve=none'
 
 

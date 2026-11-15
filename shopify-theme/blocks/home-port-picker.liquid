@@ -1,0 +1,132 @@
+{%- comment -%}
+  Doolittle Scuba — Home Port pin picker for the custom Home Port cap.
+  Shows on products tagged home-port. The customer names the port and drops a pin; the port name, coordinates
+  (in the Signature Series format), decimal position and flag (dive flag in the US, Alpha flag elsewhere) travel as
+  line item properties on the buy-buttons form of the same section, so they show in Shopify admin, the order email
+  and the Printful draft. Add to cart is held until a pin is placed.
+{%- endcomment -%}
+{%- liquid
+  assign product = closest.product
+  assign form_id = 'BuyButtons-ProductForm-' | append: section.id
+  assign uid = 'hp-' | append: block.id
+-%}
+{%- if product.tags contains 'home-port' -%}
+  <div class="ds-hp" id="{{ uid }}" data-form="{{ form_id }}" {{ block.shopify_attributes }}>
+    <p class="ds-hp__title">{{ block.settings.heading }}</p>
+    <p class="ds-hp__intro">{{ block.settings.intro }}</p>
+
+    <label class="ds-hp__field">
+      <span>Port name on the cap</span>
+      <input type="text" name="properties[Home Port name]" form="{{ form_id }}" maxlength="{{ block.settings.max_name }}" required autocomplete="off" placeholder="e.g. Lake Lanier" data-hp-name>
+    </label>
+
+    <div class="ds-hp__search">
+      <input type="search" placeholder="Search a marina, dive site or town" aria-label="Search for a place" data-hp-q>
+      <button type="button" data-hp-go>Search</button>
+    </div>
+    <ul class="ds-hp__results" data-hp-results hidden></ul>
+
+    <div class="ds-hp__map" data-hp-map role="application" aria-label="Map: click or tap to drop your Home Port pin"></div>
+    <p class="ds-hp__hint">Click or tap the map to drop the pin. Drag it to fine-tune.</p>
+
+    <label class="ds-hp__field">
+      <span>Coordinates</span>
+      <input type="text" name="properties[Home Port coordinates]" form="{{ form_id }}" required autocomplete="off" placeholder="Drop a pin on the map" data-hp-coords>
+    </label>
+    <input type="hidden" name="properties[_Home Port lat,lon]" form="{{ form_id }}" data-hp-dec>
+    <input type="hidden" name="properties[Home Port flag]" form="{{ form_id }}" data-hp-flag>
+
+    <div class="ds-hp__preview" aria-live="polite">
+      <span class="ds-hp__pv-label">Home Port:</span>
+      <span class="ds-hp__flag ds-hp__flag--dive" data-hp-pvflag aria-hidden="true"></span>
+      <span class="ds-hp__pv-name" data-hp-pvname>Your Port</span>
+      <span class="ds-hp__pv-c" data-hp-pvlat>00°00.000'N</span>
+      <span class="ds-hp__pv-c" data-hp-pvlon>000°00.000'W</span>
+    </div>
+    <p class="ds-hp__note">{{ block.settings.note }}</p>
+  </div>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Almendra:wght@700&display=swap">
+  <style>
+    .ds-hp{display:flex;flex-direction:column;gap:10px;width:100%}
+    .ds-hp__title{margin:0;font-weight:600}
+    .ds-hp__intro,.ds-hp__hint,.ds-hp__note{margin:0;font-size:.85em;opacity:.8}
+    .ds-hp__field{display:flex;flex-direction:column;gap:4px;font-size:.9em}
+    .ds-hp input[type=text],.ds-hp input[type=search]{min-height:44px;padding:0 12px;border:1px solid rgb(var(--color-foreground-rgb,0 0 0) / .45);border-radius:4px;background:transparent;color:inherit;font:inherit;width:100%;box-sizing:border-box}
+    .ds-hp__search{display:flex;gap:8px}
+    .ds-hp__search button{min-height:44px;padding:0 16px;border-radius:4px;border:1px solid currentColor;background:transparent;color:inherit;font:inherit;cursor:pointer}
+    .ds-hp__results{list-style:none;margin:0;padding:0;border:1px solid rgb(var(--color-foreground-rgb,0 0 0) / .2);border-radius:4px;max-height:180px;overflow:auto}
+    .ds-hp__results button{display:block;width:100%;text-align:left;padding:10px 12px;border:0;background:transparent;color:inherit;font:inherit;font-size:.85em;cursor:pointer}
+    .ds-hp__results button:hover,.ds-hp__results button:focus{background:rgb(var(--color-foreground-rgb,0 0 0) / .08)}
+    .ds-hp__map{height:300px;border-radius:6px;overflow:hidden;z-index:0}
+    .ds-hp__preview{display:flex;flex-direction:column;align-items:center;gap:4px;padding:16px;border-radius:6px;background:#111;color:#fff;font-family:Almendra,Georgia,serif;font-weight:700;text-align:center;line-height:1.1}
+    .ds-hp__pv-label{font-size:1em}
+    .ds-hp__pv-name{font-size:1.45em}
+    .ds-hp__pv-c{font-size:1.05em}
+    .ds-hp__flag{display:block;width:54px;height:34px;border:2px solid #fff;margin:2px 0 4px}
+    .ds-hp__flag--dive{background:linear-gradient(to top right,#eb1700 calc(50% - 5px),#fff calc(50% - 5px),#fff calc(50% + 5px),#eb1700 calc(50% + 5px))}
+    .ds-hp__flag--alpha{background:linear-gradient(90deg,#fff 50%,#0800ff 50%);clip-path:polygon(0 0,100% 0,72% 50%,100% 100%,0 100%)}
+  </style>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer></script>
+  <script>
+    (function(){
+      var root=document.getElementById('{{ uid }}'); if(!root) return;
+      function q(s){return root.querySelector(s);}
+      var nameEl=q('[data-hp-name]'),coordsEl=q('[data-hp-coords]'),decEl=q('[data-hp-dec]'),flagEl=q('[data-hp-flag]');
+      var resEl=q('[data-hp-results]'),qEl=q('[data-hp-q]');
+      var form=document.getElementById(root.dataset.form);
+      var setVal='';
+      function ddm(v,pos,neg,w){var h=(v>0||(v===0&&pos==='N'))?pos:neg;v=Math.abs(v);var d=Math.floor(v);var m=Math.round((v-d)*60*1000)/1000;if(m>=60){d+=1;m=0;}var ds=String(d).padStart(w,'0');var ms=m.toFixed(3).padStart(6,'0');return ds+'°'+ms+"'"+h;}
+      function inUS(lat,lon){return lat>=17&&lat<=72&&lon>=-180&&lon<=-64;}
+      var map,marker;
+      function place(lat,lon,label){
+        lon=((lon+540)%360)-180;
+        var la=ddm(lat,'N','S',2),lo=ddm(lon,'E','W',3);
+        setVal=la+' '+lo; coordsEl.value=setVal; coordsEl.setCustomValidity('');
+        decEl.value=lat.toFixed(6)+','+lon.toFixed(6);
+        var flag=inUS(lat,lon)?'Dive flag':'Alpha flag'; flagEl.value=flag;
+        q('[data-hp-pvlat]').textContent=la; q('[data-hp-pvlon]').textContent=lo;
+        var f=q('[data-hp-pvflag]'); f.className='ds-hp__flag '+(flag==='Dive flag'?'ds-hp__flag--dive':'ds-hp__flag--alpha');
+        if(label&&!nameEl.value){nameEl.value=label.slice(0,nameEl.maxLength); updName();}
+        if(map){ if(!marker){marker=L.marker([lat,lon],{draggable:true}).addTo(map);marker.on('dragend',function(){var p=marker.getLatLng();place(p.lat,p.lng);});} else marker.setLatLng([lat,lon]); }
+      }
+      function updName(){q('[data-hp-pvname]').textContent=nameEl.value.trim()||'Your Port';}
+      nameEl.addEventListener('input',updName);
+      coordsEl.addEventListener('input',function(){coordsEl.value=setVal;});
+      coordsEl.addEventListener('invalid',function(){coordsEl.setCustomValidity(setVal?'':'Drop a pin on the map to set your Home Port coordinates.');});
+      if(form){form.addEventListener('submit',function(e){if(!setVal){e.preventDefault();e.stopImmediatePropagation();coordsEl.setCustomValidity('Drop a pin on the map to set your Home Port coordinates.');coordsEl.reportValidity();}},true);}
+      function search(){
+        var s=qEl.value.trim(); if(!s) return;
+        fetch('https://nominatim.openstreetmap.org/search?format=json&limit=5&q='+encodeURIComponent(s),{headers:{'Accept-Language':'en'}})
+          .then(function(r){return r.json();}).then(function(list){
+            resEl.innerHTML=''; resEl.hidden=!list.length;
+            list.forEach(function(it){var li=document.createElement('li');var b=document.createElement('button');b.type='button';b.textContent=it.display_name;b.addEventListener('click',function(){var lat=+it.lat,lon=+it.lon;resEl.hidden=true;if(map)map.setView([lat,lon],13);place(lat,lon,(it.name||'').trim());});li.appendChild(b);resEl.appendChild(li);});
+          }).catch(function(){resEl.hidden=true;});
+      }
+      q('[data-hp-go]').addEventListener('click',search);
+      qEl.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();search();}});
+      function init(){
+        if(!window.L) return setTimeout(init,150);
+        map=L.map(q('[data-hp-map]'),{scrollWheelZoom:false}).setView([33.38,-84.8],4);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+        map.on('click',function(e){place(e.latlng.lat,e.latlng.lng);});
+      }
+      init();
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Home Port pin picker",
+  "tag": null,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Set your Home Port" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "The place you dive from, or the one you call home. Search for it or drop a pin." },
+    { "type": "range", "id": "max_name", "label": "Port name length", "min": 8, "max": 20, "step": 1, "default": 16 },
+    { "type": "textarea", "id": "note", "label": "Note", "default": "Embroidered to order exactly as shown. US ports get the dive flag, ports abroad the Alpha flag. We check every Home Port before it is stitched." }
+  ],
+  "presets": [ { "name": "Home Port pin picker", "category": "Product" } ]
+}
+{% endschema %}

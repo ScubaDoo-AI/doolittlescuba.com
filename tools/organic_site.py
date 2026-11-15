@@ -85,7 +85,7 @@ def page():
     P = organic.plan()
     n_tees = sum(1 for p in P if p['kind'] == 'tee')
     desc = (f'Every Doolittle Scuba design, also on 100% organic cotton: {n_tees} tees across the five series, the caps and the beanie, '
-            'same art, same price.')
+            'same art, a few dollars more.')
     head = re.sub(r'<title>.*?</title>', '<title>The organic line · Doolittle Scuba</title>', head, flags=re.S)
     head = re.sub(r'(<meta name="description" content=")[^"]*', r'\g<1>' + H.escape(desc), head)
     head = re.sub(r'(<meta property="og:description" content=")[^"]*', r'\g<1>' + H.escape(desc), head)
@@ -108,7 +108,7 @@ def page():
       <div class="hero-copy">
         <p class="eyebrow">Doolittle Scuba &middot; The organic line</p>
         <h1>Every design, on organic cotton.</h1>
-        <p class="lede">The whole shop again, printed on 100% organic cotton: all five tee series, the caps and the beanie. Same drawings, same placements, same price. Only the shirt changes.</p>
+        <p class="lede">The whole shop again, printed on 100% organic cotton: all five tee series, the caps and the beanie. Same drawings, same placements, a few dollars more. Only the shirt changes.</p>
         <p class="lede" style="font-size:1rem"><strong>No pastels in this line.</strong> Pastel and pink shirts move to the nearest organic colour, so some designs change colour; each card says how. In the cart, one button converts your <strong>whole order</strong> to organic, or tick just the pieces you want, and every colour change is shown before you confirm.</p>
         <div class="cta">
           <a class="btn" data-umami-event="organic-hero-shirts" href="#shirts">See the organic line</a>
@@ -172,7 +172,7 @@ CFG = r'''
    var NAME={'org-signature':'Signature Series','org-certifiedish':'Certified-ish','org-offworld':'Off-World Hunt Club','org-n73':'1N73LL1G3NC3','org-aquatic':'Aquatic Comic','org-hats':'Caps & beanie'};
    return {
     lines:lines, step:step, noun:'piece', price:'', openEvent:'organic-open', contact:o.contact||'#contact', custom:false,
-    footNote:'100% organic cotton &middot; same art, same price', facts:false,
+    footNote:'100% organic cotton &middot; same art, a few dollars more', facts:false,
     eyebrow:function(it){ return (NAME[it.line]||'Organic')+' · organic'; },
     sub:function(it){ return it.sub; },
     blurb:function(it){ return 'The organic edition: the same design on '+esc(it.text)+'. Printed or embroidered to order.'; },
@@ -200,7 +200,7 @@ def home():
     img = MAN['DS-THI-TDO']['images'][1]
     n = sum(1 for p_ in organic.plan() if p_['kind'] == 'tee')
     tile = (f'<figure class="sh" data-line="coll" data-slug="organic" data-colour="{n} tees, caps, beanie" data-hex="#6E6B4D" data-guide="/organic/" '
-            f'data-text="Every design again on 100% organic cotton, same art and same price: all five tee series, the caps and the beanie." hidden>'
+            f'data-text="Every design again on 100% organic cotton, same art, a few dollars more: all five tee series, the caps and the beanie." hidden>'
             f'<button type="button" class="sh-img" data-front="{img}" data-cap="The organic line · the collection" aria-label="Open the organic line">'
             f'<img src="{img.replace(".webp", "-t.webp")}" width="600" height="600" loading="lazy" decoding="async" '
             f'alt="The Thistlegorm organic edition, back view: the site plate in white ink on a khaki organic tee"></button>'

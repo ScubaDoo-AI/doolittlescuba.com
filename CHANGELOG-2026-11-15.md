@@ -34,6 +34,21 @@ The connection can't write store policies (`write_legal_policies`), so they're s
 - **New `policies/terms.html`**: a copy of the live Terms with §4 changed from "Our designs are hand-drawn and each shirt is pressed or printed individually" to "Each shirt is printed to order individually". Dated 15 Nov.
 - To publish: Actions → **Policy push**, policies `refund shipping terms`, Apply on.
 
+## Final per-series prices on the website (evening, 15 Nov)
+The Company project repriced the store on 15 Nov. The site now shows the same prices. They were rebuilt here from the Company project's price table, because its patch never reached GitHub. Shopify was spot-checked and matches.
+- **Tees** (S–XL; 2XL and 3XL are $3 more): Signature $42, Certified-ish $40, Off-World $38, Aquatic Comic · Boat Banter $38, 1N73LL1G3NC3 $36, personalized Aquatic Comic $45. In `js/deck.js` they live in one table, `DS.TEE_PRICE`, with the helpers `DS.teePrice` / `DS.teePriceLine`. The cards and the spec panels read the price by line.
+- **Organic page:** tees are the line price + $3 (Signature $45, Certified-ish $43, Off-World $41, Boat Banter $41, 1N73LL1G3NC3 $39), organic personalized $48, organic site caps $40, organic brand caps $38, organic beanie $32. "Same price" now reads "a few dollars more" on the page, in its meta tags, on the home tile, in the deck footnote and in `tools/organic_site.py`.
+- **Home page:** site caps $38, brand caps $36, Home Port cap $48, The Mark beanie $32, anorak $85, windbreaker $45 ($88 / $48 in 2XL).
+- **Pairs:** $72 ($75 in 2XL–3XL) on the deck button, the 14 site guides and the search index. Updated in `tools/pairs_site.py` and `tools/pairs.py` ($38 cap + $42 tee, $8 under the two apart).
+- `tools/offworld_shopify.py`: PRICE now $38 / $41.
+- **Not changed:** the Printful pricing scripts (`tools/printful_*.py`), which the Company project owns. The custom page ($47 / $48 tee, $40 / $41 cap) already matched.
+
+## Theme and Make it yours (evening, 15 Nov)
+- **`shopify-theme/assets/ds-organic.js`** (and its raw copy): "same art, same price" is now "same art, a few dollars more". Not pushed yet; the repo copy matched the live theme before the edit.
+- **Home Port files copied in from the live theme:** `shopify-theme/blocks/home-port-picker.liquid` (identical to the live file, md5 45c99152…) and `shopify-theme/templates/product.home-port.json` (same content; the live copy is stored a little smaller, so its md5 differs).
+- **Make it yours tee (Shopify):** the description now reads $47 ($50) = the $42 catalog tee + $5, and $48 ($51) with a line or logo. Logo files go to **shop@**.
+- **To publish the theme changes:** Actions → **Theme push**, files `assets/ds-organic.js blocks/aquatic-personalize.liquid`, Apply on. The live copies of both files were confirmed identical to the repo's previous versions, so nothing else gets overwritten.
+
 ## Still open
 - Other spots on the site still use hello@ (home page forms and the "Email us your photo" links) and sales@ (custom orders). Change them only if the inboxes are being consolidated.
 - The card's mailing address (8735 Dunwoody Place, Ste N, Atlanta) already appears in the refund policy. The footer still reads "Based in Newnan, Georgia".

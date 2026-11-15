@@ -1,5 +1,5 @@
 /* Doolittle Scuba: "Make it organic" cart converter.
-   Swaps any or all cart lines for their organic twin (same art, same price, 100% organic cotton), and shows every colour
+   Swaps any or all cart lines for their organic twin (same art, a few dollars more, 100% organic cotton), and shows every colour
    change before it happens: the organic line has no pastels, so some garments land on a different colour.
    Data: assets/ds-organic-map.json, built by tools/organic_cart_map.py (regular SKU key -> organic key, handle, colours).
    Uses only Shopify's Ajax Cart API (/cart.js, /cart/add.js, /cart/update.js) and /products/<handle>.js. */
@@ -63,7 +63,7 @@
       <div class="dso-head">
         <p class="dso-kicker">Organic cotton option</p>
         <h3 class="dso-title">Make your order organic</h3>
-        <p class="dso-sub">Same art, same price, printed on 100% organic ring-spun cotton (caps and beanie on organic blanks).
+        <p class="dso-sub">Same art, a few dollars more, printed on 100% organic ring-spun cotton (caps and beanie on organic blanks).
           The organic line has <strong>no pastels</strong>, so ${nChange ? `<strong>${nChange} of ${rows.length} item${rows.length > 1 ? 's' : ''} change colour</strong>` : 'every colour here stays the same'}.
           Check each colour below, then convert the whole order or just the pieces you pick.</p>
       </div>

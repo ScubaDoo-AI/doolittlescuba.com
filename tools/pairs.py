@@ -4,7 +4,7 @@ light or dark — sold as a Shopify fixed bundle (productBundleCreate; the compo
 Printful and the embroiderer see ordinary cap and tee line items on an order).
 
   28 products: <Site> — The pair · light tee  /  <Site> — The pair · dark tee   handle <slug>-pair-light / <slug>-pair-dark
-  options  Cap size S/M · L/XL  ×  Tee size S–3XL  = 12 variants, price $69 (tee S–XL) / $72 (2XL, 3XL)  — $8 under the two apart
+  options  Cap size S/M · L/XL  ×  Tee size S–3XL  = 12 variants, price $72 (tee S–XL) / $75 (2XL, 3XL)  — $8 under the two apart
   SKU      DS-<code>-PR-<SM|LXL>-<size> (light) / DS-<code>-PRD-… (dark)
   image    img/pairs/<slug>-<line>.jpg: the cap render beside the tee mockup (same #F5F5F5 ground), 2000 × 1200
   tags     pair, pair:<line>, site:<slug>, cap, tee, signature, coming-soon; type Pair; vendor Doolittle Scuba; DRAFT
@@ -18,7 +18,7 @@ from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SHOP = 'https://doolittlescuba.myshopify.com'
-PRICE, PRICE_XXL = '69.00', '72.00'
+PRICE, PRICE_XXL = '72.00', '75.00'
 TEE_SIZES = ['S', 'M', 'L', 'XL', '2XL', '3XL']
 # slug, code, name, cap product id, cap option id, light tee product id, light option id, dark tee product id, dark option id, cap colour, light tee colour, dark tee colour
 SITES = [
@@ -55,7 +55,7 @@ def description(slug, code, name, line, cap_col, tee_col):
             f"the full {name.replace('The ', '')} plate on the back, the site block on the chest, the shark mark on the sleeve.</p>"
             f"<ul>\n<li>\n<strong>Cap:</strong> Flexfit 6277 structured fitted cap, {cap_col}. S/M (6¾–7¼) or L/XL (7⅛–7⅝).</li>\n"
             f"<li>\n<strong>Tee:</strong> Comfort Colors 1717, garment-dyed, {tee_col}. S–3XL.</li>\n"
-            f"<li>\n<strong>Price:</strong> $69 with the tee in S–XL, $72 in 2XL–3XL — $35 + $42 apart.</li>\n"
+            f"<li>\n<strong>Price:</strong> $72 with the tee in S–XL, $75 in 2XL–3XL — $38 + $42 apart.</li>\n"
             f"<li>\n<strong>Mix it:</strong> want a different tee with this cap, or the {'dark' if line == 'light' else 'light'} tee instead of the {line}? Every cap pairs with every Signature Series tee — "
             f"the other pairs are under <a href=\"{SHOP}/collections/pairs\">Pairs</a>.</li>\n</ul>"
             f"<p>Shown as mockups, not photographs: the first caps are being sampled now.</p>"
