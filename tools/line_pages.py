@@ -483,7 +483,7 @@ def page(line, sh, dz, home_src):
     <div class="foot-meta">
       <p>Based in Newnan, Georgia</p>
 {social}
-      <p class="mono">hello@doolittlescuba.com &middot; orders@doolittlescuba.com</p>
+      <p class="mono"><a href="mailto:shop@doolittlescuba.com" style="color:inherit" data-umami-event="contact" data-umami-event-via="email">shop@doolittlescuba.com</a> &middot; <a href="tel:+17708288899" style="color:inherit" data-umami-event="contact" data-umami-event-via="phone">(770) 828-8899</a></p>
 {policies}
       <p>diveplate designs &copy; 2026 Doolittle Scuba L.L.C. All rights reserved.</p>
     </div>
