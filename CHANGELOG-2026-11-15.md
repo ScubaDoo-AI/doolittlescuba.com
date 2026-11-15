@@ -64,6 +64,11 @@ The Company project repriced the store on 15 Nov. The site now shows the same pr
 - The home page's Home Port blurb said "Where the shirts are printed"; it now says "Home port for Doolittle Scuba".
 - D1, D2 and D3 needed no site change: the jackets on the site were already the anorak and windbreaker.
 
+## Policy push and Theme push run (15 Nov, 18:00 ET)
+- Both were dispatched through the GitHub REST API, as a dry run and then with Apply on.
+- **Policy push** (`refund shipping terms`): all three written. Checked in Shopify: the live Refund, Shipping and Terms are dated 15 Nov and no longer say "by hand" or "hand-drawn".
+- **Theme push** (`assets/ds-organic.js blocks/aquatic-personalize.liquid`): both written to the live theme "Horizon — Doolittle Scuba (Home Port map v2)". The organic cart converter now reads "same art, a few dollars more".
+
 ## Still open
 - Other spots on the site still use hello@ (home page forms and the "Email us your photo" links) and sales@ (custom orders). Change them only if the inboxes are being consolidated.
 - The card's mailing address (8735 Dunwoody Place, Ste N, Atlanta) already appears in the refund policy. The footer still reads "Based in Newnan, Georgia".
