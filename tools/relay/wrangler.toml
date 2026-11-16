@@ -1,0 +1,15 @@
+# Cloudflare Worker config for the Shopify → GitHub relay (D16). Deployed by Cloudflare Workers Builds
+# from this repo with root directory tools/relay. Secrets (SHOPIFY_WEBHOOK_SECRET, GITHUB_TOKEN) are set
+# in the Cloudflare dashboard, never here.
+name = "doolittle-relay"
+main = "worker.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+
+[vars]
+GITHUB_REPO = "ScubaDoo-AI/doolittlescuba.com"
+WORKFLOW = "custom-orders.yml"
+REF = "main"
+
+[observability]
+enabled = true
