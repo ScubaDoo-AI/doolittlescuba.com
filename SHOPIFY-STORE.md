@@ -317,3 +317,8 @@ Eric (02:02): *"Set product pages with combined mockup"* and *"Add the pair butt
 - **Sample:** Eric added a Champion anorak to the sample order (13 Nov, 15:46 ET).
 - **20:17 — Active and on the Online Store** with the 242 organic products (Eric: "Activate the jackets - organics as well"). Each variant shows its colour's worn shot. Jackets is in the site nav. The storefront password is still on.
 - 14 Nov 08:13 — `the-mark-beanie` variants back to **$35.00** after drifting to $30 overnight (Eric: leave at $35). Black is 0 at Printful (STAU295 US supplier out of stock); French Navy 9,999. The organic beanie (Atlantis 449) is in stock in both colours — the status report's stock-out line pointed at the wrong beanie and was corrected.
+
+## 2026-11-15 — Aquatic Comic renamed to Surface Interval
+- Eric picked **Surface Interval** (Off-Gassing was live on the site for a few hours, then replaced). The old USPTO class-25 filing "SURFACE INTERVAL" (serial 75044746) was abandoned in 1997; a scuba apparel brand called Surface Interval Clothing has been written up by Scuba Diving magazine, so a full trademark search is still Eric's to do before any filing.
+- **Shopify:** 118 product titles (`Surface Interval · <set> — <design> tee`, organic `… organic tee`), 7 collection titles, 59 descriptions and 118 image alt texts. **Kept:** handles (`aquatic-comic-*`), tags (`aquatic-comic`, `ac:*`), SKUs (`DS-AC*`) and the Printful links, so nothing in fulfilment or the order bot changes.
+- **Site:** page moved to `/surface-interval/`; `/aquatic-comic/` and `/off-gassing/` redirect there. `printful_link.py` matches all three names.
