@@ -24,11 +24,11 @@ SIZES = ['S', 'M', 'L', 'XL', '2XL']
 JACKETS = [
     dict(code='CHA', product=399, name='Champion Packable Anorak', model='CO200', handle='the-mark-champion-packable-anorak',
          colours={'Black': ('#070707', [11008, 11009, 11010, 11011, 11012]), 'Navy': ('#1e303f', [11014, 11015, 11016, 11017, 11018])},
-         cost=(43.42, 45.42), price=(89.0, 92.0),
+         cost=(43.42, 45.42), price=(85.0, 88.0),
          blurb='Champion packable anorak: quarter-zip pullover, hood, kangaroo pocket, packs into its own pouch. Water-resistant 100% nylon shell.'),
     dict(code='WND', product=661, name="SOL'S Basic Windbreaker", model='32000', handle='the-mark-basic-windbreaker',
          colours={'Black': ('#1c1b1b', [16424, 16425, 16426, 16427, 16428]), 'Navy': ('#2b2e39', [16434, 16435, 16436, 16437, 16438])},
-         cost=(20.76, 22.76), price=(49.0, 52.0),
+         cost=(20.76, 22.76), price=(45.0, 48.0),
          blurb="SOL'S basic windbreaker: full-zip, hood with drawcord, two pockets, folds into a pocket. Water-repellent 100% nylon."),
 ]
 CC = {'Black': 'BLK', 'Navy': 'NVY'}

@@ -31,26 +31,26 @@ PF = {'Black': (5276, 5277), 'Dark Navy': (5278, 5279), 'Dark Grey': (5280, 5281
 WHITE, RED, ROYAL = '#FFFFFF', '#CC3333', '#005397'
 SIDE_FILE = 'DS_mark_HEAVY_PF-cap-left_FIT_0.92x1.00in_white-red.png'
 BACK_FILE = 'DS_tagline_PF-cap-back_DO-A-LITTLE-over-SCUBA_2.00x0.67in_white.png'
-# code, handle, Printful colour, front file, front threads, side?, back?, price
+# code, handle, Printful colour, front file, front threads, side?, back?, price (15 Nov 2026 table: site caps $38, brand caps $36)
 CAPS = [
-    ('BAL', 'bali-dark-cap', 'Dark Navy', 'DS-BAL_Bali_PF-cap-front_2.46x1.88in_white-blue.png', [WHITE, ROYAL], True, True, 35),
-    ('DAM', 'dampier-strait-dark-cap', 'Dark Navy', 'DS-DAM_Dampier_Strait_PF-cap-front_3.57x1.99in_white-blue.png', [WHITE, ROYAL], True, True, 35),
-    ('NAV', 'navy-llcat-dark-cap', 'Dark Navy', 'DS-NAV_Navy_LLCAT_PF-cap-front_2.81x1.96in_white-red.png', [WHITE, RED], True, True, 35),
-    ('THD', 'thurmond-dam-dark-cap', 'Dark Navy', 'DS-THD_Thurmond_Dam_PF-cap-front_3.78x1.89in_white-red.png', [WHITE, RED], True, True, 35),
-    ('BBT', 'black-bart-dark-cap', 'Dark Grey', 'DS-BBT_Black_Bart_PF-cap-front_2.83x1.88in_white-red.png', [WHITE, RED], True, True, 35),
-    ('DLP', 'dive-land-park-dark-cap', 'Dark Grey', 'DS-DLP_Dive_Land_Park_PF-cap-front_3.61x1.88in_white-red.png', [WHITE, RED], True, True, 35),
-    ('BWP', 'blue-water-park-dark-cap', 'Black', 'DS-BWP_Blue_Water_Park_PF-cap-front_3.95x1.88in_white-red.png', [WHITE, RED], True, True, 35),
-    ('RRF', 'rainbow-reef-dark-cap', 'Olive', 'DS-RRF_Rainbow_Reef_PF-cap-front_3.33x1.99in_white-blue.png', [WHITE, ROYAL], True, True, 35),
-    ('BGR', 'blue-grotto-dark-cap', 'Royal Blue', 'DS-BGR_Blue_Grotto_PF-cap-front_2.68x1.88in_white-red.png', [WHITE, RED], True, True, 35),
-    ('BSP', 'bridge-span-14-dark-cap', 'Olive', 'DS-BSP_Bridge_Span_14_PF-cap-front_3.44x1.99in_white-red.png', [WHITE, RED], True, True, 35),
-    ('RRV', 'rainbow-river-dark-cap', 'Black', 'DS-RRV_Rainbow_River_PF-cap-front_3.57x1.89in_white-red.png', [WHITE, RED], True, True, 35),
-    ('SOM', 'somosomo-strait-dark-cap', 'Olive', 'DS-SOM_Somosomo_Strait_PF-cap-front_4.02x1.89in_white-blue.png', [WHITE, ROYAL], True, True, 35),
-    ('THI', 'the-thistlegorm-dark-cap', 'Dark Grey', 'DS-THI_Thistlegorm_PF-cap-front_3.93x2.00in_white-blue.png', [WHITE, ROYAL], True, True, 35),
-    ('VUN', 'vuna-reef-dark-cap', 'Olive', 'DS-VUN_Vuna_Reef_PF-cap-front_2.46x1.97in_white-blue.png', [WHITE, ROYAL], True, True, 35),
-    ('MRK', 'the-mark-dark-cap', 'Black', 'DS_PF-cap-front_the-mark_2.00in-tall_white-red.png', [WHITE, RED], False, True, 40),
-    ('SEA', 'the-seal-dark-cap', 'Black', 'DS_PF-cap-front_the-seal_A2-bezel-star_2.00in-tall_white-red.png', [WHITE, RED], True, True, 40),
-    ('STK', 'the-stack-dark-cap', 'Black', 'DS_PF-cap-front_the-stack_2.00in-tall_white-red.png', [WHITE, RED], False, False, 40),
-    ('WDM', 'the-wordmark-dark-cap', 'Black', 'DS_PF-cap-front_the-wordmark_4.50x1.93in_white-red.png', [WHITE, RED], True, True, 40),
+    ('BAL', 'bali-dark-cap', 'Dark Navy', 'DS-BAL_Bali_PF-cap-front_2.46x1.88in_white-blue.png', [WHITE, ROYAL], True, True, 38),
+    ('DAM', 'dampier-strait-dark-cap', 'Dark Navy', 'DS-DAM_Dampier_Strait_PF-cap-front_3.57x1.99in_white-blue.png', [WHITE, ROYAL], True, True, 38),
+    ('NAV', 'navy-llcat-dark-cap', 'Dark Navy', 'DS-NAV_Navy_LLCAT_PF-cap-front_2.81x1.96in_white-red.png', [WHITE, RED], True, True, 38),
+    ('THD', 'thurmond-dam-dark-cap', 'Dark Navy', 'DS-THD_Thurmond_Dam_PF-cap-front_3.78x1.89in_white-red.png', [WHITE, RED], True, True, 38),
+    ('BBT', 'black-bart-dark-cap', 'Dark Grey', 'DS-BBT_Black_Bart_PF-cap-front_2.83x1.88in_white-red.png', [WHITE, RED], True, True, 38),
+    ('DLP', 'dive-land-park-dark-cap', 'Dark Grey', 'DS-DLP_Dive_Land_Park_PF-cap-front_3.61x1.88in_white-red.png', [WHITE, RED], True, True, 38),
+    ('BWP', 'blue-water-park-dark-cap', 'Black', 'DS-BWP_Blue_Water_Park_PF-cap-front_3.95x1.88in_white-red.png', [WHITE, RED], True, True, 38),
+    ('RRF', 'rainbow-reef-dark-cap', 'Olive', 'DS-RRF_Rainbow_Reef_PF-cap-front_3.33x1.99in_white-blue.png', [WHITE, ROYAL], True, True, 38),
+    ('BGR', 'blue-grotto-dark-cap', 'Royal Blue', 'DS-BGR_Blue_Grotto_PF-cap-front_2.68x1.88in_white-red.png', [WHITE, RED], True, True, 38),
+    ('BSP', 'bridge-span-14-dark-cap', 'Olive', 'DS-BSP_Bridge_Span_14_PF-cap-front_3.44x1.99in_white-red.png', [WHITE, RED], True, True, 38),
+    ('RRV', 'rainbow-river-dark-cap', 'Black', 'DS-RRV_Rainbow_River_PF-cap-front_3.57x1.89in_white-red.png', [WHITE, RED], True, True, 38),
+    ('SOM', 'somosomo-strait-dark-cap', 'Olive', 'DS-SOM_Somosomo_Strait_PF-cap-front_4.02x1.89in_white-blue.png', [WHITE, ROYAL], True, True, 38),
+    ('THI', 'the-thistlegorm-dark-cap', 'Dark Grey', 'DS-THI_Thistlegorm_PF-cap-front_3.93x2.00in_white-blue.png', [WHITE, ROYAL], True, True, 38),
+    ('VUN', 'vuna-reef-dark-cap', 'Olive', 'DS-VUN_Vuna_Reef_PF-cap-front_2.46x1.97in_white-blue.png', [WHITE, ROYAL], True, True, 38),
+    ('MRK', 'the-mark-dark-cap', 'Black', 'DS_PF-cap-front_the-mark_2.00in-tall_white-red.png', [WHITE, RED], False, True, 36),
+    ('SEA', 'the-seal-dark-cap', 'Black', 'DS_PF-cap-front_the-seal_A2-bezel-star_2.00in-tall_white-red.png', [WHITE, RED], True, True, 36),
+    ('STK', 'the-stack-dark-cap', 'Black', 'DS_PF-cap-front_the-stack_2.00in-tall_white-red.png', [WHITE, RED], False, False, 36),
+    ('WDM', 'the-wordmark-dark-cap', 'Black', 'DS_PF-cap-front_the-wordmark_4.50x1.93in_white-red.png', [WHITE, RED], True, True, 36),
 ]
 # Shopify variant ids (S/M, L/XL), from the store 11 Nov 2026 — the link also matches by SKU DS-<code>-CD-SM / -LXL
 SHOPIFY = {'BAL': (50823900659898, 50823900692666), 'DAM': (50823901020346, 50823901053114), 'NAV': (50823901216954, 50823901249722),

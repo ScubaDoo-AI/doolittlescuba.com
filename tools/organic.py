@@ -3,7 +3,7 @@
 
 Eric, 13 Nov 2026: "Create organic options for all the series as well as caps and beanies. Then add them into the system"
 (the system = DoolittleScuba.com + Shopify + Printful). Standing rules: eco products are kept separate from the regular line
-and pushed wherever possible (their own products, tag `organic-line`, their own collection); same price as the regular item
+and pushed wherever possible (their own products, tag `organic-line`, their own collection); tees at the line price + $3, caps + $2, beanie $32 (15 Nov 2026 rule)
 (13 Nov; a per-sale donation to ocean conservation or schools is being decided).
 
 Blanks (Printful catalog API, 13 Nov 2026):
@@ -89,8 +89,8 @@ def tee_plans():
             for v in p['variants']:
                 z = okey(v['sku'])[1]
                 cost = round(TEE_COST[z] + (extra or 0), 2) if extra is not None else None
-                variants.append(dict(sku=f'{key}-{z}', size=z, variant_id=ids[z], regular_sku=v['sku'], price=v.get('price'),
-                                     cost=cost, margin=round(v['price'] - cost, 2) if v.get('price') and cost is not None else None))
+                variants.append(dict(sku=f'{key}-{z}', size=z, variant_id=ids[z], regular_sku=v['sku'], price=(v['price'] + 3.0) if v.get('price') else None,   # organic tees: line price + $3 (Eric, 15 Nov 2026)
+                                     cost=cost, margin=round(v['price'] + 3.0 - cost, 2) if v.get('price') and cost is not None else None))
             out.append(dict(line=line, kind='tee', key=key, regular_key=v0['sku'].rsplit('-', 1)[0], regular_colour=colour, group=group,
                             colour=oc, hex=TEE[oc][1], files=p['files'], options=p.get('options'), personalized=not p['files'],
                             variants=variants))
@@ -104,8 +104,8 @@ def cap_plans():
         v0 = p['variants'][0]; extra = round(v0['cost'] - CAP6277, 2); cost = round(CAP_COST + extra, 2)
         out.append(dict(line='caps', kind='cap', key=key, regular_key=f"DS-{p['code']}-CD", regular_colour=p['colour'], colour=colour,
                         files=p['files'], options=p['options'], personalized=False,
-                        variants=[dict(sku=key, size='One size', variant_id=vid, regular_sku=v0['sku'], price=v0['price'], cost=cost,
-                                       margin=round(v0['price'] - cost, 2))]))
+                        variants=[dict(sku=key, size='One size', variant_id=vid, regular_sku=v0['sku'], price=v0['price'] + 2.0, cost=cost,   # organic caps: cap price + $2 (Eric, 15 Nov 2026)
+                                       margin=round(v0['price'] + 2.0 - cost, 2))]))
     return out
 
 
@@ -113,7 +113,7 @@ def beanie_plans():
     b = load('printful_beanie').plan()[0]
     return [dict(line='beanie', kind='beanie', key='DS-MRK-BNO', regular_key='DS-MRK-BN', regular_colour='Black / French Navy',
                  colour='Black / Oxford Navy', files=b['files'], options=b['options'], personalized=False,
-                 variants=[dict(sku=f'DS-MRK-BNO-{s}', size=c, colour=c, variant_id=v, price=35.0, cost=BEANIE_COST,
+                 variants=[dict(sku=f'DS-MRK-BNO-{s}', size=c, colour=c, variant_id=v, price=32.0, cost=BEANIE_COST,
                                 margin=round(35.0 - BEANIE_COST, 2)) for s, c, v in BEANIE])]
 
 

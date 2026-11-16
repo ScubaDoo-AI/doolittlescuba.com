@@ -29,7 +29,7 @@ D = json.load(open(f'{SITE}/tools/offworld_designs.json'))
 CDN = 'https://cdn.shopify.com/s/files/1/0787/3350/8794/files/'
 SIZES = ['S', 'M', 'L', 'XL', '2XL', '3XL']
 BASE = {'S': 15.60, 'M': 15.60, 'L': 15.60, 'XL': 15.60, '2XL': 17.60, '3XL': 19.60}
-PRICE = {'S': 42.00, 'M': 42.00, 'L': 42.00, 'XL': 42.00, '2XL': 45.00, '3XL': 45.00}
+PRICE = {'S': 38.00, 'M': 38.00, 'L': 38.00, 'XL': 38.00, '2XL': 41.00, '3XL': 41.00}   # 15 Nov 2026 price table (Company): Off-World $38, 2XL-3XL +$3
 BACK_FEE, DTF_FEE = 5.95, 5.95
 STEP = 32768          # Shopify variant ids run S, M, L, XL, 2XL, 3XL in steps of 32768 from the S id
 

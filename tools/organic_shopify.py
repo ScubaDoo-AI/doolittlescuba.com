@@ -6,7 +6,7 @@
 Every organic edition is its own product (Eric: keep eco separate), DRAFT, vendor Doolittle Scuba, titled like its regular
 product with "organic" before the noun ("Black Bart — Signature Series organic tee", "Bali — organic cap", "The Mark — organic
 beanie"). Shopify makes the handle from the title. Tags: the line's tags + organic-line, eco, organic:<series>, colour:<organic
-colour>, fulfil:printful-<blank>, coming-soon. Same prices as the regular variants. Images: the re-dyed mockups on the live site
+colour>, fulfil:printful-<blank>, coming-soon. Tees at the line price + $3, caps + $2 (15 Nov 2026). Images: the re-dyed mockups on the live site
 (img/organic/...). No charity or donation wording (Eric, 13 Nov: hold off on that claim).
 The 14 "<Site>, organic tee" drafts made on 12 Nov (White / Black options, DS-<code>-TE-… SKUs) are rewritten in place as the
 Signature Series light organic editions (productSet with their ids), so nothing is duplicated.
@@ -91,7 +91,7 @@ def build():
                                   {'tee': 'tee', 'cap': 'cap', 'beanie': 'beanie'}[kind]] + [f'colour:{slug(c)}' for c in colours]))
         col = 'Black or Oxford Navy' if kind == 'beanie' else p['colour']
         body = (f'<p><strong>Organic edition.</strong> {H.escape(OS.title(p))}, the same design as the regular {"tee" if kind == "tee" else kind}, '
-                f'on {BLANK[kind]}, in {H.escape(col)}. Same art, same price.</p><p>{extra}</p>'
+                f'on {BLANK[kind]}, in {H.escape(col)}. Same art, a few dollars more.</p><p>{extra}</p>'
                 f'<p>Printed or embroidered to order. Shown as a mockup, not a photograph: samples are on the way.</p>')
         if kind == 'beanie':
             imgs = [vurl(f'{ORIGIN}/img/organic/beanie/beanie-the-mark-organic-black.webp'), vurl(f'{ORIGIN}/img/organic/beanie/beanie-the-mark-organic-oxford-navy.webp')]
@@ -121,7 +121,7 @@ if __name__ == '__main__':
     with open(dst, 'w') as f:
         for i in P: f.write(json.dumps({'input': i}, ensure_ascii=False) + '\n')
     json.dump({'title': 'The organic line', 'handle': 'organic',
-               'descriptionHtml': '<p>Every Doolittle Scuba design again on organic cotton: the five tee series, the caps and the beanie. Same art, same price.</p>',
+               'descriptionHtml': '<p>Every Doolittle Scuba design again on organic cotton: the five tee series, the caps and the beanie. Same art, a few dollars more.</p>',
                'ruleSet': {'appliedDisjunctively': False, 'rules': [{'column': 'TAG', 'relation': 'EQUALS', 'condition': 'organic-line'}]}},
               open(dst.replace('.jsonl', '.collection.json'), 'w'), indent=1)
     print(len(P), 'products ->', dst, '·', sum(1 for i in P if 'id' in i), 'update existing drafts')

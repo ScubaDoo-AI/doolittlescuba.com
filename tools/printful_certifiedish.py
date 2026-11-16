@@ -17,7 +17,7 @@ Cost: garment + back $5.95 + sleeve $2.49 (the front rides in the base price) = 
 CDN = 'https://cdn.shopify.com/s/files/1/0787/3350/8794/files/'
 SIZES = ['S', 'M', 'L', 'XL', '2XL', '3XL']
 GARMENT = dict(zip(SIZES, [15.60, 15.60, 15.60, 15.60, 17.60, 19.60])); BACK = 5.95 + 2.49   # back + right-sleeve DS mark
-PRICE = dict(zip(SIZES, [42.0, 42.0, 42.0, 42.0, 45.0, 45.0]))
+PRICE = dict(zip(SIZES, [40.0, 40.0, 40.0, 40.0, 43.0, 43.0]))   # 15 Nov 2026 price table (Company): Certified-ish $40, 2XL-3XL +$3
 AREA = {'area_width': 1800, 'area_height': 2400, 'width': 1800, 'height': 2400, 'top': 0, 'left': 0}
 DESIGNS = [  # code, name, light garment, dark garment (Printful names, from the Shopify colour: tags)
     ('OWD', 'Open Water Diver', 'Blossom', 'Moss'), ('AOW', 'Advanced Open Water Diver', 'Watermelon', 'Emerald'),

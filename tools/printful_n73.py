@@ -27,7 +27,7 @@ SIZES = ['S', 'M', 'L', 'XL', '2XL', '3XL']
 SLEEVE = 2.49   # right-sleeve DS mark
 LIGHT = {'ivory', 'granite'}   # navy + red mark; the other seven colours get white + red
 BASE = {'S': 15.60, 'M': 15.60, 'L': 15.60, 'XL': 15.60, '2XL': 17.60, '3XL': 19.60}
-PRICE = {'S': 42.00, 'M': 42.00, 'L': 42.00, 'XL': 42.00, '2XL': 45.00, '3XL': 45.00}
+PRICE = {'S': 36.00, 'M': 36.00, 'L': 36.00, 'XL': 36.00, '2XL': 39.00, '3XL': 39.00}   # 15 Nov 2026 price table (Company): 1N73LL1G3NC3 $36, 2XL-3XL +$3
 DTF_FEE = 5.95
 STEP = 32768          # Shopify variant ids run S, M, L, XL, 2XL, 3XL in steps of 32768 from the S id
 

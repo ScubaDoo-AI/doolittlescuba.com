@@ -14,8 +14,8 @@ FRONT = 'DS_mark_HEAVY_PF-beanie-front_1.50x1.64in_white-red.png'   # Shopify Fi
 WHITE, RED = '#FFFFFF', '#CC3333'
 BLANK = 14.25
 # sku, colour, Printful variant, Shopify variant (product 10429487022266), price
-VARIANTS = [('DS-MRK-BN-BLK', 'Black', 53657, 51012569202874, 35.0),
-            ('DS-MRK-BN-FNV', 'French Navy', 53658, 51012569235642, 35.0)]
+# D6 (Eric, 15 Nov 2026): French Navy only at $32; the Black variant (PF 53657, Shopify 51012569202874) was deleted from Shopify.
+VARIANTS = [('DS-MRK-BN-FNV', 'French Navy', 53658, 51012569235642, 32.0)]
 
 
 def plan():

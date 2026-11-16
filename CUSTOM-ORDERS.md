@@ -208,3 +208,20 @@ Some orders need a person, so the pipeline sends nothing to Printful and reports
   - check that Printful places the catalog files as the synced caps do (position = file size, fitted to the area);
   - check whether reusing a catalog file's URL is charged digitization again. If it is, the fee rule needs a look.
 - [ ] Make sure the Make it yours products' Printful sync variants are ignored. (The 39 Aquatic name tees are already ignored: `printful_link.py --only aquatic`.) If they aren't, Printful auto-imports a blank duplicate order.
+
+## Trigger from Shopify (D16, 16 Nov) — proposed, not live
+
+GitHub runs the 15-minute schedule only every 4–7 hours on this public repo (runs on 15–16 Nov: 20:57, 00:54, 07:50 UTC). Eric decided (D16) to start the job from Shopify when a custom order is placed, keeping the schedule as the backup.
+
+**Finding:** Shopify can't call GitHub directly. A Shopify webhook carries only its own HMAC header, and GitHub's `workflow_dispatch` needs an `Authorization` token; Shopify Flow's "Send HTTP request" action, which could add that header, is not on the Basic plan (Grow and up). So a small relay is needed.
+
+**Proposed route (free, ~40 lines, code in `tools/relay/worker.js`):**
+1. **Cloudflare Workers, free tier** (new free account under shop@ or eric@; no card). Deploy `worker.js`. Set two secrets in the Worker: `SHOPIFY_WEBHOOK_SECRET` and `GITHUB_TOKEN`; variables `GITHUB_REPO=ScubaDoo-AI/doolittlescuba.com`, `WORKFLOW=custom-orders.yml`, `REF=main`.
+2. **GitHub token:** a fine-grained personal access token, repository access = only `doolittlescuba.com`, permission = Actions: Read and write, 1-year expiry. It lives only in the Worker secret (never in chat, never in the repo).
+3. **Shopify webhook:** Settings → Notifications → Webhooks → Create: event **Order payment** (`orders/paid`), format JSON, URL `https://<worker-name>.<account>.workers.dev/shopify`, latest API version. Copy the signing secret shown above the list into the Worker secret.
+4. The Worker verifies the HMAC, ignores orders with no custom line (no `_design`/name properties, no DS-MY*/DS-AC*/DS-DIGI SKU), and dispatches `custom-orders.yml` with `mode=run` and that order number. 204 from GitHub = dispatched; anything else returns 502 so Shopify retries.
+5. **Test:** Shopify's "Send test notification" on the webhook (it is signed, so expect 200 "no custom lines"), then one real custom test order in the password preview and check that a Custom orders run starts within a minute.
+
+**Alternative with no new account:** a self-chaining "heartbeat" workflow (a run that sleeps ~14 min and dispatches itself). Public-repo minutes are free, but a single failed run breaks the chain and GitHub may cancel long chains, so it is the fallback, not the recommendation.
+
+Nothing here is set up until Eric says so; the schedule keeps running meanwhile.
