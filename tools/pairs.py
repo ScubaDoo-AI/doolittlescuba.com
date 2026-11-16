@@ -17,7 +17,7 @@ import os, sys, json, re
 from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SHOP = 'https://doolittlescuba.myshopify.com'
+SHOP = 'https://shop.doolittlescuba.com'
 PRICE, PRICE_XXL = '72.00', '75.00'
 TEE_SIZES = ['S', 'M', 'L', 'XL', '2XL', '3XL']
 # slug, code, name, cap product id, cap option id, light tee product id, light option id, dark tee product id, dark option id, cap colour, light tee colour, dark tee colour

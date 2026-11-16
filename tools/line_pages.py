@@ -323,7 +323,8 @@ def nav(line_dir):
             '<a href="/stickers/" data-umami-event="nav-stickers">Stickers</a><a href="/custom/" data-umami-event="nav-custom">Custom</a>'
             '<a href="/#map" data-umami-event="nav-map">Dive map</a><a href="/#logbook" data-umami-event="nav-logbook">Logbook</a>'
             '<a href="/about/" data-umami-event="nav-about">About us</a><a href="/workshop/" data-umami-event="nav-workshop">Workshop</a>'
-            '<a href="/#contact" data-umami-event="nav-contact">Contact</a></nav>')
+            '<a href="/#contact" data-umami-event="nav-contact">Contact</a>'
+            '<a href="https://shop.doolittlescuba.com/cart" data-umami-event="nav-cart">Cart</a></nav>')
 
 
 def switcher(cur):

@@ -197,7 +197,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
   <div class="wrap">
     <header class="top">
       <a class="brand" href="/" data-umami-event="nav-home" aria-label="Doolittle Scuba home"><img src="../img/brand/lockup-h-dark.png?v=2ce3a157" alt="Doolittle Scuba L.L.C. — Do - A - Little Scuba" width="900" height="193"></a>
-      <nav aria-label="Site"><a href="/#lines" data-umami-event="nav-collections">Collections</a><a href="/stickers/" data-umami-event="nav-stickers">Stickers</a><a href="/custom/" data-umami-event="nav-custom">Custom</a><a href="/#map" data-umami-event="nav-map">Dive map</a><a href="/#logbook" data-umami-event="nav-logbook">Logbook</a><a href="/about/" data-umami-event="nav-about">About us</a><a href="/workshop/" data-umami-event="nav-workshop">Workshop</a><a href="/#contact" data-umami-event="nav-contact">Contact</a></nav>
+      <nav aria-label="Site"><a href="/#lines" data-umami-event="nav-collections">Collections</a><a href="/stickers/" data-umami-event="nav-stickers">Stickers</a><a href="/custom/" data-umami-event="nav-custom">Custom</a><a href="/#map" data-umami-event="nav-map">Dive map</a><a href="/#logbook" data-umami-event="nav-logbook">Logbook</a><a href="/about/" data-umami-event="nav-about">About us</a><a href="/workshop/" data-umami-event="nav-workshop">Workshop</a><a href="/#contact" data-umami-event="nav-contact">Contact</a><a href="https://shop.doolittlescuba.com/cart" data-umami-event="nav-cart">Cart</a></nav>
     </header>
   </div>
 </div>
@@ -727,7 +727,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
   /* ---------- Add to cart: the Make it yours tee, with the design on the order line ----------
      The order watcher (tools/custom_order.py, GitHub "Custom orders") reads _design, builds the print files and drafts the
      Printful order. A logo needs a person, so a logo design goes by email instead. Caps: email for now. */
-  var SHOP='https://doolittlescuba.myshopify.com', MYV={A:{S:50824329199802,M:50824329232570,L:50824329265338,XL:50824329298106,'2XL':50824329330874,'3XL':50824329363642},B:{S:50824329396410,M:50824329429178,L:50824329461946,XL:50824329494714,'2XL':50824329527482,'3XL':50824329560250}};
+  var SHOP='https://shop.doolittlescuba.com', MYV={A:{S:50824329199802,M:50824329232570,L:50824329265338,XL:50824329298106,'2XL':50824329330874,'3XL':50824329363642},B:{S:50824329396410,M:50824329429178,L:50824329461946,XL:50824329494714,'2XL':50824329527482,'3XL':50824329560250}};
   var MYC={A:{SM:50828254871738,LXL:50873148473530},B:{SM:50828254904506,LXL:50873148506298}};
   function design(){ var q=new URLSearchParams(); (S.product==='cap'?['colour','site','cf','cs','csp','cb','text','font']:['colour','tab','back','bsize','chest','site','ccert','cpos','sleeve','spos','upper','text','font','tpos']).forEach(function(k){ if(S[k]!==undefined&&S[k]!==null&&S[k]!=='') q.set(k,S[k]); }); return q.toString(); }
   function buyState(){ var b=$('#buy-now'); if(!b) return; var cap=S.product==='cap', logo=hasLogo(), n=D.sizes.reduce(function(a,z){return a+(S.qty[z]||0)},0);
