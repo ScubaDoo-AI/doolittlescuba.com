@@ -1,5 +1,5 @@
 name: Personalized order
-# Off-Gassing name tees: Shopify order → render names → Shopify Files → Printful v2 order (tools/aquatic_order.py).
+# Surface Interval name tees: Shopify order → render names → Shopify Files → Printful v2 order (tools/aquatic_order.py).
 #   dry-run  render and show the plan; nothing uploaded, no Printful order. The print files come back as a download.
 #   draft    upload and create a DRAFT Printful order (not charged). Check it in the Printful dashboard.
 #   confirm  confirm an existing draft by its Printful order id (starts production, charges the card).

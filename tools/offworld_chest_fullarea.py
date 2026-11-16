@@ -4,7 +4,7 @@
 Why: the first Off-World sample proof (13 Nov 2026) showed the chest mark centred on the shirt. Printful had stored the
 3.5 x 4 in chest file at left 4.25 in / top 6 in, i.e. dead centre, even though tools/printful_offworld.py sends
 position top 300 / left 1200 (150-dpi area px). Printful's v1 sync variants keep the file but not the offset, so this
-line now does what Signature, Certified-ish, 1N73LL1G3NC3 and Off-Gassing already do: the front file fills the whole
+line now does what Signature, Certified-ish, 1N73LL1G3NC3 and Surface Interval already do: the front file fills the whole
 print area and the art sits inside it where it should print.
 
 Placement (unchanged from the plan): left 8.00 in, top 2.00 in of the 12 x 16 in front area -> 3.75 in right of centre

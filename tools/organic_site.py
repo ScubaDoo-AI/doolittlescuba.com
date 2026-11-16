@@ -18,7 +18,7 @@ SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAN = json.load(open(f'{SITE}/img/organic/manifest.json'))
 LINES = [('org-signature', 'Signature Series', 'signature'), ('org-certifiedish', 'Certified-ish', 'certifiedish'),
          ('org-offworld', 'Off-World Hunt Club', 'offworld'), ('org-n73', '1N73LL1G3NC3', 'n73'),
-         ('org-aquatic', 'Off-Gassing', 'aquatic'), ('org-hats', 'Caps & beanie', 'caps')]
+         ('org-aquatic', 'Surface Interval', 'aquatic'), ('org-hats', 'Caps & beanie', 'caps')]
 BLANK = {'tee': 'Stanley/Stella Creator 2.0 · 100% organic cotton', 'cap': 'Econscious EC7000 · organic cotton cap',
          'beanie': 'Atlantis organic rib beanie · 100% organic cotton'}
 SITES = {x['slug']: x for x in json.loads(re.search(r'<script type="application/json" id="sites-data">(.*?)</script>',
@@ -143,7 +143,7 @@ def page():
     <section id="more" aria-labelledby="more-h">
       <div class="head">
         <h2 id="more-h">The regular collections</h2>
-        <p>The same designs on the Comfort Colors 1717 garment-dyed tee and the Flexfit 6277 cap: <a href="/signature/">Signature Series</a>, <a href="/certified-ish/">Certified-ish</a>, <a href="/off-world/">Off-World Hunt Club</a>, <a href="/1n73ll1g3nc3/">1N73LL1G3NC3</a>, <a href="/off-gassing/">Off-Gassing</a>, and the <a href="/#hats">hats</a>.</p>
+        <p>The same designs on the Comfort Colors 1717 garment-dyed tee and the Flexfit 6277 cap: <a href="/signature/">Signature Series</a>, <a href="/certified-ish/">Certified-ish</a>, <a href="/off-world/">Off-World Hunt Club</a>, <a href="/1n73ll1g3nc3/">1N73LL1G3NC3</a>, <a href="/surface-interval/">Surface Interval</a>, and the <a href="/#hats">hats</a>.</p>
       </div>
     </section>
   </div>
@@ -169,7 +169,7 @@ def coll_nav(html, current=False):
 CFG = r'''
   // The organic line (/organic/): one tab per series + Caps & beanie; the card carries its own price and blank.  [organic_site.py]
   DS.organicCfg=function(o){ o=o||{}; var lines=o.lines||[], step={}; lines.forEach(function(l){ step[l[0]]=44; });
-   var NAME={'org-signature':'Signature Series','org-certifiedish':'Certified-ish','org-offworld':'Off-World Hunt Club','org-n73':'1N73LL1G3NC3','org-aquatic':'Off-Gassing','org-hats':'Caps & beanie'};
+   var NAME={'org-signature':'Signature Series','org-certifiedish':'Certified-ish','org-offworld':'Off-World Hunt Club','org-n73':'1N73LL1G3NC3','org-aquatic':'Surface Interval','org-hats':'Caps & beanie'};
    return {
     lines:lines, step:step, noun:'piece', price:'', openEvent:'organic-open', contact:o.contact||'#contact', custom:false,
     footNote:'100% organic cotton &middot; same art, a few dollars more', facts:false,
@@ -215,7 +215,7 @@ def home():
 
 
 def nav_everywhere():
-    for rel in ('signature', 'certified-ish', 'off-world', '1n73ll1g3nc3', 'off-gassing'):
+    for rel in ('signature', 'certified-ish', 'off-world', '1n73ll1g3nc3', 'surface-interval'):
         p = f'{SITE}/{rel}/index.html'; s = open(p, encoding='utf-8').read(); s2 = coll_nav(s)
         if s2 != s: open(p, 'w', encoding='utf-8').write(s2); print('nav:', rel)
 

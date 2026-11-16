@@ -173,7 +173,7 @@ window.DS=(function(){
     sec.addEventListener('click',function(e){ var a=e.target.closest('a[href="#shirts"],a[href="#hats"]'); if(a&&a.dataset.deckLine) setLine(a.dataset.deckLine); });
     document.querySelectorAll('a[data-deck-line][href="#'+sectionId+'"]').forEach(function(a){ a.addEventListener('click',function(){ setLine(a.getAttribute('data-deck-line')); }); });
     build();
-    // a line named in the URL hash opens that line: /off-world/#offworld-dark, /off-gassing/#aquatic-buddy-check
+    // a line named in the URL hash opens that line: /off-world/#offworld-dark, /surface-interval/#aquatic-buddy-check
     function fromHash(){ var k=(location.hash||'').replace(/^#/,''); if(!k||!cfg.lines.some(function(l){return l[0]===k;})) return false; setLine(k); return true; }
     if(fromHash()) setTimeout(function(){ wrap.scrollIntoView({block:'start'}); },0);
     window.addEventListener('hashchange',function(){ if(fromHash()) wrap.scrollIntoView({block:'start'}); });
@@ -182,16 +182,16 @@ window.DS=(function(){
 
 
   // The shirts deck: one config for every line, so a collection page passes only the lines it holds.
-  // Tee prices by line, S–XL (2XL and 3XL are $3 more). Final per-series prices, 15 Nov 2026; personalized Off-Gassing tees are $45.
+  // Tee prices by line, S–XL (2XL and 3XL are $3 more). Final per-series prices, 15 Nov 2026; personalized Surface Interval tees are $45.
   DS.TEE_PRICE={plates:42,dark:42,certifiedish:40,'certifiedish-dark':40,offworld:38,'offworld-dark':38,n73:36,'aquatic-boat-banter':38};
   DS.teePrice=function(line){ var p=DS.TEE_PRICE[line]; return p==null?45:p; };
   DS.teePriceLine=function(line){ var p=DS.teePrice(line); return '$'+p+' · $'+(p+3)+' in 2XL and 3XL'; };
-  DS.SHIRT_LINES=[['plates','Signature Series'],['dark','Signature Series Dark'],['certifiedish','Certified-ish'],['certifiedish-dark','Certified-ish Dark'],['offworld','Off-World Hunt Club'],['offworld-dark','Off-World Hunt Club Dark'],['n73','1N73LL1G3NC3'],['aquatic-boat-banter','Off-Gassing · Boat Banter'],['aquatic-self-logged','Off-Gassing · Self-Logged'],['aquatic-buddy-check','Off-Gassing · Buddy Check'],['aquatic-buddy-system','Off-Gassing · Buddy System'],['aquatic-till-surface','Off-Gassing · Till Surface Do Us Part'],['aquatic-master-class','Off-Gassing · Master Class']];
+  DS.SHIRT_LINES=[['plates','Signature Series'],['dark','Signature Series Dark'],['certifiedish','Certified-ish'],['certifiedish-dark','Certified-ish Dark'],['offworld','Off-World Hunt Club'],['offworld-dark','Off-World Hunt Club Dark'],['n73','1N73LL1G3NC3'],['aquatic-boat-banter','Surface Interval · Boat Banter'],['aquatic-self-logged','Surface Interval · Self-Logged'],['aquatic-buddy-check','Surface Interval · Buddy Check'],['aquatic-buddy-system','Surface Interval · Buddy System'],['aquatic-till-surface','Surface Interval · Till Surface Do Us Part'],['aquatic-master-class','Surface Interval · Master Class']];
   DS.shirtsCfg=function(o){ o=o||{}; var lines=o.lines||DS.SHIRT_LINES, step={}; lines.forEach(function(l){ step[l[0]]=(l[0]==='plates'||l[0]==='dark')?64:44; });
    return {
     lines:lines, step:step, noun:'shirt', price:function(it){ return '$'+DS.teePrice(it.line); }, openEvent:'shirt-open', contact:o.contact||'#contact',
     footNote:'one garment colour each &middot; Comfort Colors 1717', facts:true,
-    eyebrow:function(it){ return it.line==='plates'?'Signature Series':it.line==='dark'?'Signature Series Dark':it.line==='offworld'?'Off-World Hunt Club':it.line==='offworld-dark'?'Off-World Hunt Club Dark':it.line==='n73'?'1N73LL1G3NC3':it.line.indexOf('aquatic-')===0?'Off-Gassing':it.line==='certifiedish-dark'?'Certified-ish Dark':'Certified-ish'; },
+    eyebrow:function(it){ return it.line==='plates'?'Signature Series':it.line==='dark'?'Signature Series Dark':it.line==='offworld'?'Off-World Hunt Club':it.line==='offworld-dark'?'Off-World Hunt Club Dark':it.line==='n73'?'1N73LL1G3NC3':it.line.indexOf('aquatic-')===0?'Surface Interval':it.line==='certifiedish-dark'?'Certified-ish Dark':'Certified-ish'; },
     sub:function(it){ return it.site?it.site.place+(it.line==='dark'?' · dark line':''):it.line.indexOf('offworld')===0||it.line==='n73'||it.line.indexOf('aquatic-')===0?it.text:it.line==='certifiedish-dark'?'Certified-ish back print · white ink · DS mark':'Certified-ish back print · DS mark'; },
     blurb:function(it){ return it.line.indexOf('aquatic-')===0?'Dive-deck humour in IM Fell: the DS mark over the slogan on the left chest, the joke on the back, its punch words in red. White and red ink on a dark tee.':it.line==='n73'?'A message in plain sight: read the bold characters, the dials or the code and it speaks. One full-front print, on a garment colour chosen for its theme.':it.line.indexOf('offworld')===0?'One line in the hunters\u2019 script across the back, translated underneath with one word in red; the DS mark carries that word on the chest, in glyphs.':'One tongue-in-cheek diagram for the specialty in your logbook, printed full size on the back.'; },
     defaultView:function(it){ return it.line.indexOf('certifiedish')===0||it.line.indexOf('offworld')===0||it.line.indexOf('aquatic-')===0?'back':'front'; },
@@ -206,7 +206,7 @@ window.DS=(function(){
 
   // The organic line (/organic/): one tab per series + Caps & beanie; the card carries its own price and blank.  [organic_site.py]
   DS.organicCfg=function(o){ o=o||{}; var lines=o.lines||[], step={}; lines.forEach(function(l){ step[l[0]]=44; });
-   var NAME={'org-signature':'Signature Series','org-certifiedish':'Certified-ish','org-offworld':'Off-World Hunt Club','org-n73':'1N73LL1G3NC3','org-aquatic':'Off-Gassing','org-hats':'Caps & beanie'};
+   var NAME={'org-signature':'Signature Series','org-certifiedish':'Certified-ish','org-offworld':'Off-World Hunt Club','org-n73':'1N73LL1G3NC3','org-aquatic':'Surface Interval','org-hats':'Caps & beanie'};
    return {
     lines:lines, step:step, noun:'piece', price:'', openEvent:'organic-open', contact:o.contact||'#contact', custom:false,
     footNote:'100% organic cotton &middot; same art, a few dollars more', facts:false,

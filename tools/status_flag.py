@@ -17,7 +17,7 @@ STATUS = {
     "state": "Proofing",
     "updated": "Updated 9 Nov 2026",
     "message": ("New: every collection now has a page of its own — Signature Series, Certified-ish, "
-                "Off-World Hunt Club, 1N73LL1G3NC3 and Off-Gassing — and you can search all 160 designs "
+                "Off-World Hunt Club, 1N73LL1G3NC3 and Surface Interval — and you can search all 160 designs "
                 "from the home page. We're still spot-proofing physical samples before the shop opens; "
                 "designs stay “Coming soon” until the samples pass."),
     "link_text": "Get word when it opens",

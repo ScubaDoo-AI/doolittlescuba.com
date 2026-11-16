@@ -65,7 +65,7 @@ def describe(p):
         extra = f'{H.escape(x["text"])} Front: the design, full front. Sleeve: the DS mark.'
     elif line == 'aquatic':
         x = OM.AQ[code[2:]]; sub = AQ_SUB[x['subset']]
-        title = f'Off-Gassing · {sub["name"]} — {name} organic tee'
+        title = f'Surface Interval · {sub["name"]} — {name} organic tee'
         tags = ['aquatic-comic', f'ac:{x["subset"]}', 'dark-line']
         if sub['names']:
             tags += ['personalized', 'personalize:' + ('1' if sub['names'] == 1 else 'couple' if x['subset'] in ('till-surface', 'master-class') else 'buddy')]

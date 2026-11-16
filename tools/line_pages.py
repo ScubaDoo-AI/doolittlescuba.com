@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """The collection pages: one themed page per line, built from the cards that line already has.
 
-    tools/line_pages.py            # (re)build /signature/, /certified-ish/, /off-world/, /1n73ll1g3nc3/, /off-gassing/
+    tools/line_pages.py            # (re)build /signature/, /certified-ish/, /off-world/, /1n73ll1g3nc3/, /surface-interval/
     tools/line_pages.py --og       # also redraw the img/og/<page>.jpg share images
 
 Each page is the site shell (header, nav, shop-status flag, footer, the shared css/site.css + js/deck.js) around a theme of
@@ -64,12 +64,12 @@ LINES = [
          shirts_note='Mockups, one garment colour each; the final run may add or swap a colour. <a href="/#contact" data-umami-event="shirts-contact">Get the launch email</a> to hear when yours ships, or <a href="/custom/#tab=n73" data-umami-event="shirts-custom">make your own</a>.',
          designs_intro='The thirty-six fronts, at full size. Dive, utility and power, mindset, flight, code, RC cars. Tap one to read it properly.',
          make_copy='Any of the thirty-six on the colour you choose.'),
-    dict(key='aquatic', dir='off-gassing', name='Off-Gassing', short='Off-Gassing', tab='aquatic',
+    dict(key='aquatic', dir='surface-interval', name='Surface Interval', short='Surface Interval', tab='aquatic',
          deck=[('aquatic-boat-banter', 'Boat Banter'), ('aquatic-self-logged', 'Self-Logged'), ('aquatic-buddy-check', 'Buddy Check'),
                ('aquatic-buddy-system', 'Buddy System'), ('aquatic-till-surface', 'Till Surface Do Us Part'), ('aquatic-master-class', 'Master Class')],
          dz=['aquatic'], og_img='img/lines/aquatic-tile.webp',
-         tile='img/lines/aquatic-tile.webp', tile_alt='Plan the dive, Off-Gassing preview, watermarked',
-         title='Off-Gassing · jokes told on the dive deck', desc='The DS mark over the slogan on the left chest, the joke on the back, its punch words in red. Twenty to wear as they are, and five sets with your names in the joke.',
+         tile='img/lines/aquatic-tile.webp', tile_alt='Plan the dive, Surface Interval preview, watermarked',
+         title='Surface Interval · jokes told on the dive deck', desc='The DS mark over the slogan on the left chest, the joke on the back, its punch words in red. Twenty to wear as they are, and five sets with your names in the joke.',
          tagline='Jokes told on the dive deck', count_note='jokes',
          shirts_intro='Fifty-nine jokes on dark tees: twenty to wear as they are (Boat Banter), and five sets with names in the joke: Self-Logged, about you; Buddy Check, about your dive buddy; Buddy System, two names for a pair; Till Surface Do Us Part, for a husband-and-wife team; Master Class, for the one who has heard it all.',
          shirts_note='Mockups on the dark palette; the named sets are printed with the names you give at checkout. <a href="/#contact" data-umami-event="shirts-contact">Get the launch email</a> to hear when they ship, or <a href="/custom/#tab=aquatic" data-umami-event="shirts-custom">make your own</a>.',
@@ -230,7 +230,7 @@ HERO['n73'] = """
 """
 
 THEME['aquatic'] = """
-/* Off-Gassing: warm paper, IM Fell, halftone dots, a speech bubble with the punch word in red */
+/* Surface Interval: warm paper, IM Fell, halftone dots, a speech bubble with the punch word in red */
 :root{--paper:#F7F3EA;--panel:#FFFDF8;--text:#1B1B1B;--muted:#6A655C;--ink:#151515;--red:#C8202A;--blue:#1F4FA3;--rule:#E2DACB;--contour:#EEE7D8;
   --deep:#141414;--deep-2:#0C0C0C;--on-deep:#F7F3EA;--on-deep-muted:#B5AFA3;--f-display:"IM Fell English","Almendra",Georgia,serif}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#121212;--panel:#1B1B1B;--text:#ECE7DC;--muted:#A19B90;--ink:#F3EFE6;--red:#E5535A;--blue:#7FA6E8;--rule:#2C2C2C;--contour:#232323}}
@@ -250,7 +250,7 @@ h1,h2,h3,.dz-t,.dk-tag .t,.sh-info h3,.more-tile .t{font-weight:400}
 HERO['aquatic'] = """
     <div class="hero">
       <div class="hero-copy">
-        <p class="eyebrow">Doolittle Scuba &middot; Off-Gassing</p>
+        <p class="eyebrow">Doolittle Scuba &middot; Surface Interval</p>
         <h1>Jokes told on the dive deck.</h1>
         <blockquote class="bubble">Plan the dive. Dive the plan. Blame the <em>current</em>.<cite>Boat Banter, No. S02</cite></blockquote>
         <p class="lede">The DS mark over the slogan on the left chest, the joke on the back, its punch words in red. Twenty to wear as they are, and five sets with your names in the joke.</p>

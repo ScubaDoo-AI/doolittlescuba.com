@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Name rules for printed names (Off-Gassing name tees; Eric, 14 Nov):
+"""Name rules for printed names (Surface Interval name tees; Eric, 14 Nov):
   - letters and numbers only (Latin letters with accents allowed, since the IM Fell font has them)
   - hyphens and apostrophes inside a name (Mary-Jo, O'Brien, O'Neil-Smith), never at an end or doubled
     (Eric, 14 Nov); ' and ’ both accepted, printed as ’
