@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Personalized Aquatic Comic order → Printful, in one step (Printful API v2, beta).
+"""Personalized Off-Gassing order → Printful, in one step (Printful API v2, beta).
 
 For the 39 name tees (Self-Logged W, Buddy Check R, Buddy System B, Till Surface Do Us Part C, Master Class M).
 Each run does the following:
@@ -200,7 +200,7 @@ def item(shirt, front_url, back_url):
         o = next(x for x in _m.tee_plans() if x['line'] == 'aquatic' and x['regular_key'] == f'DS-AC{shirt["code"]}-TD')
         var = dict(var, variant_id=next(x for x in o['variants'] if x['size'] == shirt['size'])['variant_id'])
     it = {'source': 'catalog', 'catalog_variant_id': var['variant_id'], 'quantity': shirt.get('qty', 1),
-          'name': f'Aquatic Comic {shirt["code"]}{" organic" if shirt.get("organic") else ""} {d["name"]} ({" & ".join(shirt["names"])}) {shirt["size"]}',
+          'name': f'Off-Gassing {shirt["code"]}{" organic" if shirt.get("organic") else ""} {d["name"]} ({" & ".join(shirt["names"])}) {shirt["size"]}',
           'retail_price': f'{var["price"]:.2f}',
           'placements': [{'placement': 'front', 'technique': 'dtg', 'layers': [{'type': 'file', 'url': front_url, 'position': FULL_AREA}]},
                          {'placement': 'back', 'technique': 'dtg', 'layers': [{'type': 'file', 'url': back_url, 'position': FULL_AREA}]}]}
@@ -216,7 +216,7 @@ def main():
         printful('POST', f'/v2/orders/{opt("--confirm-id")}/confirmation'); print('confirmed: in production'); return
     if opt('--code'):
         code = opt('--code').upper()
-        if code not in BY_CODE or BY_CODE[code]['names'] == 0: sys.exit(f'{code} is not a personalized Aquatic Comic design')
+        if code not in BY_CODE or BY_CODE[code]['names'] == 0: sys.exit(f'{code} is not a personalized Off-Gassing design')
         to = opt('--to') or sys.exit('--to recipient.json is required in --code mode')
         label, recipient = opt('--ref') or f'manual-{code}', json.load(open(to))
         shirts, skipped = [dict(code=code, size=(opt('--size') or 'L').upper(), qty=int(opt('--qty') or 1),
@@ -224,8 +224,8 @@ def main():
     else:
         num = next((x for x in a if not x.startswith('--') and re.fullmatch(r'#?\d+', x)), None) or sys.exit(__doc__)
         label, recipient, shirts, skipped = from_shopify(num)
-    if skipped: print('not personalized Aquatic Comic, left to Printful sync:', ', '.join(skipped))
-    if not shirts: sys.exit(f'{label}: no personalized Aquatic Comic lines')
+    if skipped: print('not personalized Off-Gassing, left to Printful sync:', ', '.join(skipped))
+    if not shirts: sys.exit(f'{label}: no personalized Off-Gassing lines')
     out = opt('--out') or os.path.join(tempfile.gettempdir(), 'aquatic_orders', re.sub(r'[^A-Za-z0-9]+', '', label))
     items = []
     for s in shirts:

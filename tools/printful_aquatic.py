@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Printful plan for the Aquatic Comic series (Comfort Colors 1717 = Printful product 586, DTG, front + back).
+"""Printful plan for the Off-Gassing series (Comfort Colors 1717 = Printful product 586, DTG, front + back).
 
 Only Boat Banter (S01–S20) is linked for automatic fulfilment: its print files are fixed and live in Shopify Files
 (AC-Sxx_front.png / AC-Sxx_back.png, 3600 x 4800 px = the full 12 x 16 in area at 300 dpi). The 39 personalized

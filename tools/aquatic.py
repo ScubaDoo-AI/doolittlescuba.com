@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The Aquatic Comic series on the site, in the Off-World / 1N73LL1G3NC3 format. Idempotent.
+"""The Off-Gassing series on the site, in the Off-World / 1N73LL1G3NC3 format. Idempotent.
 
 Usage: tools/aquatic.py <render dir>      (the output of tools/aquatic_render.py)
 
@@ -50,7 +50,7 @@ for d in D['designs']:
 print('images:', round(tot / 1e6, 2), 'MB in img/aquatic')
 
 # 2. the collection page -----------------------------------------------------------------------------------------------------------
-p = f'{SITE}/aquatic-comic/index.html'; h = open(p, encoding='utf-8').read()   # the line's own page (tools/line_pages.py builds the shell)
+p = f'{SITE}/off-gassing/index.html'; h = open(p, encoding='utf-8').read()   # the line's own page (tools/line_pages.py builds the shell)
 
 
 def card(d):

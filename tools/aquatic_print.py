@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Aquatic Comic print masters for Printful (Comfort Colors 1717, DTG), dark palette.
+"""Off-Gassing print masters for Printful (Comfort Colors 1717, DTG), dark palette.
 
 Every file is the Printful print area at 1:1: 12 x 16 in = 3600 x 4800 px, 300 dpi, RGBA with binary alpha
 (0 / 255), sRGB profile embedded, two inks only — white #FFFFFF and PMS 485 C red #DA291C.

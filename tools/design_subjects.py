@@ -16,7 +16,7 @@ import pytesseract
 
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = f'{SITE}/tools/design_subjects.json'
-PAGES = ['signature', 'certified-ish', 'off-world', '1n73ll1g3nc3', 'aquatic-comic']
+PAGES = ['signature', 'certified-ish', 'off-world', '1n73ll1g3nc3', 'off-gassing']
 BOILER = set('original hand drawn artwork john eric doolittle all rights reserved not for reproduction jr llc copyright'.split())
 
 

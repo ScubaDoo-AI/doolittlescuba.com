@@ -230,7 +230,7 @@ def page(home_src, page_src):
         </div>
         <div class="card">
           <h3>The shirts</h3>
-          <p>Five collections, each on a page of its own: Signature Series, Certified-ish, Off-World Hunt Club, 1N73LL1G3NC3 and Aquatic Comic.</p>
+          <p>Five collections, each on a page of its own: Signature Series, Certified-ish, Off-World Hunt Club, 1N73LL1G3NC3 and Off-Gassing.</p>
           <a class="btn ghost" href="/#lines" data-umami-event="make-collections">See the collections</a>
         </div>
       </div>

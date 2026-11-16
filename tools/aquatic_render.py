@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Aquatic Comic mockups and previews, in the site's flat-lay style (the Off-World blank, tools/offworld_render.py).
+"""Off-Gassing mockups and previews, in the site's flat-lay style (the Off-World blank, tools/offworld_render.py).
 
 The print masters from tools/aquatic_print.py (12 x 16 in at 300 dpi, white + red ink) are set on the dyed blank at
 their true size and place: the front file's area top 0.5 in under the collar (so the lockup, 2.0 in down the file,

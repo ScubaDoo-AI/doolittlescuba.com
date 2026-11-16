@@ -5,7 +5,7 @@ Custom shirts bought on DoolittleScuba.com become **Printful drafts automaticall
 Three products are in the job:
 - the **Make it yours tee**;
 - the **Make it yours cap** (Flexfit 6277, embroidered);
-- the **personalized Aquatic Comic name tees**, regular and organic. These are the 39 designs: Self-Logged, Buddy Check, Buddy System, Till Surface Do Us Part and Master Class.
+- the **personalized Off-Gassing name tees**, regular and organic. These are the 39 designs: Self-Logged, Buddy Check, Buddy System, Till Surface Do Us Part and Master Class.
 
 One Shopify order makes one Printful draft, whatever mix of custom lines it has. Nothing prints and nothing is charged until Eric checks and confirms a draft.
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Shopify inputs for the Aquatic Comic series: 59 dark tees, Draft, in the Off-World product format.
+"""Shopify inputs for the Off-Gassing series: 59 dark tees, Draft, in the Off-World product format.
 
 Writes <out>/products.json (ProductSetInput list) and <out>/batches/NN.json — each {"query", "variables"} with up to
 ten aliased productSet calls for the Admin GraphQL API. Image URLs are the live site's hashed URLs (push the site and
@@ -48,7 +48,7 @@ def handle_of(d):
 
 
 def title_of(d):
-    return f'Aquatic Comic · {SUBS[d["subset"]]["name"]} — {d["name"]} tee'
+    return f'Off-Gassing · {SUBS[d["subset"]]["name"]} — {d["name"]} tee'
 
 
 def product(d):
@@ -56,7 +56,7 @@ def product(d):
     punch = ', '.join(dict.fromkeys(red(d['front']) + red(d['back'])))
     for k, v in SLOT.items(): punch = punch.replace('{' + k + '}', v)
     price = D['price']['custom' if custom else 'stock']
-    desc = (f'<p><strong>Aquatic Comic · {H.escape(sub["name"])}</strong> — {H.escape(sub["blurb"])}</p>'
+    desc = (f'<p><strong>Off-Gassing · {H.escape(sub["name"])}</strong> — {H.escape(sub["blurb"])}</p>'
             f'<p>On the left chest, under the DS mark: <em>&ldquo;{H.escape(words(d["front"]))}&rdquo;</em><br>'
             f'On the back: <em>&ldquo;{H.escape(words(d["back"]))}&rdquo;</em></p>')
     if custom:

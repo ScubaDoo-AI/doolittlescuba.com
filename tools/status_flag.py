@@ -17,7 +17,7 @@ STATUS = {
     "state": "Proofing",
     "updated": "Updated 9 Nov 2026",
     "message": ("New: every collection now has a page of its own — Signature Series, Certified-ish, "
-                "Off-World Hunt Club, 1N73LL1G3NC3 and Aquatic Comic — and you can search all 160 designs "
+                "Off-World Hunt Club, 1N73LL1G3NC3 and Off-Gassing — and you can search all 160 designs "
                 "from the home page. We're still spot-proofing physical samples before the shop opens; "
                 "designs stay “Coming soon” until the samples pass."),
     "link_text": "Get word when it opens",
@@ -26,7 +26,7 @@ STATUS = {
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PAGES = ["index.html", "about/index.html", "workshop/index.html", "custom/index.html",
-         "signature/index.html", "certified-ish/index.html", "off-world/index.html", "1n73ll1g3nc3/index.html", "aquatic-comic/index.html", "stickers/index.html",
+         "signature/index.html", "certified-ish/index.html", "off-world/index.html", "1n73ll1g3nc3/index.html", "off-gassing/index.html", "stickers/index.html",
          *sorted(str(p.relative_to(ROOT)) for p in ROOT.glob("sites/*/index.html"))]
 BLOCK_RE = re.compile(r"\n?<!-- STATUS:START -->.*?<!-- STATUS:END -->\n?", re.S)
 

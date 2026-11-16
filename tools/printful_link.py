@@ -5,7 +5,7 @@ The store is Shopify-connected (Printful store 18960047), so the sync API applie
 GET /sync/products/{id}, PUT /sync/variant/{id}. (The /store/products routes in printful_stickers.py,
 printful_offworld.py, printful_n73.py only work on a manual / API store.) The plans come from the printful_*.py
 scripts: stickers (kiss-cut route), Off-World Hunt Club
-light + dark (DTG back + chest), 1N73LL1G3NC3 (DTG front), Aquatic Comic Boat Banter (DTG front + back,
+light + dark (DTG back + chest), 1N73LL1G3NC3 (DTG front), Off-Gassing Boat Banter (DTG front + back,
 printful_aquatic.py), Signature Series, Certified-ish and the embroidered caps (printful_caps.py, item-level thread options).
 Sync variants are matched by SKU, then by Shopify variant id (external_id).
 The 37 three-sticker packs (DS-PK-*) are not on Printful: Sticker Mule prints them in bulk from the 4 x 6 PDFs
@@ -79,7 +79,7 @@ def targets(only):
                 t = dict(line='organic-' + p['kind'], ext='sku:' + v['sku'], variant_id=v['variant_id'], files=fix(p['files']))
                 if p.get('options'): t['options'] = p['options']
                 out[v['sku']] = t
-    if 'aquatic' in only:   # Boat Banter S01–S20 only; the personalized Aquatic Comic tees are ordered by hand
+    if 'aquatic' in only:   # Boat Banter S01–S20 only; the personalized Off-Gassing tees are ordered by hand
         for p in load('printful_aquatic').plan('dtg'):
             for v in p['variants']:
                 out[v['sku']] = dict(line='aquatic', ext='sku:' + v['sku'], variant_id=v['variant_id'], files=p['files'])
@@ -119,7 +119,7 @@ if __name__ == '__main__':
         if off >= res['paging']['total']: break
     seen, linked, failed = set(), 0, []
     # only open the products whose name belongs to the lines asked for (a 295-product store took 20+ min opening all)
-    NAMES = {'aquatic': ['aquatic comic'], 'signature': ['signature series'], 'certifiedish': ['certified-ish'],
+    NAMES = {'aquatic': ['aquatic comic', 'off-gassing'], 'signature': ['signature series'], 'certifiedish': ['certified-ish'],
              'n73': ['1n73ll1g3nc3'], 'offworld': ['off-world'], 'stickers': ['sticker', 'achievement', 'seal', 'logo', 'bumper', 'kit'],
              'caps': ['dark cap'], 'beanie': ['beanie'], 'organic': ['organic'], 'jackets': ['anorak', 'windbreaker']}
     keys = [k for l in only for k in NAMES.get(l, [])]
