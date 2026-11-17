@@ -18,3 +18,14 @@ Sample #sample-202611040806 showed the right-sleeve DS mark at ~2 in and high on
 
 ## Make it yours sleeve (16:05 ET)
 - `tools/custom_tee.py` now renders sleeve files at Printful's real area, **4.00 wide × 3.50 tall** (1200 × 1050 px @ 300 dpi), and bottom-aligns every sleeve layer on the area's bottom edge (DS mark 1.00 × 1.09 in, shark 3.0 × 1.95 in, the buyer's line), centred side to side — the same place as the catalog lines' mark, about 1 in above the hem. `tools/custom_order.py` sends the sleeve layers with the matching full-area position (4 × 3.5 in). Rendered and measured three test designs (DS mark, buyer's line, shark). First real check: the Make-it-yours tee in the test orders (its Printful draft).
+
+## Sample set 2 re-drafted with the sleeve fix (17:15–18:25 ET)
+Eric: "Create new updated proof order."
+- **New draft #sample-202611172302 (Printful 187920236), not charged: 14 items, $449.60** (subtotal $344.99 · digitization $34.85 · shipping $40.28 flat, est. Dec 17 · tax $31.48).
+  - Re-sent from the current plans (`b2ff808` sleeve: 1.00 in DS mark, explicit position, ~1 in above the hem): Certified-ish Nitrox Butter XL (`DS-NTX-T-XL`), 1N73LL1G3NC3 Trust But Test Pepper XL (`DS-N09-T-XL`), Original Ivory S (`DS-N15-T-S`); both anoraks from `printful_jackets.py` (`DS-MRK-CHA-NVY-XL`, `-BLK-S`, file + thread colours as linked).
+  - Copied by sync variant from the old draft: The Seal cap, Thurmond Dam cap, Wormhole, Out Late, Bali, Dampier organic tee XL, Dampier organic cap, SOL'S windbreaker. The two cap sizes came across as the original sync sizes, so they were fixed in the editor (Seal S/M, Thurmond L/XL).
+  - The Mark beanie French Navy: the API refused it ("out of stock", item 0) though the editor shows it in stock; added in the editor from Published products.
+  - **Not carried:** the Richardson 146R waffle beanie (catalog one-off; Printful's order read-back has no placement and empty thread colours, so a copy would print wrong). Rebuild it in the editor if still wanted.
+- The old draft #sample-202611120318 (186447389) is untouched.
+- `tools/sample_order.py` + **Sample order** job: `from_id` / `drop` inputs (copy an order's items, leave some out, add SKUs); jackets in the SKU catalog; preview files skipped on copied one-offs.
+- **Queue collisions (the `printful` concurrency group: a newer pending run cancels an older pending one):** this work cancelled three pending runs from the other session — Printful link 44180610329 (n73 relink, re-run by that session as 44191160591: 216 / 216), and 44195533024 (a Printful link run queued alongside an `n73 show` read-back; its inputs aren't visible). Relinks now complete: certifiedish 240 / 240, organic 469 / 469, n73 216 / 216.
