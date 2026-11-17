@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       paths:
-        description: 'API paths, space separated (e.g. /mockup-generator/printfiles/586 /mockup-generator/templates/586)'
+        description: 'API paths or mockup:<line>:<SKU>, space separated (e.g. /mockup-generator/printfiles/586 mockup:certifiedish:DS-TEC-TD-XL)'
         required: true
         default: '/mockup-generator/printfiles/586'
 permissions:
@@ -22,6 +22,6 @@ jobs:
           PRINTFUL_TOKEN: ${{ secrets.PRINTFUL_TOKEN }}
           P: ${{ inputs.paths }}
         run: |
-          re='^[A-Za-z0-9/_ ,.=?&-]+$'; [[ "$P" =~ $re ]] || { echo "::error::bad input"; exit 1; }
+          re='^[A-Za-z0-9/_ ,.=?&:-]+$'; [[ "$P" =~ $re ]] || { echo "::error::bad input"; exit 1; }
           python tools/printful_read.py $P | tee read.log
           { echo '## Printful read'; echo; echo '```'; cat read.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"

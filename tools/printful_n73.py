@@ -25,6 +25,10 @@ D = json.load(open(f'{SITE}/tools/n73_designs.json'))
 CDN = 'https://cdn.shopify.com/s/files/1/0787/3350/8794/files/'
 SIZES = ['S', 'M', 'L', 'XL', '2XL', '3XL']
 SLEEVE = 2.49   # right-sleeve DS mark
+# Right-sleeve DS mark position (fix of 17 Nov 2026): same file and position as printful_certifiedish.py (printfile 130,
+# 600 x 525 px at 150 dpi; mark 1.00 in wide, centred, on the area's bottom edge, ~1 in above the hem).
+SLEEVE_POS = {'area_width': 600, 'area_height': 525, 'width': 165, 'height': 179, 'top': 346, 'left': 218}
+SLEEVE_FILE = 'DS_mark_PF-sleeve-right_1.00in_{ink}.png'
 LIGHT = {'ivory', 'granite'}   # navy + red mark; the other seven colours get white + red
 BASE = {'S': 15.60, 'M': 15.60, 'L': 15.60, 'XL': 15.60, '2XL': 17.60, '3XL': 19.60}
 PRICE = {'S': 36.00, 'M': 36.00, 'L': 36.00, 'XL': 36.00, '2XL': 39.00, '3XL': 39.00}   # 15 Nov 2026 price table (Company): 1N73LL1G3NC3 $36, 2XL-3XL +$3
@@ -91,7 +95,7 @@ def plan(route):
         fee = 0.0 if route == 'dtg' else DTF_FEE
         files = [{'type': 'default' if route == 'dtg' else 'front_dtf', 'url': f'{CDN}N73-{d["n"]:02d}_front.png',
                   'position': {'area_width': 1800, 'area_height': 2400, 'width': 1800, 'height': 2400, 'top': 0, 'left': 0}},
-                 {'type': 'sleeve_right', 'url': f'{CDN}DS_mark_PF-sleeve-right_3.5x4in_{"NAVYRED" if ck in LIGHT else "WHITERED"}.png'}]
+                 {'type': 'sleeve_right', 'url': CDN + SLEEVE_FILE.format(ink='NAVYRED' if ck in LIGHT else 'WHITERED'), 'position': SLEEVE_POS}]
         fee += SLEEVE   # brand rule (Eric, 3 Nov): a shirt with no DS mark or shark signature carries the DS mark on the right sleeve
         variants = [dict(sku=f'DS-N{d["n"]:02d}-T-{z}', size=z, shopify_variant=vid + i * STEP, variant_id=PF[ck][z],
                          cost=round(BASE[z] + fee, 2), price=PRICE[z], margin=round(PRICE[z] - BASE[z] - fee, 2)) for i, z in enumerate(SIZES)]

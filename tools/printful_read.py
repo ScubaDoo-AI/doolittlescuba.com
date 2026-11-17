@@ -63,6 +63,45 @@ def show(path):
     print(json.dumps(r)[:4000])
 
 
+def post(path, body):
+    req = urllib.request.Request('https://api.printful.com' + path, data=json.dumps(body).encode(), method='POST',
+                                 headers={'Authorization': f'Bearer {TOKEN}', 'X-PF-Store-Id': STORE, 'Content-Type': 'application/json'})
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            return json.load(r)
+    except urllib.error.HTTPError as e:
+        return {'code': e.code, 'error': e.read().decode()[:400]}
+
+
+def mockup(spec):
+    """mockup:<line>:<SKU> — render Printful's own mockups for one planned variant with the files and positions the
+    printful_*.py plan would send (nothing is written to the product). Prints one image URL per placement."""
+    import importlib.util, time
+    _, line, sku = spec.split(':', 2)
+    lp = importlib.util.spec_from_file_location('printful_link', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'printful_link.py'))
+    L = importlib.util.module_from_spec(lp); lp.loader.exec_module(L)
+    t = L.targets([line]).get(sku) or sys.exit(f'{sku} not in the {line} plan')
+    v = get(f'/products/variant/{t["variant_id"]}')
+    pid = v.get('result', {}).get('variant', {}).get('product_id') or sys.exit(f'no product for variant {t["variant_id"]}: {json.dumps(v)[:200]}')
+    files = [{'placement': 'front' if f['type'] == 'default' else f['type'], 'image_url': f['url'], **({'position': f['position']} if f.get('position') else {})}
+             for f in t['files'] if f['type'] != 'preview']
+    print(f'\n== mockup {sku} → product {pid} variant {t["variant_id"]} ==')
+    for f in files: print('  ', f['placement'], f['image_url'].rsplit('/', 1)[-1], json.dumps(f.get('position')))
+    r = post(f'/mockup-generator/create-task/{pid}', {'variant_ids': [t['variant_id']], 'format': 'png', 'files': files})
+    key = r.get('result', {}).get('task_key') or sys.exit(f'create-task failed: {json.dumps(r)[:400]}')
+    for _ in range(40):
+        time.sleep(6)
+        st = get(f'/mockup-generator/task?task_key={key}').get('result', {})
+        if st.get('status') == 'completed':
+            for m in st.get('mockups', []):
+                print('  mockup', m.get('placement'), m.get('mockup_url'))
+                for e in m.get('extra', []): print('    extra', e.get('title'), e.get('url'))
+            return
+        if st.get('status') == 'failed': sys.exit(f'mockup task failed: {st.get("error")}')
+    sys.exit('mockup task timed out')
+
+
 if __name__ == '__main__':
-    for p in [a for a in sys.argv[1:] if a.startswith('/')]:
-        show(p)
+    for p in sys.argv[1:]:
+        if p.startswith('/'): show(p)
+        elif p.startswith('mockup:'): mockup(p)
