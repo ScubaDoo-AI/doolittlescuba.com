@@ -1,6 +1,8 @@
-# Sleeve DS mark fix: Website Building steps 1–2 done, one product relinked — 17 Nov 2026, 14:35 ET
+# Sleeve DS mark fix: all 152 products relinked — 17 Nov 2026, 18:10 ET (steps 1–2 record from 14:35)
 
-**For:** Eric (decision), Company, Design & Production. Follows the Company reply (14:10) and the Website count (14:15). Repo at `b2ff808`+.
+**For:** Eric, Company, Design & Production. Follows the Company reply (14:10) and the Website count (14:15). Repo at `b2ff808`+.
+
+**Done (18:10 ET):** Eric said yes at 15:58; the three bulk runs finished at 18:00 with **925 linked, 0 failed** (the intended 906 + 6 already done + 13 swept-in, see below). Every Certified-ish, 1N73LL1G3NC3 and organic-edition tee in Printful now carries `DS_mark_PF-sleeve-right_1.00in_{NAVYRED|WHITERED}.png` at the 1-in-above-hem position. Four check mockups and the read-back confirm it. **Company can re-draft sample set 2** — and in fact it was re-drafted at 18:02 (Printful draft 187920236, built from the same plans, so it already has the new sleeve).
 
 ## Step 1 — what Printful actually uses (read 14:12–14:16 ET, `Printful read` runs 44156328270 / 44156603524)
 
@@ -25,17 +27,23 @@ So the sleeve area is **landscape 4.00 × 3.50 in**, not the portrait 3.5 × 4 i
 - **Relinked** Certified-ish Dark — Tech Diver, all 6 sizes (`Printful link` run 44157718932, `--apply --force --sku DS-TEC-TD`): 6 linked, 0 failed. Read-back (run 44158076431) shows `sleeve_right` = `DS_mark_PF-sleeve-right_1.00in_WHITERED.png` on every size.
 - Nothing else in Printful has changed.
 
-## Waiting on Eric's yes — the remaining 151 products / 906 variants
+## The remaining 151 products / 906 variants — done
 
-Three `Printful link` runs, all `apply` + `force`:
+Three `Printful link` runs, all `apply` + `force`, run one after another (they share one Actions lane with Sample order):
 
-| Run | Input | Variants |
-|---|---|---|
-| 1 | `lines=certifiedish` | 240 (the 6 above are re-sent unchanged) |
-| 2 | `lines=n73` | 216 |
-| 3 | `lines=organic`, `sku=` the 41 prefixes `DS-<code>-TO, DS-<code>-TDO` for the 20 Certified-ish codes + `DS-N` | 456 (240 Certified-ish organic + 216 1N73LL1G3NC3 organic). The prefix list keeps the other 1,042 organic variants untouched. |
+| Run | Input | Variants | Result |
+|---|---|---|---|
+| 44174954487 | `lines=certifiedish` | 240 (the 6 Tech Diver Dark re-sent unchanged) | **240 linked, 0 failed** (15:58–16:30) |
+| 44174992726 | `lines=organic`, `sku=` the 41 prefixes | 469 | **469 linked, 0 failed** (16:30–17:31). The intended 456 (240 Certified-ish organic + 216 1N73 organic) plus 13 the `DS-N` prefix also matched: the Navy dive-site organic tee light/dark (`DS-NAV-TO`, `DS-NAV-TDO`) and its organic cap (`DS-NAV-CO`), re-sent with their unchanged files — no change to those. The other 1,029 organic variants were untouched. |
+| 44191160591 | `lines=n73` | 216 | **216 linked, 0 failed** (17:33–18:00). First queued as 44174972446 and again as 44180610329; both were cancelled by the lane (the second by the Sample order dry run at 17:17), so it ran last. |
 
-Then four check mockups (one per line and blank) and the read-back, and Company re-drafts sample set 2.
+Each run is slow (30–60 min) because Printful rate-limits the product writes; the script backs off and retries, so a run that is cut off can simply be re-run with `force`.
+
+**Checks**
+- Printful's own mockups of four relinked plans (`Printful read` runs 44191462248, 44195506812): Certified-ish light `DS-OWD-T-M` (Blossom 1717), 1N73 `DS-N01-T-M` (True Navy 1717), Certified-ish organic dark `DS-SID-TDO-L` (French Navy STTU169), 1N73 organic `DS-N09-TO-L` (Khaki STTU169). All four: 1.00-in mark, centred, about 1 in above the hem; navy/red on the light tee, white/red on the dark ones. The Khaki organic 1N73 carries the white/red mark (the 1N73 plan uses one ink for all its colours) — fine on khaki, noted for Design.
+- Read-back (`--show`, runs 44195527639 and 44195932920): `DS-N01-T-*`, `DS-N36-T-*`, `DS-OWD-TO-*`, `DS-N36-TO-*` all store `sleeve_right` = the new 1.00-in file (NAVYRED on the Certified-ish light organic, WHITERED on the rest). Printful's read-back does not expose positions; they are confirmed by the mockups, which Printful rendered from the same position data.
+
+**Printful state now:** 152 products / 912 variants across the three lines carry the new sleeve; Signature Series and the dive-site tees (Navy included) still carry the 3.24-in shark + signature sleeve without a position, as before.
 
 ## Two things found on the way
 

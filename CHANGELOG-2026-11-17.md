@@ -29,3 +29,14 @@ Eric: "Create new updated proof order."
 - The old draft #sample-202611120318 (186447389) is untouched.
 - `tools/sample_order.py` + **Sample order** job: `from_id` / `drop` inputs (copy an order's items, leave some out, add SKUs); jackets in the SKU catalog; preview files skipped on copied one-offs.
 - **Queue collisions (the `printful` concurrency group: a newer pending run cancels an older pending one):** this work cancelled two pending runs from the other session — Printful link 44180610329 (n73 relink, re-run by that session as 44191160591: 216 / 216), and 44195533024 (a Printful link run queued alongside an `n73 show` read-back; its inputs aren't visible). Relinks now complete: certifiedish 240 / 240, organic 469 / 469, n73 216 / 216.
+
+## Sleeve DS mark: bulk relink (15:58–18:00 ET)
+Eric's yes at 15:58. Three `Printful link` runs, `apply` + `force`, one after another:
+- **Certified-ish** (run 44174954487): 240 linked, 0 failed.
+- **Organic editions** (run 44174992726, `sku=` 41 prefixes): 469 linked, 0 failed — the intended 456 plus the Navy dive-site organic tee light/dark and organic cap (13 variants) that the `DS-N` prefix also matched, re-sent with their unchanged files. The other 1,029 organic variants untouched.
+- **1N73LL1G3NC3** (run 44191160591): 216 linked, 0 failed. Its first two queued runs were cancelled by the shared `printful` Actions lane (the second by the Sample order dry run at 17:17), so it ran last.
+- **Total today:** 925 linked, 0 failed (906 + the 6 Tech Diver Dark re-sent + 13 swept-in). All 152 products / 912 variants of the three lines now carry `DS_mark_PF-sleeve-right_1.00in_{NAVYRED|WHITERED}.png` at the 1-in-above-hem position.
+- **Checks:** four Printful mockups (`DS-OWD-T-M`, `DS-N01-T-M`, `DS-SID-TDO-L`, `DS-N09-TO-L`; runs 44191462248 / 44195506812) — mark 1.00 in, centred, ~1 in above the hem, right ink on each; read-back of 24 variants (runs 44195527639 / 44195932920) shows the new file stored on every one.
+- **Sample set 2:** re-drafted in the other session at 18:02 from the same plans (Printful 187920236, see the section above), so it carries the new sleeve.
+- **Lane note:** `Printful link`, `Sample order` and `Aquatic order` share `concurrency: printful`; a newly queued run cancels any run still queued (not the one running). Queue a relink only when nothing else is waiting in that lane, or it gets bumped.
+- Details: `SLEEVE-MARK-FIX-Website-steps-2026-11-17.md`.
