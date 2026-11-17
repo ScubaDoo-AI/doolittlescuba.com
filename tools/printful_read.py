@@ -43,18 +43,18 @@ def show(path):
             print('  distinct placement maps across variants:', len(diff))
         return
     if '/templates/' in path:
-        seen = set()
-        for t in r.get('templates', []):
-            key = (t.get('placement'), t.get('template_id'))
-            if key in seen: continue
-            seen.add(key)
-            if 'sleeve' not in (t.get('placement') or '') and '--all' not in sys.argv: continue
-            print(f"  template {t.get('template_id')} placement={t.get('placement')} image={t.get('template_width')}x{t.get('template_height')} "
-                  f"print_area left={t.get('print_area_left')} top={t.get('print_area_top')} w={t.get('print_area_width')} h={t.get('print_area_height')} "
-                  f"orientation={t.get('orientation')} url={t.get('image_url')}")
         vm = r.get('variant_mapping', [])
-        if vm:
-            print('  variant', vm[0].get('variant_id'), 'templates:', json.dumps(vm[0].get('templates')))
+        want = {}
+        for v in vm[:1]:
+            for t in v.get('templates', []):
+                if 'sleeve' in (t.get('placement') or '') or '--all' in sys.argv: want[t.get('template_id')] = t.get('placement')
+        if vm: print('  variant', vm[0].get('variant_id'), 'templates:', json.dumps(vm[0].get('templates')))
+        for t in r.get('templates', []):
+            if t.get('template_id') not in want: continue
+            print(f"  template {t.get('template_id')} ({want[t.get('template_id')]}): image={t.get('template_width')}x{t.get('template_height')} "
+                  f"print_area left={t.get('print_area_left')} top={t.get('print_area_top')} w={t.get('print_area_width')} h={t.get('print_area_height')} "
+                  f"printfile={t.get('printfile_id')} orientation={t.get('orientation')} is_template_on_front={t.get('is_template_on_front')}")
+            print('    image_url', t.get('image_url')); print('    background_url', t.get('background_url'))
         return
     if path.startswith('/products/'):
         p = r.get('product', {})
