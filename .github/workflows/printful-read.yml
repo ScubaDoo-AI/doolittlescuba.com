@@ -22,6 +22,6 @@ jobs:
           PRINTFUL_TOKEN: ${{ secrets.PRINTFUL_TOKEN }}
           P: ${{ inputs.paths }}
         run: |
-          [[ "$P" =~ ^[A-Za-z0-9/_\ ,.=?&-]+$ ]] || { echo "::error::bad input"; exit 1; }
+          re='^[A-Za-z0-9/_ ,.=?&-]+$'; [[ "$P" =~ $re ]] || { echo "::error::bad input"; exit 1; }
           python tools/printful_read.py $P | tee read.log
           { echo '## Printful read'; echo; echo '```'; cat read.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
