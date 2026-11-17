@@ -40,3 +40,4 @@ Eric's yes at 15:58. Three `Printful link` runs, `apply` + `force`, one after an
 - **Sample set 2:** re-drafted in the other session at 18:02 from the same plans (Printful 187920236, see the section above), so it carries the new sleeve.
 - **Lane note:** `Printful link`, `Sample order` and `Aquatic order` share `concurrency: printful`; a newly queued run cancels any run still queued (not the one running). Queue a relink only when nothing else is waiting in that lane, or it gets bumped.
 - Details: `SLEEVE-MARK-FIX-Website-steps-2026-11-17.md`.
+- 19:00 — Eric: "Add the waffle beanie back." The old draft's waffle-beanie design was saved to Printful's Saved designs (no change to that order), then a Richardson 146R, Navy, was added to the new draft with it applied: DS mark on the cuff, 1.45 × 1.57 in, white + red thread. Saved and checked: **#sample-202611172302 — 15 items, $470.27** (subtotal $362.12 · digitization $34.85 · shipping $42.29 · tax $33.01), not charged.
