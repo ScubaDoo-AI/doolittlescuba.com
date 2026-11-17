@@ -1,0 +1,27 @@
+name: Printful read
+# Read-only lookups against the Printful API (tools/printful_read.py). Nothing is written.
+on:
+  workflow_dispatch:
+    inputs:
+      paths:
+        description: 'API paths, space separated (e.g. /mockup-generator/printfiles/586 /mockup-generator/templates/586)'
+        required: true
+        default: '/mockup-generator/printfiles/586'
+permissions:
+  contents: read
+jobs:
+  read:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - name: Read
+        env:
+          PRINTFUL_TOKEN: ${{ secrets.PRINTFUL_TOKEN }}
+          P: ${{ inputs.paths }}
+        run: |
+          [[ "$P" =~ ^[A-Za-z0-9/_\ ,.=?&-]+$ ]] || { echo "::error::bad input"; exit 1; }
+          python tools/printful_read.py $P | tee read.log
+          { echo '## Printful read'; echo; echo '```'; cat read.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
