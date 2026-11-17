@@ -19,6 +19,12 @@ on:
       order_id:
         description: 'Printful order id (confirm / show)'
         required: false
+      from_id:
+        description: 'Copy the items of this Printful order first (draft / dry-run); the SKUs above are added'
+        required: false
+      drop:
+        description: 'With from_id: leave out copied items whose name contains any of these (| separated)'
+        required: false
 permissions:
   contents: read
 concurrency: printful
@@ -40,16 +46,24 @@ jobs:
           MODE: ${{ inputs.mode }}
           ITEMS: ${{ inputs.items }}
           OID: ${{ inputs.order_id }}
+          FROM_ID: ${{ inputs.from_id }}
+          DROP: ${{ inputs.drop }}
         run: |
           set -o pipefail
-          echo "mode: $MODE  items: $ITEMS" | tee run.log
-          [[ "$ITEMS" =~ ^[A-Za-z0-9:\ \'_.-]+$ ]] || { echo "::error::items may hold only SKUs, names, spaces and colons"; exit 1; }
+          echo "mode: $MODE  items: $ITEMS  from: $FROM_ID  drop: $DROP" | tee run.log
+          [[ -z "$ITEMS" || "$ITEMS" =~ ^[A-Za-z0-9:\ \'_.-]+$ ]] || { echo "::error::items may hold only SKUs, names, spaces and colons"; exit 1; }
+          FROM=()
+          if [ -n "$FROM_ID" ]; then
+            [[ "$FROM_ID" =~ ^[0-9]+$ ]] || { echo "::error::from_id must be digits"; exit 1; }
+            [[ "$DROP" =~ ^[A-Za-z0-9\ \|_.-]*$ ]] || { echo "::error::drop may hold only letters, digits, spaces and |"; exit 1; }
+            FROM=(--from-id "$FROM_ID" --drop "$DROP")
+          fi
           case "$MODE" in
             confirm) [[ "$OID" =~ ^[0-9]+$ ]] || { echo "::error::order id must be digits"; exit 1; }
                      python tools/sample_order.py --confirm-id "$OID" | tee -a run.log ;;
             show)    [[ "$OID" =~ ^[0-9]+$ ]] || { echo "::error::order id must be digits"; exit 1; }
                      python tools/sample_order.py --show-id "$OID" | tee -a run.log ;;
-            dry-run) python tools/sample_order.py $ITEMS --dry-run | grep -v '"url"' | tee -a run.log ;;
-            draft)   python tools/sample_order.py $ITEMS | tee -a run.log ;;
+            dry-run) python tools/sample_order.py "${FROM[@]}" $ITEMS --dry-run | grep -v '"url"' | tee -a run.log ;;
+            draft)   python tools/sample_order.py "${FROM[@]}" $ITEMS | tee -a run.log ;;
           esac
           { echo '## Sample order'; echo; echo '```'; grep -v -i -E 'address|zip|phone|"url"' run.log | tail -n 30; echo '```'; } >> "$GITHUB_STEP_SUMMARY"

@@ -77,9 +77,31 @@ def main():
         print('retail_costs:', {k: v for k, v in r.get('retail_costs', {}).items() if v not in (None, 0, '0.00', 0.0)})
         return
     dry = '--dry-run' in a
+    # --from-id OID: start from an existing order's items (synced lines by sync_variant_id, one-offs with their files and
+    # options); --drop 'a|b|c': leave out copied items whose name contains any of those (case-insensitive) — e.g. the lines
+    # being re-sent below from the current plans.
+    base = []
+    if '--from-id' in a:
+        oid = a[a.index('--from-id') + 1]
+        if not oid.isdigit(): sys.exit('order id must be digits')
+        drops = [d.strip().lower() for d in (a[a.index('--drop') + 1] if '--drop' in a else '').split('|') if d.strip()]
+        for it in v1('GET', f'/orders/{oid}').get('items', []):
+            nm = it.get('name') or ''
+            if any(d in nm.lower() for d in drops):
+                print(f'drop   {nm}'); continue
+            if it.get('sync_variant_id'):
+                c = {'sync_variant_id': it['sync_variant_id'], 'quantity': it.get('quantity', 1)}
+            else:
+                c = {'variant_id': it['variant_id'], 'quantity': it.get('quantity', 1), 'name': nm,
+                     'files': [{k: f[k] for k in ('type', 'url', 'position', 'options') if f.get(k) not in (None, [], {})}
+                               for f in it.get('files', [])]}
+                if it.get('options'): c['options'] = it['options']
+            if it.get('retail_price'): c['retail_price'] = it['retail_price']
+            base.append(c); print(f'keep   {nm}' + ('' if 'sync_variant_id' in c else '  (catalog one-off, files copied)'))
+        a = [x for i, x in enumerate(a) if x not in ('--from-id', '--drop') and (i == 0 or a[i - 1] not in ('--from-id', '--drop'))]
     specs = [x for x in a if not x.startswith('--')]
-    if not specs: sys.exit(__doc__)
-    cat = catalog(); items = []; out = os.path.join(tempfile.gettempdir(), 'sample_order')
+    if not specs and not base: sys.exit(__doc__)
+    cat = catalog(); items = list(base); out = os.path.join(tempfile.gettempdir(), 'sample_order')
     for sp in specs:
         sku, *names = sp.split(':')
         m = AO.SKU_RE.match(sku)
