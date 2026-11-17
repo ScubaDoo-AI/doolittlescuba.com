@@ -33,8 +33,9 @@ def show(path):
     if '/printfiles/' in path:
         print('product', r.get('product_id'), '| available placements:', json.dumps(r.get('available_placements')))
         for pf in r.get('printfiles', []):
-            print(f"  printfile {pf['id']}: {pf['width']} x {pf['height']} px @ {pf['dpi']} dpi = "
-                  f"{pf['width']/pf['dpi']:.2f} x {pf['height']/pf['dpi']:.2f} in, fill_mode={pf.get('fill_mode')}, can_rotate={pf.get('can_rotate')}")
+            w, h, dpi = pf.get('width') or 0, pf.get('height') or 0, pf.get('dpi') or 1
+            print(f"  printfile {pf.get('printfile_id', pf.get('id'))}: {w} x {h} px @ {dpi} dpi = {w/dpi:.2f} x {h/dpi:.2f} in, "
+                  f"fill_mode={pf.get('fill_mode')}, can_rotate={pf.get('can_rotate')} | raw={json.dumps(pf)[:200]}")
         vp = r.get('variant_printfiles', [])
         if vp:
             print('  placement → printfile (first variant', vp[0].get('variant_id'), '):', json.dumps(vp[0].get('placements')))
