@@ -44,6 +44,10 @@ def catalog():
         files = [dict(f, type='front' if f['type'] == 'default' else f['type']) for f in p['files']]
         for v in p['variants']:
             out[v['sku']] = (v['variant_id'], files, f"{p['title']} {v['size']}", v['price'])
+    for p in load('printful_jackets').plan():                   # embroidered jackets (DS-MRK-CHA-*/WND-*): file + thread colours
+        for v in p['variants']:
+            out[v['sku']] = (v['variant_id'], p['files'], f"The Mark — {p['name']} {v['sku'].split('-')[-2]} {v['sku'].split('-')[-1]}",
+                             float(v.get('price') or v.get('retail_price') or 0), p.get('options'))
     for p in load('printful_caps').plan():                      # embroidered caps: files + item-level options
         label = p['handle'].replace('-dark-cap', '').replace('-', ' ').title() + f" dark cap ({p['colour']})"
         for v in p['variants']:
@@ -94,7 +98,7 @@ def main():
             else:
                 c = {'variant_id': it['variant_id'], 'quantity': it.get('quantity', 1), 'name': nm,
                      'files': [{k: f[k] for k in ('type', 'url', 'position', 'options') if f.get(k) not in (None, [], {})}
-                               for f in it.get('files', [])]}
+                               for f in it.get('files', []) if f.get('type') != 'preview']}
                 if it.get('options'): c['options'] = it['options']
             if it.get('retail_price'): c['retail_price'] = it['retail_price']
             base.append(c); print(f'keep   {nm}' + ('' if 'sync_variant_id' in c else '  (catalog one-off, files copied)'))
