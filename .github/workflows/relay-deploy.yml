@@ -1,0 +1,51 @@
+name: Relay deploy (Cloudflare Worker)
+
+# Deploys tools/relay/worker.js to the Cloudflare Worker "doolittle-relay" (D16: Shopify → GitHub trigger
+# for the custom-orders job) and pushes its two runtime secrets from this repo's secrets.
+#
+# Repo secrets needed (Settings → Secrets and variables → Actions):
+#   CLOUDFLARE_API_TOKEN     Cloudflare token scoped to this Worker (Worker → Settings → Builds → Create token)
+#   RELAY_GITHUB_TOKEN       fine-grained PAT: repo doolittlescuba.com only, Actions: Read and write
+#   SHOPIFY_WEBHOOK_SECRET   signing secret from Shopify → Settings → Notifications → Webhooks (optional until the
+#                            webhook exists; the step is skipped when it is empty)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['tools/relay/**', '.github/workflows/relay-deploy.yml']
+
+concurrency: relay-deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: 4ec8cddacee1f276a838fddcd3350bff
+    defaults:
+      run:
+        working-directory: tools/relay
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Deploy worker
+        run: npx --yes wrangler@4 deploy
+      - name: Set GITHUB_TOKEN secret on the Worker
+        if: ${{ secrets.RELAY_GITHUB_TOKEN != '' }}
+        env:
+          RELAY_GITHUB_TOKEN: ${{ secrets.RELAY_GITHUB_TOKEN }}
+        run: printf '%s' "$RELAY_GITHUB_TOKEN" | npx --yes wrangler@4 secret put GITHUB_TOKEN
+      - name: Set SHOPIFY_WEBHOOK_SECRET secret on the Worker
+        if: ${{ secrets.SHOPIFY_WEBHOOK_SECRET != '' }}
+        env:
+          SHOPIFY_WEBHOOK_SECRET: ${{ secrets.SHOPIFY_WEBHOOK_SECRET }}
+        run: printf '%s' "$SHOPIFY_WEBHOOK_SECRET" | npx --yes wrangler@4 secret put SHOPIFY_WEBHOOK_SECRET
+      - name: Smoke test
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' -d '{}' https://doolittle-relay.jdoolittle212.workers.dev/shopify)
+          echo "POST /shopify without a signature -> $code (expect 401)"
+          test "$code" = "401"
