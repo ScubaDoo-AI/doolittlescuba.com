@@ -16,7 +16,7 @@ STORE = '18960047'
 
 def get(path):
     req = urllib.request.Request('https://api.printful.com' + path,
-                                 headers={'Authorization': f'Bearer {TOKEN}', 'X-PF-Store-Id': STORE})
+                                 headers={'Authorization': f'Bearer {TOKEN}', 'X-PF-Store-Id': STORE, 'User-Agent': 'doolittlescuba-tools/1.0'})
     try:
         with urllib.request.urlopen(req, timeout=60) as r:
             return json.load(r)
@@ -65,7 +65,7 @@ def show(path):
 
 def post(path, body):
     req = urllib.request.Request('https://api.printful.com' + path, data=json.dumps(body).encode(), method='POST',
-                                 headers={'Authorization': f'Bearer {TOKEN}', 'X-PF-Store-Id': STORE, 'Content-Type': 'application/json'})
+                                 headers={'Authorization': f'Bearer {TOKEN}', 'X-PF-Store-Id': STORE, 'Content-Type': 'application/json', 'User-Agent': 'doolittlescuba-tools/1.0'})
     try:
         with urllib.request.urlopen(req, timeout=60) as r:
             return json.load(r)
