@@ -47,5 +47,5 @@ jobs:
       - name: Smoke test
         run: |
           code=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' -d '{}' https://doolittle-relay.jdoolittle212.workers.dev/shopify)
-          echo "POST /shopify without a signature -> $code (expect 401)"
-          test "$code" = "401"
+          echo "POST /shopify without a signature -> $code (expect 401, or 503 until both secrets are set)"
+          test "$code" = "401" -o "$code" = "503"

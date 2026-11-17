@@ -40,6 +40,7 @@ export default {
     if (request.method !== 'POST' || url.pathname !== '/shopify') return new Response('not found', { status: 404 });
     const topic = request.headers.get('X-Shopify-Topic') || '';
     const shop = request.headers.get('X-Shopify-Shop-Domain') || '';
+    if (!env.SHOPIFY_WEBHOOK_SECRET || !env.GITHUB_TOKEN) return new Response('relay not configured', { status: 503 });
     const body = await request.text();
     if (!(await hmacOk(env.SHOPIFY_WEBHOOK_SECRET, body, request.headers.get('X-Shopify-Hmac-Sha256')))) {
       return new Response('bad signature', { status: 401 });
