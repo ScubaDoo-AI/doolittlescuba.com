@@ -33,3 +33,6 @@ The Company project answered the 13:00 update (`site/siblings/COMPANY-UPDATE-202
 - Cloudflare's online editor could not take pasted or typed code from the browser pane, so the Worker is deployed by GitHub Actions with wrangler (`tools/relay/wrangler.toml`), and both Worker secrets come from repo secrets. Eric added three repo secrets: `CLOUDFLARE_API_TOKEN`, `RELAY_GITHUB_TOKEN`, `SHOPIFY_WEBHOOK_SECRET`.
 - Worker answers 503 "relay not configured" until both secrets exist (`75c0c2c`); workflow condition fix (`9a62a35`).
 - For Company's ledger: Cloudflare free plan, $0, on Eric's personal account; a stray empty Cloudflare account under shop@ can be deleted.
+
+## Policies published (21:13 ET)
+- Actions → Policy push run 44001340812, Apply on, `privacy shipping refund terms`: all four written to Shopify and verified live (dated 16 Nov; privacy opt-out link now relative; no "in stock"/preorder/USPS-for-shirts wording). Closes Company items N5 and N6.
