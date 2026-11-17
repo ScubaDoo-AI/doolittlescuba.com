@@ -6,8 +6,8 @@ The /custom/ page describes a shirt as a short query string (the same one its sh
 This module turns it into the files Printful prints on a Comfort Colors 1717 (Printful 586):
   front         12 x 16 in   chest print (site lockup, a Certified-ish design or a brand mark) + the buyer's line under it
   back          12 x 16 in   back design (plate / Certified-ish / Off-World, full or upper-back) + upper-back mark or line
-  sleeve_right  3.5 x 4 in   sleeve mark (or the buyer's line, when it goes on the other sleeve)
-  sleeve_left   3.5 x 4 in
+  sleeve_right  4 x 3.5 in   sleeve mark (or the buyer's line, when it goes on the other sleeve), bottom-aligned
+  sleeve_left   4 x 3.5 in
 Every piece comes from the catalog masters already in Shopify Files (the same files the store's shirts print), or from
 tools/assets (the heavy DS mark, the stack, wordmark and seal, the page's three fonts), so a custom shirt prints at the
 same sizes and positions as the catalog ones. Layout follows the page's drawing (tee 600 px wide, 23.7 px = 1 in).
@@ -27,7 +27,8 @@ ROOT = os.path.dirname(HERE)
 CDN = 'https://cdn.shopify.com/s/files/1/0787/3350/8794/files/'
 DPI = 300
 A_W, A_H = 12, 16            # front / back area, inches
-S_W, S_H = 3.5, 4            # sleeve area
+S_W, S_H = 4.0, 3.5          # sleeve area: Printful printfile 130 is 4.00 in wide x 3.50 in tall (landscape), both the 1717 and the STTU169
+S_PAD = 0.0                  # sleeve art sits on the area's bottom edge (about 1 in above the hem, the lowest Printful prints) — Eric, 17 Nov 2026
 PX = 23.7                    # page px per inch (chest left lockup centre 383 px = 9.5 in; tee centre 300 px = 6 in)
 NAVY = (16, 42, 84)          # the heavy mark kit's navy, used for brand marks on light shirts
 CACHE = os.environ.get('DS_CACHE', os.path.join('/tmp', 'ds_masters'))
@@ -225,11 +226,11 @@ def plan(q, size='L'):
     if S['sleeve'] != 'none':
         im = fit(mark(S['sleeve']), 3.0, 2.2 if S['sleeve'] in ('shark', 'stack', 'wordmark') else 2.6, upscale_max=1.0)
         if S['sleeve'] == 'dsmark': im = fit(mark('dsmark'), 1.0, 1.09, upscale_max=1.0)   # the line's 1 in sleeve mark
-        L['sleeve_' + S['spos']].append(('image', im, S_W / 2, (S_H - im.height / DPI) / 2))
+        L['sleeve_' + S['spos']].append(('image', im, S_W / 2, S_H - S_PAD - im.height / DPI))   # centred, on the bottom edge
     if S['text'] and S['tpos'] == 'sleeve':
         other = 'left' if S['spos'] == 'right' else 'right'
         t = text_img(S['text'], S['font'], 0.38, 3.2, txt_rgb)
-        L['sleeve_' + other].append(('image', t, S_W / 2, (S_H - t.height / DPI) / 2))
+        L['sleeve_' + other].append(('image', t, S_W / 2, S_H - S_PAD - t.height / DPI))
 
     # ---- back: upper mark / line, then the design ----
     y = 0.25; has_upper = False

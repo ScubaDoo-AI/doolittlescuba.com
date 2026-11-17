@@ -36,7 +36,7 @@ import custom_cap as CAP
 MY_RE = re.compile(r'^DS-MY([AB])-T-(S|M|L|XL|2XL|3XL)$')
 CAP_RE = re.compile(r'^DS-MY([AB])-C-(SM|LXL)$')
 DIGI_RE = re.compile(r'^DS-DIGI-(\d)$')
-AREA = {'front': (12, 16), 'back': (12, 16), 'sleeve_left': (3.5, 4), 'sleeve_right': (3.5, 4)}
+AREA = {'front': (12, 16), 'back': (12, 16), 'sleeve_left': (4, 3.5), 'sleeve_right': (4, 3.5)}   # inches; sleeves are Printful printfile 130, 4.00 wide x 3.50 tall (fix 17 Nov 2026)
 
 ORDERS_Q = '''query($q: String!, $a: String) { orders(first: 50, after: $a, query: $q, sortKey: CREATED_AT, reverse: true) {
   pageInfo { hasNextPage endCursor }

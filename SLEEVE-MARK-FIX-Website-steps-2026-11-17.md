@@ -39,7 +39,7 @@ Then four check mockups (one per line and blank) and the read-back, and Company 
 
 ## Two things found on the way
 
-1. **Make it yours sleeve.** `tools/custom_order.py` sends its sleeve DS mark with a full-area position of **3.5 wide × 4 tall** (`AREA['sleeve_right'] = (3.5, 4)`), but Printful's area is 4 × 3.5. It is a different code path (v2 orders, inches), so it is not part of this relink; check the sleeve on the first Make-it-yours test order's draft before confirming it. Website Building will correct it to the real area once the test order shows how v2 places it.
+1. **Make it yours sleeve — fixed 16:05 ET (Eric's instruction).** `tools/custom_tee.py` renders sleeve files at the real 4.00 × 3.50 in area with every sleeve layer bottom-aligned and centred (DS mark 1.00 in, shark, the buyer's line), and `tools/custom_order.py` sends the matching 4 × 3.5 in full-area position (v2 orders, inches). Test renders measured correct. Confirm on the first Make-it-yours test order's Printful draft before approving it.
 2. **Signature Series sleeve** still goes without a position (3.24 in shark + signature, meant to fill the area). With a 4 × 3.5 landscape area and a portrait file, the result depends on Printful's default; check it on the next Signature sample as Design asked.
 
 ## Tools added (repo)

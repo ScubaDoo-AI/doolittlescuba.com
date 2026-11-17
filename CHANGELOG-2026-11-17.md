@@ -15,3 +15,6 @@ Sample #sample-202611040806 showed the right-sleeve DS mark at ~2 in and high on
 - **Waiting on Eric:** the remaining 151 products / 906 variants (certifiedish, n73, organic with 41 SKU prefixes). Details in `SLEEVE-MARK-FIX-Website-steps-2026-11-17.md`.
 - **New tool:** `tools/printful_read.py` + Actions → **Printful read** (read-only lookups and planned-variant mockups).
 - **Flagged:** `custom_order.py` sends the Make-it-yours sleeve as 3.5 × 4 (area is 4 × 3.5) — check on the first custom test order; Signature sleeve still positionless — check on the next Signature sample.
+
+## Make it yours sleeve (16:05 ET)
+- `tools/custom_tee.py` now renders sleeve files at Printful's real area, **4.00 wide × 3.50 tall** (1200 × 1050 px @ 300 dpi), and bottom-aligns every sleeve layer on the area's bottom edge (DS mark 1.00 × 1.09 in, shark 3.0 × 1.95 in, the buyer's line), centred side to side — the same place as the catalog lines' mark, about 1 in above the hem. `tools/custom_order.py` sends the sleeve layers with the matching full-area position (4 × 3.5 in). Rendered and measured three test designs (DS mark, buyer's line, shark). First real check: the Make-it-yours tee in the test orders (its Printful draft).
