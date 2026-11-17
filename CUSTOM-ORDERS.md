@@ -209,19 +209,22 @@ Some orders need a person, so the pipeline sends nothing to Printful and reports
   - check whether reusing a catalog file's URL is charged digitization again. If it is, the fee rule needs a look.
 - [ ] Make sure the Make it yours products' Printful sync variants are ignored. (The 39 Aquatic name tees are already ignored: `printful_link.py --only aquatic`.) If they aren't, Printful auto-imports a blank duplicate order.
 
-## Trigger from Shopify (D16, 16 Nov) — proposed, not live
+## Trigger from Shopify (D16) — live since 16 Nov, 20:51 ET
 
-GitHub runs the 15-minute schedule only every 4–7 hours on this public repo (runs on 15–16 Nov: 20:57, 00:54, 07:50 UTC). Eric decided (D16) to start the job from Shopify when a custom order is placed, keeping the schedule as the backup.
+GitHub runs the 15-minute schedule only every 4–7 hours on this public repo, so a Shopify webhook now starts the job the moment a custom order is paid. The schedule stays as the backup.
 
-**Finding:** Shopify can't call GitHub directly. A Shopify webhook carries only its own HMAC header, and GitHub's `workflow_dispatch` needs an `Authorization` token; Shopify Flow's "Send HTTP request" action, which could add that header, is not on the Basic plan (Grow and up). So a small relay is needed.
+**How it works.** Shopify can't call GitHub directly (its webhooks carry no auth header; Flow's "Send HTTP request" is Grow-plan and up), so a tiny relay sits between them:
 
-**Proposed route (free, ~40 lines, code in `tools/relay/worker.js`):**
-1. **Cloudflare Workers, free tier** (new free account under shop@ or eric@; no card). Deploy `worker.js`. Set two secrets in the Worker: `SHOPIFY_WEBHOOK_SECRET` and `GITHUB_TOKEN`; variables `GITHUB_REPO=ScubaDoo-AI/doolittlescuba.com`, `WORKFLOW=custom-orders.yml`, `REF=main`.
-2. **GitHub token:** a fine-grained personal access token, repository access = only `doolittlescuba.com`, permission = Actions: Read and write, 1-year expiry. It lives only in the Worker secret (never in chat, never in the repo).
-3. **Shopify webhook:** Settings → Notifications → Webhooks → Create: event **Order payment** (`orders/paid`), format JSON, URL `https://<worker-name>.<account>.workers.dev/shopify`, latest API version. Copy the signing secret shown above the list into the Worker secret.
-4. The Worker verifies the HMAC, ignores orders with no custom line (no `_design`/name properties, no DS-MY*/DS-AC*/DS-DIGI SKU), and dispatches `custom-orders.yml` with `mode=run` and that order number. 204 from GitHub = dispatched; anything else returns 502 so Shopify retries.
-5. **Test:** Shopify's "Send test notification" on the webhook (it is signed, so expect 200 "no custom lines"), then one real custom test order in the password preview and check that a Custom orders run starts within a minute.
+Shopify webhook **Order payment** (`orders/paid`) → `https://doolittle-relay.jdoolittle212.workers.dev/shopify` (Cloudflare Worker, free tier) → the Worker checks the `X-Shopify-Hmac-Sha256` signature, ignores orders with no custom line (no `_design`/name property, no DS-MY*/DS-AC*/DS-DIGI/DS-HMP SKU), and calls GitHub `workflow_dispatch` on `custom-orders.yml` with `mode=run` and that order number. It stores nothing.
 
-**Alternative with no new account:** a self-chaining "heartbeat" workflow (a run that sleeps ~14 min and dispatches itself). Public-repo minutes are free, but a single failed run breaks the chain and GitHub may cancel long chains, so it is the fallback, not the recommendation.
+| Piece | Where |
+|---|---|
+| Worker code | `tools/relay/worker.js`, config `tools/relay/wrangler.toml` |
+| Deploy | Actions → **Relay deploy** (`.github/workflows/relay-deploy.yml`): runs on any push to `tools/relay/**` or by hand; deploys with wrangler and pushes the two Worker secrets from repo secrets |
+| Repo secrets | `CLOUDFLARE_API_TOKEN` (scoped to this Worker only), `RELAY_GITHUB_TOKEN` (fine-grained PAT, repo `doolittlescuba.com`, Actions: read/write, 1 yr), `SHOPIFY_WEBHOOK_SECRET` (the signing secret under Settings → Notifications → Webhooks) |
+| Cloudflare account | Eric's personal Cloudflare account (free plan, $0); account id `4ec8cddacee1f276a838fddcd3350bff`; Worker `doolittle-relay` |
+| Shopify webhook | Settings → Notifications → Webhooks → Order payment, JSON, latest API version, URL above |
 
-Nothing here is set up until Eric says so; the schedule keeps running meanwhile.
+**Verified 16 Nov 20:51 ET:** Shopify's "Send test notification" reached the Worker (user-agent Shopify-Captain-Hook, topic orders/paid), passed the signature check and got 200 "no custom lines". An unsigned call gets 401 "bad signature"; before both secrets are set it answers 503 "relay not configured".
+
+**Housekeeping.** A second Cloudflare account was created by mistake under the shop@ address, with a sample Worker `flat-glade-38f9`; it holds nothing and can be deleted. If the PAT expires (Nov 2027) the Worker's dispatch returns 502 and Shopify retries; regenerate the token, update `RELAY_GITHUB_TOKEN`, run Relay deploy.
