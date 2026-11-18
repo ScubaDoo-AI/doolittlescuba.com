@@ -85,6 +85,19 @@ def mockup(spec):
     pid = v.get('result', {}).get('variant', {}).get('product_id') or sys.exit(f'no product for variant {t["variant_id"]}: {json.dumps(v)[:200]}')
     files = [{'placement': 'front' if f['type'] == 'default' else f['type'], 'image_url': f['url'], **({'position': f['position']} if f.get('position') else {})}
              for f in t['files'] if f['type'] != 'preview']
+    missing = [f for f in files if not f.get('position')]
+    if missing:   # no position in the plan: Printful fits and centres the file in the print area, so the mockup does the same
+        import struct
+        pf = get(f'/mockup-generator/printfiles/{pid}').get('result', {})
+        pmap = next((v.get('placements', {}) for v in pf.get('variant_printfiles', []) if v.get('variant_id') == t['variant_id']), {})
+        sizes = {p.get('printfile_id', p.get('id')): (p['width'], p['height']) for p in pf.get('printfiles', [])}
+        for f in missing:
+            W, H = sizes[pmap[f['placement']]]
+            req = urllib.request.Request(f['image_url'], headers={'User-Agent': 'doolittlescuba-tools/1.0', 'Range': 'bytes=0-31'})
+            with urllib.request.urlopen(req, timeout=60) as r:
+                w, h = struct.unpack('>II', r.read(32)[16:24])
+            s = min(W / w, H / h); nw, nh = round(w * s), round(h * s)
+            f['position'] = {'area_width': W, 'area_height': H, 'width': nw, 'height': nh, 'top': (H - nh) // 2, 'left': (W - nw) // 2}
     print(f'\n== mockup {sku} → product {pid} variant {t["variant_id"]} ==')
     for f in files: print('  ', f['placement'], f['image_url'].rsplit('/', 1)[-1], json.dumps(f.get('position')))
     r = post(f'/mockup-generator/create-task/{pid}', {'variant_ids': [t['variant_id']], 'format': 'png', 'files': files})
