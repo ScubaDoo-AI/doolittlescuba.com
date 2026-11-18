@@ -29,6 +29,8 @@ PRICE = dict(zip(SIZES, [42.0, 42.0, 42.0, 42.0, 45.0, 45.0]))
 CHEST_V = {'NAV': '_v2'}   # 12 Nov 2026: the Navy LLCAT chest lockup re-titled "Navy LLCAT" (was "Hovercraft (LLCAT)"); new files so Printful fetches fresh
 CHEST_POS = '_top2in'   # 13 Nov 2026: lockup moved from ink top 0.5 in to 2 in (sample proof: tight under the collar on an S); tools/chest_lower.py
 AREA = {'area_width': 1800, 'area_height': 2400, 'width': 1800, 'height': 2400, 'top': 0, 'left': 0}
+SLEEVE_FILE = 'DS_shark-signature_PF-sleeve-right_ink_{ink}.png'   # 18 Nov 2026: the 3.5x4in file cropped to its ink (973 x 634 px at 300 dpi)
+SLEEVE_POS = {'area_width': 600, 'area_height': 525, 'width': 404, 'height': 263, 'top': 262, 'left': 98}   # 18 Nov 2026 (Eric): 5% smaller than the old fit-and-centre size, ink flush with the bottom of the 4 x 3.5 in sleeve area, centred across
 DESIGNS = [('THI', 'Thistlegorm', 'Crunchberry', 'Blue Spruce'), ('BBT', 'Black_Bart', 'Chambray', 'Pepper'), ('NAV', 'Navy_LLCAT', 'Granite', 'Navy'), ('BSP', 'Bridge_Span_14', 'Flo Blue', 'Espresso'), ('BGR', 'Blue_Grotto', 'Island Reef', 'Grape'), ('RRV', 'Rainbow_River', 'Bay', 'Wine'), ('BWP', 'Blue_Water_Park', 'Seafoam', 'Black'), ('DLP', 'Dive_Land_Park', 'Chalky Mint', 'Graphite'), ('THD', 'Thurmond_Dam', 'Ivory', 'Midnight'), ('RRF', 'Rainbow_Reef', 'Orchid', 'Sage'), ('SOM', 'Somosomo_Strait', 'Watermelon', 'Emerald'), ('VUN', 'Vuna_Reef', 'Blossom', 'Moss'), ('BAL', 'Bali', 'Terracotta', 'Denim'), ('DAM', 'Dampier_Strait', 'Butter', 'True Navy')]   # code, site file stem, light garment, dark garment (Printful names)
 PF = {
     'Bay': [17707, 17708, 17709, 17710, 17711, 17712],
@@ -68,7 +70,7 @@ def plan(route='dtg'):
         for line, colour, ink, suffix in (('light', light, 'BLACK', 'T'), ('dark', dark, 'WHITE', 'TD')):
             files = [{'type': 'front', 'url': f'{CDN}DS-{code}_{site}_PF-front-leftchest_12x16in_{ink}{CHEST_V.get(code, "")}{CHEST_POS}.png', 'position': AREA},
                      {'type': 'back', 'url': f'{CDN}DS-{code}_{site}_PF-back_12x16in_{ink}_op25.png', 'position': AREA},
-                     {'type': 'sleeve_right', 'url': f'{CDN}DS_shark-signature_PF-sleeve-right_3.5x4in_{ink}.png'}]
+                     {'type': 'sleeve_right', 'url': CDN + SLEEVE_FILE.format(ink=ink), 'position': SLEEVE_POS}]
             variants = [dict(sku=f'DS-{code}-{suffix}-{z}', size=z, variant_id=PF[colour][i], cost=round(GARMENT[z] + BACK + SLEEVE, 2),
                              price=PRICE[z], margin=round(PRICE[z] - GARMENT[z] - BACK - SLEEVE, 2)) for i, z in enumerate(SIZES)]
             out.append(dict(code=code, site=site.replace('_', ' '), line=line, colour=colour, files=files, variants=variants))
