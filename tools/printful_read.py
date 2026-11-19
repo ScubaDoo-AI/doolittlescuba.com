@@ -100,6 +100,7 @@ def mockup(spec):
         pmap = next((v.get('placements', {}) for v in pf.get('variant_printfiles', []) if v.get('variant_id') == t['variant_id']), {})
         sizes = {p.get('printfile_id', p.get('id')): (p['width'], p['height']) for p in pf.get('printfiles', [])}
         for f in missing:
+            if f['placement'] not in pmap and f['placement'] + '_large' in pmap: f['placement'] += '_large'   # caps: the front is embroidery_front_large
             if f['placement'] not in pmap or pmap[f['placement']] not in sizes:
                 print('   no printfile for', f['placement'], '| placements:', json.dumps(pmap), '| printfiles:', json.dumps(sizes)); continue
             W, H = sizes[pmap[f['placement']]]
