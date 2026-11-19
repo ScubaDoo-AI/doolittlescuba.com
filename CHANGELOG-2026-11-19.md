@@ -36,3 +36,8 @@ Eric: *"What's next in getting the system updated with the new renders from Prin
 
 ### Next
 Off-World Hunt Club (60), Surface Interval (59), the organic line (223), the 17 caps' Shopify images, The Stack / Home Port caps and the beanie.
+
+## Later — Off-World Hunt Club and Surface Interval on Printful
+- **Printful read #31** (119 specs; the job limit is now 60 minutes): all 60 Off-World tees and the 20 Boat Banter tees rendered. The 39 personalized Surface Interval tees (Self-Logged, Buddy Check, Buddy System, Till Surface, Master Class) have no Printful sync variant (they are made to order with the buyer's names), so Printful can't mock them from the plan; they keep their current images.
+- **Shopify:** 160 front/back images replaced in place (`fileUpdate`, same media ids): 60 Off-World, 20 Boat Banter. Off-World light tees got new alt text; the rest keep theirs.
+- **Site:** `off-world/index.html` (60) and `surface-interval/index.html` (20 Boat Banter) point at the Shopify CDN copies; both turn back → front. The home Off-World and Surface Interval collection cards use the new images. `printful_images.json` recaptured (now covers these too).
