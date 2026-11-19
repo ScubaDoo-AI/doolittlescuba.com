@@ -1,4 +1,4 @@
-// deck.js · 11 Nov 2026, late: rolling decks drag-rolled (no native scroll), tabs fitted to the width
+// deck.js · 19 Nov 2026: the pulled card turns its garment in 3-D (front, back); 11 Nov: rolling decks drag-rolled, tabs fitted
 /* Doolittle Scuba — the shared page scripts: the photo viewer, the shirts/hats as a deck of cards, and the designs grid filter.
    Used by the home page and the collection pages. Each page calls what it has:
      DS.lightbox()                               every .sh-grid on the page opens its photos in #sh-lb
@@ -22,6 +22,17 @@ window.DS=(function(){
   function flag(us){ return us?'<svg viewBox="0 0 26 18" role="img" aria-label="Diver-down flag, US waters"><rect width="26" height="18" fill="#C8202A"/><path d="M0 0h4.5L26 14.5V18h-4.5L0 3.5z" fill="#fff"/></svg>':'<svg viewBox="0 0 26 18" role="img" aria-label="Alpha flag, international"><path d="M0 0h13v18H0z" fill="#fff" stroke="#8a97a8" stroke-width=".6"/><path d="M13 0h13l-6 9 6 9H13z" fill="#1F4FA3"/></svg>'; }
   var MARK={site:'Site front: dive flag, site name and coordinates',dsmark:'DS mark',stack:'DS stacked lockup',wordmark:'Wordmark',seal:'The seal',tagline:'“Do - A - Little Scuba”',none:'plain'};
 
+  // The pulled card turns its garment in 3-D: front, a turn, the back, a turn. Both faces are 600 px thumbs: a Shopify CDN
+  // image gets &width=600, a local render its -t file. The second face loads only when its card is first pulled forward.
+  function thumbOf(u){ if(!u) return ''; if(/cdn\.shopify\.com/.test(u)) return u.replace(/([?&])width=\d+&?/,'$1').replace(/[?&]$/,'')+(u.indexOf('?')>-1?'&':'?')+'width=600'; return /-t\.\w+(\?|$)/.test(u)?u:u.replace(/(\.\w+)(\?.*)?$/,'-t$1$2'); }
+  function spinPic(it,cfg){
+    var spins=cfg.spin!==false, path=function(u){ return String(u).split('?')[0]; }, shown=path(it.thumb);
+    var other=spins?([it.front,it.back].filter(function(u){ return u&&path(u)!==shown&&path(thumbOf(u))!==shown; })[0]||''):'';
+    var b=other?thumbOf(other):'';
+    return '<span class="dk-pic '+(spins?(b?'two':'one'):'still')+'"><span class="dk-spin"><span class="fc"><img src="'+esc(it.thumb)+'" width="600" height="600" loading="lazy" decoding="async" alt=""></span>'
+      +(b?'<span class="fc bk"><img data-src="'+esc(b)+'" data-full="'+esc(other)+'" width="600" height="600" decoding="async" alt=""></span>':'')+'</span></span>';
+  }
+  function wake(card){ var im=card&&card.querySelector('img[data-src]'); if(!im) return; im.onerror=function(){ im.onerror=null; im.src=im.dataset.full; }; im.src=im.dataset.src; im.removeAttribute('data-src'); }
   function deck(sectionId, gridId, cfg){
     if(!window.requestAnimationFrame) return;
     var sec=document.getElementById(sectionId), grid=document.getElementById(gridId); if(!sec||!grid) return;
@@ -73,7 +84,7 @@ window.DS=(function(){
       L.forEach(function(it,i){
         var card=h('div','dk'); card.dataset.line=it.line; card.style.setProperty('--hex',it.hex); card.style.setProperty('--step',step+'px');
         var face=h('button','dk-face'); face.type='button'; face.setAttribute('aria-label',it.name+', '+(it.colour||'').toLowerCase()+'. Pull forward or open');
-        face.innerHTML='<span class="dk-tab'+(dark(it.hex)?' dark':'')+'" style="background:'+it.hex+'"><span class="nm">'+esc(it.name)+'</span>'+(step>=56&&it.code?'<span class="cd">No. '+esc(it.code)+'</span>':'')+'</span><span class="dk-pic"><img src="'+esc(it.thumb)+'" width="600" height="600" loading="lazy" decoding="async" alt=""></span>';
+        face.innerHTML='<span class="dk-tab'+(dark(it.hex)?' dark':'')+'" style="background:'+it.hex+'"><span class="nm">'+esc(it.name)+'</span>'+(step>=56&&it.code?'<span class="cd">No. '+esc(it.code)+'</span>':'')+'</span>'+spinPic(it,cfg)+'';
         var tag=h('div','dk-tag','<div class="r"><span class="ln">'+esc(cfg.eyebrow(it))+(it.code?' &middot; No. '+esc(it.code):'')+'</span>'+(it.status?'<span class="pill '+esc(it.statusClass)+'">'+esc(it.status)+'</span>':'')+'</div><p class="t">'+esc(it.name)+'</p><p class="s">'+esc(cfg.sub(it))+'</p><button type="button" class="dk-open"><span class="c"><i></i>'+esc(it.colour)+'</span><span class="g">'+(cfg.openLabel?esc(cfg.openLabel(it)):(it.price||(typeof cfg.price==='function'?cfg.price(it):cfg.price))+' &middot; Open')+'</span></button>');
         face.addEventListener('pointerdown',function(e){ lastPointer=e.pointerType||'mouse'; if(touchLike()&&!state.touch){ state.touch=true; hintText(); } });
         face.addEventListener('keydown',function(){ lastPointer='key'; });
@@ -85,7 +96,7 @@ window.DS=(function(){
       var st=startFor(); if(state.active<0&&st!=null&&L[st]) state.active=st;
       foot.querySelector('.cnt').innerHTML=(cfg.count?cfg.count(state.line,L):L.length+' '+cfg.noun+(L.length>1?'s':''))+' &middot; '+(typeof cfg.footNote==='function'?cfg.footNote(state.line,L):cfg.footNote);
       Object.keys(chips).forEach(function(k){ var on=k===state.line; chips[k].classList.toggle('on',on); chips[k].setAttribute('aria-pressed',on); });
-      hintText(); paint(); if(rolls&&state.active>=0) shiftTo(state.active);
+      hintText(); paint(); if(state.active>=0) wake(cards[state.active]); if(rolls&&state.active>=0) shiftTo(state.active);
     }
     function touchLike(){ return lastPointer==='touch'||lastPointer==='pen'; }
     function startFor(){ var st=cfg.start; if(st!=null&&typeof st==='object') st=st[state.line]; return st==null?null:st; }   // the card a line opens on: one index for every line, or {line:index}
@@ -139,7 +150,7 @@ window.DS=(function(){
       dk.classList.toggle('live',state.active>=0);
       cards.forEach(function(c,i){ c.classList.toggle('on',i===state.active); c.classList.toggle('after',state.active>=0&&i>state.active); c.classList.toggle('before',state.active>=0&&i<state.active); c.style.zIndex=i===state.active?200:i+1; });
     }
-    function activate(i){ if(state.active!==i){ state.active=i; paint(); } }
+    function activate(i){ if(state.active!==i){ state.active=i; paint(); } wake(cards[i]); }
     function setLine(l){ if(state.line===l){ if(state.open>=0) closeIt(); return; } state.line=l; state.active=-1; state.open=-1; open.hidden=true; dk.hidden=false; foot.hidden=false; build(); }
     dk.addEventListener('mouseleave',function(){ if(!rolls&&lastPointer==='mouse'&&state.active>=0){ var st=startFor(); state.active=st!=null?st:-1; paint(); } });
 
@@ -225,7 +236,7 @@ window.DS=(function(){
    function inside(it){ return it.sub.replace(/\s*·\s*\$\d+\s*$/,''); }
    function fillers(it){ return /fillers/.test(it.cap||''); }
    return {
-    lines:o.lines||[['themed','Themed'],['classic','Classic die-cuts'],['brand','Brand']], step:{themed:36,classic:64,brand:64}, noun:'pack', price:'$10', openEvent:'pack-open', cls:'deck-packs', custom:false, contact:o.contact||'/#contact',
+    lines:o.lines||[['themed','Themed'],['classic','Classic die-cuts'],['brand','Brand']], step:{themed:36,classic:64,brand:64}, noun:'pack', price:'$10', openEvent:'pack-open', cls:'deck-packs', spin:false, custom:false, contact:o.contact||'/#contact',
     footNote:'three kiss-cut stickers on one 4 &times; 6 in sheet, most with small fillers', facts:false,
     eyebrow:function(it){ return NAME[it.line]||'Sticker pack'; },
     sub:function(it){ return inside(it); },
