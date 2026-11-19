@@ -65,3 +65,12 @@ Eric: *"Create these using our family names as the sample names. Allie, Eric, Ja
 
 Every apparel product on the site and in the store is now on Printful's own mockups.
 - **The Mark beanie (home page caps deck):** the drawn render replaced by Printful's mockup (the same image as its Shopify listing), `img/hats/pf/beanie-the-mark-french-navy*.webp`. With that, every product card on the site shows a Printful image (the jackets were already Printful's model mockups). Live check: every line page served by doolittlescuba.com matches the repo.
+
+## Shop (shop.doolittlescuba.com): the collection deck replaces the mixed grid
+Eric: *"I dislike the mixed grid view; this needs to be easily navigable and better aesthetically."* *"Signature Series should be the first on every product stack… or use the same display we designed for DoolittleScuba.com."*
+
+- **New theme section "Collection deck"** (`sections/ds-deck.liquid` + `snippets/ds-deck-cards.liquid`, theme *Horizon — Doolittle Scuba (Home Port map v2)*): the site's deck in Shopify. Collection tabs (Signature Series first, then Certified-ish, 1N73LL1G3NC3, Off-World Hunt Club, Surface Interval, Caps & beanies, Organic, Jackets, Stickers); each tab a stack of spines named by design and tinted by garment colour; the pulled card shows the tag (line, name, colour, price, View) and fades front ↔ back. Within every tab the Signature Series products come first. Organic editions are hidden outside the Organic tab (section setting), so each design appears once. Tabs, collections and limits are editable in the theme editor.
+- **Home page:** "The shirts" grid replaced by the deck (16 cards a tab, then "All N →"). The old product list is switched off, not deleted.
+- **Catalog and every collection page** (`templates/collection.json`): the deck instead of the grid; on a collection page the tabs are links and the whole collection is in the deck. The old heading and grid sections are switched off, not deleted.
+- **Main menu:** "Catalog" → **Shop**, with the collections underneath in the same order, Signature Series first, and "Everything".
+- Committed to the live theme; **not published yet** (waiting for Eric's yes). The publish also carries two earlier unpublished files (the Home Port picker block and its product template).
