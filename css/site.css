@@ -316,7 +316,7 @@ section{padding-block:clamp(40px,7vw,72px);border-top:1px solid var(--rule)}
 @keyframes dkv3{0%{opacity:0;transform:rotateY(-42deg)}10.7%,33.3%{opacity:1;transform:rotateY(0)}44%,100%{opacity:0;transform:rotateY(42deg)}}
 @keyframes dksway{from{transform:rotateY(-14deg)}to{transform:rotateY(14deg)}}
 .dk-pic img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.12);transform-origin:50% 28%}
-.dk[data-line="certifiedish"] .dk-pic img,.dk[data-line="certifiedish-dark"] .dk-pic img{transform:scale(1.36);transform-origin:50% 44%}.deck-hats .dk-pic img{transform:scale(1.22);transform-origin:50% 46%}.deck-hats .dk-pic img[src*="hats/pf/"],.deck-hats .dk-pic img[data-src*="hats/pf/"]{object-fit:contain;transform:scale(1.3);transform-origin:50% 50%}
+.dk[data-line="certifiedish"] .dk-pic img[src*="img/certs/"],.dk[data-line="certifiedish-dark"] .dk-pic img[src*="img/certs/"]{transform:scale(1.36);transform-origin:50% 44%}.deck-hats .dk-pic img{transform:scale(1.22);transform-origin:50% 46%}.deck-hats .dk-pic img[src*="hats/pf/"],.deck-hats .dk-pic img[data-src*="hats/pf/"]{object-fit:contain;transform:scale(1.3);transform-origin:50% 50%}
 .dk-tag{position:absolute;left:50%;margin-left:-134px;bottom:calc(100% + 18px);width:268px;box-sizing:border-box;background:var(--panel);border:1px solid var(--rule);border-top:3px solid var(--hex);border-radius:4px;padding:10px 14px 6px;box-shadow:0 14px 28px -16px rgba(18,42,85,.45);text-align:left;display:none;animation:tagin .26s ease both}
 .dk.on .dk-tag{display:block}
 .dk-tag::after{content:"";position:absolute;left:50%;top:100%;width:1.5px;height:18px;background:var(--muted)}
