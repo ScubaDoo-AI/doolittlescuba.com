@@ -466,6 +466,12 @@
   "data-sleeve": "img/hats/pf/cap-dark-the-seal-left.webp?v=5713c185",
   "src": "img/hats/pf/cap-dark-the-seal-front-t.webp?v=c8695da6"
  },
+ "index.html|brand|cap-dark-the-stack": {
+  "data-back": "img/hats/pf/cap-dark-the-stack-back.webp?v=b9d7c1a4",
+  "data-front": "img/hats/pf/cap-dark-the-stack-front.webp?v=92146044",
+  "data-sleeve": "img/hats/pf/cap-dark-the-stack-left.webp?v=d210271f",
+  "src": "img/hats/pf/cap-dark-the-stack-front-t.webp?v=92146044"
+ },
  "index.html|brand|cap-dark-the-wordmark": {
   "data-back": "img/hats/pf/cap-dark-the-wordmark-back.webp?v=d2a8515e",
   "data-front": "img/hats/pf/cap-dark-the-wordmark-front.webp?v=885e4eac",
@@ -1473,5 +1479,200 @@
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-s20-bubbles-back.webp?v=1795100000",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-s20-bubbles-front.webp?v=1795100000",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-s20-bubbles-back.webp?v=1795100000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-check|ac-r01-shark": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r01-shark-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r01-shark-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r01-shark-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-check|ac-r02-vacuum": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r02-vacuum-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r02-vacuum-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r02-vacuum-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-check|ac-r03-navigator": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r03-navigator-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r03-navigator-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r03-navigator-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-check|ac-r04-photographer": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r04-photographer-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r04-photographer-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r04-photographer-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-check|ac-r05-briefing": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r05-briefing-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r05-briefing-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r05-briefing-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-check|ac-r06-logbook": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r06-logbook-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r06-logbook-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r06-logbook-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-check|ac-r07-night-dive": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r07-night-dive-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r07-night-dive-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r07-night-dive-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-check|ac-r08-slate": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r08-slate-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r08-slate-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r08-slate-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-check|ac-r09-computer": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r09-computer-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r09-computer-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r09-computer-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-check|ac-r10-ladder": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r10-ladder-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r10-ladder-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-r10-ladder-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-system|ac-b01-stories": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b01-stories-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b01-stories-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b01-stories-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-system|ac-b02-the-plan": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b02-the-plan-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b02-the-plan-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b02-the-plan-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-system|ac-b03-if-lost": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b03-if-lost-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b03-if-lost-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b03-if-lost-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-system|ac-b04-air-snacks": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b04-air-snacks-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b04-air-snacks-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b04-air-snacks-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-system|ac-b05-slow-fast": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b05-slow-fast-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b05-slow-fast-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b05-slow-fast-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-system|ac-b06-navigation": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b06-navigation-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b06-navigation-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b06-navigation-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-system|ac-b07-since-day-one": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b07-since-day-one-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b07-since-day-one-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b07-since-day-one-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-system|ac-b08-hand-signals": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b08-hand-signals-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b08-hand-signals-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b08-hand-signals-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-system|ac-b09-photos": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b09-photos-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b09-photos-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b09-photos-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-buddy-system|ac-b10-sharing": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b10-sharing-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b10-sharing-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-b10-sharing-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-master-class|ac-m01-master-arguers": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-m01-master-arguers-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-m01-master-arguers-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-m01-master-arguers-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-master-class|ac-m02-master-packers": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-m02-master-packers-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-m02-master-packers-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-m02-master-packers-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-master-class|ac-m03-one-master": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-m03-one-master-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-m03-one-master-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-m03-one-master-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-self-logged|ac-w01-camel": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w01-camel-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w01-camel-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w01-camel-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-self-logged|ac-w02-trim": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w02-trim-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w02-trim-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w02-trim-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-self-logged|ac-w03-snacks": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w03-snacks-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w03-snacks-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w03-snacks-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-self-logged|ac-w04-equalizing": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w04-equalizing-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w04-equalizing-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w04-equalizing-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-self-logged|ac-w05-weight": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w05-weight-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w05-weight-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w05-weight-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-self-logged|ac-w06-nitrox": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w06-nitrox-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w06-nitrox-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w06-nitrox-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-self-logged|ac-w07-fins": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w07-fins-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w07-fins-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w07-fins-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-self-logged|ac-w08-wetsuit": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w08-wetsuit-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w08-wetsuit-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w08-wetsuit-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-self-logged|ac-w09-retired": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w09-retired-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w09-retired-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w09-retired-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-self-logged|ac-w10-one-more": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w10-one-more-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w10-one-more-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-w10-one-more-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-till-surface|ac-c01-vows": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-c01-vows-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-c01-vows-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-c01-vows-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-till-surface|ac-c02-navigator": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-c02-navigator-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-c02-navigator-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-c02-navigator-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-till-surface|ac-c03-octo": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-c03-octo-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-c03-octo-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-c03-octo-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-till-surface|ac-c04-hand-signals": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-c04-hand-signals-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-c04-hand-signals-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-c04-hand-signals-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-till-surface|ac-c05-honeymoon": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-c05-honeymoon-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-c05-honeymoon-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-c05-honeymoon-back.webp?v=1795103000&width=600"
+ },
+ "surface-interval/index.html|aquatic-till-surface|ac-c06-photographer": {
+  "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-c06-photographer-back.webp?v=1795103000",
+  "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-c06-photographer-front.webp?v=1795103000",
+  "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-c06-photographer-back.webp?v=1795103000&width=600"
  }
 }
