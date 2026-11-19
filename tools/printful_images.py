@@ -3,7 +3,7 @@
 
 tools/printful_images.json maps "<page>|<data-line>|<data-slug>" to the figure's image attributes
 (data-front, data-back, data-sleeve and the thumb's src). Those images are Printful's own mockups,
-on the Shopify CDN or in img/sleeves, img/hats/pf.
+on the Shopify CDN or in img/sleeves, img/hats/pf, img/organic (replaced in place 19 Nov; organic_mockups.py / organic_redye.py are retired).
 
   tools/printful_images.py capture   record every figure that already shows a Printful image
   tools/printful_images.py apply     write the recorded images back into the pages (bust.py runs this first)
@@ -20,7 +20,7 @@ KEYS = ('data-front', 'data-back', 'data-sleeve')
 
 
 def printful(v):
-    return bool(v) and ('cdn.shopify.com' in v or '/sleeves/' in v or '/hats/pf/' in v)
+    return bool(v) and ('cdn.shopify.com' in v or '/sleeves/' in v or '/hats/pf/' in v or '/img/organic/' in v)   # organic: Printful mockups since 19 Nov
 
 
 def pages():
