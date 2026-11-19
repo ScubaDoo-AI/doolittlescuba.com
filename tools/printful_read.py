@@ -95,6 +95,14 @@ def mockup(spec):
         base = f'https://doolittlescuba.com/renders/aquatic-family/AC-{code}'
         t = {'variant_id': A.PF[d['colour']]['M'], 'files': [{'type': 'front', 'url': base + '_front.png', 'position': A.AREA},
                                                              {'type': 'back', 'url': base + '_back.png', 'position': A.AREA}]}
+    elif line == 'organicfamily':   # organic personalized Surface Interval tees (TDO), family sample names, Stanley/Stella organic blank
+        O = importlib.util.module_from_spec(importlib.util.spec_from_file_location('og', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'organic.py')))
+        O.__spec__.loader.exec_module(O)
+        p = next(x for x in O.plan() if any(v['sku'] == sku for v in x['variants'])); code = p['key'].split('-')[1][2:]
+        area = {'area_width': 1800, 'area_height': 2400, 'width': 1800, 'height': 2400, 'top': 0, 'left': 0}
+        base = f'https://doolittlescuba.com/renders/aquatic-family/AC-{code}'
+        t = {'variant_id': next(v['variant_id'] for v in p['variants'] if v['sku'] == sku),
+             'files': [{'type': 'front', 'url': base + '_front.png', 'position': area}, {'type': 'back', 'url': base + '_back.png', 'position': area}]}
     elif line == 'homeport':   # Home Port cap (made to order): Rainbow River's black plan with the Newnan sample front
         t = json.loads(json.dumps(L.targets(['caps'])['DS-RRV-CD-SM']))
         for f in t['files']:
