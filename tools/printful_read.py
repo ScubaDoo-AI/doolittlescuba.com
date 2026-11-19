@@ -8,7 +8,7 @@ Known paths get a compact summary; anything else is printed as JSON, trimmed to 
   /mockup-generator/templates/<product>    the mockup templates, one line per placement, with the print-area box
   /products/<product>                       blank name, model and its variant count
 """
-import json, os, sys, urllib.request, urllib.error
+import time, json, os, sys, urllib.request, urllib.error
 
 TOKEN = os.environ.get('PRINTFUL_TOKEN') or sys.exit('PRINTFUL_TOKEN not set')
 STORE = '18960047'
@@ -63,7 +63,15 @@ def show(path):
     print(json.dumps(r)[:4000])
 
 
-def post(path, body):
+def post(path, body, tries=4):
+    for _ in range(tries):   # the mockup generator allows ~10 tasks a minute: wait out a 429 and try again
+        r = _post(path, body)
+        if r.get('code') != 429: return r
+        time.sleep(62)
+    return r
+
+
+def _post(path, body):
     req = urllib.request.Request('https://api.printful.com' + path, data=json.dumps(body).encode(), method='POST',
                                  headers={'Authorization': f'Bearer {TOKEN}', 'X-PF-Store-Id': STORE, 'Content-Type': 'application/json', 'User-Agent': 'doolittlescuba-tools/1.0'})
     try:
@@ -92,7 +100,8 @@ def mockup(spec):
         pmap = next((v.get('placements', {}) for v in pf.get('variant_printfiles', []) if v.get('variant_id') == t['variant_id']), {})
         sizes = {p.get('printfile_id', p.get('id')): (p['width'], p['height']) for p in pf.get('printfiles', [])}
         for f in missing:
-            if f['placement'] not in pmap or pmap[f['placement']] not in sizes: continue   # Printful places it itself
+            if f['placement'] not in pmap or pmap[f['placement']] not in sizes:
+                print('   no printfile for', f['placement'], '| placements:', json.dumps(pmap), '| printfiles:', json.dumps(sizes)); continue
             W, H = sizes[pmap[f['placement']]]
             req = urllib.request.Request(f['image_url'], headers={'User-Agent': 'doolittlescuba-tools/1.0', 'Range': 'bytes=0-31'})
             with urllib.request.urlopen(req, timeout=60) as r:
