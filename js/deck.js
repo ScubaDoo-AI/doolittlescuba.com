@@ -1,4 +1,4 @@
-// deck.js · 19 Nov 2026: the pulled card turns its garment in 3-D (front, back); 11 Nov: rolling decks drag-rolled, tabs fitted
+// deck.js · 19 Nov 2026: the pulled card turns its garment (front, sleeve, back); 11 Nov: rolling decks drag-rolled, tabs fitted
 /* Doolittle Scuba — the shared page scripts: the photo viewer, the shirts/hats as a deck of cards, and the designs grid filter.
    Used by the home page and the collection pages. Each page calls what it has:
      DS.lightbox()                               every .sh-grid on the page opens its photos in #sh-lb
@@ -22,17 +22,22 @@ window.DS=(function(){
   function flag(us){ return us?'<svg viewBox="0 0 26 18" role="img" aria-label="Diver-down flag, US waters"><rect width="26" height="18" fill="#C8202A"/><path d="M0 0h4.5L26 14.5V18h-4.5L0 3.5z" fill="#fff"/></svg>':'<svg viewBox="0 0 26 18" role="img" aria-label="Alpha flag, international"><path d="M0 0h13v18H0z" fill="#fff" stroke="#8a97a8" stroke-width=".6"/><path d="M13 0h13l-6 9 6 9H13z" fill="#1F4FA3"/></svg>'; }
   var MARK={site:'Site front: dive flag, site name and coordinates',dsmark:'DS mark',stack:'DS stacked lockup',wordmark:'Wordmark',seal:'The seal',tagline:'“Do - A - Little Scuba”',none:'plain'};
 
-  // The pulled card turns its garment in 3-D: front, a turn, the back, a turn. Both faces are 600 px thumbs: a Shopify CDN
-  // image gets &width=600, a local render its -t file. The second face loads only when its card is first pulled forward.
+  // The pulled card turns its garment: each view (front, the sleeve when it carries a print, back) swings in, holds, and
+  // swings out as the next swings in. Views are 600 px thumbs: a Shopify CDN image gets &width=600, a local render its -t
+  // file. The card opens on the view its thumb shows; the others load only when the card is first pulled forward.
   function thumbOf(u){ if(!u) return ''; if(/cdn\.shopify\.com/.test(u)) return u.replace(/([?&])width=\d+&?/,'$1').replace(/[?&]$/,'')+(u.indexOf('?')>-1?'&':'?')+'width=600'; return /-t\.\w+(\?|$)/.test(u)?u:u.replace(/(\.\w+)(\?.*)?$/,'-t$1$2'); }
   function spinPic(it,cfg){
-    var spins=cfg.spin!==false, path=function(u){ return String(u).split('?')[0]; }, shown=path(it.thumb);
-    var other=spins?([it.front,it.back].filter(function(u){ return u&&path(u)!==shown&&path(thumbOf(u))!==shown; })[0]||''):'';
-    var b=other?thumbOf(other):'';
-    return '<span class="dk-pic '+(spins?(b?'two':'one'):'still')+'"><span class="dk-spin"><span class="fc"><img src="'+esc(it.thumb)+'" width="600" height="600" loading="lazy" decoding="async" alt=""></span>'
-      +(b?'<span class="fc bk"><img data-src="'+esc(b)+'" data-full="'+esc(other)+'" width="600" height="600" decoding="async" alt=""></span>':'')+'</span></span>';
+    var path=function(u){ return String(u).split('?')[0]; }, shown=path(it.thumb), seen={}, views=[];
+    if(cfg.spin!==false) [it.front,it.side,it.back].forEach(function(u){ if(!u) return; var k=path(thumbOf(u)); if(seen[k]) return; seen[k]=1; views.push(u); });
+    var at=-1; views.forEach(function(u,i){ if(path(u)===shown||path(thumbOf(u))===shown) at=i; });
+    if(at<0){ views.unshift(it.thumb); at=0; }
+    views=views.slice(at).concat(views.slice(0,at)); var n=views.length;
+    var cls=cfg.spin===false?'still':n>3?'n3':n>1?'n'+n:'one';
+    return '<span class="dk-pic '+cls+'"><span class="dk-spin">'+views.slice(0,3).map(function(u,k){
+      return '<span class="fc" style="--k:'+k+'"><img '+(k?'data-src="'+esc(thumbOf(u))+'" data-full="'+esc(u)+'"':'src="'+esc(it.thumb)+'" loading="lazy"')+' width="600" height="600" decoding="async" alt=""></span>';
+    }).join('')+'</span></span>';
   }
-  function wake(card){ var im=card&&card.querySelector('img[data-src]'); if(!im) return; im.onerror=function(){ im.onerror=null; im.src=im.dataset.full; }; im.src=im.dataset.src; im.removeAttribute('data-src'); }
+  function wake(card){ if(!card) return; Array.prototype.forEach.call(card.querySelectorAll('img[data-src]'),function(im){ im.onerror=function(){ im.onerror=null; im.src=im.dataset.full; }; im.src=im.dataset.src; im.removeAttribute('data-src'); }); }
   function deck(sectionId, gridId, cfg){
     if(!window.requestAnimationFrame) return;
     var sec=document.getElementById(sectionId), grid=document.getElementById(gridId); if(!sec||!grid) return;
@@ -42,7 +47,7 @@ window.DS=(function(){
       var site=sites[f.dataset.slug]||(siteSlug&&f.dataset.line==='site'?sites[siteSlug[1]]:null)||null;
       var sub=f.querySelector('.dz-s'); sub=sub?sub.textContent.replace(/\s+/g,' ').trim():'';
       return {slug:f.dataset.slug, line:f.dataset.line, name:f.querySelector('.dz-t').textContent, code:f.dataset.code, colour:f.dataset.colour, hex:f.dataset.hex,
-        front:b.dataset.front, back:b.dataset.back, art:f.dataset.art||'', thumb:img.getAttribute('src'), cap:b.dataset.cap, sub:sub, text:f.dataset.text||'',
+        front:b.dataset.front, back:b.dataset.back, side:b.dataset.side||'', art:f.dataset.art||'', thumb:img.getAttribute('src'), cap:b.dataset.cap, sub:sub, text:f.dataset.text||'',
         status:pill?pill.textContent:(cfg.status!=null?cfg.status:'Coming soon'), statusClass:pill?pill.className.replace('pill','').trim():'available',
         guide:f.dataset.guide||'', pair:f.dataset.pair||'', custom:f.dataset.custom||'/custom/', site:site, price:f.dataset.price||'', finish:f.dataset.finish||'', parts:(function(){ var o={}; (f.dataset.custom||'').replace(/^[^#]*#/,'').split('&').forEach(function(kv){ var q=kv.split('='); o[q[0]]=q[1]; }); return o; })()};
     });

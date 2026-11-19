@@ -92,6 +92,7 @@ def mockup(spec):
         pmap = next((v.get('placements', {}) for v in pf.get('variant_printfiles', []) if v.get('variant_id') == t['variant_id']), {})
         sizes = {p.get('printfile_id', p.get('id')): (p['width'], p['height']) for p in pf.get('printfiles', [])}
         for f in missing:
+            if f['placement'] not in pmap or pmap[f['placement']] not in sizes: continue   # Printful places it itself
             W, H = sizes[pmap[f['placement']]]
             req = urllib.request.Request(f['image_url'], headers={'User-Agent': 'doolittlescuba-tools/1.0', 'Range': 'bytes=0-31'})
             with urllib.request.urlopen(req, timeout=60) as r:
@@ -119,4 +120,6 @@ def mockup(spec):
 if __name__ == '__main__':
     for p in sys.argv[1:]:
         if p.startswith('/'): show(p)
-        elif p.startswith('mockup:'): mockup(p)
+        elif p.startswith('mockup:'):
+            try: mockup(p)
+            except BaseException as e: print(f'\n== {p} FAILED: {e!r} ==')   # one bad spec doesn't stop the rest
