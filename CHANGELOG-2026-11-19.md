@@ -50,3 +50,9 @@ Eric: *"Create these using our family names as the sample names. Allie, Eric, Ja
 - **Site:** the 39 cards on `surface-interval/` use the new images and their captions name the family. The watermarked art previews (designs grid, "The art" view) still show the old sample names.
 - **Caps in the store:** the 17 dark caps' front/back images in Shopify replaced with the Printful renders (from `img/hats/pf/`). **The Stack** rendered this time (front, side, back): in Shopify and in the caps deck. **The beanie**'s Shopify image is now Printful's mockup; the site's beanie card keeps its photo. **Home Port** is still not in the Printful caps plan.
 - **Art previews:** the 39 watermarked previews (`img/designs/ac-*.webp`, the designs grid and the "The art" view) rebuilt from the family print masters with `aquatic_render.preview`; the designs-grid captions now match the shirt cards. No Sam, Alex, Mike or Lisa left on `surface-interval/`. The organic Surface Interval mockups on `organic/` still carry the old names (part of the organic line move).
+
+## Home Port cap on Printful (sample: Newnan)
+- **Sample front:** `renders/caps/DS-HMP_Newnan_PF-cap-front_2.96x1.99in_white-red.png`: the site-cap layout (Rainbow River's dive flag, Almendra Bold, white + red at 300 dpi, 1.99 in tall) with Newnan, 33°22.842'N 084°47.982'W. Home Port stays made to order with the buyer's port; this is only the sample.
+- **Printful read #33** (`mockup:homeport:DS-HMP-CD-SM`, new spec in `printful_read.py`: Rainbow River's black 6277 plan with the Newnan front): front, side (DS mark), back (Do a little scuba), three-quarter views.
+- **Shopify (Home Port — Dark cap):** its four images replaced in place: front, left side, back, three-quarter; alt text says the Newnan front is a sample.
+- **Site:** the Home Port card in the caps deck turns front → side → back (`img/hats/pf/cap-dark-home-port-*`). All 19 caps are now on Printful's mockups.
