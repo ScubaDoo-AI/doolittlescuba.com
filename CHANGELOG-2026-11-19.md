@@ -64,3 +64,4 @@ Eric: *"Create these using our family names as the sample names. Allie, Eric, Ja
 - Runs are now started from the session with `gh api .../actions/workflows/printful-read.yml/dispatches` and read back with `gh run view --log`; no browser needed.
 
 Every apparel product on the site and in the store is now on Printful's own mockups.
+- **The Mark beanie (home page caps deck):** the drawn render replaced by Printful's mockup (the same image as its Shopify listing), `img/hats/pf/beanie-the-mark-french-navy*.webp`. With that, every product card on the site shows a Printful image (the jackets were already Printful's model mockups). Live check: every line page served by doolittlescuba.com matches the repo.

@@ -455,6 +455,10 @@
   "data-sleeve": "/img/sleeves/certs/cert-uw-photo-right.webp?v=82b69e87",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/cert-uw-photo-back.webp?v=1795098374&width=600"
  },
+ "index.html|brand|beanie-the-mark": {
+  "data-front": "img/hats/pf/beanie-the-mark-french-navy.webp?v=efe0357a",
+  "src": "img/hats/pf/beanie-the-mark-french-navy-t.webp?v=0f2db5a8"
+ },
  "index.html|brand|cap-dark-the-mark": {
   "data-back": "img/hats/pf/cap-dark-the-mark-back.webp?v=d2a8515e",
   "data-front": "img/hats/pf/cap-dark-the-mark-front.webp?v=f87f0e40",
