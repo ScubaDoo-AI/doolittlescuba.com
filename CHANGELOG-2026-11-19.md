@@ -23,3 +23,16 @@ Eric: *"Shoulder design should show if present. Shopify bundle images are badly 
 ### Still to do
 - Organic Signature tees (`DS-xxx-TO-M`, `-TDO-M`): same sleeve run.
 - Certified-ish (its DS mark runs along the sleeve), Off-World, Surface Interval: still old renders; moving them to Printful mockups gives them the sleeve view too.
+
+## Afternoon — 1N73LL1G3NC3 sleeves, Certified-ish on Printful, the safeguard
+Eric: *"What's next in getting the system updated with the new renders from Printful"* → the plan → *"Yes"* to 1N73LL1G3NC3 sleeves and Certified-ish.
+
+- **Printful read #30** (76 mockups, one run; the job's limit is now 30 minutes): 36 1N73LL1G3NC3 tees (right sleeve) and the 40 Certified-ish tees (front, back, right sleeve), no failures.
+- **1N73LL1G3NC3:** the DS mark on the right sleeve, `img/sleeves/n73/`; the deck turns front → sleeve → back.
+- **Certified-ish (light and dark, 40 tees):**
+  - Shopify: the front and back image of each of the 40 regular products replaced in place with the Printful mockups (`fileUpdate`, 80 images, same media ids), alt text names the Printful garment colour. The 40 organic Certified-ish products are not touched yet.
+  - Site: `certified-ish/index.html` points at the Shopify CDN copies (thumb `&width=600`), sleeves in `img/sleeves/certs/` and `certs/dark/`; the card turns back → front → sleeve (DS mark along the sleeve). The home Certified-ish collection card uses the Printful Night Diver. The old `img/certs/` zoom rule now applies only to the old renders.
+- **Safeguard:** `tools/printful_images.py` + `tools/printful_images.json` (189 figures). `bust.py` now applies it before stamping (and stamps `data-sleeve`), so re-running an old builder (`n73.py`, `certdark.py`, `line_pages.py`, `hats_v3.py`, ...) can no longer put old renders back. After converting a line: `tools/printful_images.py capture`.
+
+### Next
+Off-World Hunt Club (60), Surface Interval (59), the organic line (223), the 17 caps' Shopify images, The Stack / Home Port caps and the beanie.
