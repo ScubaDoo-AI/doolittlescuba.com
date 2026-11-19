@@ -95,6 +95,10 @@ def mockup(spec):
         base = f'https://doolittlescuba.com/renders/aquatic-family/AC-{code}'
         t = {'variant_id': A.PF[d['colour']]['M'], 'files': [{'type': 'front', 'url': base + '_front.png', 'position': A.AREA},
                                                              {'type': 'back', 'url': base + '_back.png', 'position': A.AREA}]}
+    elif line == 'homeport':   # Home Port cap (made to order): Rainbow River's black plan with the Newnan sample front
+        t = json.loads(json.dumps(L.targets(['caps'])['DS-RRV-CD-SM']))
+        for f in t['files']:
+            if f['type'] == 'embroidery_front': f['url'] = 'https://doolittlescuba.com/renders/caps/DS-HMP_Newnan_PF-cap-front_2.96x1.99in_white-red.png'; f.pop('position', None)
     else:
         t = L.targets([line]).get(sku) or sys.exit(f'{sku} not in the {line} plan')
     v = get(f'/products/variant/{t["variant_id"]}')
