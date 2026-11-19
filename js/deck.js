@@ -165,7 +165,7 @@ window.DS=(function(){
       var L=list(), it=L[state.open]; if(!it) return;
       dk.hidden=true; foot.hidden=true; open.hidden=false;
       var v=state.view, src=v==='art'?it.art:v==='back'?it.back:v==='side'?it.side:it.front, s=it.site||{};
-      var views=(cfg.views&&cfg.views(it))||null; if(!views){ views=[['front','Front']]; if(it.side) views.push(['side','Sleeve']); if(it.back) views.push(['back','Back']); if(it.art) views.push(['art','The art']); }
+      var views=(cfg.views&&cfg.views(it))||null; if(!views){ views=[['front','Front']]; if(it.side) views.push(['side',cfg.noun==='cap'?'Side':'Sleeve']); if(it.back) views.push(['back','Back']); if(it.art) views.push(['art','The art']); }
       var vName=(views.filter(function(w){return w[0]===v;})[0]||views[0])[1];
       open.innerHTML='<div class="sh-open-bar"><button type="button" class="txt sh-back">&larr; Back to the deck</button><div class="sh-nav"><span class="pos">'+(state.open+1)+' of '+L.length+'</span><button type="button" class="arrow sh-prev" aria-label="Previous">&lsaquo;</button><button type="button" class="arrow sh-next" aria-label="Next">&rsaquo;</button></div></div>'
         +'<div class="sh-panel" style="--hex:'+it.hex+'"><div class="sh-detail"><div class="sh-view"><button type="button" class="big'+(v==='art'?' art':'')+'" aria-label="Open the full-size image"><img src="'+esc(src)+'" alt="'+esc(it.name+', '+(cfg.views&&cfg.views(it)?vName:it.colour.toLowerCase()+', '+v))+'"></button>'
