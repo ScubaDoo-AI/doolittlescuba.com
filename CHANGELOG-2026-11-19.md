@@ -56,3 +56,11 @@ Eric: *"Create these using our family names as the sample names. Allie, Eric, Ja
 - **Printful read #33** (`mockup:homeport:DS-HMP-CD-SM`, new spec in `printful_read.py`: Rainbow River's black 6277 plan with the Newnan front): front, side (DS mark), back (Do a little scuba), three-quarter views.
 - **Shopify (Home Port — Dark cap):** its four images replaced in place: front, left side, back, three-quarter; alt text says the Newnan front is a sample.
 - **Site:** the Home Port card in the caps deck turns front → side → back (`img/hats/pf/cap-dark-home-port-*`). All 19 caps are now on Printful's mockups.
+
+## The organic line on Printful (all 242 products)
+- **Printful read #34 and #35** (121 + 122 mockups, no failures): every organic edition rendered on its own Printful blank from the plan in `organic.py` (Stanley/Stella organic tees, Econscious organic caps, the Atlantis beanie in black and oxford navy). The 39 personalized organic Surface Interval tees use the family print masters (new `mockup:organicfamily:<SKU>` spec), so they read Eric, Allie, Mason and Jade like the regular ones.
+- **Site (`organic/`):** the images in `img/organic/<line>/` replaced in place (same file names, new content hashes on the cards). 120 cards gained a third view: the right sleeve on Signature, Certified-ish and 1N73LL1G3NC3, the DS mark side on the caps. The re-dyed renders (`organic_mockups.py` / `organic_redye.py`) are retired; do not rerun them.
+- **Shopify:** all 484 organic product images replaced in place (`fileUpdate`, same media ids), sourced from the site copies with their hash so the Porkbun CDN can't hand Shopify a stale file. Image order kept per line (front first: Signature, 1N73LL1G3NC3, caps; back first: Certified-ish, Off-World, Surface Interval; beanie: black, then navy).
+- Runs are now started from the session with `gh api .../actions/workflows/printful-read.yml/dispatches` and read back with `gh run view --log`; no browser needed.
+
+Every apparel product on the site and in the store is now on Printful's own mockups.
