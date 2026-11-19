@@ -88,7 +88,15 @@ def mockup(spec):
     _, line, sku = spec.split(':', 2)
     lp = importlib.util.spec_from_file_location('printful_link', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'printful_link.py'))
     L = importlib.util.module_from_spec(lp); lp.loader.exec_module(L)
-    t = L.targets([line]).get(sku) or sys.exit(f'{sku} not in the {line} plan')
+    if line == 'aquaticfamily':   # personalized Surface Interval tees, family sample names (tools/aquatic_family.py)
+        A = importlib.util.module_from_spec(importlib.util.spec_from_file_location('pa', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'printful_aquatic.py')))
+        A.__spec__.loader.exec_module(A)
+        code = sku.split('-')[1][2:]; d = next(x for x in A.D['designs'] if x['code'] == code)
+        base = f'https://doolittlescuba.com/renders/aquatic-family/AC-{code}'
+        t = {'variant_id': A.PF[d['colour']]['M'], 'files': [{'type': 'front', 'url': base + '_front.png', 'position': A.AREA},
+                                                             {'type': 'back', 'url': base + '_back.png', 'position': A.AREA}]}
+    else:
+        t = L.targets([line]).get(sku) or sys.exit(f'{sku} not in the {line} plan')
     v = get(f'/products/variant/{t["variant_id"]}')
     pid = v.get('result', {}).get('variant', {}).get('product_id') or sys.exit(f'no product for variant {t["variant_id"]}: {json.dumps(v)[:200]}')
     files = [{'placement': 'front' if f['type'] == 'default' else f['type'], 'image_url': f['url'], **({'position': f['position']} if f.get('position') else {})}

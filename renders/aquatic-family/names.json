@@ -1,0 +1,138 @@
+{
+ "W01": {
+  "N": "Allie"
+ },
+ "W02": {
+  "N": "Allie"
+ },
+ "W03": {
+  "N": "Mason"
+ },
+ "W04": {
+  "N": "Jade"
+ },
+ "W05": {
+  "N": "Eric"
+ },
+ "W06": {
+  "N": "Allie"
+ },
+ "W07": {
+  "N": "Mason"
+ },
+ "W08": {
+  "N": "Jade"
+ },
+ "W09": {
+  "N": "Eric"
+ },
+ "W10": {
+  "N": "Allie"
+ },
+ "R01": {
+  "N": "Mason"
+ },
+ "R02": {
+  "N": "Eric"
+ },
+ "R03": {
+  "N": "Eric"
+ },
+ "R04": {
+  "N": "Allie"
+ },
+ "R05": {
+  "N": "Mason"
+ },
+ "R06": {
+  "N": "Jade"
+ },
+ "R07": {
+  "N": "Eric"
+ },
+ "R08": {
+  "N": "Allie"
+ },
+ "R09": {
+  "N": "Mason"
+ },
+ "R10": {
+  "N": "Jade"
+ },
+ "B01": {
+  "A": "Jade",
+  "B": "Mason"
+ },
+ "B02": {
+  "A": "Eric",
+  "B": "Mason"
+ },
+ "B03": {
+  "A": "Allie",
+  "B": "Jade"
+ },
+ "B04": {
+  "A": "Allie",
+  "B": "Mason"
+ },
+ "B05": {
+  "A": "Allie",
+  "B": "Eric"
+ },
+ "B06": {
+  "A": "Mason",
+  "B": "Jade"
+ },
+ "B07": {
+  "A": "Jade",
+  "B": "Mason"
+ },
+ "B08": {
+  "A": "Eric",
+  "B": "Mason"
+ },
+ "B09": {
+  "A": "Allie",
+  "B": "Jade"
+ },
+ "B10": {
+  "A": "Mason",
+  "B": "Eric"
+ },
+ "C01": {
+  "H": "Eric",
+  "W": "Allie"
+ },
+ "C02": {
+  "H": "Eric",
+  "W": "Allie"
+ },
+ "C03": {
+  "H": "Eric",
+  "W": "Allie"
+ },
+ "C04": {
+  "H": "Eric",
+  "W": "Allie"
+ },
+ "C05": {
+  "H": "Eric",
+  "W": "Allie"
+ },
+ "C06": {
+  "H": "Eric",
+  "W": "Allie"
+ },
+ "M01": {
+  "H": "Eric",
+  "W": "Allie"
+ },
+ "M02": {
+  "H": "Eric",
+  "W": "Allie"
+ },
+ "M03": {
+  "H": "Eric",
+  "W": "Allie"
+ }
+}
