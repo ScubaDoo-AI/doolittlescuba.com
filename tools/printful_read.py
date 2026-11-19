@@ -100,7 +100,9 @@ def mockup(spec):
             f['position'] = {'area_width': W, 'area_height': H, 'width': nw, 'height': nh, 'top': (H - nh) // 2, 'left': (W - nw) // 2}
     print(f'\n== mockup {sku} → product {pid} variant {t["variant_id"]} ==')
     for f in files: print('  ', f['placement'], f['image_url'].rsplit('/', 1)[-1], json.dumps(f.get('position')))
-    r = post(f'/mockup-generator/create-task/{pid}', {'variant_ids': [t['variant_id']], 'format': 'png', 'files': files})
+    body = {'variant_ids': [t['variant_id']], 'format': 'png', 'files': files}
+    if t.get('options'): body['product_options'] = {o['id']: o['value'] for o in t['options']}   # embroidery: thread colours and type
+    r = post(f'/mockup-generator/create-task/{pid}', body)
     key = r.get('result', {}).get('task_key') or sys.exit(f'create-task failed: {json.dumps(r)[:400]}')
     for _ in range(40):
         time.sleep(6)
