@@ -8,7 +8,8 @@ Each run:
        personalized Aquatic tee SKU DS-AC[WRBCM]nn-TD(O)-<size>, the names in the line properties the product page collects
                                 ("Name on the shirt", "Diver 1"/"Diver 2", "Husband"/"Wife"); rendered by tools/aquatic_print.py
        Make it yours cap        SKU DS-MY[AB]-C-(SM|LXL), _design as above; embroidered (tools/custom_cap.py)
-       digitization fee         SKU DS-DIGI-<n>, once per cap design with "Your line" (the page adds it): checked, not sent
+       digitization fee         SKU DS-DIGI-<n>, once per cap design with "Your line", and once per Home Port (the pages
+                                add it; a Home Port fee line carries the port's three properties): checked, not sent
        Home Port cap            SKU DS-HMP-CD-(SM|LXL), the port in the line properties "Home Port name" / "Home Port
                                 coordinates" / "Home Port flag" (the map picker); front drawn by tools/homeport_cap.py
                                 (Eric, 20 Nov 2026: automate). Its Printful sync product is ignored, so only this draft is made.
@@ -83,6 +84,7 @@ def custom_lines(o):
         g = DIGI_RE.match(li['sku'] or '')
         if g:
             L.append(dict(kind='fee', n=int(g.group(1)), qty=li['quantity'], design=attrs.get('_design', ''),
+                          hp=HP.key(attrs['Home Port name'], attrs.get('Home Port coordinates', ''), attrs.get('Home Port flag', '')) if 'Home Port name' in attrs else '',
                           price=li['originalUnitPriceSet']['shopMoney']['amount'], name=li['name'])); continue
         h = HP.SKU_RE.match(li['sku'] or '')
         if h:
@@ -166,10 +168,10 @@ def handle(o, dry):
     # digitization: one fee per cap design with new stitch files, however many caps (Eric, 14 Nov)
     due = {}
     for l, p in plans:
-        if l['kind'] == 'cap' and p['new_files']: due[p['fee_key']] = p
+        if l['kind'] in ('cap', 'hmp') and p['new_files']: due[p['fee_key']] = p   # Home Port too (Eric, 20 Nov)
     paid = {}
     for f in fees:
-        try: k = CAP.plan(f['design'], 'SM')['fee_key']
+        try: k = f['hp'] or CAP.plan(f['design'], 'SM')['fee_key']
         except T.Hold: k = '?'
         paid.setdefault(k, []).append(f)
     rep['fee_due'] = round(sum(p['fee'] for p in due.values()), 2)
