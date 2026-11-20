@@ -89,8 +89,17 @@ def front(name, coords, flag):
     return out, threads
 
 
+def norm_flag(flag):
+    return {'dive': 'Dive flag', 'alpha': 'Alpha flag'}.get((flag or '').strip().lower().removesuffix(' flag'), flag)   # 'dive' / 'alpha' too
+
+
+def key(name, coords, flag):
+    """Shared by a Home Port cap line and its digitization fee line (the product page adds one fee per port)."""
+    return f'homeport|{(name or "").strip()}|{(coords or "").strip()}|{norm_flag(flag)}'
+
+
 def plan(name, coords, flag, size='LXL'):
-    flag = {'dive': 'Dive flag', 'alpha': 'Alpha flag'}.get((flag or '').strip().lower().removesuffix(' flag'), flag)   # the picker stores 'dive' / 'alpha'
+    flag = norm_flag(flag)
     if size not in CAP.SIZES: raise Hold(f'cap size {size!r}')
     im, threads = front(name, coords, flag)
     P = {'embroidery_front': dict(kind='new', image=im, threads=threads, name='home-port-front'),
@@ -98,8 +107,8 @@ def plan(name, coords, flag, size='LXL'):
          'embroidery_back': CAP.catalog(PC.BACK_FILE, [PC.WHITE])}
     colour = 'Black'
     return dict(design={'cs': 'dsmark', 'csp': 'left'}, size=size, colour=colour, variant_id=PC.PF[colour][CAP.SIZES[size]],
-                placements=P, cost=round(PC.BLANK + PC.EXTRA * (len(P) - 1), 2), new_files=1, fee=0.0,
-                fee_key=f'homeport|{name}|{coords}|{flag}', label='Home Port cap')
+                placements=P, cost=round(PC.BLANK + PC.EXTRA * (len(P) - 1), 2), new_files=1, fee=CAP.fee(1),   # Eric, 20 Nov: the buyer pays the port's digitization, once
+                fee_key=key(name, coords, flag), label='Home Port cap')
 
 
 if __name__ == '__main__':
