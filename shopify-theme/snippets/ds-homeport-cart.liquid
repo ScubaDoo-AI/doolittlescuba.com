@@ -1,0 +1,76 @@
+{%- comment -%}
+  Doolittle Scuba: Home Port cart mockups (Eric, 20 Nov 2026: "Remove Newnan in image, can it show the true mockup?").
+  Every Home Port cap line in the cart (page and drawer) shows Printful's photo of the blank black Flexfit 6277 front with that
+  line's own front drawn on it: flag, port name and coordinates, laid out by the same rules as tools/homeport_cap.py (the file
+  Printful stitches): Almendra Bold, name 0.42 in and coordinates 0.33 in cap height, 0.06 in gaps, fitted inside 3.90 x 1.74 in,
+  placed where Printful's own mockup puts the front (106.7 px per inch on the 1000 px photo, centred at x 498, top at y 354).
+  Files: hp-cap-blank-front.jpg, hp-flag-dive.png, hp-flag-alpha.png (Shopify Files; flags cut from the catalog cap files).
+  Rendered once, in <head>, from snippets/view-transition-opt-in.liquid.
+{%- endcomment -%}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Almendra:wght@700&display=swap">
+<style>
+  .ds-hpm{position:relative;display:block;width:100%;aspect-ratio:1/1;background:#000;overflow:hidden}
+  .ds-hpm img,.ds-hpm canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+</style>
+<script>
+  (function(){
+    'use strict';
+    var BLANK='{{ "hp-cap-blank-front.jpg" | file_url }}';
+    var FLAG={'Dive flag':'{{ "hp-flag-dive.png" | file_url }}','Alpha flag':'{{ "hp-flag-alpha.png" | file_url }}'};
+    var R=(window.Shopify&&Shopify.routes&&Shopify.routes.root)||'/';
+    var DPI=300,PPI=106.7/1000,CX=0.498,TOP=0.354;            /* photo: fraction of its width per inch; front centre and top */
+    var MAX_W=3.90,MAX_H=1.74,NAME=0.42,COORD=0.33,GAP=0.06,N=600;
+    var imgs={},fontReady=null;
+    function img(u){ if(!imgs[u]) imgs[u]=new Promise(function(ok){ var i=new Image(); i.onload=function(){ok(i);}; i.onerror=function(){ok(null);}; i.src=u; }); return imgs[u]; }
+    function font(){ if(!fontReady) fontReady=(document.fonts&&document.fonts.load)?document.fonts.load('700 100px Almendra').catch(function(){}):Promise.resolve(); return fontReady; }
+    function norm(f){ f=(f||'').trim().toLowerCase().replace(/ flag$/,''); return f==='alpha'?'Alpha flag':'Dive flag'; }
+    function line(ctx,text,capIn){
+      ctx.font='700 200px Almendra,Georgia,serif'; var h=ctx.measureText('H'),ratio=(h.actualBoundingBoxAscent+h.actualBoundingBoxDescent)/200;
+      var size=capIn/ratio*DPI; ctx.font='700 '+size+'px Almendra,Georgia,serif'; var m=ctx.measureText(text);
+      return {text:text,size:size,left:m.actualBoundingBoxLeft,w:m.actualBoundingBoxLeft+m.actualBoundingBoxRight,asc:m.actualBoundingBoxAscent,h:m.actualBoundingBoxAscent+m.actualBoundingBoxDescent};
+    }
+    function draw(canvas,name,coords,flag){
+      return Promise.all([font(),img(FLAG[norm(flag)])]).then(function(r){
+        var fl=r[1],ctx=canvas.getContext('2d'); canvas.width=canvas.height=N; ctx.clearRect(0,0,N,N);
+        var W=MAX_W*DPI,H=MAX_H*DPI,c=(coords||'').trim().split(/\s+/);
+        var nm=line(ctx,name,NAME); if(nm.w>W) nm=line(ctx,name,NAME*W/nm.w);
+        var parts=[]; if(fl) parts.push({img:fl,w:fl.naturalWidth,h:fl.naturalHeight}); parts.push(nm);
+        c.forEach(function(s){ if(s) parts.push(line(ctx,s,COORD)); });
+        var gap=GAP*DPI,w=0,h=gap*(parts.length-1); parts.forEach(function(p){ w=Math.max(w,p.w); h+=p.h; });
+        var sc=Math.min(1,W/w,H/h),k=N*PPI/DPI*sc,x0=CX*N,y=TOP*N;
+        ctx.fillStyle='#fff'; ctx.textBaseline='alphabetic';
+        parts.forEach(function(p){
+          if(p.img){ ctx.drawImage(p.img,x0-p.w*k/2,y,p.w*k,p.h*k); }
+          else { ctx.font='700 '+(p.size*k)+'px Almendra,Georgia,serif'; ctx.fillText(p.text,x0-p.w*k/2+p.left*k,y+p.asc*k); }
+          y+=(p.h+gap)*k;
+        });
+      });
+    }
+    window.dsHomePortMock=draw;   /* also usable by the product page */
+    var timer=null;
+    function apply(){
+      fetch(R+'cart.js',{headers:{'Accept':'application/json'}}).then(function(r){return r.json();}).then(function(cart){
+        (cart.items||[]).forEach(function(i){
+          var p=i.properties||{}; if(!/^DS-HMP-/.test(i.sku||'')||!p['Home Port name']) return;
+          var sig=[p['Home Port name'],p['Home Port coordinates'],p['Home Port flag']].join('|');
+          document.querySelectorAll('[data-key="'+i.key+'"] .cart-items__media-container').forEach(function(a){
+            if(a.dataset.hp===sig) return; a.dataset.hp=sig;
+            var box=document.createElement('span'); box.className='ds-hpm';
+            var im=document.createElement('img'); im.src=BLANK; im.alt='Home Port cap: '+p['Home Port name']; im.width=600; im.height=600;
+            var cv=document.createElement('canvas'); cv.setAttribute('aria-hidden','true');
+            box.appendChild(im); box.appendChild(cv); a.innerHTML=''; a.appendChild(box);
+            draw(cv,p['Home Port name'],p['Home Port coordinates'],p['Home Port flag']);
+          });
+        });
+      }).catch(function(){});
+    }
+    function soon(){ clearTimeout(timer); timer=setTimeout(apply,150); }
+    function start(){
+      if(document.querySelector('[data-key]')) soon();
+      new MutationObserver(function(ms){ for(var j=0;j<ms.length;j++){ var n=ms[j].target; if(n.closest&&n.closest('cart-items-component,.cart-drawer,.cart-page__items,.cart-drawer__items')){ soon(); return; } } })
+        .observe(document.body,{childList:true,subtree:true});
+      window.addEventListener('shopify:cart:lines-update',function(){ setTimeout(soon,600); },true);
+    }
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start); else start();
+  })();
+</script>
