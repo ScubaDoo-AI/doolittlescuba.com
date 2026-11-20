@@ -41,7 +41,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 BASELINE = os.path.join(HERE, 'data', 'price_baseline.json')
 ORGANIC_MAP = os.path.join(HERE, '..', 'shopify-theme', 'assets', 'ds-organic-map.json')
 POD_PLACEHOLDER = 9000           # Printful shows 9,999 on stocked variants; anything below is real counted stock
-LOW_STOCK = 20
+LOW_STOCK = 10
 BULK_TAGS = ('print:sticker-mule', 'print:ninja-transfers')
 PRICE_TITLE = 'Price changes need a look'
 STOCK_TITLE = 'Stock watch'
@@ -121,10 +121,12 @@ def printful_sync():
 
 
 def printful_catalog(product_ids):
-    """catalog variant id → {product_id, product, color, hex, size, cost, us, regions{}}."""
+    """catalog variant id → {product_id, product, color, hex, size, cost, us, regions{}}. The catalog is public: the store
+    token gets 403 on it, so these calls go without it."""
+    import aquatic_order as O
     out = {}
     for pid in sorted({p for p in product_ids if p}):
-        code, r = pf_get(f'/products/{pid}')
+        code, r = O.http('GET', f'https://api.printful.com/products/{pid}', {'User-Agent': 'doolittlescuba-tools/1.0'}); time.sleep(0.3)
         if code != 200: print('catalog skip', pid, code, flush=True); continue
         name = r['result']['product'].get('title') or r['result']['product'].get('model') or str(pid)
         for v in r['result']['variants']:
@@ -204,18 +206,21 @@ def analyse(variants, sync, catalog, base, omap):
             R['drift'].append(dict(v=v, pf=s['retail']))
         # stock
         bulk = any(t.startswith(BULK_TAGS) for t in v['tags'])
-        if v['status'] == 'ACTIVE' or v['tracked']:
+        if v['status'] == 'ACTIVE':
             sold = v['tracked'] and v['policy'] == 'DENY' and ((v['qty'] is not None and v['qty'] <= 0) or
                                                                 (v['qty'] is None and not v['available']))
             if sold:
-                R['soldout'].append(dict(v=v, s=s))
+                c = catalog.get(s['variant_id']) if s else None
+                cause = ('bulk' if bulk else 'unlinked' if (not s or s['ignored'] or not s['synced'] or not s['variant_id'])
+                         else 'blank' if c and not in_stock(c['us']) else 'other')
+                R['soldout'].append(dict(v=v, s=s, cause=cause))
             elif v['tracked'] and v['qty'] is not None and 0 < v['qty'] <= LOW_STOCK and v['qty'] < POD_PLACEHOLDER:
                 R['low'].append(v)
         if bulk and not v['tracked'] and v['status'] == 'ACTIVE':
             R['untracked'].append(v)
         if s and not s['ignored'] and s['variant_id'] in catalog:
             c = catalog[s['variant_id']]
-            if not in_stock(c['us']) and not any(x['v']['sku'] == v['sku'] for x in R['soldout']):
+            if v['status'] == 'ACTIVE' and not in_stock(c['us']) and not any(x['v']['sku'] == v['sku'] for x in R['soldout']):
                 R['blank_out'].append(dict(v=v, s=s))
     # Printful cost changes, grouped by blank
     users = {}
@@ -239,6 +244,25 @@ def group_rows(rows, key, fmt):
 def sizes_of(rs):
     t = [r['v']['vtitle'] if isinstance(r, dict) and 'v' in r else r['vtitle'] for r in rs]
     return ', '.join(t) if len(t) <= 6 else f'{len(t)} variants'
+
+
+def soldout_line(catalog, omap):
+    def f(k, rs):
+        v, s = rs[0]['v'], rs[0]['s']
+        line = f'- **{v["ptitle"]}**, {sizes_of(rs)}'
+        tips = []
+        if rs[0]['cause'] == 'blank' and s and s['variant_id'] in catalog:
+            c = catalog[s['variant_id']]
+            near = nearest_colours(s['variant_id'], catalog)
+            if near: tips.append(f'nearest {c["product"]} colour in stock: {" or ".join(near)}')
+            other = [r for r, st in c['regions'].items() if r != 'US' and in_stock(st)]
+            if other: tips.append(f'blank in stock in {", ".join(other)} (other Printful facility, different shipping)')
+        if rs[0]['cause'] in ('blank', 'other'):
+            o = organic_for(v['sku'], omap)
+            if o: tips.append(f'organic edition `{o["handle"]}`' + (f' in {o["to"]}' if o['change'] else ' (same colour)'))
+        if any(t.startswith('pair') or t == 'bundle' for t in v['tags']): tips.append('a pair: swap the sold-out part or hide the pair')
+        return line + (' → ' + ' · '.join(tips) if tips else '')
+    return f
 
 
 def report(R, sync, catalog, omap, base):
@@ -282,24 +306,18 @@ def report(R, sync, catalog, omap, base):
         P.append('')
 
     if R['soldout']:
-        S.append(f'### Sold out ({len(R["soldout"])} variants)')
-        def f(k, rs):
-            v, s = rs[0]['v'], rs[0]['s']
-            line = f'- **{v["ptitle"]}**, {sizes_of(rs)}'
-            tips = []
-            if s and s['variant_id'] in catalog:
-                c = catalog[s['variant_id']]
-                near = nearest_colours(s['variant_id'], catalog)
-                if near: tips.append(f'nearest {c["product"]} colour in stock: {" or ".join(near)}')
-                other = [r for r, st in c['regions'].items() if r != 'US' and in_stock(st)]
-                if other: tips.append(f'blank in stock in {", ".join(other)} (other Printful facility, different shipping)')
-            o = organic_for(v['sku'], omap)
-            if o: tips.append(f'organic edition `{o["handle"]}`' + (f' in {o["to"]}' if o['change'] else ' (same colour)'))
-            if any(t.startswith('pair') or t == 'bundle' for t in v['tags']): tips.append('a pair: swap the sold-out part or hide the pair')
-            if any(t.startswith(BULK_TAGS) for t in v['tags']): tips.append('bulk stock: time to reorder')
-            return line + (' → ' + ' · '.join(tips) if tips else '')
-        S += group_rows(R['soldout'], lambda r: r['v']['handle'], f)
-        S.append('')
+        S.append(f'### Sold out on the store ({len(R["soldout"])} variants)')
+        CAUSE = {'blank': 'Printful\'s blank is out of stock', 'bulk': 'Bulk stock ran out: reorder',
+                 'unlinked': 'Printful never stocked these: the variant isn\'t linked (or is ignored) at Printful, so buyers can\'t add it',
+                 'other': 'At 0, cause unclear (check the variant\'s locations in Shopify)'}
+        for cause in ('blank', 'bulk', 'unlinked', 'other'):
+            rows = [r for r in R['soldout'] if r['cause'] == cause]
+            if not rows: continue
+            S.append(f'**{CAUSE[cause]}** ({len(rows)})')
+            lines = group_rows(rows, lambda r: r['v']['handle'], soldout_line(catalog, omap))
+            S += lines[:25] + ([f'- … and {len(lines) - 25} more products'] if len(lines) > 25 else [])
+            if cause == 'unlinked': S.append('Fix: link them (Actions → Printful link, the matching line), or set them to Draft until they are.')
+            S.append('')
     if R['blank_out']:
         S.append(f'### Printful says the blank is out in the US ({len(R["blank_out"])} variants, Shopify not at 0 yet)')
         S += group_rows(R['blank_out'], lambda r: r['v']['handle'],
@@ -423,7 +441,7 @@ def selftest():
         policy='DENY', qty=qty, tracked=True, handle=h, ptitle=t, status='ACTIVE', tags=tags)
     vs = [V('DS-MRK-BN-BLK', 30.0, 0, ['beanie'], 'Black'), V('DS-MRK-BN-FNV', 30.0, 9999, ['beanie'], 'French Navy'),
           V('DS-THI-T-M', 42.0, 9999, ['tee'], 'M', 'the-thistlegorm-signature-series-tee', 'The Thistlegorm'),
-          V('DS-PK-B01', 9.0, 12, ['print:sticker-mule-4x6'], 'Default', 'sticker-pack-b01', 'Sticker pack B01'),
+          V('DS-PK-B01', 9.0, 8, ['print:sticker-mule-4x6'], 'Default', 'sticker-pack-b01', 'Sticker pack B01'),
           V('DS-NEW-1', 25.0, 9999, ['tee'], 'S', 'new-thing', 'New thing')]
     vs[3]['tracked'] = True
     sync = {'DS-MRK-BN-BLK': dict(sync_id=1, ext='', variant_id=1, product_id=9, retail=30.0, ignored=False, synced=True),
