@@ -28,7 +28,7 @@ def show(path):
     res = get(path)
     print(f'\n== {path} ==')
     if 'result' not in res:
-        print(json.dumps(res)[:600]); return
+        print(json.dumps(res)[:12000 if 'data' in res else 600]); return   # v2 catalog answers (placements, prices) are long
     r = res['result']
     if '/printfiles/' in path:
         print('product', r.get('product_id'), '| available placements:', json.dumps(r.get('available_placements')))
