@@ -24,3 +24,8 @@ New daily job, **Actions → Price & stock watch** (`tools/price_stock_watch.py`
 - Product descriptions ("Stanley/Stella Creator 2.0, 100% organic ring-spun cotton, 180 g/m²") still true; mockups still show the STTU169 (similar, flat collar vs ribbed).
 - **Turtle Trio sticker pack:** inventory tracking turned off (it was the only pack still tracked, so it showed Sold out).
 - Sample set 2's Dampier Strait organic tee (Desert Dust XL) was ordered on the STTU169 before this; Printful accepted it.
+
+## Organic 3XL removed where Printful has no US 3XL (Eric 16:29: "1")
+- Price & stock watch (16:20) left 66 sold-out variants: the 3XL of every organic tee in **Desert Dust, Khaki or Stargazer** (SATU001 has no US 3XL in those colours). All 66 3XL variants **deleted in Shopify** (one batched `productVariantsBulkDelete`, 0 errors; checked after: none left, those products now S–2XL).
+- `/organic/`: those 66 cards now read "$… · $… in 2XL · sizes S–2XL" (patched in place; `tools/organic_site.py` writes the same from now on, using `organic.TEE`'s missing 3XL). The generator was not re-run: it would put back the local organic images that the page and home tile now take from Shopify's CDN.
+- The cart converter already says "Not available yet" if a regular 3XL in one of those colours is converted to organic.

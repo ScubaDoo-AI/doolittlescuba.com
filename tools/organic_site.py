@@ -42,7 +42,10 @@ def price(p):
     v = [x['price'] for x in p['variants'] if x.get('price')]
     if not v: return ''
     lo, hi = min(v), max(v)
-    return f'${lo:.0f}' if lo == hi else f'${lo:.0f} · ${hi:.0f} in 2XL and 3XL'
+    if lo == hi: return f'${lo:.0f}'
+    if p['kind'] == 'tee' and (organic.TEE.get(p.get('colour'), [[0]])[0] or [0])[-1] is None:   # no US 3XL in this colour (20 Nov)
+        return f'${lo:.0f} · ${hi:.0f} in 2XL · sizes S–2XL'
+    return f'${lo:.0f} · ${hi:.0f} in 2XL and 3XL'
 
 
 def change(p):
