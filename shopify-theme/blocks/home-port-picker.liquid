@@ -102,24 +102,30 @@
       coordsEl.addEventListener('invalid',function(){coordsEl.setCustomValidity(setVal?'':'Drop a pin on the map to set your Home Port coordinates.');});
       /* The buy-buttons form comes after this block in the page, so it is looked up when it is submitted. */
       window.addEventListener('submit',function(e){if(!e.target||e.target.id!==root.dataset.form)return;form=e.target;if(!setVal){e.preventDefault();e.stopImmediatePropagation();coordsEl.setCustomValidity('Drop a pin on the map to set your Home Port coordinates.');coordsEl.reportValidity();}},true);
-      /* The cap and, once per port, its $7 digitization line go in together (Ajax Cart API), then to the cart. */
-      var DIGI=51027378864314,R=(window.Shopify&&Shopify.routes&&Shopify.routes.root)||'/';
-      /* On window, capture phase: the theme handles submit with a capturing listener on document, which runs after this. */
-      window.addEventListener('submit',function(e){
-        if(!e.target||e.target.id!==root.dataset.form)return;form=e.target;
-        if(!setVal||e.defaultPrevented||form.dataset.hpPlain) return;
-        e.preventDefault();e.stopImmediatePropagation();
-        var fd=new FormData(form),props={},id=+fd.get('id'),qty=Math.max(1,+(fd.get('quantity')||1));
-        fd.forEach(function(v,k){var m=k.match(/^properties\[(.+)\]$/);if(m&&v!=='')props[m[1]]=v;});
-        var n=(props['Home Port name']||'').trim(),c=(props['Home Port coordinates']||'').trim(),f=props['Home Port flag']||'';
-        function plain(){form.dataset.hpPlain='1';if(form.requestSubmit)form.requestSubmit();else form.submit();}
+      /* $7 digitization, once per port (Eric, 20 Nov 2026). The theme adds the cap itself; when the cart changes
+         (Shopify's standard shopify:cart:lines-update event, which carries a promise that settles once the add is
+         done) and on page load, any Home Port cap in the cart without a fee line for its port gets one, then the
+         cart page opens so both lines show. */
+      var DIGI=51027378864314,R=(window.Shopify&&Shopify.routes&&Shopify.routes.root)||'/',busy=false;
+      function pk(p){p=p||{};return (p['Home Port name']||'').trim()+'|'+(p['Home Port coordinates']||'').trim();}
+      function ensureFees(go){
+        if(busy) return; busy=true;
         fetch(R+'cart.js',{headers:{'Accept':'application/json'}}).then(function(r){return r.json();}).then(function(cart){
-          var has=(cart.items||[]).some(function(i){var p=i.properties||{};return i.variant_id===DIGI&&(p['Home Port name']||'').trim()===n&&(p['Home Port coordinates']||'').trim()===c;});
-          var items=[{id:id,quantity:qty,properties:props}];
-          if(!has)items.push({id:DIGI,quantity:1,properties:{'Home Port name':n,'Home Port coordinates':c,'Home Port flag':f}});
-          return fetch(R+'cart/add.js',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({items:items})});
-        }).then(function(r){if(!r.ok)throw new Error('add');window.location.href=R+'cart';}).catch(plain);
+          var have={},need={},items=[];
+          (cart.items||[]).forEach(function(i){ if(i.variant_id===DIGI) have[pk(i.properties)]=1; });
+          (cart.items||[]).forEach(function(i){ var p=i.properties||{};
+            if(/^DS-HMP-/.test(i.sku||'')&&p['Home Port name']){ var k=pk(p); if(!have[k]&&!need[k]){ need[k]=1;
+              items.push({id:DIGI,quantity:1,properties:{'Home Port name':p['Home Port name'].trim(),'Home Port coordinates':(p['Home Port coordinates']||'').trim(),'Home Port flag':p['Home Port flag']||''}}); } } });
+          if(!items.length){ busy=false; return; }
+          return fetch(R+'cart/add.js',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({items:items})})
+            .then(function(r){ busy=false; if(r.ok&&go) window.location.href=R+'cart'; });
+        }).catch(function(){busy=false;});
+      }
+      window.addEventListener('shopify:cart:lines-update',function(e){
+        var pr=e.promise||(e.detail&&e.detail.promise);
+        Promise.resolve(pr).catch(function(){}).then(function(){ setTimeout(function(){ensureFees(true);},300); setTimeout(function(){ensureFees(true);},2500); });
       },true);
+      ensureFees(false);
       function search(){
         var s=qEl.value.trim(); if(!s) return;
         fetch('https://nominatim.openstreetmap.org/search?format=json&limit=5&q='+encodeURIComponent(s),{headers:{'Accept-Language':'en'}})
