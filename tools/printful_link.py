@@ -71,10 +71,10 @@ def targets(only):
         for p in load('printful_jackets').plan():
             for v in p['variants']:
                 out[v['sku']] = dict(line='jackets', ext='sku:' + v['sku'], variant_id=v['variant_id'], files=p['files'], options=p['options'])
-    if 'organic' in only:   # the organic editions (tools/organic.py): STTU169 tees, EC7000 caps, Atlantis beanie — matched by SKU
+    if 'organic' in only:   # the organic editions (tools/organic.py): SATU001 tees, EC7000 caps, Atlantis beanie — matched by SKU
         for p in load('organic').plan():
             for v in p['variants']:
-                if p['personalized']:   # made per order by aquatic_order.py (TDO SKUs), never by the sync
+                if p['personalized'] or v['variant_id'] is None:   # made per order by aquatic_order.py (TDO SKUs), or a size Printful doesn't sell in the US
                     out[v['sku']] = dict(line='organic-ignored', ext='sku:' + v['sku'], variant_id=None, files=[], ignore=True); continue
                 t = dict(line='organic-' + p['kind'], ext='sku:' + v['sku'], variant_id=v['variant_id'], files=fix(p['files']))
                 if p.get('options'): t['options'] = p['options']

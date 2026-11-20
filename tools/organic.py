@@ -7,9 +7,10 @@ and pushed wherever possible (their own products, tag `organic-line`, their own 
 (13 Nov; a per-sale donation to ocean conservation or schools is being decided).
 
 Blanks (Printful catalog API, 13 Nov 2026):
-  tees   Stanley/Stella STTU169 Creator 2.0, 100% organic cotton (product 456), DTG — $13.95 S-XL, $15.25 2XL, $16.75 3XL,
-         $1.65-$2.85 under the Comfort Colors 1717. Same placements (front, back +$5.95, sleeves +$2.49). Only eight colours run
-         S-3XL; the line uses those: light (black ink) Desert Dust, White, Heather Grey; dark (white ink) Black,
+  tees   Stanley/Stella SATU001 Creator 2.0 ribbed neck, 100% organic cotton (product 818), DTG — $15.91 S-XL, $17.91 2XL,
+         $19.91 3XL. Moved from the STTU169 (product 456) on 20 Nov 2026: Printful now sells the STTU169 only in the EU/UK, so
+         every US variant synced as 0 stock and the organic tees showed Sold out. Same print areas (printfiles 1 / 130), same
+         colours; Desert Dust, Khaki and Stargazer stop at 2XL in the US (3XL is left unlinked, so it shows sold out). The line uses: light (black ink) Desert Dust, White, Heather Grey; dark (white ink) Black,
          French Navy, Khaki (an olive, #6E6B4D), Stargazer (a deep teal). Each design takes the nearest by CIEDE2000 on Printful's
          swatch codes within its ink group (MAP below).
          No pastels (Eric, 13 Nov): Cotton Pink is out; the four pinks (Blossom, Crunchberry, Orchid, Watermelon) go to
@@ -30,16 +31,16 @@ import os, sys, json, importlib.util
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SIZES = ['S', 'M', 'L', 'XL', '2XL', '3XL']
-TEE = {  # STTU169 variant ids S..3XL, swatch hex, ink group
-    'Desert Dust': ([12429, 12430, 12431, 12432, 12433, 17230], '#DCCCB4', 'light'),
-    'White': ([11864, 11865, 11866, 11867, 11868, 17228], '#FFFFFF', 'light'),
-    'Heather Grey': ([11884, 11885, 11886, 11887, 11888, 54614], '#CFCBC8', 'light'),
-    'Black': ([11869, 11870, 11871, 11872, 11873, 17229], '#111111', 'dark'),
-    'French Navy': ([11879, 11880, 11881, 11882, 11883, 17231], '#112537', 'dark'),
-    'Khaki': ([17144, 17145, 17146, 17147, 17148, 53676], '#6E6B4D', 'dark'),
-    'Stargazer': ([12439, 12440, 12441, 12442, 12443, 53672], '#3D737D', 'dark'),
+TEE = {  # SATU001 variant ids S..3XL (None = not sold in the US), swatch hex, ink group
+    'Desert Dust': ([20721, 20722, 20723, 20724, 20725, None], '#DCCCB4', 'light'),
+    'White': ([20736, 20737, 20738, 20739, 20740, 21234], '#FFFFFF', 'light'),
+    'Heather Grey': ([20731, 20732, 20733, 20734, 20735, 21237], '#CFCBC8', 'light'),
+    'Black': ([20716, 20717, 20718, 20719, 20720, 21231], '#111111', 'dark'),
+    'French Navy': ([20726, 20727, 20728, 20729, 20730, 21240], '#112537', 'dark'),
+    'Khaki': ([21211, 21212, 21213, 21214, 21215, None], '#6E6B4D', 'dark'),
+    'Stargazer': ([21226, 21227, 21228, 21229, 21230, None], '#3D737D', 'dark'),
 }
-TEE_COST = dict(zip(SIZES, [13.95, 13.95, 13.95, 13.95, 15.25, 16.75]))
+TEE_COST = dict(zip(SIZES, [15.91, 15.91, 15.91, 15.91, 17.91, 19.91]))
 CC_COST = dict(zip(SIZES, [15.60, 15.60, 15.60, 15.60, 17.60, 19.60]))
 # Comfort Colors 1717 colour (Printful name) -> organic colour, by ink group (CIEDE2000 nearest, 13 Nov)
 MAP = {
