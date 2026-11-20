@@ -47,7 +47,23 @@
       <span class="ds-hp__pv-c" data-hp-pvlon>000°00.000'W</span>
     </div>
     <p class="ds-hp__note">{{ block.settings.note }}</p>
-    <p class="ds-hp__note">Plus a one-time $7 to digitize your port for embroidery, added to the cart with your first cap for that port.</p>
+    <div class="ds-hp__sizes">
+      <p class="ds-hp__title">How many caps with this Home Port?</p>
+      {%- for v in product.variants -%}
+        <div class="ds-hp__size" data-hp-row data-variant="{{ v.id }}" data-price="{{ v.price }}">
+          <span class="ds-hp__sz">{{ v.title }}</span>
+          <span class="ds-hp__step">
+            <button type="button" data-hp-minus aria-label="One fewer {{ v.title }}">&minus;</button>
+            <output data-hp-n>{% if forloop.first %}1{% else %}0{% endif %}</output>
+            <button type="button" data-hp-plus aria-label="One more {{ v.title }}">+</button>
+          </span>
+        </div>
+      {%- endfor -%}
+      <p class="ds-hp__total" data-hp-total aria-live="polite"></p>
+      <button type="button" class="ds-hp__add" data-hp-add>Add to cart</button>
+      <p class="ds-hp__msg" data-hp-msg role="status" aria-live="polite"></p>
+    </div>
+    <p class="ds-hp__note">Plus a one-time $7 to digitize your port for embroidery, once per port however many caps.</p>
   </div>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
@@ -71,6 +87,17 @@
     .ds-hp__flag{display:block;width:54px;height:34px;border:2px solid #fff;margin:2px 0 4px}
     .ds-hp__flag--dive{background:linear-gradient(to top right,#eb1700 calc(50% - 5px),#fff calc(50% - 5px),#fff calc(50% + 5px),#eb1700 calc(50% + 5px))}
     body:has(.ds-hp) shopify-accelerated-checkout,body:has(.ds-hp) .shopify-payment-button{display:none!important}
+    body:has(.ds-hp) variant-picker,body:has(.ds-hp) .buy-buttons-block{display:none!important}
+    .ds-hp__sizes{display:flex;flex-direction:column;gap:8px;padding-top:6px}
+    .ds-hp__size{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid rgb(var(--color-foreground-rgb,0 0 0) / .14)}
+    .ds-hp__sz{font-weight:600}
+    .ds-hp__step{display:inline-flex;align-items:center;border:1px solid rgb(var(--color-foreground-rgb,0 0 0) / .45);border-radius:4px}
+    .ds-hp__step button{width:44px;height:44px;border:0;background:transparent;color:inherit;font:inherit;font-size:1.2em;cursor:pointer}
+    .ds-hp__step output{min-width:2.2em;text-align:center}
+    .ds-hp__total{margin:4px 0 0;font-size:.95em}
+    .ds-hp__add{min-height:50px;border:0;border-radius:4px;background:#B9262F;color:#fff;font:inherit;font-weight:600;letter-spacing:.04em;cursor:pointer}
+    .ds-hp__add[disabled]{opacity:.55;cursor:default}
+    .ds-hp__msg{margin:0;font-size:.85em;min-height:1.2em}
     .ds-hp__flag--alpha{background:linear-gradient(90deg,#fff 50%,#0800ff 50%);clip-path:polygon(0 0,100% 0,72% 50%,100% 100%,0 100%)}
   </style>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer></script>
@@ -95,9 +122,16 @@
         var f=q('[data-hp-pvflag]'); f.className='ds-hp__flag '+(flag==='Dive flag'?'ds-hp__flag--dive':'ds-hp__flag--alpha');
         if(label&&!nameEl.value){nameEl.value=label.slice(0,nameEl.maxLength); updName();}
         if(map){ if(!marker){marker=L.marker([lat,lon],{draggable:true}).addTo(map);marker.on('dragend',function(){var p=marker.getLatLng();place(p.lat,p.lng);});} else marker.setLatLng([lat,lon]); }
+        pinLat=lat; pinLon=lon; save();
       }
+      /* The pin and name are kept in this browser, so more caps (or another size) can be added later without pinning again. */
+      var pinLat=null,pinLon=null,KEY='dsHomePort';
+      function save(){ try{ localStorage.setItem(KEY,JSON.stringify({name:nameEl.value,lat:pinLat,lon:pinLon})); }catch(e){} }
+      function restore(){ try{ var s=JSON.parse(localStorage.getItem(KEY)||'null'); if(!s) return;
+        if(s.name&&!nameEl.value){ nameEl.value=s.name; updName(); }
+        if(typeof s.lat==='number'&&typeof s.lon==='number'){ place(s.lat,s.lon); if(map) map.setView([s.lat,s.lon],11); } }catch(e){} }
       function updName(){q('[data-hp-pvname]').textContent=nameEl.value.trim()||'Your Port';}
-      nameEl.addEventListener('input',updName);
+      nameEl.addEventListener('input',function(){updName();save();});
       coordsEl.addEventListener('input',function(){coordsEl.value=setVal;});
       coordsEl.addEventListener('invalid',function(){coordsEl.setCustomValidity(setVal?'':'Drop a pin on the map to set your Home Port coordinates.');});
       /* The buy-buttons form comes after this block in the page, so it is looked up when it is submitted. */
@@ -141,8 +175,35 @@
         map=L.map(q('[data-hp-map]'),{scrollWheelZoom:false}).setView([33.38,-84.8],4);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
         map.on('click',function(e){place(e.latlng.lat,e.latlng.lng);});
+        restore();
       }
       init();
+      /* Sizes: a count per size, one Add to cart for all of them, plus the port's $7 fee once. */
+      var rows=[].slice.call(root.querySelectorAll('[data-hp-row]')),addBtn=q('[data-hp-add]'),msg=q('[data-hp-msg]'),tot=q('[data-hp-total]');
+      function money(c){return '$'+(c/100).toFixed(2).replace(/\.00$/,'');}
+      function counts(){ return rows.map(function(r){return {id:+r.dataset.variant,n:+r.querySelector('[data-hp-n]').value||+r.querySelector('[data-hp-n]').textContent||0,price:+r.dataset.price||0,size:r.querySelector('.ds-hp__sz').textContent};}); }
+      function refresh(){ var c=counts(),n=0,sum=0; c.forEach(function(x){n+=x.n;sum+=x.n*x.price;});
+        tot.textContent=n?(n+' cap'+(n>1?'s':'')+' \u00b7 '+money(sum)+' + '+money(700)+' digitization (once for this port)'):'Choose at least one cap.';
+        addBtn.disabled=!n; }
+      rows.forEach(function(r){ var o=r.querySelector('[data-hp-n]');
+        r.querySelector('[data-hp-minus]').addEventListener('click',function(){ var v=Math.max(0,(+o.textContent||0)-1); o.textContent=v; o.value=v; refresh(); });
+        r.querySelector('[data-hp-plus]').addEventListener('click',function(){ var v=Math.min(20,(+o.textContent||0)+1); o.textContent=v; o.value=v; refresh(); }); });
+      refresh();
+      addBtn.addEventListener('click',function(){
+        var n=nameEl.value.trim();
+        if(!n){ nameEl.reportValidity(); nameEl.focus(); return; }
+        if(!setVal){ msg.textContent='Drop a pin on the map to set your Home Port coordinates.'; return; }
+        var props={'Home Port name':n,'Home Port coordinates':setVal,'_Home Port lat,lon':decEl.value,'Home Port flag':flagEl.value};
+        var items=counts().filter(function(x){return x.n>0;}).map(function(x){return {id:x.id,quantity:x.n,properties:props};});
+        if(!items.length) return;
+        addBtn.disabled=true; msg.textContent='Adding to your cart\u2026'; busy=true;
+        fetch(R+'cart.js',{headers:{'Accept':'application/json'}}).then(function(r){return r.json();}).then(function(cart){
+          var has=(cart.items||[]).some(function(i){return i.variant_id===DIGI&&pk(i.properties)===pk(props);});
+          if(!has) items.push({id:DIGI,quantity:1,properties:{'Home Port name':n,'Home Port coordinates':setVal,'Home Port flag':flagEl.value}});
+          return fetch(R+'cart/add.js',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({items:items})});
+        }).then(function(r){ if(!r.ok) throw new Error('add'); window.location.href=R+'cart'; })
+          .catch(function(){ busy=false; addBtn.disabled=false; msg.textContent='Sorry, that didn\u2019t go in. Please try again.'; });
+      });
     })();
   </script>
 {%- endif -%}
