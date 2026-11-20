@@ -410,7 +410,10 @@ def commit_baseline(msg):
     subprocess.run(['git', 'add', BASELINE], check=True)
     if subprocess.run(['git', 'diff', '--cached', '--quiet']).returncode == 0: return
     subprocess.run(['git', 'commit', '-m', msg], check=True)
-    subprocess.run(['git', 'push'], check=True)
+    for k in range(4):                                       # main moves often (other jobs, other sessions): rebase and retry
+        if subprocess.run(['git', 'pull', '--rebase', '--quiet']).returncode == 0 and subprocess.run(['git', 'push']).returncode == 0: return
+        time.sleep(10 * (k + 1))
+    sys.exit('could not push the baseline after 4 tries')
 
 
 def save(b):
