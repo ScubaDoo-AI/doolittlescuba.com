@@ -4,6 +4,9 @@
   (in the Signature Series format), decimal position and flag (dive flag in the US, Alpha flag elsewhere) travel as
   line item properties on the buy-buttons form of the same section, so they show in Shopify admin, the order email
   and the Printful draft. Add to cart is held until a pin is placed.
+  Add to cart also adds the one-time embroidery digitization (DS-DIGI-1, $7) for the port, once per port however many
+  caps (Eric, 20 Nov 2026); the custom-orders job holds an order whose port fee is missing. Buy-it-now buttons are
+  hidden here, since they would skip both.
 {%- endcomment -%}
 {%- liquid
   assign product = closest.product
@@ -44,6 +47,7 @@
       <span class="ds-hp__pv-c" data-hp-pvlon>000°00.000'W</span>
     </div>
     <p class="ds-hp__note">{{ block.settings.note }}</p>
+    <p class="ds-hp__note">Plus a one-time $7 to digitize your port for embroidery, added to the cart with your first cap for that port.</p>
   </div>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
@@ -66,6 +70,7 @@
     .ds-hp__pv-c{font-size:1.05em}
     .ds-hp__flag{display:block;width:54px;height:34px;border:2px solid #fff;margin:2px 0 4px}
     .ds-hp__flag--dive{background:linear-gradient(to top right,#eb1700 calc(50% - 5px),#fff calc(50% - 5px),#fff calc(50% + 5px),#eb1700 calc(50% + 5px))}
+    body:has(.ds-hp) shopify-accelerated-checkout,body:has(.ds-hp) .shopify-payment-button{display:none!important}
     .ds-hp__flag--alpha{background:linear-gradient(90deg,#fff 50%,#0800ff 50%);clip-path:polygon(0 0,100% 0,72% 50%,100% 100%,0 100%)}
   </style>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer></script>
@@ -96,6 +101,22 @@
       coordsEl.addEventListener('input',function(){coordsEl.value=setVal;});
       coordsEl.addEventListener('invalid',function(){coordsEl.setCustomValidity(setVal?'':'Drop a pin on the map to set your Home Port coordinates.');});
       if(form){form.addEventListener('submit',function(e){if(!setVal){e.preventDefault();e.stopImmediatePropagation();coordsEl.setCustomValidity('Drop a pin on the map to set your Home Port coordinates.');coordsEl.reportValidity();}},true);}
+      /* The cap and, once per port, its $7 digitization line go in together (Ajax Cart API), then to the cart. */
+      var DIGI=51027378864314,R=(window.Shopify&&Shopify.routes&&Shopify.routes.root)||'/';
+      if(form){form.addEventListener('submit',function(e){
+        if(!setVal||e.defaultPrevented||form.dataset.hpPlain) return;
+        e.preventDefault();e.stopImmediatePropagation();
+        var fd=new FormData(form),props={},id=+fd.get('id'),qty=Math.max(1,+(fd.get('quantity')||1));
+        fd.forEach(function(v,k){var m=k.match(/^properties\[(.+)\]$/);if(m&&v!=='')props[m[1]]=v;});
+        var n=(props['Home Port name']||'').trim(),c=(props['Home Port coordinates']||'').trim(),f=props['Home Port flag']||'';
+        function plain(){form.dataset.hpPlain='1';if(form.requestSubmit)form.requestSubmit();else form.submit();}
+        fetch(R+'cart.js',{headers:{'Accept':'application/json'}}).then(function(r){return r.json();}).then(function(cart){
+          var has=(cart.items||[]).some(function(i){var p=i.properties||{};return i.variant_id===DIGI&&(p['Home Port name']||'').trim()===n&&(p['Home Port coordinates']||'').trim()===c;});
+          var items=[{id:id,quantity:qty,properties:props}];
+          if(!has)items.push({id:DIGI,quantity:1,properties:{'Home Port name':n,'Home Port coordinates':c,'Home Port flag':f}});
+          return fetch(R+'cart/add.js',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({items:items})});
+        }).then(function(r){if(!r.ok)throw new Error('add');window.location.href=R+'cart';}).catch(plain);
+      },true);}
       function search(){
         var s=qEl.value.trim(); if(!s) return;
         fetch('https://nominatim.openstreetmap.org/search?format=json&limit=5&q='+encodeURIComponent(s),{headers:{'Accept-Language':'en'}})
