@@ -90,6 +90,7 @@ def front(name, coords, flag):
 
 
 def plan(name, coords, flag, size='LXL'):
+    flag = {'dive': 'Dive flag', 'alpha': 'Alpha flag'}.get((flag or '').strip().lower().removesuffix(' flag'), flag)   # the picker stores 'dive' / 'alpha'
     if size not in CAP.SIZES: raise Hold(f'cap size {size!r}')
     im, threads = front(name, coords, flag)
     P = {'embroidery_front': dict(kind='new', image=im, threads=threads, name='home-port-front'),
