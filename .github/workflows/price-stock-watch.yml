@@ -1,0 +1,53 @@
+name: Price & stock watch
+# Every morning (07:41 New York in winter): Shopify prices vs the approved prices (tools/data/price_baseline.json),
+# Printful retail prices and blank costs, sold-out and low stock → two GitHub issues, "Price changes need a look"
+# and "Stock watch" (tools/price_stock_watch.py). Nothing is changed unless you run accept or restore by hand.
+on:
+  schedule:
+    - cron: '41 12 * * *'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'run = daily check · dry = report in the log only · accept = keep today''s price · restore = put the approved price back'
+        type: choice
+        options: [run, dry, accept, restore]
+        default: run
+      skus:
+        description: 'For accept / restore: flagged · new · all · or SKUs / prefixes, comma separated (e.g. DS-MRK-BN)'
+        required: false
+        default: flagged
+      apply:
+        description: 'restore only: actually change the prices (off = show the plan)'
+        type: boolean
+        default: false
+permissions:
+  contents: write
+  issues: write
+concurrency: price-stock-watch
+jobs:
+  watch:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - run: pip install pillow numpy scipy
+      - name: Price & stock watch
+        env:
+          SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
+          SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
+          PRINTFUL_TOKEN: ${{ secrets.PRINTFUL_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          MODE: ${{ inputs.mode || 'run' }}
+          SKUS: ${{ inputs.skus || 'flagged' }}
+          APPLY: ${{ inputs.apply && '--apply' || '' }}
+        run: |
+          set -o pipefail
+          [[ "$SKUS" =~ ^[A-Za-z0-9,_-]+$ ]] || { echo "::error::bad skus input"; exit 1; }
+          case "$MODE" in
+            run)     python tools/price_stock_watch.py ;;
+            dry)     python tools/price_stock_watch.py --dry ;;
+            accept)  python tools/price_stock_watch.py --accept "$SKUS" ;;
+            restore) python tools/price_stock_watch.py --restore "$SKUS" $APPLY ;;
+          esac
