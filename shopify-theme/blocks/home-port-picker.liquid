@@ -100,11 +100,12 @@
       nameEl.addEventListener('input',updName);
       coordsEl.addEventListener('input',function(){coordsEl.value=setVal;});
       coordsEl.addEventListener('invalid',function(){coordsEl.setCustomValidity(setVal?'':'Drop a pin on the map to set your Home Port coordinates.');});
-      if(form){form.addEventListener('submit',function(e){if(!setVal){e.preventDefault();e.stopImmediatePropagation();coordsEl.setCustomValidity('Drop a pin on the map to set your Home Port coordinates.');coordsEl.reportValidity();}},true);}
+      if(form){window.addEventListener('submit',function(e){if(e.target!==form)return;if(!setVal){e.preventDefault();e.stopImmediatePropagation();coordsEl.setCustomValidity('Drop a pin on the map to set your Home Port coordinates.');coordsEl.reportValidity();}},true);}
       /* The cap and, once per port, its $7 digitization line go in together (Ajax Cart API), then to the cart. */
       var DIGI=51027378864314,R=(window.Shopify&&Shopify.routes&&Shopify.routes.root)||'/';
-      if(form){form.addEventListener('submit',function(e){
-        if(!setVal||e.defaultPrevented||form.dataset.hpPlain) return;
+      /* On window, capture phase: the theme handles submit with a capturing listener on document, which runs after this. */
+      if(form){window.addEventListener('submit',function(e){
+        if(e.target!==form||!setVal||e.defaultPrevented||form.dataset.hpPlain) return;
         e.preventDefault();e.stopImmediatePropagation();
         var fd=new FormData(form),props={},id=+fd.get('id'),qty=Math.max(1,+(fd.get('quantity')||1));
         fd.forEach(function(v,k){var m=k.match(/^properties\[(.+)\]$/);if(m&&v!=='')props[m[1]]=v;});
