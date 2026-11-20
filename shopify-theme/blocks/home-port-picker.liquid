@@ -39,7 +39,15 @@
     <input type="hidden" name="properties[_Home Port lat,lon]" form="{{ form_id }}" data-hp-dec>
     <input type="hidden" name="properties[Home Port flag]" form="{{ form_id }}" data-hp-flag>
 
-    <div class="ds-hp__preview" aria-live="polite">
+    <div class="ds-hp__mock">
+      <span class="ds-hpm"><img src="{{ 'hp-cap-blank-front.jpg' | file_url }}" alt="" width="600" height="600"><canvas data-hp-canvas aria-hidden="true"></canvas></span>
+      <span class="ds-hp__flags" role="group" aria-label="Flag on the cap">
+        <button type="button" data-hp-flagbtn="Dive flag" aria-pressed="true"><span class="ds-hp__flag ds-hp__flag--dive ds-hp__flag--sm" aria-hidden="true"></span>Dive flag</button>
+        <button type="button" data-hp-flagbtn="Alpha flag" aria-pressed="false"><span class="ds-hp__flag ds-hp__flag--alpha ds-hp__flag--sm" aria-hidden="true"></span>Alpha flag</button>
+      </span>
+      <span class="ds-hp__mocknote">The pin picks the flag (dive flag in the US, Alpha flag abroad); tap the other one to change it. Preview, not a proof: drawn on Printful's photo of the cap. Your front is stitched in white thread, the flag in its own colours.</span>
+    </div>
+    <div class="ds-hp__preview" aria-live="polite" hidden>
       <span class="ds-hp__pv-label">Home Port:</span>
       <span class="ds-hp__flag ds-hp__flag--dive" data-hp-pvflag aria-hidden="true"></span>
       <span class="ds-hp__pv-name" data-hp-pvname>Your Port</span>
@@ -80,6 +88,15 @@
     .ds-hp__results button{display:block;width:100%;text-align:left;padding:10px 12px;border:0;background:transparent;color:inherit;font:inherit;font-size:.85em;cursor:pointer}
     .ds-hp__results button:hover,.ds-hp__results button:focus{background:rgb(var(--color-foreground-rgb,0 0 0) / .08)}
     .ds-hp__map{height:300px;border-radius:6px;overflow:hidden;z-index:0}
+    .ds-hp__mock{display:flex;flex-direction:column;gap:6px}
+    .ds-hp__mock .ds-hpm{position:relative;display:block;width:100%;aspect-ratio:1/1;background:#000;border-radius:6px;overflow:hidden}
+    .ds-hp__mock .ds-hpm img,.ds-hp__mock .ds-hpm canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .ds-hp__mocknote{font-size:.8em;opacity:.75}
+    .ds-hp__flags{display:flex;gap:8px}
+    .ds-hp__flags button{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;border:1px solid rgb(var(--color-foreground-rgb,0 0 0) / .45);border-radius:4px;background:transparent;color:inherit;font:inherit;cursor:pointer}
+    .ds-hp__flags button[aria-pressed=true]{border-color:currentColor;box-shadow:inset 0 0 0 1px currentColor;font-weight:600}
+    .ds-hp__flag--sm{width:26px;height:16px;border-width:1px;margin:0}
+    .ds-hp__preview[hidden]{display:none}
     .ds-hp__preview{display:flex;flex-direction:column;align-items:center;gap:4px;padding:16px;border-radius:6px;background:#111;color:#fff;font-family:Almendra,Georgia,serif;font-weight:700;text-align:center;line-height:1.1}
     .ds-hp__pv-label{font-size:1em}
     .ds-hp__pv-name{font-size:1.45em}
@@ -117,20 +134,31 @@
         var la=ddm(lat,'N','S',2),lo=ddm(lon,'E','W',3);
         setVal=la+' '+lo; coordsEl.value=setVal; coordsEl.setCustomValidity('');
         decEl.value=lat.toFixed(6)+','+lon.toFixed(6);
-        var flag=inUS(lat,lon)?'Dive flag':'Alpha flag'; flagEl.value=flag;
+        var flag=flagChosen?(flagEl.value||'Dive flag'):(inUS(lat,lon)?'Dive flag':'Alpha flag'); setFlag(flag);
         q('[data-hp-pvlat]').textContent=la; q('[data-hp-pvlon]').textContent=lo;
         var f=q('[data-hp-pvflag]'); f.className='ds-hp__flag '+(flag==='Dive flag'?'ds-hp__flag--dive':'ds-hp__flag--alpha');
         if(label&&!nameEl.value){nameEl.value=label.slice(0,nameEl.maxLength); updName();}
         if(map){ if(!marker){marker=L.marker([lat,lon],{draggable:true}).addTo(map);marker.on('dragend',function(){var p=marker.getLatLng();place(p.lat,p.lng);});} else marker.setLatLng([lat,lon]); }
-        pinLat=lat; pinLon=lon; save();
+        pinLat=lat; pinLon=lon; save(); redraw();
       }
       /* The pin and name are kept in this browser, so more caps (or another size) can be added later without pinning again. */
-      var pinLat=null,pinLon=null,KEY='dsHomePort';
-      function save(){ try{ localStorage.setItem(KEY,JSON.stringify({name:nameEl.value,lat:pinLat,lon:pinLon})); }catch(e){} }
+      var pinLat=null,pinLon=null,KEY='dsHomePort',flagChosen=false;
+      function save(){ try{ localStorage.setItem(KEY,JSON.stringify({name:nameEl.value,lat:pinLat,lon:pinLon,flag:flagChosen?flagEl.value:''})); }catch(e){} }
+      /* Flag: set by the pin (US: dive flag, abroad: Alpha flag) until the buyer taps one (Eric, 20 Nov 2026). */
+      function setFlag(f){ flagEl.value=f;
+        var pv=q('[data-hp-pvflag]'); if(pv) pv.className='ds-hp__flag '+(f==='Dive flag'?'ds-hp__flag--dive':'ds-hp__flag--alpha');
+        [].forEach.call(root.querySelectorAll('[data-hp-flagbtn]'),function(b){ b.setAttribute('aria-pressed',b.dataset.hpFlagbtn===f?'true':'false'); }); }
+      [].forEach.call(root.querySelectorAll('[data-hp-flagbtn]'),function(b){ b.addEventListener('click',function(){ flagChosen=true; setFlag(b.dataset.hpFlagbtn); save(); redraw(); }); });
       function restore(){ try{ var s=JSON.parse(localStorage.getItem(KEY)||'null'); if(!s) return;
         if(s.name&&!nameEl.value){ nameEl.value=s.name; updName(); }
+        if(s.flag){ flagChosen=true; setFlag(s.flag); }
         if(typeof s.lat==='number'&&typeof s.lon==='number'){ place(s.lat,s.lon); if(map) map.setView([s.lat,s.lon],11); } }catch(e){} }
-      function updName(){q('[data-hp-pvname]').textContent=nameEl.value.trim()||'Your Port';}
+      function updName(){q('[data-hp-pvname]').textContent=nameEl.value.trim()||'Your Port'; redraw();}
+      /* The cap preview: Printful's blank cap photo with this front drawn on it (snippets/ds-homeport-cart.liquid draws it). */
+      var rdT=null;
+      function redraw(){ clearTimeout(rdT); rdT=setTimeout(function(){ var cv=q('[data-hp-canvas]');
+        if(cv&&window.dsHomePortMock) window.dsHomePortMock(cv,nameEl.value.trim()||'Your Port',setVal||"00\u00b000.000'N 000\u00b000.000'W",flagEl.value||'Dive flag'); },60); }
+      redraw();
       nameEl.addEventListener('input',function(){updName();save();});
       coordsEl.addEventListener('input',function(){coordsEl.value=setVal;});
       coordsEl.addEventListener('invalid',function(){coordsEl.setCustomValidity(setVal?'':'Drop a pin on the map to set your Home Port coordinates.');});
@@ -141,7 +169,7 @@
          done) and on page load, any Home Port cap in the cart without a fee line for its port gets one, then the
          cart page opens so both lines show. */
       var DIGI=51027378864314,R=(window.Shopify&&Shopify.routes&&Shopify.routes.root)||'/',busy=false;
-      function pk(p){p=p||{};return (p['Home Port name']||'').trim()+'|'+(p['Home Port coordinates']||'').trim();}
+      function pk(p){p=p||{};return (p['Home Port name']||'').trim()+'|'+(p['Home Port coordinates']||'').trim()+'|'+(p['Home Port flag']||'Dive flag');}   /* one stitch file each: name, coordinates and flag */
       function ensureFees(go){
         if(busy) return; busy=true;
         fetch(R+'cart.js',{headers:{'Accept':'application/json'}}).then(function(r){return r.json();}).then(function(cart){
