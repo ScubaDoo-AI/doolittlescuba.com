@@ -9,14 +9,19 @@ Each run:
                                 ("Name on the shirt", "Diver 1"/"Diver 2", "Husband"/"Wife"); rendered by tools/aquatic_print.py
        Make it yours cap        SKU DS-MY[AB]-C-(SM|LXL), _design as above; embroidered (tools/custom_cap.py)
        digitization fee         SKU DS-DIGI-<n>, once per cap design with "Your line" (the page adds it): checked, not sent
+       Home Port cap            SKU DS-HMP-CD-(SM|LXL), the port in the line properties "Home Port name" / "Home Port
+                                coordinates" / "Home Port flag" (the map picker); front drawn by tools/homeport_cap.py
+                                (Eric, 20 Nov 2026: automate). Its Printful sync product is ignored, so only this draft is made.
      (see CUSTOM-ORDERS.md)
   3. Skips any order Printful already has (external_id MY<order number>, or <order number> from a hand run of
      tools/aquatic_order.py), so a run can repeat safely.
   4. Builds the print files with tools/custom_tee.py, uploads them to Shopify Files (Printful takes files by URL),
      and creates a Printful order as a DRAFT: nothing prints and nothing is charged until Eric confirms it
      (Printful dashboard, or the job with "confirm" + the Printful id).
-  5. HOLDS an order instead when a person is needed (a logo, Home Port, a design the page didn't offer, a missing
-     _design, a missing or too-long name): nothing goes to Printful, the reason is reported.
+  5. HOLDS an order instead when a person is needed (a logo, a Home Port name that won't stitch, a design the page didn't
+     offer, a missing _design, a missing or too-long name): nothing goes to Printful, the reason is reported.
+  6. An order Printful refuses (or any other error) is reported as held with reason_kind 'error' and the run goes on
+     to the next order, so one bad order can't hold up the rest (20 Nov 2026).
   One Shopify order = one Printful draft, whatever mix of custom lines it has.
   Writes custom_orders.json (what happened per order) for the workflow to open one GitHub issue per draft or hold.
 
@@ -32,6 +37,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import aquatic_order as AO
 import custom_tee as T
 import custom_cap as CAP
+import homeport_cap as HP
 
 MY_RE = re.compile(r'^DS-MY([AB])-T-(S|M|L|XL|2XL|3XL)$')
 CAP_RE = re.compile(r'^DS-MY([AB])-C-(SM|LXL)$')
@@ -78,6 +84,11 @@ def custom_lines(o):
         if g:
             L.append(dict(kind='fee', n=int(g.group(1)), qty=li['quantity'], design=attrs.get('_design', ''),
                           price=li['originalUnitPriceSet']['shopMoney']['amount'], name=li['name'])); continue
+        h = HP.SKU_RE.match(li['sku'] or '')
+        if h:
+            L.append(dict(kind='hmp', size=h.group(1), qty=li['quantity'], port=attrs.get('Home Port name', ''),
+                          coords=attrs.get('Home Port coordinates', ''), flag=attrs.get('Home Port flag', ''),
+                          price=li['originalUnitPriceSet']['shopMoney']['amount'], line_id=li['id'].rsplit('/', 1)[-1], name=li['name'])); continue
         c = CAP_RE.match(li['sku'] or '')
         if c:
             L.append(dict(kind='cap', tier=c.group(1), size=c.group(2), qty=li['quantity'], design=attrs.get('_design', ''),
@@ -131,6 +142,13 @@ def handle(o, dry):
             if h:
                 holds.append(f'{l["name"]}: {h}'); rep['lines'].append(dict(size=l['size'], qty=l['qty'], hold=str(h)))
             continue
+        if l['kind'] == 'hmp':
+            try:
+                p = HP.plan(l['port'], l['coords'], l['flag'], l['size']); plans.append((l, p))
+                rep['lines'].append(dict(size=l['size'], qty=l['qty'], summary=CAP.summary(p)))
+            except T.Hold as h:
+                holds.append(f'{l["name"]}: {h}'); rep['lines'].append(dict(size=l['size'], qty=l['qty'], hold=str(h)))
+            continue
         if l['kind'] == 'cap':
             if not l['design']: holds.append(f'{l["name"]}: no design on the line (bought without the custom page?)'); continue
             try:
@@ -168,15 +186,15 @@ def handle(o, dry):
         return dict(rep, status='held', reason='; '.join(holds), reason_kind=kind)
     out = os.path.join(tempfile.gettempdir(), 'custom_orders', ext); items = []; cap_urls = {}
     for n, (l, p) in enumerate(plans):
-        if l['kind'] == 'cap':
+        if l['kind'] in ('cap', 'hmp'):
             # one stitch file per design: the S/M and L/XL lines of one design share the same uploaded files,
             # so Printful digitizes (and charges) it once
             dk = (p['fee_key'], p['design']['cs'], p['design']['csp'])
             if dk not in cap_urls:
                 files = CAP.render(p, os.path.join(out, f'line{n + 1}'))
-                cap_urls[dk] = ({k: 'file://' + v for k, v in files.items()} if dry else dict(zip(files, AO.upload(list(files.values()), f'{o["name"]} custom cap {n + 1}')))) if files else {}
+                cap_urls[dk] = ({k: 'file://' + v for k, v in files.items()} if dry else dict(zip(files, AO.upload(list(files.values()), f'{o["name"]} {p.get("label", "custom cap")} {n + 1}')))) if files else {}
             urls = cap_urls[dk]; rep['lines'][n]['files'] = urls
-            items.append(CAP.item(p, urls, l['qty'], l['price'], l['line_id'], f'Make it yours cap · {p["colour"]} · {l["size"]}'))
+            items.append(CAP.item(p, urls, l['qty'], l['price'], l['line_id'], f'{p.get("label", "Make it yours cap")} · {p["colour"]} · {l["size"]}'))
             continue
         if l['kind'] == 'ac':
             _, fp, bp = AO.render(dict(code=l['code'], names=l['names']), os.path.join(out, f'line{n + 1}'))
@@ -216,7 +234,16 @@ def main():
     if opt('--confirm'):
         AO.printful('POST', f'/v2/orders/{opt("--confirm")}/confirmation'); print('confirmed: in production'); return
     dry = '--dry' in a
-    reps = [r for r in (handle(o, dry) for o in orders(int(opt('--days', 3)), opt('--order'))) if r]
+    reps = []
+    for o in orders(int(opt('--days', 3)), opt('--order')):
+        try: r = handle(o, dry)
+        except (Exception, SystemExit) as e:   # Printful refused, a file failed, ...: report it and go on to the next order
+            r = dict(order=o['name'], external_id='MY' + re.sub(r'\D', '', o['name']), lines=[], status='held',
+                     reason=f'error: {e}'[:300], reason_kind='error')
+            msg = str(e)[:160]
+            if re.search(r'recipient|address|email|phone|name', msg, re.I): msg = '(details withheld from the public log: see the run with --order locally)'
+            print(f'{o["name"]:8s} error    {msg}')   # public repo: Printful/Shopify error text only when it carries no buyer data
+        if r: reps.append(r)
     # The repo is public, so job logs are too: print order numbers and statuses only, never names, lines of text or links.
     for r in reps:
         print(f'{r["order"]:8s} {r["status"]:8s} {len(r["lines"])} line(s) {r.get("printful_id") or ""}')
