@@ -12,7 +12,9 @@ Only "Your line" makes a NEW stitch file, so only it carries the digitization fe
 ($6.50 for the first new file, $2.95 for each further one) + $0.50, ONCE per design however many caps — Shopify product
 "Embroidery digitization" DS-DIGI-<n>, n = new placements (front line, back line).
 
-Holds (raise Hold): a logo (wholesale quote by email), Home Port (embroidered to order), a back line too long to stitch
+"Your line" on the front is stitched on Printful's LARGE front (embroidery_front_large, 5.90 x 2.00 in, same price as the standard
+4.00 in front): the line is fitted up to 5.60 in wide, as the page shows it (Eric, 20 Nov 2026).
+Holds (raise Hold): a logo (wholesale quote by email), Home Port (the Home Port cap product is tools/homeport_cap.py), a back line too long to stitch
 at the 0.25 in letter floor, anything the page doesn't offer.
 
   tools/custom_cap.py 'colour=navy&cf=line&text=Fiji 2024&cs=dsmark&csp=left&cb=tagline' /tmp/cap LXL
@@ -28,7 +30,10 @@ Hold = T.Hold
 DPI = T.DPI
 COLOURS = {'navy': 'Dark Navy', 'black': 'Black', 'dark-grey': 'Dark Grey', 'olive': 'Olive', 'royal-blue': 'Royal Blue'}
 SIZES = {'SM': 0, 'LXL': 1}
-AREA = {'embroidery_front': (5.90, 2.00), 'embroidery_left': (2.00, 1.00), 'embroidery_right': (2.00, 1.00), 'embroidery_back': (2.00, 1.00)}
+# Printful order API (v2) areas: the standard front takes 4.00 in wide (it refused a 4.31 in line, 19 Nov 2026 test order 1005);
+# embroidery_front_large is the 5.90 x 2.00 in printfile, same $2.95 placement price (catalog 140, 20 Nov 2026).
+# Catalog fronts go on the standard front (fitted to 4.00 in by position(), as the sync does); "Your line" goes on the large front.
+AREA = {'embroidery_front': (4.00, 2.00), 'embroidery_front_large': (5.90, 2.00), 'embroidery_left': (2.00, 1.00), 'embroidery_right': (2.00, 1.00), 'embroidery_back': (2.00, 1.00)}
 WHITE, RED = PC.WHITE, PC.RED
 FLOOR = 0.25                       # smallest stitched letter (cap height), inches
 KEYS = ['colour', 'cf', 'site', 'cs', 'csp', 'cb', 'text', 'font']
@@ -115,7 +120,7 @@ def plan(q, size='LXL'):
         if not S['text']: raise Hold('front line chosen but no text')
         im = text_fit(S['text'], S['font'], 5.60, 1.90)
         if im is None: raise Hold('front line too long to stitch')
-        P['embroidery_front'] = dict(kind='new', image=im, threads=[WHITE], name='front-line')
+        P['embroidery_front_large'] = dict(kind='new', image=im, threads=[WHITE], name='front-line')   # Eric, 20 Nov: option A, the large front
     elif S['cf'] != 'none': raise Hold(f'front {S["cf"]!r}')
     # side
     side = {'left': 'embroidery_left', 'right': 'embroidery_right'}.get(S['csp']) or (_ for _ in ()).throw(Hold(f'side {S["csp"]!r}'))
@@ -162,7 +167,7 @@ def item(p, urls, qty, retail, external_id, label):
         pls.append({'placement': k, 'technique': 'embroidery',
                     'layers': [{'type': 'file', 'url': url, 'position': position(k, v['image']),
                                 'layer_options': [{'name': 'thread_colors', 'value': v['threads']}]
-                                + ([{'name': '3d_puff', 'value': False}] if k == 'embroidery_front' else [])}]})
+                                + ([{'name': '3d_puff', 'value': False}] if k.startswith('embroidery_front') else [])}]})
     return {'source': 'catalog', 'catalog_variant_id': p['variant_id'], 'quantity': qty, 'external_id': external_id,
             'name': label, 'retail_price': f'{float(retail):.2f}', 'placements': pls}
 
