@@ -1,0 +1,213 @@
+{%- doc -%}
+  Deck of product cards. Signature Series products first, off-topic lines last, organic editions hidden unless the collection is the organic one.
+  Each card's spine (and its tag's top border) is the garment's own colour from the product's colour: tag (Eric, 20 Nov 2026:
+  "These should match for every product"), with dark ink on light colours.
+  @param {product[]} products
+  @param {collection} coll
+  @param {string} label
+  @param {number} limit
+  @param {boolean} hide_organic
+  @param {boolean} see_all
+{%- enddoc -%}
+{%- liquid
+  assign organic_coll = false
+  if coll.handle == 'organic' or coll.handle == 'eco'
+    assign organic_coll = true
+  endif
+  assign shown = 0
+  assign total = 0
+-%}
+<div class="dsd-deck">
+  {%- for pass in (1..3) -%}
+    {%- for p in products -%}
+      {%- liquid
+        assign is_sig = false
+        if p.tags contains 'signature-series' or p.tags contains 'signature-series-dark'
+          assign is_sig = true
+        endif
+        if pass == 1 and is_sig == false
+          continue
+        endif
+        assign off_topic = false
+        if p.tags contains '1n73ll1g3nc3' or p.tags contains 'off-world-hunt-club' or p.tags contains 'off-world-hunt-club-dark'
+          assign off_topic = true
+        endif
+        if pass == 2 and is_sig or pass == 2 and off_topic
+          continue
+        endif
+        if pass == 3 and is_sig or pass == 3 and off_topic == false
+          continue
+        endif
+        if hide_organic and organic_coll == false and p.tags contains 'organic-line'
+          continue
+        endif
+        assign total = total | plus: 1
+        if shown >= limit
+          continue
+        endif
+        assign shown = shown | plus: 1
+        assign parts = p.title | split: '—'
+        assign first_part = parts.first | strip
+        assign last_part = parts.last | strip | remove: ' organic tee' | remove: ' organic cap' | remove: ' organic beanie' | remove: ' Dark tee' | remove: ' tee' | remove: ' Dark cap' | remove: ' cap'
+        assign line_first = false
+        if first_part contains '1N73' or first_part contains 'Certified-ish' or first_part contains 'Off-World' or first_part contains 'Surface Interval'
+          assign line_first = true
+        endif
+        if parts.size > 1 and line_first
+          assign nm = last_part
+          assign ln = first_part
+        elsif parts.size > 1
+          assign nm = first_part
+          assign ln = last_part
+        else
+          assign nm = last_part
+          assign ln = label
+        endif
+        assign colour = ''
+        for t in p.tags
+          if t contains 'colour:'
+            assign colour = t | remove: 'colour:' | replace: '-', ' ' | capitalize
+            break
+          endif
+        endfor
+        assign key = colour | downcase | replace: ' ', '-'
+        assign ink = '#F3F6F9'
+        case key
+          when 'aqua'
+            assign hex = '#7FCFD1'
+            assign ink = '#122A55'
+          when 'berry-pink'
+            assign hex = '#E0527A'
+          when 'black'
+            assign hex = '#212327'
+          when 'blue-spruce'
+            assign hex = '#3A5752'
+          when 'butter'
+            assign hex = '#F5E9A8'
+            assign ink = '#122A55'
+          when 'caribbean-blue'
+            assign hex = '#4FA3D8'
+            assign ink = '#122A55'
+          when 'charcoal'
+            assign hex = '#3E3F42'
+          when 'coral'
+            assign hex = '#E8716C'
+            assign ink = '#122A55'
+          when 'dark-grey'
+            assign hex = '#484A4B'
+          when 'denim'
+            assign hex = '#3F5163'
+          when 'desert-dust'
+            assign hex = '#D6C3A5'
+            assign ink = '#122A55'
+          when 'emerald'
+            assign hex = '#0F6156'
+          when 'espresso'
+            assign hex = '#4B3631'
+          when 'flo-blue'
+            assign hex = '#7888D2'
+          when 'french-navy'
+            assign hex = '#1E2A44'
+          when 'granite'
+            assign hex = '#A6ABAA'
+            assign ink = '#122A55'
+          when 'grape'
+            assign hex = '#332552'
+          when 'graphite'
+            assign hex = '#262C33'
+          when 'heather-grey'
+            assign hex = '#B9BBBD'
+            assign ink = '#122A55'
+          when 'ivory'
+            assign hex = '#F2EBD9'
+            assign ink = '#122A55'
+          when 'jungle'
+            assign hex = '#2F4A3A'
+          when 'khaki'
+            assign hex = '#B5A584'
+            assign ink = '#122A55'
+          when 'lagoon-blue'
+            assign hex = '#86C9C6'
+            assign ink = '#122A55'
+          when 'lavender'
+            assign hex = '#D5C2E0'
+            assign ink = '#122A55'
+          when 'light-blue'
+            assign hex = '#C9DCEC'
+            assign ink = '#122A55'
+          when 'midnight'
+            assign hex = '#22365A'
+          when 'mint'
+            assign hex = '#9FDCC8'
+            assign ink = '#122A55'
+          when 'moss'
+            assign hex = '#27392E'
+          when 'mustard'
+            assign hex = '#E5B33A'
+            assign ink = '#122A55'
+          when 'navy'
+            assign hex = '#1F2A43'
+          when 'olive'
+            assign hex = '#4A4C33'
+          when 'oxford-navy'
+            assign hex = '#1E2533'
+          when 'pacific'
+            assign hex = '#6C9FB5'
+            assign ink = '#122A55'
+          when 'pepper'
+            assign hex = '#464340'
+          when 'pink'
+            assign hex = '#F1C8D6'
+            assign ink = '#122A55'
+          when 'royal-blue'
+            assign hex = '#1E4597'
+          when 'sage'
+            assign hex = '#B8BFB0'
+            assign ink = '#122A55'
+          when 'stargazer'
+            assign hex = '#2C6B7D'
+          when 'teal'
+            assign hex = '#4F8F8C'
+          when 'terracotta'
+            assign hex = '#D8865B'
+            assign ink = '#122A55'
+          when 'true-navy'
+            assign hex = '#15284A'
+          when 'violet'
+            assign hex = '#7474C1'
+          when 'white'
+            assign hex = '#F4F4F2'
+            assign ink = '#122A55'
+          when 'wine'
+            assign hex = '#4D2A48'
+          when 'yam'
+            assign hex = '#BE531C'
+          else
+            assign hex = '#2a3a5c'
+        endcase
+        assign img2 = p.images[1]
+      -%}
+      <article class="dk" style="--hex: {{ hex }}; --ink: {{ ink }};">
+        <div class="dk-tag">
+          <div class="ln">{{ ln | escape }}</div>
+          <p class="t">{{ nm | escape }}</p>
+          {%- if colour != blank -%}<p class="s">{{ colour | escape }}</p>{%- endif -%}
+          <div class="r"><span class="p">{{ p.price_min | money }}{% if p.price_varies %}+{% endif %}</span><a href="{{ p.url }}">View &rarr;</a></div>
+        </div>
+        <a class="dk-face" href="{{ p.url }}" aria-label="{{ p.title | escape }}, {{ p.price_min | money }}">
+          <span class="dk-spine"><span>{{ nm | escape }}</span></span>
+          <span class="dk-pic{% if img2 %} n2{% else %} n1{% endif %}">
+            {%- if p.featured_image -%}
+              <img {% if shown <= 2 %}src{% else %}data-src{% endif %}="{{ p.featured_image | image_url: width: 700 }}" alt="" width="700" height="700" loading="lazy">
+            {%- endif -%}
+            {%- if img2 -%}<img data-src="{{ img2 | image_url: width: 700 }}" alt="" width="700" height="700" loading="lazy">{%- endif -%}
+          </span>
+        </a>
+      </article>
+    {%- endfor -%}
+  {%- endfor -%}
+  {%- if see_all and total > shown -%}
+    <a class="dk-more" href="{{ coll.url }}">All {{ total }} &rarr;</a>
+  {%- endif -%}
+</div>
+<p class="dsd-hint">{{ total }} {% if total == 1 %}design{% else %}designs{% endif %} · hover or tap a card · scroll for more</p>
