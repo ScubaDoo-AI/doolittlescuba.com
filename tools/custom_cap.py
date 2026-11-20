@@ -33,7 +33,7 @@ SIZES = {'SM': 0, 'LXL': 1}
 # Printful order API (v2) areas: the standard front takes 4.00 in wide (it refused a 4.31 in line, 19 Nov 2026 test order 1005);
 # embroidery_front_large is the 5.90 x 2.00 in printfile, same $2.95 placement price (catalog 140, 20 Nov 2026).
 # Catalog fronts go on the standard front (fitted to 4.00 in by position(), as the sync does); "Your line" goes on the large front.
-AREA = {'embroidery_front': (4.00, 2.00), 'embroidery_front_large': (5.90, 2.00), 'embroidery_left': (2.00, 1.00), 'embroidery_right': (2.00, 1.00), 'embroidery_back': (2.00, 1.00)}
+AREA = {'embroidery_front': (4.00, 1.75), 'embroidery_front_large': (5.90, 2.00), 'embroidery_left': (2.00, 1.00), 'embroidery_right': (2.00, 1.00), 'embroidery_back': (2.00, 1.00)}
 WHITE, RED = PC.WHITE, PC.RED
 FLOOR = 0.25                       # smallest stitched letter (cap height), inches
 KEYS = ['colour', 'cf', 'site', 'cs', 'csp', 'cb', 'text', 'font']
