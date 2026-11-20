@@ -20,7 +20,8 @@ for r in todo:
                  f'Check the mockup and files: {r["dashboard"]}',
                  f'Then confirm in Printful, or Actions → Custom orders → mode **confirm**, printful_id **{r["printful_id"]}**.']
     else:
-        why = {'logo': 'wholesale / dive shop logo order: quote by quantity (DS mark on the sleeve, no shark signature)', 'home-port': 'Home Port chest block (made by hand)',
+        why = {'logo': 'wholesale / dive shop logo order: quote by quantity (DS mark on the sleeve, no shark signature)', 'home-port': 'a Home Port cap whose port name or coordinates could not be stitched as given (fix the line, then run Custom orders for this order)',
+               'error': 'Printful refused the draft or a file failed (the error is in the Custom orders run log); the next run tries again',
                'no-address': 'no shipping address visible to the app', 'no-design': 'a Make it yours line without a design',
                'name': 'a personalized Aquatic tee whose name is missing, too long, or breaks the name rules (format or language)',
                'fee': 'a cap design with a new line of text but no embroidery digitization fee in the order',
