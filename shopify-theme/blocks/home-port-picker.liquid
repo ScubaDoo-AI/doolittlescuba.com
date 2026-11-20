@@ -100,12 +100,14 @@
       nameEl.addEventListener('input',updName);
       coordsEl.addEventListener('input',function(){coordsEl.value=setVal;});
       coordsEl.addEventListener('invalid',function(){coordsEl.setCustomValidity(setVal?'':'Drop a pin on the map to set your Home Port coordinates.');});
-      if(form){window.addEventListener('submit',function(e){if(e.target!==form)return;if(!setVal){e.preventDefault();e.stopImmediatePropagation();coordsEl.setCustomValidity('Drop a pin on the map to set your Home Port coordinates.');coordsEl.reportValidity();}},true);}
+      /* The buy-buttons form comes after this block in the page, so it is looked up when it is submitted. */
+      window.addEventListener('submit',function(e){if(!e.target||e.target.id!==root.dataset.form)return;form=e.target;if(!setVal){e.preventDefault();e.stopImmediatePropagation();coordsEl.setCustomValidity('Drop a pin on the map to set your Home Port coordinates.');coordsEl.reportValidity();}},true);
       /* The cap and, once per port, its $7 digitization line go in together (Ajax Cart API), then to the cart. */
       var DIGI=51027378864314,R=(window.Shopify&&Shopify.routes&&Shopify.routes.root)||'/';
       /* On window, capture phase: the theme handles submit with a capturing listener on document, which runs after this. */
-      if(form){window.addEventListener('submit',function(e){
-        if(e.target!==form||!setVal||e.defaultPrevented||form.dataset.hpPlain) return;
+      window.addEventListener('submit',function(e){
+        if(!e.target||e.target.id!==root.dataset.form)return;form=e.target;
+        if(!setVal||e.defaultPrevented||form.dataset.hpPlain) return;
         e.preventDefault();e.stopImmediatePropagation();
         var fd=new FormData(form),props={},id=+fd.get('id'),qty=Math.max(1,+(fd.get('quantity')||1));
         fd.forEach(function(v,k){var m=k.match(/^properties\[(.+)\]$/);if(m&&v!=='')props[m[1]]=v;});
@@ -117,7 +119,7 @@
           if(!has)items.push({id:DIGI,quantity:1,properties:{'Home Port name':n,'Home Port coordinates':c,'Home Port flag':f}});
           return fetch(R+'cart/add.js',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({items:items})});
         }).then(function(r){if(!r.ok)throw new Error('add');window.location.href=R+'cart';}).catch(plain);
-      },true);}
+      },true);
       function search(){
         var s=qEl.value.trim(); if(!s) return;
         fetch('https://nominatim.openstreetmap.org/search?format=json&limit=5&q='+encodeURIComponent(s),{headers:{'Accept-Language':'en'}})
