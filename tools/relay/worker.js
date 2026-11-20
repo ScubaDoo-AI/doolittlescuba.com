@@ -43,12 +43,14 @@ export default {
     if (!env.SHOPIFY_WEBHOOK_SECRET || !env.GITHUB_TOKEN) return new Response('relay not configured', { status: 503 });
     const body = await request.text();
     if (!(await hmacOk(env.SHOPIFY_WEBHOOK_SECRET, body, request.headers.get('X-Shopify-Hmac-Sha256')))) {
+      console.log('bad signature', shop, topic);
       return new Response('bad signature', { status: 401 });
     }
     if (!topic.startsWith('orders/')) return new Response('ignored', { status: 200 });
     let order;
     try { order = JSON.parse(body); } catch { return new Response('bad json', { status: 400 }); }
-    if (!isCustom(order)) return new Response('no custom lines', { status: 200 });
+    const num = String(order.order_number || order.name || '').replace('#', '');
+    if (!isCustom(order)) { console.log('no custom lines', num); return new Response('no custom lines', { status: 200 }); }
 
     const gh = await fetch(`https://api.github.com/repos/${env.GITHUB_REPO}/actions/workflows/${env.WORKFLOW}/dispatches`, {
       method: 'POST',
@@ -59,13 +61,14 @@ export default {
         'User-Agent': 'doolittlescuba-relay',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ ref: env.REF || 'main', inputs: { mode: 'run', order: String(order.order_number || order.name || '').replace('#', '') } }),
+      body: JSON.stringify({ ref: env.REF || 'main', inputs: { mode: 'run', order: num } }),
     });
     // 204 = dispatched. Anything else is logged (no order data) and reported as 502 so Shopify retries later.
     if (gh.status !== 204) {
-      console.log('dispatch failed', gh.status, shop, topic);
+      console.log('dispatch failed', gh.status, num, (await gh.text()).slice(0, 300));
       return new Response('dispatch failed', { status: 502 });
     }
+    console.log('dispatched', num);
     return new Response('dispatched', { status: 200 });
   },
 };

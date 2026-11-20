@@ -23,7 +23,7 @@ jobs:
     timeout-minutes: 10
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      CLOUDFLARE_ACCOUNT_ID: 4ec8cddacee1f276a838fddcd3350bff
+      CLOUDFLARE_ACCOUNT_ID: f359d565dac2e41c62bab3c2d5739430
       RELAY_GITHUB_TOKEN: ${{ secrets.RELAY_GITHUB_TOKEN }}
       SHOPIFY_WEBHOOK_SECRET: ${{ secrets.SHOPIFY_WEBHOOK_SECRET }}
     defaults:
@@ -44,6 +44,6 @@ jobs:
         run: printf '%s' "$SHOPIFY_WEBHOOK_SECRET" | npx --yes wrangler@4 secret put SHOPIFY_WEBHOOK_SECRET
       - name: Smoke test
         run: |
-          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' -d '{}' https://doolittle-relay.jdoolittle212.workers.dev/shopify)
+          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' -d '{}' https://doolittle-relay.doolittlescuba.workers.dev/shopify)
           echo "POST /shopify without a signature -> $code (expect 401, or 503 until both secrets are set)"
           test "$code" = "401" -o "$code" = "503"

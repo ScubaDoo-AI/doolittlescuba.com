@@ -5,7 +5,7 @@ name = "doolittle-relay"
 main = "worker.js"
 compatibility_date = "2026-11-01"
 workers_dev = true
-account_id = "4ec8cddacee1f276a838fddcd3350bff"
+account_id = "f359d565dac2e41c62bab3c2d5739430"
 
 [vars]
 GITHUB_REPO = "ScubaDoo-AI/doolittlescuba.com"
