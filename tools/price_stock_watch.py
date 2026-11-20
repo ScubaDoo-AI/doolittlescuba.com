@@ -43,6 +43,7 @@ ORGANIC_MAP = os.path.join(HERE, '..', 'shopify-theme', 'assets', 'ds-organic-ma
 POD_PLACEHOLDER = 9000           # Printful shows 9,999 on stocked variants; anything below is real counted stock
 LOW_STOCK = 10
 BULK_TAGS = ('print:sticker-mule', 'print:ninja-transfers')
+US_TWIN = {456: 818}            # Stanley/Stella STTU169 is Europe/UK only at Printful; SATU001 is the same Creator 2.0 tee made in the US
 PRICE_TITLE = 'Price changes need a look'
 STOCK_TITLE = 'Stock watch'
 SIZES = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL']
@@ -212,7 +213,7 @@ def analyse(variants, sync, catalog, base, omap):
             if sold:
                 c = catalog.get(s['variant_id']) if s else None
                 cause = ('bulk' if bulk else 'unlinked' if (not s or s['ignored'] or not s['synced'] or not s['variant_id'])
-                         else 'blank' if c and not in_stock(c['us']) else 'other')
+                         else 'no_us' if c and c['us'] is None else 'blank' if c and not in_stock(c['us']) else 'other')
                 R['soldout'].append(dict(v=v, s=s, cause=cause))
             elif v['tracked'] and v['qty'] is not None and 0 < v['qty'] <= LOW_STOCK and v['qty'] < POD_PLACEHOLDER:
                 R['low'].append(v)
@@ -251,6 +252,7 @@ def soldout_line(catalog, omap):
         v, s = rs[0]['v'], rs[0]['s']
         line = f'- **{v["ptitle"]}**, {sizes_of(rs)}'
         tips = []
+        if rs[0]['cause'] == 'no_us': return line
         if rs[0]['cause'] == 'blank' and s and s['variant_id'] in catalog:
             c = catalog[s['variant_id']]
             near = nearest_colours(s['variant_id'], catalog)
@@ -263,6 +265,33 @@ def soldout_line(catalog, omap):
         if any(t.startswith('pair') or t == 'bundle' for t in v['tags']): tips.append('a pair: swap the sold-out part or hide the pair')
         return line + (' → ' + ' · '.join(tips) if tips else '')
     return f
+
+
+def us_twin_note(rows, catalog):
+    """For blanks with no US stock: the US twin's colours and cost per size, side by side."""
+    out, seen = [], set()
+    for r in rows:
+        c = catalog.get(r['s']['variant_id']); twin = US_TWIN.get(c['product_id']) if c else None
+        if not twin or c['product_id'] in seen: continue
+        seen.add(c['product_id'])
+        used = {(catalog[x['s']['variant_id']]['color'], catalog[x['s']['variant_id']]['size']) for x in rows
+                if catalog.get(x['s']['variant_id'], {}).get('product_id') == c['product_id']}
+        tw = {(t['color'], t['size']): t for t in catalog.values() if t['product_id'] == twin}
+        ok = [k for k in used if k in tw and in_stock(tw[k]['us'])]
+        missing = sorted(f'{k[0]} {k[1]}' for k in used if k not in tw or not in_stock(tw[k]['us']))
+        costs = {}
+        for (col, size) in used:
+            if (col, size) in tw:
+                a = next((v['cost'] for v in catalog.values() if v['product_id'] == c['product_id'] and v['color'] == col and v['size'] == size), None)
+                costs[size] = (a, tw[(col, size)]['cost'])
+        name = next(t['product'] for t in tw.values()) if tw else str(twin)
+        out.append(f'**Fix:** relink them to **{name}** (Printful {twin}), the same tee made in the US: '
+                   f'{len(ok)} of {len(used)} colour/size combinations in stock there'
+                   + (f'; not made there: {", ".join(missing[:12])}' + (' …' if len(missing) > 12 else '') if missing else '') + '.')
+        if costs:
+            out.append('Cost per blank, now → US twin: ' + ' · '.join(
+                f'{sz} {fm(a)} → {fm(b)}' for sz, (a, b) in sorted(costs.items(), key=lambda x: SIZES.index(x[0]) if x[0] in SIZES else 99)))
+    return out
 
 
 def report(R, sync, catalog, omap, base):
@@ -307,15 +336,16 @@ def report(R, sync, catalog, omap, base):
 
     if R['soldout']:
         S.append(f'### Sold out on the store ({len(R["soldout"])} variants)')
-        CAUSE = {'blank': 'Printful\'s blank is out of stock', 'bulk': 'Bulk stock ran out: reorder',
+        CAUSE = {'no_us': 'Linked to a blank Printful doesn\'t make in the US, so Printful keeps them at 0', 'blank': 'Printful\'s blank is out of stock', 'bulk': 'Bulk stock ran out: reorder',
                  'unlinked': 'Printful never stocked these: the variant isn\'t linked (or is ignored) at Printful, so buyers can\'t add it',
                  'other': 'At 0, cause unclear (check the variant\'s locations in Shopify)'}
-        for cause in ('blank', 'bulk', 'unlinked', 'other'):
+        for cause in ('no_us', 'blank', 'bulk', 'unlinked', 'other'):
             rows = [r for r in R['soldout'] if r['cause'] == cause]
             if not rows: continue
             S.append(f'**{CAUSE[cause]}** ({len(rows)})')
             lines = group_rows(rows, lambda r: r['v']['handle'], soldout_line(catalog, omap))
             S += lines[:25] + ([f'- … and {len(lines) - 25} more products'] if len(lines) > 25 else [])
+            if cause == 'no_us': S += us_twin_note(rows, catalog)
             if cause == 'unlinked': S.append('Fix: link them (Actions → Printful link, the matching line), or set them to Draft until they are.')
             S.append('')
     if R['blank_out']:
@@ -468,7 +498,8 @@ def main():
     variants = shopify_variants(); print(f'  {len(variants)} variants', flush=True)
     print('Printful: reading sync products…', flush=True)
     sync = printful_sync(); print(f'  {len(sync)} sync variants', flush=True)
-    catalog = printful_catalog({s['product_id'] for s in sync.values()}); print(f'  {len(catalog)} catalog variants', flush=True)
+    used = {s['product_id'] for s in sync.values()}
+    catalog = printful_catalog(used | {US_TWIN[p] for p in used if p in US_TWIN}); print(f'  {len(catalog)} catalog variants', flush=True)
     base = load_baseline()
 
     if base is None:
