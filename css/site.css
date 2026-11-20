@@ -504,5 +504,5 @@ section{padding-block:clamp(40px,7vw,72px);border-top:1px solid var(--rule)}
 /* the organic line link, first in the collections switcher (organic_site.py) */
 .coll a.org{color:#3E6B3A}.coll a.org::before{content:"\2618\FE0E\00a0"}
 
-/* Printful mockups from the Shopify CDN: square shots with the whole shirt in frame, so no zoom-and-crop (19 Nov 2026) */
-.dk .dk-pic img[src*="cdn.shopify.com"]{object-fit:contain;transform:scale(1.25);transform-origin:50% 50%}
+/* Printful mockups (Shopify CDN, and the organic line in img/organic since 19 Nov): square shots with the whole shirt in frame, so no zoom-and-crop (19-20 Nov 2026) */
+.dk .dk-pic img[src*="cdn.shopify.com"],.dk .dk-pic img[src*="/img/organic/"]{object-fit:contain;transform:scale(1.25);transform-origin:50% 50%}
