@@ -75,3 +75,9 @@ Unchanged: Blue Water Park (Black), Navy LLCAT (Navy), Dive Land Park (Dark grey
 - **Shop theme (live, Doolittle Scuba — Deck):** `ds-deck-cards.liquid` spine colours for Mystic Blue and Hemp; `ds-organic-map.json` (cart converter) shows the new regular colours.
 - **Site:** `certified-ish/` dark cards (colour, swatch, captions, Shopify image versions, sleeves), organic notes ("Mystic Blue → Khaki" …), Make it yours gains Mystic blue and Hemp (`custom/`, `custom_tee.py`), `certdark.py` data so a rebuild keeps them. Safeguard recaptured.
 - Price & stock watch afterwards: no change for Certified-ish; open items are the Side Mark cap prices (another session) and the sticker packs' stock tracking.
+
+## Shop: pairs off the cap lineup, on their own tab
+Eric: *"Remove bundles from the cap lineup and place under its own tab."*
+
+- **Hats collection:** its rule (tagged `cap`) now also excludes anything tagged `pair`. It went from 86 products to 58, all caps. The 28 cap-and-tee pairs stay in the **Pairs** collection.
+- **Deck theme ("Doolittle Scuba — Deck", live):** a new **Cap & tee pairs** tab right after Caps & beanies, on the home page and on collection pages (and in the section's default tab list). The change is saved to the theme and goes in front of visitors when the theme is published.
