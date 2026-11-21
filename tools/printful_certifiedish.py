@@ -6,7 +6,8 @@
   back   the 23 Oct married back (drawing + Facts / Side Effects / Fine Print), 3600 x 4800 = the full area, stroke p5 0.020 in.
          Built 3 Nov from Eric's 1-bit seps: CI-<code>_back_12x16in_{BLACK,WHITE}.png.
 Garments follow the Shopify colour: tags (light: light-blue = Chambray, pink = Blossom, coral = Watermelon, lagoon-blue,
-butter; dark: emerald, yam, espresso, violet, moss, grape). Every one is $15.60 at Printful as of Nov 2026.
+butter; dark: emerald, violet, moss, grape, and since 21 Nov mystic blue, true navy, blue spruce, midnight, black,
+graphite, denim, hemp in place of yam and espresso). Every one is $15.60 at Printful as of Nov 2026.
   sleeve_right  the DS mark (navy + red on light, white + red on dark), 1.00 in wide at the bottom of the area. Brand rule (Eric, 3 Nov): a shirt with
          no DS mark or shark signature carries the DS mark on the right sleeve.
 Cost: garment + back $5.95 + sleeve $2.49 (the front rides in the base price) = $24.04 S-XL · $26.04 2XL · $28.04 3XL, against $42 / $45.
@@ -30,19 +31,24 @@ SLEEVE_POS = {'area_width': 600, 'area_height': 525, 'width': 165, 'height': 179
 SLEEVE_FILE = 'DS_mark_PF-sleeve-right_1.00in_{ink}.png'   # NAVYRED on light shirts, WHITERED on dark
 DESIGNS = [  # code, name, light garment, dark garment (Printful names, from the Shopify colour: tags)
     ('OWD', 'Open Water Diver', 'Blossom', 'Moss'), ('AOW', 'Advanced Open Water Diver', 'Watermelon', 'Emerald'),
-    ('ALT', 'Altitude Diver', 'Chambray', 'Yam'), ('BOA', 'Boat Diver', 'Chambray', 'Yam'), ('BUO', 'Buoyancy', 'Chambray', 'Yam'),
-    ('CAV', 'Cave Diver', 'Lagoon Blue', 'Espresso'), ('DEE', 'Deep Diver', 'Lagoon Blue', 'Espresso'), ('DPV', 'DPV Diver', 'Butter', 'Violet'),
-    ('DRI', 'Drift Diver', 'Chambray', 'Yam'), ('FSH', 'Fish ID', 'Chambray', 'Yam'), ('ICE', 'Ice Diver', 'Lagoon Blue', 'Espresso'),
-    ('NGT', 'Night Diver', 'Lagoon Blue', 'Espresso'), ('NTX', 'Nitrox', 'Butter', 'Violet'), ('REB', 'Rebreather Diver', 'Butter', 'Grape'),
-    ('SAR', 'Search and Recovery', 'Lagoon Blue', 'Espresso'), ('SRD', 'Self-Reliant Diver', 'Butter', 'Grape'),
+    ('ALT', 'Altitude Diver', 'Chambray', 'Mystic Blue'), ('BOA', 'Boat Diver', 'Chambray', 'True Navy'), ('BUO', 'Buoyancy', 'Chambray', 'Blue Spruce'),
+    ('CAV', 'Cave Diver', 'Lagoon Blue', 'Graphite'), ('DEE', 'Deep Diver', 'Lagoon Blue', 'True Navy'), ('DPV', 'DPV Diver', 'Butter', 'Violet'),
+    ('DRI', 'Drift Diver', 'Chambray', 'Midnight'), ('FSH', 'Fish ID', 'Chambray', 'Emerald'), ('ICE', 'Ice Diver', 'Lagoon Blue', 'Denim'),
+    ('NGT', 'Night Diver', 'Lagoon Blue', 'Black'), ('NTX', 'Nitrox', 'Butter', 'Violet'), ('REB', 'Rebreather Diver', 'Butter', 'Grape'),
+    ('SAR', 'Search and Recovery', 'Lagoon Blue', 'Hemp'), ('SRD', 'Self-Reliant Diver', 'Butter', 'Grape'),
     ('SID', 'Sidemount Diver', 'Butter', 'Grape'), ('SMB', 'Surface Marker Buoy', 'Butter', 'Violet'), ('TEC', 'Tech Diver', 'Butter', 'Grape'),
-    ('UWP', 'Underwater Photographer', 'Chambray', 'Yam')]
+    ('UWP', 'Underwater Photographer', 'Chambray', 'Black')]
 PF = {'Blossom': [16541, 16542, 16543, 16544, 16545, 16546], 'Watermelon': [15191, 15192, 15193, 15194, 15195, 16334],
       'Chambray': [17648, 17649, 17650, 17651, 17652, 17653], 'Lagoon Blue': [17679, 17681, 17680, 17682, 17683, 17684],
       'Butter': [15166, 15167, 15168, 15169, 15170, 16328], 'Moss': [17700, 17701, 17703, 17702, 17704, 17705],
       'Emerald': [52258, 52261, 52264, 52267, 52270, 52273], 'Yam': [21271, 21272, 21273, 21274, 21275, 21276],
       'Espresso': [21243, 21244, 21245, 21246, 21247, 21248], 'Violet': [15186, 15187, 15188, 15189, 15190, 16333],
-      'Grape': [22096, 22097, 22098, 22099, 22100, 22101]}
+      'Grape': [22096, 22097, 22098, 22099, 22100, 22101],
+      # 21 Nov 2026: the Yam / Espresso dark tees recoloured (Eric: "not a fan of the orange and brown"), all US in stock
+      'Mystic Blue': [22076, 22078, 22080, 22082, 22084, 22086], 'True Navy': [15181, 15182, 15183, 15184, 15185, 16332],
+      'Blue Spruce': [17686, 17687, 17688, 17689, 17690, 17691], 'Midnight': [21541, 21542, 21543, 21544, 21545, 21546],
+      'Black': [15114, 15115, 15116, 15117, 15118, 16326], 'Graphite': [21264, 21265, 21266, 21267, 21268, 21269],
+      'Denim': [21520, 21521, 21522, 21523, 21524, 21525], 'Hemp': [22103, 22104, 22105, 22106, 22107, 22108]}
 
 
 def plan(route='dtg'):

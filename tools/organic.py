@@ -52,6 +52,9 @@ MAP = {
              'Grape': 'French Navy', 'Graphite': 'Black', 'Midnight': 'French Navy', 'Moss': 'Khaki', 'Navy': 'French Navy',
              'Pepper': 'Khaki', 'Sage': 'Khaki', 'True Navy': 'French Navy', 'Violet': 'Stargazer', 'Wine': 'Khaki', 'Yam': 'Khaki'},
 }
+# Organic tees pinned to the colour they had when their regular tee was recoloured (21 Nov 2026: the 11 Certified-ish dark
+# tees left Yam / Espresso; their organic editions stay Khaki, the organic palette is its own).
+PIN = {f'DS-{c}-TDO': 'Khaki' for c in ('ALT', 'BOA', 'BUO', 'DRI', 'FSH', 'UWP', 'CAV', 'DEE', 'ICE', 'NGT', 'SAR')}
 CAP = {'Black': ('Black', 12689), 'Pacific': ('Pacific', 12693), 'Charcoal': ('Charcoal', 12690), 'Jungle': ('Jungle', 12691)}
 # The organic caps keep their own colours: pinned 21 Nov 2026, when the regular 6277 caps were recoloured (Khaki, Red, White, Grey
 # have no EC7000 twin). Each is the colour it had before, stitched in the standard white thread.
@@ -87,8 +90,8 @@ def tee_plans():
         for p in load(mod).plan('dtg', **kw):
             v0 = p['variants'][0]; colour = CC[v0['variant_id']][0]
             group = 'light' if colour in MAP['light'] else 'dark'
-            oc = MAP[group][colour]; ids = dict(zip(SIZES, TEE[oc][0]))
             key = okey(v0['sku'])[0]
+            oc = PIN.get(key) or MAP[group][colour]; ids = dict(zip(SIZES, TEE[oc][0]))
             extra = round(v0['cost'] - CC_COST['S'], 2) if 'cost' in v0 else None   # placements beyond the garment
             variants = []
             for v in p['variants']:
