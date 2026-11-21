@@ -19,6 +19,8 @@ import os, sys, json
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 D = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'aquatic_designs.json'), encoding='utf-8'))
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+import back_place as BP   # back prints: ink top 2 in (Eric, 21 Nov 2026)
 CDN = 'https://cdn.shopify.com/s/files/1/0787/3350/8794/files/'
 SIZES = ['S', 'M', 'L', 'XL', '2XL', '3XL']
 PF = {'true-navy': dict(zip(SIZES, [15181, 15182, 15183, 15184, 15185, 16332])),
@@ -40,7 +42,7 @@ def plan(route='dtg', all_designs=False):
         stock = d['names'] == 0
         if not stock and not all_designs: continue
         files = [{'type': 'front', 'url': f'{CDN}AC-{d["code"]}_front.png', 'position': AREA},
-                 {'type': 'back', 'url': f'{CDN}AC-{d["code"]}_back.png', 'position': AREA}] if stock else []
+                 {'type': 'back', 'url': BP.url(f'{CDN}AC-{d["code"]}_back.png'), 'position': AREA}] if stock else []
         variants = [dict(sku=f'DS-AC{d["code"]}-TD-{z}', size=z, variant_id=PF[d['colour']][z],
                          cost=round(GARMENT[z] + BACK_FEE, 2), price=price(d, z),
                          margin=round(price(d, z) - GARMENT[z] - BACK_FEE, 2)) for z in SIZES]

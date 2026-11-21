@@ -26,6 +26,8 @@ import os, sys, json, time, urllib.request, urllib.error
 
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 D = json.load(open(f'{SITE}/tools/offworld_designs.json'))
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+import back_place as BP   # back prints: ink top 2 in (Eric, 21 Nov 2026)
 CDN = 'https://cdn.shopify.com/s/files/1/0787/3350/8794/files/'
 SIZES = ['S', 'M', 'L', 'XL', '2XL', '3XL']
 BASE = {'S': 15.60, 'M': 15.60, 'L': 15.60, 'XL': 15.60, '2XL': 17.60, '3XL': 19.60}
@@ -88,7 +90,7 @@ BY_SLUG = {d['slug']: d for d in D['designs']}
 def files(code, line, route):
     n = code[2:]; tag = 'light' if line == 'light' else 'dark'
     area = {'area_width': 1800, 'area_height': 2400}
-    return [{'type': 'back' if route == 'dtg' else 'back_dtf', 'url': f'{CDN}OW-{n}_back_{tag}.png',
+    return [{'type': 'back' if route == 'dtg' else 'back_dtf', 'url': BP.url(f'{CDN}OW-{n}_back_{tag}.png'),
              'position': dict(area, width=1800, height=2400, top=0, left=0)},
             # front: the chest mark already placed on a full 12 x 16 in master (tools/offworld_chest_fullarea.py, left 8 in /
             # top 2 in = wearer's left chest). Printful's v1 sync variants dropped the old 525 x 600 @ (1200, 300) offset and

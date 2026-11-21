@@ -1,5 +1,6 @@
 name: Off-World chest masters
 # Also runs tools/chest_lower.py (what = chest-lower): Signature + Certified-ish left-chest fronts moved to top 2 in.
+# And tools/back_lower.py (what = back-lower): every catalog back (Certified-ish, Signature, Off-World, Boat Banter) to ink top 2 in.
 # Puts each Off-World chest mark on a full 12 x 16 in front master at the wearer's left chest (left 8 in, top 2 in)
 # and uploads the 60 files to Shopify Files (tools/offworld_chest_fullarea.py). Leave "upload" off first: the run
 # only renders and checks the geometry, and keeps the PNGs as an artifact to look at.
@@ -9,14 +10,14 @@ on:
       what:
         description: 'Which masters'
         type: choice
-        options: [offworld, chest-lower]
+        options: [offworld, chest-lower, back-lower]
         default: offworld
       upload:
         description: 'Upload to Shopify Files. Off = render + check only'
         type: boolean
         default: false
       only:
-        description: 'offworld: designs like OW03 · chest-lower: signature or certifiedish. Blank = all'
+        description: 'offworld: designs like OW03 · chest-lower: signature or certifiedish · back-lower: certifiedish,signature,offworld,aquatic. Blank = all'
         type: string
         default: ''
 permissions:
@@ -43,7 +44,7 @@ jobs:
           if [ "$UPLOAD" = "true" ]; then FLAG=--upload; fi
           if [ -n "$ONLY" ]; then [[ "$ONLY" =~ ^[A-Za-z0-9,]+$ ]] || { echo "::error::only: codes like OW03 or lines like signature"; exit 1; }; FLAG="$FLAG --only $ONLY"; fi
           echo "mode: what=$WHAT upload=$UPLOAD only=$ONLY" | tee run.log
-          if [ "$WHAT" = "chest-lower" ]; then SCRIPT=tools/chest_lower.py; else SCRIPT=tools/offworld_chest_fullarea.py; fi
+          if [ "$WHAT" = "chest-lower" ]; then SCRIPT=tools/chest_lower.py; elif [ "$WHAT" = "back-lower" ]; then SCRIPT=tools/back_lower.py; else SCRIPT=tools/offworld_chest_fullarea.py; fi
           python $SCRIPT --out offworld-front $FLAG | tee -a run.log
           { echo "## Chest masters ($WHAT)"; echo; echo '```'; tail -n 30 run.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4

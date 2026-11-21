@@ -35,7 +35,8 @@ WHITE = (255, 255, 255); RED = (0xDA, 0x29, 0x1C)
 IT, RO = os.path.join(A, 'IMFellItalic.ttf'), os.path.join(A, 'IMFellRoman.ttf')
 ACC = 1.25                                                # red words at 125 %
 FRONT = dict(font=IT, size=0.3646, lh=1.2, gap=0.45, maxw=3.75, cx=9.75, top=2.0, mark_h=1.125, mark_gap=0.0625)
-BACK = dict(font=RO, size=1.1364, lh=1.25, gap=1.1, maxw=11.0, cx=6.0, top=1.0, bottom=15.5)
+import back_place as BP
+BACK = dict(font=RO, size=1.1364, lh=1.25, gap=1.1, maxw=11.0, cx=6.0, top=1.8, bottom=15.55)   # ink top 2 in (back_place.py, 21 Nov 2026; was top 1.0 / bottom 15.5)
 _fonts = {}
 
 
@@ -216,7 +217,8 @@ def back(text):
     while bh > room and scale > 0.6:
         scale *= 0.97; placed, widest, bh = layout(lines, s, scale, wrap=True)
     wm, rm = draw(placed, s['cx'] * DPI * SS, s['top'] * DPI * SS, (W * SS, H * SS))
-    return compose(binarise(wm), binarise(rm)), dict(scale=round(scale, 3), height_in=round(bh / SS / DPI, 2), rows=len(placed))
+    im, _ = BP.normalize(compose(binarise(wm), binarise(rm)))   # exact ink top 2.00 in; layout already fits, so a pure move
+    return im, dict(scale=round(scale, 3), height_in=round(bh / SS / DPI, 2), rows=len(placed))
 
 
 def names_for(d, n1=None, n2=None):

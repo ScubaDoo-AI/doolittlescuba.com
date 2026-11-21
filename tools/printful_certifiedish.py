@@ -15,6 +15,8 @@ Cost: garment + back $5.95 + sleeve $2.49 (the front rides in the base price) = 
   tools/printful_certifiedish.py
   PRINTFUL_TOKEN=... tools/printful_link.py --only certifiedish [--apply]
 """
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+import back_place as BP   # back prints: ink top 2 in (Eric, 21 Nov 2026)
 CDN = 'https://cdn.shopify.com/s/files/1/0787/3350/8794/files/'
 SIZES = ['S', 'M', 'L', 'XL', '2XL', '3XL']
 GARMENT = dict(zip(SIZES, [15.60, 15.60, 15.60, 15.60, 17.60, 19.60])); BACK = 5.95 + 2.49   # back + right-sleeve DS mark
@@ -57,7 +59,7 @@ def plan(route='dtg'):
         for line, colour, ink, sfx in (('light', light, 'BLACK', 'T'), ('dark', dark, 'WHITE', 'TD')):
             # front: ink top 2 in (was 0.5 in) since 13 Nov 2026, tools/chest_lower.py
             files = [{'type': 'front', 'url': f'{CDN}CI-front-leftchest_Certified-ish_12x16in_{ink}_top2in.png', 'position': AREA},
-                     {'type': 'back', 'url': f'{CDN}CI-{code}_back_12x16in_{ink}.png', 'position': AREA},
+                     {'type': 'back', 'url': BP.url(f'{CDN}CI-{code}_back_12x16in_{ink}.png'), 'position': AREA},
                      {'type': 'sleeve_right', 'url': CDN + SLEEVE_FILE.format(ink='NAVYRED' if line == 'light' else 'WHITERED'), 'position': SLEEVE_POS}]
             variants = [dict(sku=f'DS-{code}-{sfx}-{z}', size=z, variant_id=PF[colour][i], cost=round(GARMENT[z] + BACK, 2), price=PRICE[z],
                              margin=round(PRICE[z] - GARMENT[z] - BACK, 2)) for i, z in enumerate(SIZES)]
