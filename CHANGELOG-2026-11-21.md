@@ -82,7 +82,7 @@ Eric: *"Remove bundles from the cap lineup and place under its own tab."*
 - **Hats collection:** its rule (tagged `cap`) now also excludes anything tagged `pair`. It went from 86 products to 58, all caps. The 28 cap-and-tee pairs stay in the **Pairs** collection.
 - **Deck theme ("Doolittle Scuba — Deck", live):** a new **Cap & tee pairs** tab right after Caps & beanies, on the home page and on collection pages (and in the section's default tab list). The change is saved to the theme and goes in front of visitors when the theme is published.
 
-## Shop: new home-page hero (17:23–17:50 ET) — on a theme copy, not published
+## Shop: new home-page hero (17:23–17:32 ET) — on a theme copy, not published
 Eric: *"Push the new home page hero … test on a copy of the live theme first. Send me desktop and mobile screenshots before publishing."* Per Design's `Branding\Webpage\Hero\HERO_PUSH_HANDOFF.md`.
 
 - **Files:** `DS_hero_B_bluewater_desktop_2400x1200.jpg` (2400×1200) and `DS_hero_B_bluewater_mobile_1080x1350.jpg` (1080×1350) uploaded to Shopify Files (staged upload → `fileCreate`). Shopify appended a suffix to both names on the CDN, so the theme references are `DS_hero_B_bluewater_desktop_2400x1200_6668c5ae-b65c-441b-9eb0-963aca42f7d7.jpg` and `DS_hero_B_bluewater_mobile_1080x1350_3795946c-edf8-4f49-9ba9-7ad65937fd2b.jpg`. `GOPR0150_Copy_Copy.jpg` is still in Files for rollback.
