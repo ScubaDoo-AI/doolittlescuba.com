@@ -62,7 +62,7 @@ CAPS = [
     ('BSP', 'bridge-span-14-dark-cap', 'Royal Blue', 'DS-BSP_Bridge_Span_14_PF-cap-front_3.44x1.99in_white-red.png', [WHITE, RED], True, True, 38),
     ('RRV', 'rainbow-river-dark-cap', 'Olive', 'DS-RRV_Rainbow_River_PF-cap-front_3.57x1.89in_white-red.png', [WHITE, RED], True, True, 38),
     ('SOM', 'somosomo-strait-dark-cap', 'White', 'DS-SOM_Somosomo_Strait_PF-cap-front_4.02x1.89in_white-blue.png', [WHITE, ROYAL], True, True, 38),
-    ('THI', 'the-thistlegorm-dark-cap', 'Multicam Green', 'DS-THI_Thistlegorm_PF-cap-front_3.93x2.00in_white-blue.png', [WHITE, ROYAL], True, True, 38),
+    ('THI', 'the-thistlegorm-dark-cap', 'Dark Grey', 'DS-THI_Thistlegorm_PF-cap-front_3.93x2.00in_white-blue.png', [WHITE, ROYAL], True, True, 38),
     ('VUN', 'vuna-reef-dark-cap', 'Grey', 'DS-VUN_Vuna_Reef_PF-cap-front_2.46x1.97in_white-blue.png', [WHITE, ROYAL], True, True, 38),
     ('MRK', 'the-mark-dark-cap', 'Black', 'DS_PF-cap-front_the-mark_2.00in-tall_white-red.png', [WHITE, RED], False, True, 36),
     ('SEA', 'the-seal-dark-cap', 'Dark Navy', 'DS_PF-cap-front_the-seal_A2-bezel-star_2.00in-tall_white-red.png', [WHITE, RED], True, True, 36),
