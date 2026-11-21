@@ -52,8 +52,12 @@ MAP = {
              'Grape': 'French Navy', 'Graphite': 'Black', 'Midnight': 'French Navy', 'Moss': 'Khaki', 'Navy': 'French Navy',
              'Pepper': 'Khaki', 'Sage': 'Khaki', 'True Navy': 'French Navy', 'Violet': 'Stargazer', 'Wine': 'Khaki', 'Yam': 'Khaki'},
 }
-CAP = {'Black': ('Black', 12689), 'Dark Navy': ('Pacific', 12693), 'Royal Blue': ('Pacific', 12693),
-       'Dark Grey': ('Charcoal', 12690), 'Olive': ('Jungle', 12691)}
+CAP = {'Black': ('Black', 12689), 'Pacific': ('Pacific', 12693), 'Charcoal': ('Charcoal', 12690), 'Jungle': ('Jungle', 12691)}
+# The organic caps keep their own colours: pinned 21 Nov 2026, when the regular 6277 caps were recoloured (Khaki, Red, White, Grey
+# have no EC7000 twin). Each is the colour it had before, stitched in the standard white thread.
+CAP_COLOUR = {'BAL': 'Pacific', 'DAM': 'Pacific', 'NAV': 'Pacific', 'THD': 'Pacific', 'BGR': 'Pacific', 'BBT': 'Charcoal', 'DLP': 'Charcoal',
+              'THI': 'Charcoal', 'BWP': 'Black', 'RRV': 'Black', 'MRK': 'Black', 'SEA': 'Black', 'STK': 'Black', 'WDM': 'Black',
+              'RRF': 'Jungle', 'BSP': 'Jungle', 'SOM': 'Jungle', 'VUN': 'Jungle'}
 CAP_COST, CAP6277 = 16.92, 16.51
 BEANIE = [('BLK', 'Black', 11706), ('NVY', 'Oxford Navy', 11708)]
 BEANIE_COST = 17.94
@@ -100,11 +104,13 @@ def tee_plans():
 
 def cap_plans():
     out = []
-    for p in load('printful_caps').plan():
-        colour, vid = CAP[p['colour']]; key = f"DS-{p['code']}-CO"
+    PC = load('printful_caps')
+    for p in PC.plan():
+        colour, vid = CAP[CAP_COLOUR[p['code']]]; key = f"DS-{p['code']}-CO"
+        files, options = PC.assemble(p['code'], p['front'], p['threads'], p['side'], p['back'], colour)   # dark EC7000: white thread
         v0 = p['variants'][0]; extra = round(v0['cost'] - CAP6277, 2); cost = round(CAP_COST + extra, 2)
         out.append(dict(line='caps', kind='cap', key=key, regular_key=f"DS-{p['code']}-CD", regular_colour=p['colour'], colour=colour,
-                        files=p['files'], options=p['options'], personalized=False,
+                        files=files, options=options, personalized=False,
                         variants=[dict(sku=key, size='One size', variant_id=vid, regular_sku=v0['sku'], price=v0['price'] + 2.0, cost=cost,   # organic caps: cap price + $2 (Eric, 15 Nov 2026)
                                        margin=round(v0['price'] + 2.0 - cost, 2))]))
     return out

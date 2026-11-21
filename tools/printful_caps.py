@@ -78,23 +78,32 @@ SHOPIFY = {'BAL': (50823900659898, 50823900692666), 'DAM': (50823901020346, 5082
            'SOM': (50823904395450, 50823904428218), 'THI': (50823909048506, 50823909081274), 'VUN': (50823909245114, 50823909277882)}
 
 
+def assemble(code, front, threads, side, back, colour):
+    """files + item options for one cap on one blank colour: White / Khaki / Grey get the navy-thread files, Red the navy-S side;
+    any other colour (and the organic EC7000 caps, which pass their own dark colour) the standard white-thread files."""
+    front_url = CDN + front
+    side_url, side_thr, back_url, back_thr = CDN + SIDE_FILE, [WHITE, RED], CDN + BACK_FILE, [WHITE]
+    if colour in LIGHT:
+        if code in OVERRIDE: front_url, threads = OVERRIDE[code]
+        side_url, side_thr, back_url, back_thr = LIGHT_SIDE, [NAVY, RED], LIGHT_BACK, [NAVY]
+    if colour == 'Red': side_url, side_thr = RED_SIDE, [WHITE, NAVY]
+    files = [{'type': 'embroidery_front', 'url': front_url}]
+    options = [{'id': 'embroidery_type', 'value': 'flat'}, {'id': 'thread_colors', 'value': threads}]
+    if side: files.append({'type': 'embroidery_left', 'url': side_url}); options.append({'id': 'thread_colors_left', 'value': side_thr})
+    if back: files.append({'type': 'embroidery_back', 'url': back_url}); options.append({'id': 'thread_colors_back', 'value': back_thr})
+    return files, options
+
+
 def plan():
     """files carry only type + url; the thread colours and the embroidery type are item-level options (Printful API, Common/Options)."""
     out = []
     for code, handle, colour, front, threads, side, back, price in CAPS:
-        front_url = CDN + front
-        if code in OVERRIDE: front_url, threads = OVERRIDE[code]
-        side_url, side_thr, back_url, back_thr = CDN + SIDE_FILE, [WHITE, RED], CDN + BACK_FILE, [WHITE]
-        if colour in LIGHT: side_url, side_thr, back_url, back_thr = LIGHT_SIDE, [NAVY, RED], LIGHT_BACK, [NAVY]
-        if colour == 'Red': side_url, side_thr = RED_SIDE, [WHITE, NAVY]
-        files = [{'type': 'embroidery_front', 'url': front_url}]
-        options = [{'id': 'embroidery_type', 'value': 'flat'}, {'id': 'thread_colors', 'value': threads}]
-        if side: files.append({'type': 'embroidery_left', 'url': side_url}); options.append({'id': 'thread_colors_left', 'value': side_thr})
-        if back: files.append({'type': 'embroidery_back', 'url': back_url}); options.append({'id': 'thread_colors_back', 'value': back_thr})
+        files, options = assemble(code, front, threads, side, back, colour)
         cost = round(BLANK + EXTRA*(len(files) - 1), 2)
         variants = [dict(sku=f'DS-{code}-CD-{z}', size=sz, variant_id=PF[colour][i], shopify_variant=SHOPIFY[code][i],
                          cost=cost, price=float(price), margin=round(price - cost, 2)) for i, (z, sz) in enumerate((('SM', 'S/M'), ('LXL', 'L/XL')))]
-        out.append(dict(code=code, handle=handle, colour=colour, files=files, options=options, variants=variants))
+        out.append(dict(code=code, handle=handle, colour=colour, front=front, threads=threads, side=side, back=back,
+                        files=files, options=options, variants=variants))
     return out
 
 
