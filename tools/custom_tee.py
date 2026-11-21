@@ -41,9 +41,10 @@ CC = {'light-blue': 'Chambray', 'caribbean-blue': 'Flo Blue', 'mint': 'Island Re
       'granite': 'Granite',
       'navy': 'Navy', 'black': 'Black', 'pepper': 'Pepper', 'graphite': 'Graphite', 'midnight': 'Midnight', 'true-navy': 'True Navy',
       'denim': 'Denim', 'blue-spruce': 'Blue Spruce', 'emerald': 'Emerald', 'moss': 'Moss', 'dark-sage': 'Sage', 'espresso': 'Espresso',
-      'wine': 'Wine', 'grape': 'Grape', 'yam': 'Yam', 'violet': 'Violet'}
+      'wine': 'Wine', 'grape': 'Grape', 'yam': 'Yam', 'violet': 'Violet',
+      'mystic-blue': 'Mystic Blue', 'hemp': 'Hemp'}   # 21 Nov 2026: Certified-ish dark colours
 DARK = {'navy', 'black', 'pepper', 'graphite', 'midnight', 'true-navy', 'denim', 'blue-spruce', 'emerald', 'moss', 'dark-sage',
-        'espresso', 'wine', 'grape', 'yam', 'violet'}
+        'espresso', 'wine', 'grape', 'yam', 'violet', 'mystic-blue', 'hemp'}
 SIZES = ['S', 'M', 'L', 'XL', '2XL', '3XL']
 # Printful's extra charges on the 1717 (catalog API, Nov 2026); the front rides in the blank price
 BLANK = {'S': 15.60, 'M': 15.60, 'L': 15.60, 'XL': 15.60, '2XL': 17.60, '3XL': 19.60}

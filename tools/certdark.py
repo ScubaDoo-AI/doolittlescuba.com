@@ -15,14 +15,17 @@ from PIL import Image
 from scipy import ndimage as nd
 
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-HEX = {'emerald': '#0F6156', 'espresso': '#4B3631', 'grape': '#332552', 'moss': '#27392E', 'yam': '#BE531C', 'violet': '#7474C1'}
-NAME = {'emerald': 'Emerald', 'espresso': 'Espresso', 'grape': 'Grape', 'moss': 'Moss', 'yam': 'Yam', 'violet': 'Violet'}
+HEX = {'emerald': '#0F6156', 'espresso': '#4B3631', 'grape': '#332552', 'moss': '#27392E', 'yam': '#BE531C', 'violet': '#7474C1',
+       'mystic-blue': '#5068AB', 'true-navy': '#15284A', 'blue-spruce': '#3A5752', 'midnight': '#22365A', 'black': '#212327',
+       'graphite': '#262C33', 'denim': '#3F5163', 'hemp': '#4F5232'}
+NAME = {'emerald': 'Emerald', 'espresso': 'Espresso', 'grape': 'Grape', 'moss': 'Moss', 'yam': 'Yam', 'violet': 'Violet', 'mystic-blue': 'Mystic Blue', 'true-navy': 'True Navy',
+        'blue-spruce': 'Blue Spruce', 'midnight': 'Midnight', 'black': 'Black', 'graphite': 'Graphite', 'denim': 'Denim', 'hemp': 'Hemp'}
 CERT_DARK = {  # site slug: dark garment  (Shopify tag colour:<x> on "Certified-ish Dark — … tee")
-    'cert-open-water': 'moss', 'cert-advanced-open-water': 'emerald', 'cert-altitude': 'yam', 'cert-boat': 'yam',
-    'cert-buoyancy': 'yam', 'cert-cave': 'espresso', 'cert-deep': 'espresso', 'cert-dpv': 'violet', 'cert-drift': 'yam',
-    'cert-fish-id': 'yam', 'cert-ice': 'espresso', 'cert-night': 'espresso', 'cert-nitrox': 'violet', 'cert-rebreather': 'grape',
-    'cert-search-recovery': 'espresso', 'cert-self-reliant': 'grape', 'cert-sidemount': 'grape', 'cert-smb': 'violet',
-    'cert-tech': 'grape', 'cert-uw-photo': 'yam'}
+    'cert-open-water': 'moss', 'cert-advanced-open-water': 'emerald', 'cert-altitude': 'mystic-blue', 'cert-boat': 'true-navy',
+    'cert-buoyancy': 'blue-spruce', 'cert-cave': 'graphite', 'cert-deep': 'true-navy', 'cert-dpv': 'violet', 'cert-drift': 'midnight',
+    'cert-fish-id': 'emerald', 'cert-ice': 'denim', 'cert-night': 'black', 'cert-nitrox': 'violet', 'cert-rebreather': 'grape',
+    'cert-search-recovery': 'hemp', 'cert-self-reliant': 'grape', 'cert-sidemount': 'grape', 'cert-smb': 'violet',
+    'cert-tech': 'grape', 'cert-uw-photo': 'black'}
 W = np.array([0.2126, 0.7152, 0.0722])
 WHITE = np.array([0.96, 0.95, 0.93])           # white ink, a hair warm
 DSRED = np.array([0xC8, 0x20, 0x26]) / 255     # the DS mark red (PMS 1795 C match)
