@@ -225,6 +225,44 @@ def shopify(mpath, apply):
     print(f'\n{done} products {"updated" if apply else "planned"}, {skipped} skipped')
 
 
+CAP_PRODUCT_SKU = 'DS-MYA-C-SM'
+CAP_DESIGN = 'Black Bart front, DS mark on the left side, Do A Little Scuba on the back'
+
+
+def cap(out, colours, apply):
+    """Make it yours cap: Printful mockups at 2000 px of a sample design (the files and threads custom_cap.py sends) in each
+    colour, front / side / back, become the product's photos in place of the old one."""
+    import printful_read as PR, aquatic_order as AO
+    os.makedirs(out, exist_ok=True); paths, alts = [], []
+    names = {s: n for s, n in __import__('custom_cap').COLOURS.items()}
+    for col in colours:
+        res = PR.mockup(f'mockup:customcap:{col}', width=WIDTH, quiet=True)
+        own = {m.get('placement'): m.get('mockup_url') for m in res['mockups']}
+        for v, pl in (('front', 'embroidery_front'), ('side', 'embroidery_left'), ('back', 'embroidery_back')):
+            if not own.get(pl): print(f'{col}: no {pl} mockup'); continue
+            name = f'hd-make-it-yours-cap-{col}-{v}.webp'; p = os.path.join(out, name); size = webp(fetch(own[pl]), p)
+            paths.append(p); alts.append(f'Make it yours cap in {names[col]} (Flexfit 6277), {v}: {CAP_DESIGN} (Printful mockup)')
+            print(f'{name}  {size[0]}x{size[1]}', flush=True)
+    if not apply: return
+    cdn = [u.split('?')[0] for i in range(0, len(paths), 10) for u in upload(paths[i:i + 10], alts[i:i + 10])]
+    prod = AO.shopify(PROD_Q, {'q': f'sku:{CAP_PRODUCT_SKU}'})['productVariants']['nodes'][0]['product']; pid = prod['id']
+    new = []
+    for u in cdn:
+        fname = u.rsplit('/', 1)[-1]
+        hit = [f for f in AO.shopify(FILES_Q, {'q': f'filename:{fname}'})['files']['nodes'] if f.get('image') and f['image']['url'].split('?')[0].endswith('/' + fname)]
+        new.append(hit[0]['id'])
+    old = [m['id'] for m in prod['media']['nodes']]
+    r = AO.shopify(UPD_M, {'files': [{'id': i, 'referencesToAdd': [pid], 'alt': a} for i, a in zip(new, alts)]})['fileUpdate']
+    if r['userErrors']: sys.exit(f'add: {r["userErrors"]}')
+    if old:
+        r = AO.shopify(UPD_M, {'files': [{'id': i, 'referencesToRemove': [pid]} for i in old]})['fileUpdate']
+        if r['userErrors']: print('remove:', r['userErrors'])
+    r = AO.shopify(REORDER_M, {'id': pid, 'moves': [{'id': i, 'newPosition': str(n)} for n, i in enumerate(new)]})['productReorderMedia']
+    if r['mediaUserErrors']: print('reorder:', r['mediaUserErrors'])
+    print(f'{prod["title"]}: {len(new)} photos at {WIDTH} px, {len(old)} old photo(s) taken off')
+    json.dump(dict(zip([os.path.basename(p) for p in paths], cdn)), open(os.path.join(out, 'cap.json'), 'w'), indent=1)
+
+
 if __name__ == '__main__':
     a = sys.argv[1:]
     opt = lambda k, d=None: a[a.index(k) + 1] if k in a else d
@@ -237,4 +275,5 @@ if __name__ == '__main__':
     elif a[0] == 'render': render(opt('--out', 'mockups-hd'), only, int(opt('--limit', 0)), '--upload' in a)
     elif a[0] == 'site': site(a[1])
     elif a[0] == 'shopify': shopify(a[1], '--apply' in a)
+    elif a[0] == 'cap': cap(opt('--out', 'mockups-hd'), (opt('--colours') or 'navy,khaki').split(','), '--apply' in a)
     else: sys.exit(__doc__)

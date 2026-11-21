@@ -107,6 +107,16 @@ def mockup(spec, width=None, quiet=False):
         t = json.loads(json.dumps(L.targets(['caps'])['DS-RRV-CD-SM']))
         for f in t['files']:
             if f['type'] == 'embroidery_front': f['url'] = 'https://doolittlescuba.com/renders/caps/DS-HMP_Newnan_PF-cap-front_2.96x1.99in_white-red.png'; f.pop('position', None)
+    elif line == 'customcap':   # Make it yours cap (Eric, 21 Nov 2026): the files and threads tools/custom_cap.py sends; sku = /custom/ design query
+        import custom_cap as CC
+        pc = CC.plan(sku if '=' in sku else f'colour={sku}&cf=site&site=black-bart&cs=dsmark&csp=left&cb=tagline', 'LXL')
+        opt = {'embroidery_front': 'thread_colors', 'embroidery_front_large': 'thread_colors', 'embroidery_left': 'thread_colors_left',
+               'embroidery_right': 'thread_colors_right', 'embroidery_back': 'thread_colors_back'}
+        t = {'variant_id': pc['variant_id'], 'files': [], 'options': [{'id': 'embroidery_type', 'value': 'flat'}]}
+        for k, pl in pc['placements'].items():
+            if pl['kind'] != 'catalog': sys.exit(f'customcap mockup: {k} is new text; use a catalog design')
+            t['files'].append({'type': k, 'url': pl['url']})
+            t['options'].append({'id': opt[k], 'value': pl['threads'] or CC.threads_of(pl['image'])})
     else:
         t = L.targets([line]).get(sku) or sys.exit(f'{sku} not in the {line} plan')
     v = get(f'/products/variant/{t["variant_id"]}')
