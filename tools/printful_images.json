@@ -460,27 +460,32 @@
   "src": "img/hats/pf/beanie-the-mark-french-navy-t.webp?v=0f2db5a8"
  },
  "index.html|brand|cap-dark-the-mark": {
-  "data-back": "img/hats/pf/cap-dark-the-mark-back.webp?v=d2a8515e",
-  "data-front": "img/hats/pf/cap-dark-the-mark-front.webp?v=f87f0e40",
-  "src": "img/hats/pf/cap-dark-the-mark-front-t.webp?v=f87f0e40"
+  "data-back": "img/hats/pf/cap-dark-the-mark-back.webp?v=671b0e11",
+  "data-front": "img/hats/pf/cap-dark-the-mark-front.webp?v=6bba8f46",
+  "src": "img/hats/pf/cap-dark-the-mark-front-t.webp?v=7cd816fe"
  },
  "index.html|brand|cap-dark-the-seal": {
-  "data-back": "img/hats/pf/cap-dark-the-seal-back.webp?v=d2a8515e",
-  "data-front": "img/hats/pf/cap-dark-the-seal-front.webp?v=c8695da6",
-  "data-sleeve": "img/hats/pf/cap-dark-the-seal-left.webp?v=5713c185",
-  "src": "img/hats/pf/cap-dark-the-seal-front-t.webp?v=c8695da6"
+  "data-back": "img/hats/pf/cap-dark-the-seal-back.webp?v=fe475acc",
+  "data-front": "img/hats/pf/cap-dark-the-seal-front.webp?v=7e73a994",
+  "data-sleeve": "img/hats/pf/cap-dark-the-seal-left.webp?v=0e915869",
+  "src": "img/hats/pf/cap-dark-the-seal-front-t.webp?v=dcce0cc5"
+ },
+ "index.html|brand|cap-dark-the-side-mark": {
+  "data-back": "img/hats/pf/cap-dark-the-side-mark-back.webp?v=db646ddb",
+  "data-front": "img/hats/pf/cap-dark-the-side-mark-left.webp?v=555a4403",
+  "src": "img/hats/pf/cap-dark-the-side-mark-left-t.webp?v=b5a9aa3c"
  },
  "index.html|brand|cap-dark-the-stack": {
-  "data-back": "img/hats/pf/cap-dark-the-stack-back.webp?v=b9d7c1a4",
-  "data-front": "img/hats/pf/cap-dark-the-stack-front.webp?v=92146044",
-  "data-sleeve": "img/hats/pf/cap-dark-the-stack-left.webp?v=d210271f",
-  "src": "img/hats/pf/cap-dark-the-stack-front-t.webp?v=92146044"
+  "data-back": "img/hats/pf/cap-dark-the-stack-back.webp?v=1c5d7e46",
+  "data-front": "img/hats/pf/cap-dark-the-stack-front.webp?v=496e06ed",
+  "data-sleeve": "img/hats/pf/cap-dark-the-stack-left.webp?v=1abaa239",
+  "src": "img/hats/pf/cap-dark-the-stack-front-t.webp?v=b9d2c163"
  },
  "index.html|brand|cap-dark-the-wordmark": {
-  "data-back": "img/hats/pf/cap-dark-the-wordmark-back.webp?v=d2a8515e",
-  "data-front": "img/hats/pf/cap-dark-the-wordmark-front.webp?v=885e4eac",
-  "data-sleeve": "img/hats/pf/cap-dark-the-wordmark-left.webp?v=4295a098",
-  "src": "img/hats/pf/cap-dark-the-wordmark-front-t.webp?v=885e4eac"
+  "data-back": "img/hats/pf/cap-dark-the-wordmark-back.webp?v=4cef7182",
+  "data-front": "img/hats/pf/cap-dark-the-wordmark-front.webp?v=9e18b53a",
+  "data-sleeve": "img/hats/pf/cap-dark-the-wordmark-left.webp?v=7cbfea7d",
+  "src": "img/hats/pf/cap-dark-the-wordmark-front-t.webp?v=ae8e7919"
  },
  "index.html|coll|aquatic": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ac-s02-current-front.webp?v=1795100000",
@@ -513,94 +518,94 @@
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/black-bart-back.webp?v=1795031306&width=600"
  },
  "index.html|site|cap-dark-bali": {
-  "data-back": "img/hats/pf/cap-dark-bali-back.webp?v=0c70c4d9",
-  "data-front": "img/hats/pf/cap-dark-bali-front.webp?v=205ee97a",
-  "data-sleeve": "img/hats/pf/cap-dark-bali-left.webp?v=c9332218",
-  "src": "img/hats/pf/cap-dark-bali-front-t.webp?v=205ee97a"
+  "data-back": "img/hats/pf/cap-dark-bali-back.webp?v=4cef7182",
+  "data-front": "img/hats/pf/cap-dark-bali-front.webp?v=694cd497",
+  "data-sleeve": "img/hats/pf/cap-dark-bali-left.webp?v=5f587f0a",
+  "src": "img/hats/pf/cap-dark-bali-front-t.webp?v=ac17f2a4"
  },
  "index.html|site|cap-dark-black-bart": {
-  "data-back": "img/hats/pf/cap-dark-black-bart-back.webp?v=3a05941f",
-  "data-front": "img/hats/pf/cap-dark-black-bart-front.webp?v=12ad5e09",
-  "data-sleeve": "img/hats/pf/cap-dark-black-bart-left.webp?v=766dd32f",
-  "src": "img/hats/pf/cap-dark-black-bart-front-t.webp?v=12ad5e09"
+  "data-back": "img/hats/pf/cap-dark-black-bart-back.webp?v=fe475acc",
+  "data-front": "img/hats/pf/cap-dark-black-bart-front.webp?v=0454a162",
+  "data-sleeve": "img/hats/pf/cap-dark-black-bart-left.webp?v=a361c254",
+  "src": "img/hats/pf/cap-dark-black-bart-front-t.webp?v=6739423f"
  },
  "index.html|site|cap-dark-blue-grotto": {
-  "data-back": "img/hats/pf/cap-dark-blue-grotto-back.webp?v=5ae8ce9b",
-  "data-front": "img/hats/pf/cap-dark-blue-grotto-front.webp?v=bb8e48b1",
-  "data-sleeve": "img/hats/pf/cap-dark-blue-grotto-left.webp?v=a913858f",
-  "src": "img/hats/pf/cap-dark-blue-grotto-front-t.webp?v=bb8e48b1"
+  "data-back": "img/hats/pf/cap-dark-blue-grotto-back.webp?v=9c8b5652",
+  "data-front": "img/hats/pf/cap-dark-blue-grotto-front.webp?v=6114fed9",
+  "data-sleeve": "img/hats/pf/cap-dark-blue-grotto-left.webp?v=ff6ddfb3",
+  "src": "img/hats/pf/cap-dark-blue-grotto-front-t.webp?v=2f45154f"
  },
  "index.html|site|cap-dark-blue-water-park": {
-  "data-back": "img/hats/pf/cap-dark-blue-water-park-back.webp?v=d2a8515e",
-  "data-front": "img/hats/pf/cap-dark-blue-water-park-front.webp?v=56759b85",
-  "data-sleeve": "img/hats/pf/cap-dark-blue-water-park-left.webp?v=fc16b756",
-  "src": "img/hats/pf/cap-dark-blue-water-park-front-t.webp?v=56759b85"
+  "data-back": "img/hats/pf/cap-dark-blue-water-park-back.webp?v=671b0e11",
+  "data-front": "img/hats/pf/cap-dark-blue-water-park-front.webp?v=a66e0453",
+  "data-sleeve": "img/hats/pf/cap-dark-blue-water-park-left.webp?v=b6b7dc25",
+  "src": "img/hats/pf/cap-dark-blue-water-park-front-t.webp?v=d05000d2"
  },
  "index.html|site|cap-dark-bridge-span-14": {
-  "data-back": "img/hats/pf/cap-dark-bridge-span-14-back.webp?v=98e0fd6a",
-  "data-front": "img/hats/pf/cap-dark-bridge-span-14-front.webp?v=47c4f296",
-  "data-sleeve": "img/hats/pf/cap-dark-bridge-span-14-left.webp?v=caa64d84",
-  "src": "img/hats/pf/cap-dark-bridge-span-14-front-t.webp?v=47c4f296"
+  "data-back": "img/hats/pf/cap-dark-bridge-span-14-back.webp?v=12ae266f",
+  "data-front": "img/hats/pf/cap-dark-bridge-span-14-front.webp?v=b2030fc7",
+  "data-sleeve": "img/hats/pf/cap-dark-bridge-span-14-left.webp?v=ac11a140",
+  "src": "img/hats/pf/cap-dark-bridge-span-14-front-t.webp?v=2d960d6f"
  },
  "index.html|site|cap-dark-dampier-strait": {
-  "data-back": "img/hats/pf/cap-dark-dampier-strait-back.webp?v=6c58c037",
-  "data-front": "img/hats/pf/cap-dark-dampier-strait-front.webp?v=3f2384e4",
-  "data-sleeve": "img/hats/pf/cap-dark-dampier-strait-left.webp?v=0d5674e7",
-  "src": "img/hats/pf/cap-dark-dampier-strait-front-t.webp?v=3f2384e4"
+  "data-back": "img/hats/pf/cap-dark-dampier-strait-back.webp?v=f6d67adc",
+  "data-front": "img/hats/pf/cap-dark-dampier-strait-front.webp?v=87e03c19",
+  "data-sleeve": "img/hats/pf/cap-dark-dampier-strait-left.webp?v=b43ab236",
+  "src": "img/hats/pf/cap-dark-dampier-strait-front-t.webp?v=1d3463cb"
  },
  "index.html|site|cap-dark-dive-land-park": {
-  "data-back": "img/hats/pf/cap-dark-dive-land-park-back.webp?v=3a05941f",
-  "data-front": "img/hats/pf/cap-dark-dive-land-park-front.webp?v=fef747b8",
-  "data-sleeve": "img/hats/pf/cap-dark-dive-land-park-left.webp?v=6250e2d5",
-  "src": "img/hats/pf/cap-dark-dive-land-park-front-t.webp?v=fef747b8"
+  "data-back": "img/hats/pf/cap-dark-dive-land-park-back.webp?v=253251a7",
+  "data-front": "img/hats/pf/cap-dark-dive-land-park-front.webp?v=f1a5036a",
+  "data-sleeve": "img/hats/pf/cap-dark-dive-land-park-left.webp?v=f55f7ca9",
+  "src": "img/hats/pf/cap-dark-dive-land-park-front-t.webp?v=330c88d7"
  },
  "index.html|site|cap-dark-home-port": {
   "data-back": "img/hats/pf/cap-dark-home-port-back.webp?v=b1656021",
   "data-front": "img/hats/pf/cap-dark-home-port-front.webp?v=d05c7477",
   "data-sleeve": "img/hats/pf/cap-dark-home-port-left.webp?v=2b9963a9",
-  "src": "img/hats/pf/cap-dark-home-port-front-t.webp?v=d05c7477"
+  "src": "img/hats/pf/cap-dark-home-port-front-t.webp?v=5ec9d4b1"
  },
  "index.html|site|cap-dark-navy-llcat": {
-  "data-back": "img/hats/pf/cap-dark-navy-llcat-back.webp?v=6c58c037",
-  "data-front": "img/hats/pf/cap-dark-navy-llcat-front.webp?v=59b97395",
-  "data-sleeve": "img/hats/pf/cap-dark-navy-llcat-left.webp?v=60325462",
-  "src": "img/hats/pf/cap-dark-navy-llcat-front-t.webp?v=59b97395"
+  "data-back": "img/hats/pf/cap-dark-navy-llcat-back.webp?v=8d68fbfb",
+  "data-front": "img/hats/pf/cap-dark-navy-llcat-front.webp?v=806f1bad",
+  "data-sleeve": "img/hats/pf/cap-dark-navy-llcat-left.webp?v=be0acd37",
+  "src": "img/hats/pf/cap-dark-navy-llcat-front-t.webp?v=1dcd1559"
  },
  "index.html|site|cap-dark-rainbow-reef": {
-  "data-back": "img/hats/pf/cap-dark-rainbow-reef-back.webp?v=98e0fd6a",
-  "data-front": "img/hats/pf/cap-dark-rainbow-reef-front.webp?v=2a3a86d1",
-  "data-sleeve": "img/hats/pf/cap-dark-rainbow-reef-left.webp?v=7bf5678f",
-  "src": "img/hats/pf/cap-dark-rainbow-reef-front-t.webp?v=2a3a86d1"
+  "data-back": "img/hats/pf/cap-dark-rainbow-reef-back.webp?v=0a109dc8",
+  "data-front": "img/hats/pf/cap-dark-rainbow-reef-front.webp?v=f1f08e08",
+  "data-sleeve": "img/hats/pf/cap-dark-rainbow-reef-left.webp?v=0535bfb5",
+  "src": "img/hats/pf/cap-dark-rainbow-reef-front-t.webp?v=c2f37a02"
  },
  "index.html|site|cap-dark-rainbow-river": {
-  "data-back": "img/hats/pf/cap-dark-rainbow-river-back.webp?v=d2a8515e",
-  "data-front": "img/hats/pf/cap-dark-rainbow-river-front.webp?v=73bf1d84",
-  "data-sleeve": "img/hats/pf/cap-dark-rainbow-river-left.webp?v=27015ef9",
-  "src": "img/hats/pf/cap-dark-rainbow-river-front-t.webp?v=73bf1d84"
+  "data-back": "img/hats/pf/cap-dark-rainbow-river-back.webp?v=23d1747e",
+  "data-front": "img/hats/pf/cap-dark-rainbow-river-front.webp?v=b7f4f5b4",
+  "data-sleeve": "img/hats/pf/cap-dark-rainbow-river-left.webp?v=350adaa8",
+  "src": "img/hats/pf/cap-dark-rainbow-river-front-t.webp?v=4e59ae41"
  },
  "index.html|site|cap-dark-somosomo-strait": {
-  "data-back": "img/hats/pf/cap-dark-somosomo-strait-back.webp?v=98e0fd6a",
-  "data-front": "img/hats/pf/cap-dark-somosomo-strait-front.webp?v=d61ca9ee",
-  "data-sleeve": "img/hats/pf/cap-dark-somosomo-strait-left.webp?v=eb5b7a6e",
-  "src": "img/hats/pf/cap-dark-somosomo-strait-front-t.webp?v=d61ca9ee"
+  "data-back": "img/hats/pf/cap-dark-somosomo-strait-back.webp?v=ba2e49eb",
+  "data-front": "img/hats/pf/cap-dark-somosomo-strait-front.webp?v=2e30b4cd",
+  "data-sleeve": "img/hats/pf/cap-dark-somosomo-strait-left.webp?v=1fb58bc2",
+  "src": "img/hats/pf/cap-dark-somosomo-strait-front-t.webp?v=aa4b0ac6"
  },
  "index.html|site|cap-dark-the-thistlegorm": {
-  "data-back": "img/hats/pf/cap-dark-the-thistlegorm-back.webp?v=3a05941f",
-  "data-front": "img/hats/pf/cap-dark-the-thistlegorm-front.webp?v=6f03509e",
-  "data-sleeve": "img/hats/pf/cap-dark-the-thistlegorm-left.webp?v=effb6a8a",
-  "src": "img/hats/pf/cap-dark-the-thistlegorm-front-t.webp?v=6f03509e"
+  "data-back": "img/hats/pf/cap-dark-the-thistlegorm-back.webp?v=1c5d7e46",
+  "data-front": "img/hats/pf/cap-dark-the-thistlegorm-front.webp?v=460a7bd9",
+  "data-sleeve": "img/hats/pf/cap-dark-the-thistlegorm-left.webp?v=690d1884",
+  "src": "img/hats/pf/cap-dark-the-thistlegorm-front-t.webp?v=da4bb715"
  },
  "index.html|site|cap-dark-thurmond-dam": {
-  "data-back": "img/hats/pf/cap-dark-thurmond-dam-back.webp?v=6c58c037",
-  "data-front": "img/hats/pf/cap-dark-thurmond-dam-front.webp?v=4e55b75b",
-  "data-sleeve": "img/hats/pf/cap-dark-thurmond-dam-left.webp?v=2d91f1b3",
-  "src": "img/hats/pf/cap-dark-thurmond-dam-front-t.webp?v=4e55b75b"
+  "data-back": "img/hats/pf/cap-dark-thurmond-dam-back.webp?v=4cef7182",
+  "data-front": "img/hats/pf/cap-dark-thurmond-dam-front.webp?v=52a3e242",
+  "data-sleeve": "img/hats/pf/cap-dark-thurmond-dam-left.webp?v=dcf15bf1",
+  "src": "img/hats/pf/cap-dark-thurmond-dam-front-t.webp?v=755cad44"
  },
  "index.html|site|cap-dark-vuna-reef": {
-  "data-back": "img/hats/pf/cap-dark-vuna-reef-back.webp?v=98e0fd6a",
-  "data-front": "img/hats/pf/cap-dark-vuna-reef-front.webp?v=9c211006",
-  "data-sleeve": "img/hats/pf/cap-dark-vuna-reef-left.webp?v=850c97af",
-  "src": "img/hats/pf/cap-dark-vuna-reef-front-t.webp?v=9c211006"
+  "data-back": "img/hats/pf/cap-dark-vuna-reef-back.webp?v=9c8b5652",
+  "data-front": "img/hats/pf/cap-dark-vuna-reef-front.webp?v=ef36dfdb",
+  "data-sleeve": "img/hats/pf/cap-dark-vuna-reef-left.webp?v=107790ab",
+  "src": "img/hats/pf/cap-dark-vuna-reef-front-t.webp?v=f235b6b6"
  },
  "off-world/index.html|offworld-dark|ow-aliens": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/ow-aliens-back_790af415-0d74-4124-9ea3-666526d48801.webp?v=1795100000",
@@ -1639,9 +1644,9 @@
   "src": "/img/organic/caps/cap-somosomo-strait-front-t.webp?v=249aefe8"
  },
  "organic/index.html|org-hats|ds-stk-co": {
-  "data-back": "/img/organic/caps/cap-the-stack-back.webp?v=385a015b",
-  "data-front": "/img/organic/caps/cap-the-stack-front.webp?v=28760bb8",
-  "src": "/img/organic/caps/cap-the-stack-front-t.webp?v=3a2aae98"
+  "data-back": "/img/organic/caps/cap-the-stack-back.webp?v=06f646df",
+  "data-front": "/img/organic/caps/cap-the-stack-front.webp?v=14a9997f",
+  "src": "/img/organic/caps/cap-the-stack-front-t.webp?v=977f2d81"
  },
  "organic/index.html|org-hats|ds-thd-co": {
   "data-back": "/img/organic/caps/cap-thurmond-dam-back.webp?v=ed528ce9",
@@ -2414,169 +2419,169 @@
  "signature/index.html|dark|bali": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/bali-back_cb79347d-a2e0-49bd-8fc8-676d35769e6a.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/bali-front_a30b6970-7ead-4a49-a6f2-52fdbe2480ce.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/dark/bali-right.webp?v=8d76da70",
+  "data-sleeve": "/img/sleeves/dark/bali-right.webp?v=991ac1d8",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/bali-front_a30b6970-7ead-4a49-a6f2-52fdbe2480ce.webp?v=1795031306&width=600"
  },
  "signature/index.html|dark|black-bart": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/black-bart-back_711b84c6-996e-4723-a3fd-11f0edb117d8.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/black-bart-front_9e4787f1-023b-4fec-a4a9-fb8d2d577a84.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/dark/black-bart-right.webp?v=25fea550",
+  "data-sleeve": "/img/sleeves/dark/black-bart-right.webp?v=e33aed52",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/black-bart-front_9e4787f1-023b-4fec-a4a9-fb8d2d577a84.webp?v=1795031306&width=600"
  },
  "signature/index.html|dark|blue-grotto": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/blue-grotto-back_733f9766-e8c8-49a4-a93d-5edfddf51c4a.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/blue-grotto-front_38e84446-98e7-477b-8ab7-267a0b5314c4.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/dark/blue-grotto-right.webp?v=9e51f5f5",
+  "data-sleeve": "/img/sleeves/dark/blue-grotto-right.webp?v=52d1c921",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/blue-grotto-front_38e84446-98e7-477b-8ab7-267a0b5314c4.webp?v=1795031306&width=600"
  },
  "signature/index.html|dark|blue-water-park": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/blue-water-park-back_ef27f690-88dd-41e1-b80d-5caadbba06b9.webp?v=1795031305",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/blue-water-park-front_3432805e-12c1-4849-98db-357f9e740362.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/dark/blue-water-park-right.webp?v=01c4825b",
+  "data-sleeve": "/img/sleeves/dark/blue-water-park-right.webp?v=be97465e",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/blue-water-park-front_3432805e-12c1-4849-98db-357f9e740362.webp?v=1795031306&width=600"
  },
  "signature/index.html|dark|bridge-span-14": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/bridge-span-14-back_cbf1f6d2-4486-4e3c-888e-4cd44bee34a8.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/bridge-span-14-front_d6dfcaad-356d-4d8e-bfec-636d13ec6729.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/dark/bridge-span-14-right.webp?v=b85bfaf0",
+  "data-sleeve": "/img/sleeves/dark/bridge-span-14-right.webp?v=cbc375fb",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/bridge-span-14-front_d6dfcaad-356d-4d8e-bfec-636d13ec6729.webp?v=1795031306&width=600"
  },
  "signature/index.html|dark|dampier-strait": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/dampier-strait-back_3e519497-faff-45a7-82c0-068e73752e8a.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/dampier-strait-front_322b274c-0530-4dc4-ac72-4e658e743f61.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/dark/dampier-strait-right.webp?v=54bcc4ab",
+  "data-sleeve": "/img/sleeves/dark/dampier-strait-right.webp?v=d272148b",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/dampier-strait-front_322b274c-0530-4dc4-ac72-4e658e743f61.webp?v=1795031306&width=600"
  },
  "signature/index.html|dark|dive-land-park": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/dive-land-park-back_597daee7-97e2-42c6-b8d6-c3ff34effca9.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/dive-land-park-front_834473d0-3387-451f-9695-76f473d83964.webp?v=1795031307",
-  "data-sleeve": "/img/sleeves/dark/dive-land-park-right.webp?v=80ab4337",
+  "data-sleeve": "/img/sleeves/dark/dive-land-park-right.webp?v=a17899e1",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/dive-land-park-front_834473d0-3387-451f-9695-76f473d83964.webp?v=1795031307&width=600"
  },
  "signature/index.html|dark|navy-llcat": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/navy-llcat-back_ecf91807-1a8a-47c8-925e-7f3df526dee9.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/navy-llcat-front_05db0a5f-048b-4c36-b2c4-213eb388763e.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/dark/navy-llcat-right.webp?v=06b75110",
+  "data-sleeve": "/img/sleeves/dark/navy-llcat-right.webp?v=20b659ff",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/navy-llcat-front_05db0a5f-048b-4c36-b2c4-213eb388763e.webp?v=1795031306&width=600"
  },
  "signature/index.html|dark|rainbow-reef": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/rainbow-reef-back_abfe5081-2f41-45a3-9596-bac8837c01a1.webp?v=1795031307",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/rainbow-reef-front_f8f95933-4a1c-41e9-878a-1366aabbc04d.webp?v=1795031307",
-  "data-sleeve": "/img/sleeves/dark/rainbow-reef-right.webp?v=5db58fee",
+  "data-sleeve": "/img/sleeves/dark/rainbow-reef-right.webp?v=a4aa3f49",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/rainbow-reef-front_f8f95933-4a1c-41e9-878a-1366aabbc04d.webp?v=1795031307&width=600"
  },
  "signature/index.html|dark|rainbow-river": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/rainbow-river-back_2421cd5f-9ec2-4512-895e-7a9c9fc284a3.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/rainbow-river-front_5fa4917a-e218-406d-a27b-2eee11e21567.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/dark/rainbow-river-right.webp?v=6541b844",
+  "data-sleeve": "/img/sleeves/dark/rainbow-river-right.webp?v=5999d421",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/rainbow-river-front_5fa4917a-e218-406d-a27b-2eee11e21567.webp?v=1795031306&width=600"
  },
  "signature/index.html|dark|somosomo-strait": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/somosomo-strait-back_fc7800b3-267e-40e1-9615-22ff67d9d9c8.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/somosomo-strait-front_b3915b9f-1eeb-4dc4-bd5f-dcff66c016bf.webp?v=1795031307",
-  "data-sleeve": "/img/sleeves/dark/somosomo-strait-right.webp?v=c16504e5",
+  "data-sleeve": "/img/sleeves/dark/somosomo-strait-right.webp?v=8360f68c",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/somosomo-strait-front_b3915b9f-1eeb-4dc4-bd5f-dcff66c016bf.webp?v=1795031307&width=600"
  },
  "signature/index.html|dark|thistlegorm": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/thistlegorm-back_06d4684f-5314-469c-a3f0-7499ec3b450f.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/thistlegorm-front_c26b15b3-078c-41f3-afac-698abad86429.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/dark/thistlegorm-right.webp?v=4dd35ec1",
+  "data-sleeve": "/img/sleeves/dark/thistlegorm-right.webp?v=0dce375c",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/thistlegorm-front_c26b15b3-078c-41f3-afac-698abad86429.webp?v=1795031306&width=600"
  },
  "signature/index.html|dark|thurmond-dam": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/thurmond-dam-back_d5bebddd-dfd3-4c77-8141-91cfe8f15367.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/thurmond-dam-front_4707ec1e-2d92-47f0-b999-7531c7ec2dee.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/dark/thurmond-dam-right.webp?v=1f0bfed8",
+  "data-sleeve": "/img/sleeves/dark/thurmond-dam-right.webp?v=0a7cd12c",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/thurmond-dam-front_4707ec1e-2d92-47f0-b999-7531c7ec2dee.webp?v=1795031306&width=600"
  },
  "signature/index.html|dark|vuna-reef": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/vuna-reef-back_bb93a166-34b9-4318-9b94-de03f9b2a92e.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/vuna-reef-front_1c9f4ffa-ca31-43c3-9d16-577d34e1e96c.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/dark/vuna-reef-right.webp?v=21c2baa8",
+  "data-sleeve": "/img/sleeves/dark/vuna-reef-right.webp?v=75c1c5d4",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/vuna-reef-front_1c9f4ffa-ca31-43c3-9d16-577d34e1e96c.webp?v=1795031306&width=600"
  },
  "signature/index.html|plates|bali": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/bali-back.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/bali-front.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/bali-right.webp?v=98e981ae",
+  "data-sleeve": "/img/sleeves/bali-right.webp?v=3e14729a",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/bali-front.webp?v=1795031306&width=600"
  },
  "signature/index.html|plates|black-bart": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/black-bart-back.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/black-bart-front.webp?v=1795031305",
-  "data-sleeve": "/img/sleeves/black-bart-right.webp?v=2f5d5e3e",
+  "data-sleeve": "/img/sleeves/black-bart-right.webp?v=d47ad4c7",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/black-bart-front.webp?v=1795031305&width=600"
  },
  "signature/index.html|plates|blue-grotto": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/blue-grotto-back.webp?v=1795031305",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/blue-grotto-front.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/blue-grotto-right.webp?v=5b700a2b",
+  "data-sleeve": "/img/sleeves/blue-grotto-right.webp?v=1d4c5c9a",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/blue-grotto-front.webp?v=1795031306&width=600"
  },
  "signature/index.html|plates|blue-water-park": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/blue-water-park-back.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/blue-water-park-front.webp?v=1795031305",
-  "data-sleeve": "/img/sleeves/blue-water-park-right.webp?v=8d90b1b2",
+  "data-sleeve": "/img/sleeves/blue-water-park-right.webp?v=c347268c",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/blue-water-park-front.webp?v=1795031305&width=600"
  },
  "signature/index.html|plates|bridge-span-14": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/bridge-span-14-back.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/bridge-span-14-front.webp?v=1795031305",
-  "data-sleeve": "/img/sleeves/bridge-span-14-right.webp?v=9ff5e40f",
+  "data-sleeve": "/img/sleeves/bridge-span-14-right.webp?v=d7ff688e",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/bridge-span-14-front.webp?v=1795031305&width=600"
  },
  "signature/index.html|plates|dampier-strait": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/dampier-strait-back.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/dampier-strait-front.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/dampier-strait-right.webp?v=97054c12",
+  "data-sleeve": "/img/sleeves/dampier-strait-right.webp?v=ec7539b4",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/dampier-strait-front.webp?v=1795031306&width=600"
  },
  "signature/index.html|plates|dive-land-park": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/dive-land-park-back.webp?v=1795031305",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/dive-land-park-front.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/dive-land-park-right.webp?v=ca861117",
+  "data-sleeve": "/img/sleeves/dive-land-park-right.webp?v=a91a1e68",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/dive-land-park-front.webp?v=1795031306&width=600"
  },
  "signature/index.html|plates|navy-llcat": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/navy-llcat-back.webp?v=1795031305",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/navy-llcat-front.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/navy-llcat-right.webp?v=2f93e97d",
+  "data-sleeve": "/img/sleeves/navy-llcat-right.webp?v=71962fcf",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/navy-llcat-front.webp?v=1795031306&width=600"
  },
  "signature/index.html|plates|rainbow-reef": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/rainbow-reef-back.webp?v=1795031305",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/rainbow-reef-front.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/rainbow-reef-right.webp?v=49206a80",
+  "data-sleeve": "/img/sleeves/rainbow-reef-right.webp?v=ece1005d",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/rainbow-reef-front.webp?v=1795031306&width=600"
  },
  "signature/index.html|plates|rainbow-river": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/rainbow-river-back.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/rainbow-river-front.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/rainbow-river-right.webp?v=67d0c092",
+  "data-sleeve": "/img/sleeves/rainbow-river-right.webp?v=8ade4f15",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/rainbow-river-front.webp?v=1795031306&width=600"
  },
  "signature/index.html|plates|somosomo-strait": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/somosomo-strait-back.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/somosomo-strait-front.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/somosomo-strait-right.webp?v=1c897c33",
+  "data-sleeve": "/img/sleeves/somosomo-strait-right.webp?v=1b51f754",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/somosomo-strait-front.webp?v=1795031306&width=600"
  },
  "signature/index.html|plates|thistlegorm": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/thistlegorm-back.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/thistlegorm-front.webp?v=1795031305",
-  "data-sleeve": "/img/sleeves/thistlegorm-right.webp?v=7f304b77",
+  "data-sleeve": "/img/sleeves/thistlegorm-right.webp?v=ef0d5d83",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/thistlegorm-front.webp?v=1795031305&width=600"
  },
  "signature/index.html|plates|thurmond-dam": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/thurmond-dam-back.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/thurmond-dam-front.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/thurmond-dam-right.webp?v=d242bde1",
+  "data-sleeve": "/img/sleeves/thurmond-dam-right.webp?v=b870737e",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/thurmond-dam-front.webp?v=1795031306&width=600"
  },
  "signature/index.html|plates|vuna-reef": {
   "data-back": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/vuna-reef-back.webp?v=1795031306",
   "data-front": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/vuna-reef-front.webp?v=1795031306",
-  "data-sleeve": "/img/sleeves/vuna-reef-right.webp?v=8f6bfe76",
+  "data-sleeve": "/img/sleeves/vuna-reef-right.webp?v=733911b7",
   "src": "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/vuna-reef-front.webp?v=1795031306&width=600"
  },
  "surface-interval/index.html|aquatic-boat-banter|ac-s01-nitrogen": {
