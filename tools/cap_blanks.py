@@ -36,3 +36,11 @@ for g in pages:
         print(f'{name:40s} {len(b) // 1024:5d} KB  {url[:90]}', flush=True)
 json.dump(dict(catalog=pages, saved=saved), open(os.path.join(out, 'index.json'), 'w'), indent=1)
 print(f'\n{len(saved)} images for {len(pages)} colour groups')
+
+# Where each embroidery area sits on the template photos (mockup generator templates for product 140).
+t = PR.get('/mockup-generator/templates/140')
+json.dump(t, open(os.path.join(out, 'templates.json'), 'w'), indent=1)
+for tp in (t.get('result') or {}).get('templates', []):
+    print('template', tp.get('template_id'), tp.get('image_url', '')[-70:], tp.get('template_width'), tp.get('template_height'),
+          'area', tp.get('print_area_left'), tp.get('print_area_top'), tp.get('print_area_width'), tp.get('print_area_height'))
+for vm in (t.get('result') or {}).get('variant_mapping', [])[:2]: print('mapping', json.dumps(vm)[:400])
