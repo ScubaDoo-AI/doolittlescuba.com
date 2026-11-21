@@ -117,6 +117,12 @@ def mockup(spec, width=None, quiet=False):
             if pl['kind'] != 'catalog': sys.exit(f'customcap mockup: {k} is new text; use a catalog design')
             t['files'].append({'type': k, 'url': pl['url']})
             t['options'].append({'id': opt[k], 'value': pl['threads'] or CC.threads_of(pl['image'])})
+    elif line == 'plainside':   # a cap with no side embroidery (The Mark, The Stack): Printful only renders embroidered placements,
+        # so the left side gets a 0.03 in black dot (renders/caps/plain-side-dot.png) to make it draw the plain side. Mockup only.
+        ln, sk = sku.split('/', 1)
+        t = json.loads(json.dumps(L.targets([ln]).get(sk) or sys.exit(f'{sk} not in the {ln} plan')))
+        t['files'].append({'type': 'embroidery_left', 'url': 'https://doolittlescuba.com/renders/caps/plain-side-dot.png'})
+        t.setdefault('options', []).append({'id': 'thread_colors_left', 'value': ['#000000']})
     else:
         t = L.targets([line]).get(sku) or sys.exit(f'{sku} not in the {line} plan')
     v = get(f'/products/variant/{t["variant_id"]}')

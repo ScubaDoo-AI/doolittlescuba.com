@@ -23,5 +23,6 @@ jobs:
           P: ${{ inputs.paths }}
         run: |
           re='^[A-Za-z0-9/_ ,.=?&:-]+$'; [[ "$P" =~ $re ]] || { echo "::error::bad input"; exit 1; }
+          pip install -q pillow numpy   # the organic and Make it yours plans read images
           python tools/printful_read.py $P | tee read.log
           { echo '## Printful read'; echo; echo '```'; cat read.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
