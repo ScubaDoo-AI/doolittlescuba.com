@@ -1,0 +1,22 @@
+name: Cap blanks
+# Printful catalog photos of the blank Flexfit 6277 (product 140), every colour and view → artifact (tools/cap_blanks.py).
+# Read-only at Printful.
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  blanks:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - env:
+          PRINTFUL_TOKEN: ${{ secrets.PRINTFUL_TOKEN }}
+        run: python tools/cap_blanks.py cap-blanks
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cap-blanks
+          path: cap-blanks/
+          retention-days: 7
