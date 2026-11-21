@@ -171,6 +171,60 @@ def site(mpath):
     print(f'{n} cards updated in {dbp}')
 
 
+PROD_Q = '''query($q: String!) { productVariants(first: 1, query: $q) { nodes { product { id title
+  media(first: 30) { nodes { id alt ... on MediaImage { image { url } } } } } } } }'''
+FILES_Q = '''query($q: String!) { files(first: 10, query: $q) { nodes { id alt ... on MediaImage { fileStatus image { url } } } } }'''
+UPD_M = '''mutation($files: [FileUpdateInput!]!) { fileUpdate(files: $files) { files { id } userErrors { field message code } } }'''
+REORDER_M = '''mutation($id: ID!, $moves: [MoveInput!]!) { productReorderMedia(id: $id, moves: $moves) { job { id } mediaUserErrors { field message } } }'''
+VIEW_RE = re.compile(r'/files/[^/?]*?-(front|back)(?:_[0-9a-f-]{36})?\.(?:webp|png|jpe?g)', re.I)
+
+
+def shopify(mpath, apply):
+    """Each card's store product: the old front/back mockup photos are swapped for the 2000 px ones in the same places,
+    the side view goes in right after them, everything else (the watermarked art preview) keeps its place."""
+    import aquatic_order as AO
+    man = json.load(open(mpath)); done = skipped = 0
+    for key, e in man.items():
+        cdn = e.get('cdn') or {}
+        sku = e['spec'].split(':')[2]
+        if not cdn: skipped += 1; continue
+        nodes = AO.shopify(PROD_Q, {'q': f'sku:{sku}'})['productVariants']['nodes']
+        if not nodes: print(f'{key}: no store product for {sku}'); skipped += 1; continue
+        prod = nodes[0]['product']; pid = prod['id']; media = prod['media']['nodes']
+        new = {}
+        for v, url in cdn.items():
+            fname = url.rsplit('/', 1)[-1]
+            hits = [f for f in AO.shopify(FILES_Q, {'q': f'filename:{fname}'})['files']['nodes'] if f.get('image') and f['image']['url'].split('?')[0].endswith('/' + fname)]
+            if hits: new[v] = hits[0]['id']
+        if {'front', 'back'} - set(new): print(f'{key}: new files not found in Shopify Files ({sorted(new)})'); skipped += 1; continue
+        if any(m['id'] in new.values() for m in media): print(f'{key}: already done'); done += 1; continue
+        old = [(m, (VIEW_RE.search((m.get('image') or {}).get('url', '')) or [None, None])[1]) for m in media]
+        order, removed, alts = [], [], {}
+        last_mock = max([i for i, (_, v) in enumerate(old) if v] or [-1])
+        for i, (m, v) in enumerate(old):
+            if v and v.lower() in new:
+                if new[v.lower()] not in order: order.append(new[v.lower()]); alts[v.lower()] = m.get('alt') or ''
+                removed.append(m['id'])   # a second old photo of the same view just goes
+            else: order.append(m['id'])
+            if i == last_mock and 'side' in new: order.append(new['side'])
+        for v in ('back', 'front'):   # a product with no mockup of that view yet: put it first
+            if new[v] not in order: order.insert(0, new[v])
+        if 'side' in new and new['side'] not in order: order.insert(2, new['side'])
+        side_alt = (alts.get('front') or prod['title']).split(':')[0].replace(', front', '').strip() + ', side: the right sleeve (Printful mockup)'
+        print(f'{prod["title"]}: replace {len(removed)} mockup photo(s), add {len(new) - len(removed)} → {len(order)} photos', flush=True)
+        if not apply: continue
+        adds = [{'id': new[v], 'referencesToAdd': [pid], 'alt': alts.get(v) or (side_alt if v == 'side' else f'{prod["title"]}, {v} (Printful mockup)')} for v in new]
+        r = AO.shopify(UPD_M, {'files': adds})['fileUpdate']
+        if r['userErrors']: print('   add failed:', r['userErrors']); continue
+        if removed:
+            r = AO.shopify(UPD_M, {'files': [{'id': i, 'referencesToRemove': [pid]} for i in removed]})['fileUpdate']
+            if r['userErrors']: print('   remove failed:', r['userErrors'])
+        r = AO.shopify(REORDER_M, {'id': pid, 'moves': [{'id': i, 'newPosition': str(n)} for n, i in enumerate(order)]})['productReorderMedia']
+        if r['mediaUserErrors']: print('   reorder failed:', r['mediaUserErrors'])
+        done += 1
+    print(f'\n{done} products {"updated" if apply else "planned"}, {skipped} skipped')
+
+
 if __name__ == '__main__':
     a = sys.argv[1:]
     opt = lambda k, d=None: a[a.index(k) + 1] if k in a else d
@@ -182,4 +236,5 @@ if __name__ == '__main__':
         print(len(C), 'cards')
     elif a[0] == 'render': render(opt('--out', 'mockups-hd'), only, int(opt('--limit', 0)), '--upload' in a)
     elif a[0] == 'site': site(a[1])
+    elif a[0] == 'shopify': shopify(a[1], '--apply' in a)
     else: sys.exit(__doc__)

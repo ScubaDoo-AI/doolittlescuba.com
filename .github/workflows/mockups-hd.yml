@@ -5,6 +5,11 @@ name: Mockups HD
 on:
   workflow_dispatch:
     inputs:
+      mode:
+        description: 'render = Printful mockups · shopify-dry / shopify = swap the store photos (tools/mockups_hd_manifest.json)'
+        type: choice
+        options: [render, shopify-dry, shopify]
+        default: render
       only:
         description: 'Groups: certifiedish,signature,offworld,n73,aquatic,organic (blank = all)'
         type: string
@@ -43,7 +48,11 @@ jobs:
           FLAG="--limit $LIMIT"
           if [ -n "$ONLY" ]; then FLAG="$FLAG --only $ONLY"; fi
           if [ "$UPLOAD" = "true" ]; then FLAG="$FLAG --upload"; fi
-          python tools/mockups_hd.py render --out mockups-hd $FLAG | tee run.log
+          case "${{ inputs.mode }}" in
+            render) python tools/mockups_hd.py render --out mockups-hd $FLAG | tee run.log ;;
+            shopify-dry) mkdir -p mockups-hd; python tools/mockups_hd.py shopify tools/mockups_hd_manifest.json | tee run.log ;;
+            shopify) mkdir -p mockups-hd; python tools/mockups_hd.py shopify tools/mockups_hd_manifest.json --apply | tee run.log ;;
+          esac
           { echo '## Mockups HD'; echo; echo '```'; tail -n 40 run.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         if: always()
