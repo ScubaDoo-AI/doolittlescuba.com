@@ -51,3 +51,27 @@ Unchanged: Blue Water Park (Black), Navy LLCAT (Navy), Dive Land Park (Dark grey
 - **Site:** hats deck colours, swatches, captions, alt text, Make it yours links (four stale colour links fixed: brown, purple, maroon, spruce). Make it yours still offers the dark cap colours only, so links from light, red caps open on the nearest dark one.
 - **Pairs:** 18 pair images rebuilt on Printful's mockups (`tools/pairs_pf.py`, new), `pairs.py` cap colours.
 - **Shopify:** 12 caps (descriptions, `colour:` tags, front/back images in place), 18 pairs (descriptions, images), organic Stack images. Price & stock watch afterwards: no price change, nothing sold out.
+
+## Certified-ish dark: no more orange and brown (Eric 11:44 "Not a fan of the orange and brown", 11:59 "go")
+11 of the 20 dark tees were Yam (6) or Espresso (5). All moved to Comfort Colors 1717 colours in US stock at Printful in every size (catalog API 21 Nov); white ink unchanged.
+
+| Tee | Was | Now |
+|---|---|---|
+| Altitude | Yam | Mystic Blue |
+| Boat | Yam | True Navy |
+| Buoyancy | Yam | Blue Spruce |
+| Drift | Yam | Midnight |
+| Fish ID | Yam | Emerald |
+| Underwater Photographer | Yam | Black |
+| Cave | Espresso | Graphite |
+| Deep | Espresso | True Navy |
+| Ice | Espresso | Denim |
+| Night | Espresso | Black |
+| Search and Recovery | Espresso | Hemp |
+
+- **Printful:** `printful_certifiedish.py` (colours + variant ids); link run 44927750902, 66 variants, 0 failed. Mockups: read run 44928564468 (front, back, right sleeve).
+- **Organic twins unchanged** (still Khaki): `organic.py` PIN keeps them off the regular colour.
+- **Shopify:** 11 products: descriptions, `colour:` tags, back/front images replaced in place.
+- **Shop theme (live, Doolittle Scuba — Deck):** `ds-deck-cards.liquid` spine colours for Mystic Blue and Hemp; `ds-organic-map.json` (cart converter) shows the new regular colours.
+- **Site:** `certified-ish/` dark cards (colour, swatch, captions, Shopify image versions, sleeves), organic notes ("Mystic Blue → Khaki" …), Make it yours gains Mystic blue and Hemp (`custom/`, `custom_tee.py`), `certdark.py` data so a rebuild keeps them. Safeguard recaptured.
+- Price & stock watch afterwards: no change for Certified-ish; open items are the Side Mark cap prices (another session) and the sticker packs' stock tracking.
