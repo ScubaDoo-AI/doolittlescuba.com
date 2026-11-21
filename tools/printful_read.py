@@ -32,6 +32,7 @@ def show(path):
     r = res['result']
     if '/printfiles/' in path:
         print('product', r.get('product_id'), '| available placements:', json.dumps(r.get('available_placements')))
+        print('  option groups:', json.dumps(r.get('option_groups')), '| options:', json.dumps(r.get('options')))
         for pf in r.get('printfiles', []):
             w, h, dpi = pf.get('width') or 0, pf.get('height') or 0, pf.get('dpi') or 1
             print(f"  printfile {pf.get('printfile_id', pf.get('id'))}: {w} x {h} px @ {dpi} dpi = {w/dpi:.2f} x {h/dpi:.2f} in, "
