@@ -95,7 +95,7 @@ def webp(png_bytes, path):
     return im.size
 
 
-def upload(paths, alts):
+def upload(paths, alts, with_ids=False):
     """Shopify Files, ≤10 at a time → CDN URLs (same order). Names are kept; an existing name gets a suffix, so the URL
     is read back rather than guessed."""
     import aquatic_order as AO
@@ -115,7 +115,7 @@ def upload(paths, alts):
     ids = [f['id'] for f in fc['files']]
     for _ in range(80):
         nodes = AO.shopify(AO.FILE_Q, {'ids': ids})['nodes']
-        if all(n and n['fileStatus'] == 'READY' for n in nodes): return [n['image']['url'] for n in nodes]
+        if all(n and n['fileStatus'] == 'READY' for n in nodes): return [(n['image']['url'], n['id']) if with_ids else n['image']['url'] for n in nodes]
         if any(n and n['fileStatus'] == 'FAILED' for n in nodes): raise RuntimeError(f'Shopify file processing failed: {nodes}')
         time.sleep(3)
     raise RuntimeError('Shopify files not READY after 4 minutes')
@@ -245,14 +245,10 @@ def cap(out, colours, apply):
             paths.append(p); alts.append(f'Make it yours cap in {names[col]} (Flexfit 6277), {v}: {CAP_DESIGN} (Printful mockup)')
             print(f'{name}  {size[0]}x{size[1]}', flush=True)
     if not apply: return
-    cdn = [u.split('?')[0] for i in range(0, len(paths), 10) for u in upload(paths[i:i + 10], alts[i:i + 10])]
+    up = [x for i in range(0, len(paths), 10) for x in upload(paths[i:i + 10], alts[i:i + 10], with_ids=True)]
+    cdn = [u.split('?')[0] for u, _ in up]; new = [i for _, i in up]
     prod = AO.shopify(PROD_Q, {'q': f'sku:{CAP_PRODUCT_SKU}'})['productVariants']['nodes'][0]['product']; pid = prod['id']
-    new = []
-    for u in cdn:
-        fname = u.rsplit('/', 1)[-1]
-        hit = [f for f in AO.shopify(FILES_Q, {'q': f'filename:{fname}'})['files']['nodes'] if f.get('image') and f['image']['url'].split('?')[0].endswith('/' + fname)]
-        new.append(hit[0]['id'])
-    old = [m['id'] for m in prod['media']['nodes']]
+    old = [m['id'] for m in prod['media']['nodes'] if m['id'] not in new]
     r = AO.shopify(UPD_M, {'files': [{'id': i, 'referencesToAdd': [pid], 'alt': a} for i, a in zip(new, alts)]})['fileUpdate']
     if r['userErrors']: sys.exit(f'add: {r["userErrors"]}')
     if old:
