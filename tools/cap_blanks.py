@@ -15,9 +15,9 @@ import printful_read as PR
 out = sys.argv[1] if len(sys.argv) > 1 else 'cap-blanks'; os.makedirs(out, exist_ok=True)
 pages, off = [], 0
 while True:
-    r = PR.get(f'/v2/catalog-products/140/images?limit=100&offset={off}')
+    r = PR.get(f'/v2/catalog-products/140/images?limit=20&offset={off}')
     if 'data' not in r: sys.exit(f'catalog images: {json.dumps(r)[:500]}')
-    pages += r['data']; off += 100
+    pages += r["data"]; off += 20
     if off >= (r.get('paging') or {}).get('total', 0): break
 saved = []
 for g in pages:
