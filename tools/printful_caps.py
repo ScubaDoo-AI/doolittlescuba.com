@@ -66,7 +66,7 @@ CAPS = [
     ('VUN', 'vuna-reef-dark-cap', 'Grey', 'DS-VUN_Vuna_Reef_PF-cap-front_2.46x1.97in_white-blue.png', [WHITE, ROYAL], True, True, 38),
     ('MRK', 'the-mark-dark-cap', 'Black', 'DS_PF-cap-front_the-mark_2.00in-tall_white-red.png', [WHITE, RED], False, True, 36),
     ('SEA', 'the-seal-dark-cap', 'Dark Navy', 'DS_PF-cap-front_the-seal_A2-bezel-star_2.00in-tall_white-red.png', [WHITE, RED], True, True, 36),
-    ('STK', 'the-stack-dark-cap', 'Dark Grey', 'DS_PF-cap-front_the-stack_2.00in-tall_white-red.png', [WHITE, RED], False, False, 36),
+    ('STK', 'the-stack-dark-cap', 'Dark Grey', 'DS_PF-cap-front_the-stack_2.00in-tall_white-red.png', [WHITE, RED], False, True, 36),   # back tagline added (Eric, 21 Nov 2026); no side mark: the DS mark is on the front
     ('WDM', 'the-wordmark-dark-cap', 'Khaki', 'DS_PF-cap-front_the-wordmark_4.50x1.93in_white-red.png', [WHITE, RED], True, True, 36),
 ]
 # Shopify variant ids (S/M, L/XL), from the store 11 Nov 2026 — the link also matches by SKU DS-<code>-CD-SM / -LXL
