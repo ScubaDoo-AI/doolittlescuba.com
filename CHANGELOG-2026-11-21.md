@@ -12,3 +12,14 @@ Eric: *"a cap that is plain with just the DS mark on the side, make it custom to
 - **Shopify:** `the-side-mark-cap` (active, on all six channels; picked up by the `hats`, `brand-caps` and `pair-discount-caps` collections from its tags). Options: Colour (10: Black, Dark Navy, Dark Grey, Grey, White, Khaki, Olive, Multicam Green, Royal Blue, Red) × Size (S/M, L/XL) × Back (Plain / Do A Little Scuba) = 40 variants, SKUs `DS-SDM-<COLOUR>-<SM|LXL>[-B]`. Each variant shows its own colour: the side view for plain, the back view for the tagline option (20 Printful mockups, read run below).
 - **Printful:** plan in `tools/printful_sidemark.py` (Flexfit 6277; DS mark on the left side; thread white/red, navy/red on White/Khaki/Grey, white/navy on Red; same rules as the recoloured caps). `printful_link.py` gained the `sidemark` line (and the workflow option); link run: 40/40 linked.
 - **Site:** new card after The Stack in the caps deck (shown in Black, turns side → back), linking straight to the shop product to pick a colour. No "Make it yours" link: the custom builder has no plain-front option.
+
+## Make it yours: every cap colour
+Eric: *"make it yours items should allow for color changes as well."*
+
+- **Builder (`/custom/`):** caps now offer all ten Flexfit 6277 colours. The five dark ones were there already; Grey, White, Khaki, Red and Multicam green are new. On light caps the preview stitches in navy, the way they are made.
+- **Orders (`tools/custom_cap.py`):** takes the new colours.
+  - On White, Khaki and Grey, every front, the side mark and the tagline switch to their navy-thread files, and a customer's own line is stitched in navy.
+  - On Red, the DS-mark art uses the navy-S file.
+  - Twenty new stitch files are in `renders/caps/`, made with `tools/caps_light_threads.py`. They cover every site front without one yet, The Mark, The Seal and The Stack (light versions), and The Mark, The Seal, The Stack and The Wordmark (red-cap versions).
+- **The Side Mark card** now has a *Make it yours* link (plain front, DS mark left, tagline back) next to *Pick your colour*.
+- **Fixed:** the builder's script had been failing since 19 Nov because of an unescaped apostrophe in the mockup note ("Eric's drawing"). The colour, design and cart steps did not load until this fix.

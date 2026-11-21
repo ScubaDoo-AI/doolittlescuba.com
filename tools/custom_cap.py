@@ -20,6 +20,7 @@ at the 0.25 in letter floor, anything the page doesn't offer.
   tools/custom_cap.py 'colour=navy&cf=line&text=Fiji 2024&cs=dsmark&csp=left&cb=tagline' /tmp/cap LXL
 """
 import os, sys, re, urllib.parse
+import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
@@ -28,7 +29,8 @@ import printful_caps as PC
 
 Hold = T.Hold
 DPI = T.DPI
-COLOURS = {'navy': 'Dark Navy', 'black': 'Black', 'dark-grey': 'Dark Grey', 'olive': 'Olive', 'royal-blue': 'Royal Blue'}
+COLOURS = {'navy': 'Dark Navy', 'black': 'Black', 'dark-grey': 'Dark Grey', 'olive': 'Olive', 'royal-blue': 'Royal Blue',
+           'grey': 'Grey', 'white': 'White', 'khaki': 'Khaki', 'red': 'Red', 'multicam-green': 'Multicam Green'}   # all ten Flexfit 6277 colours (Eric, 21 Nov: Make it yours takes any colour)
 SIZES = {'SM': 0, 'LXL': 1}
 # Printful order API (v2) areas: the standard front takes 4.00 in wide (it refused a 4.31 in line, 19 Nov 2026 test order 1005);
 # embroidery_front_large is the 5.90 x 2.00 in printfile, same $2.95 placement price (catalog 140, 20 Nov 2026).
@@ -98,8 +100,36 @@ def text_fit(text, font, w_in, h_in, max_em=0.62):
 
 
 def catalog(name, threads):
+    if name.startswith(PC.SITE):   # a light/red-cap stitch file served by the site (renders/caps/); read the repo copy
+        im = Image.open(os.path.join(HERE, '..', 'renders', 'caps', name[len(PC.SITE):])).convert('RGBA')
+        return dict(kind='catalog', url=name, image=im, threads=threads_of(im), name=name[len(PC.SITE):])
     im = T.fetch(name)
     return dict(kind='catalog', url=T.CDN + name, image=im, threads=threads, name=name)
+
+
+def tint(im, hexcol):
+    """recolour a one-thread line (drawn white) to its thread colour, so the file matches the thread Printful is told."""
+    if hexcol.upper() == WHITE.upper(): return im
+    a = np.array(im); a[..., :3] = [int(hexcol[i:i + 2], 16) for i in (1, 3, 5)]
+    return Image.fromarray(a)
+
+
+def threads_of(im):
+    a = np.array(im); op = a[..., 3] > 0
+    return sorted({'#%02X%02X%02X' % tuple(int(x) for x in c) for c in a[op][:, :3]})
+
+
+def for_colour(name, threads, colour, red_too=False):
+    """the stitch file for this cap colour: White / Khaki / Grey take the navy-thread file (white thread vanishes on them),
+    Red takes the navy-S file for DS-mark art (red thread vanishes on it). Files: tools/caps_light_threads.py, renders/caps/."""
+    if colour in PC.LIGHT:
+        alt = name.replace('_white-', '_navy-').replace('_white.png', '_navy.png')
+    elif colour == 'Red' and red_too:
+        alt = name.replace('_white-red', '_white-navy')
+    else:
+        return catalog(name, threads)
+    if alt != name and os.path.exists(os.path.join(HERE, '..', 'renders', 'caps', alt)): return catalog(PC.SITE + alt, None)
+    raise Hold(f'no {colour} stitch file for {name}')
 
 
 def plan(q, size='LXL'):
@@ -109,31 +139,32 @@ def plan(q, size='LXL'):
     if S['font'] not in T.FONTS: raise Hold(f'font {S["font"]!r}')
     if 'logo' in (S['cf'], S['cs'], S['cb']): raise Hold('logo cap: wholesale quote by email (digitization fee + $0.50, once per design)')
     P = {}
+    col = COLOURS[S['colour']]; ink = [PC.NAVY] if col in PC.LIGHT else [WHITE]   # your own line: navy thread on a light cap
     # front
     if S['cf'] == 'site':
         if S['site'] == 'home-port': raise Hold('Home Port front: embroidered to order by hand')
         c = site_code(S['site']) or (_ for _ in ()).throw(Hold(f'site {S["site"]!r}'))
-        P['embroidery_front'] = catalog(BY_CODE[c][3], BY_CODE[c][4])
+        P['embroidery_front'] = for_colour(BY_CODE[c][3], BY_CODE[c][4], COLOURS[S['colour']])
     elif S['cf'] in MARK_FRONT:
-        c = BY_CODE[MARK_FRONT[S['cf']]]; P['embroidery_front'] = catalog(c[3], c[4])
+        c = BY_CODE[MARK_FRONT[S['cf']]]; P['embroidery_front'] = for_colour(c[3], c[4], COLOURS[S['colour']], red_too=True)
     elif S['cf'] == 'line':
         if not S['text']: raise Hold('front line chosen but no text')
         im = text_fit(S['text'], S['font'], 5.60, 1.90)
         if im is None: raise Hold('front line too long to stitch')
-        P['embroidery_front_large'] = dict(kind='new', image=im, threads=[WHITE], name='front-line')   # Eric, 20 Nov: option A, the large front
+        P['embroidery_front_large'] = dict(kind='new', image=tint(im, ink[0]), threads=ink, name='front-line')   # Eric, 20 Nov: option A, the large front
     elif S['cf'] != 'none': raise Hold(f'front {S["cf"]!r}')
     # side
     side = {'left': 'embroidery_left', 'right': 'embroidery_right'}.get(S['csp']) or (_ for _ in ()).throw(Hold(f'side {S["csp"]!r}'))
-    if S['cs'] == 'dsmark': P[side] = catalog(PC.SIDE_FILE, [WHITE, RED])
+    if S['cs'] == 'dsmark': P[side] = for_colour(PC.SIDE_FILE, [WHITE, RED], col, red_too=True)
     elif S['cs'] != 'none': raise Hold(f'side {S["cs"]!r}')
     # back
-    if S['cb'] == 'tagline': P['embroidery_back'] = catalog(PC.BACK_FILE, [WHITE])
-    elif S['cb'] == 'dsmark': P['embroidery_back'] = catalog(PC.SIDE_FILE, [WHITE, RED])
+    if S['cb'] == 'tagline': P['embroidery_back'] = for_colour(PC.BACK_FILE, [WHITE], col)
+    elif S['cb'] == 'dsmark': P['embroidery_back'] = for_colour(PC.SIDE_FILE, [WHITE, RED], col, red_too=True)
     elif S['cb'] == 'line':
         if not S['text']: raise Hold('back line chosen but no text')
         im = text_fit(S['text'], S['font'], 1.95, 0.95, max_em=0.40)
         if im is None: raise Hold('back line too long to stitch (keep it to about 20 characters)')
-        P['embroidery_back'] = dict(kind='new', image=im, threads=[WHITE], name='back-line')
+        P['embroidery_back'] = dict(kind='new', image=tint(im, ink[0]), threads=ink, name='back-line')
     elif S['cb'] != 'none': raise Hold(f'back {S["cb"]!r}')
     # every custom cap carries Doolittle Scuba branding: a DS front (mark, seal, stack, wordmark) or the DS mark (the page enforces it too)
     if not (S['cf'] in MARK_FRONT or S['cs'] == 'dsmark' or S['cb'] == 'dsmark'): raise Hold('no Doolittle Scuba branding on the cap')
