@@ -238,6 +238,7 @@ def cap(out, colours, apply):
     for col in colours:
         res = PR.mockup(f'mockup:customcap:{col}', width=WIDTH, quiet=True)
         own = {m.get('placement'): m.get('mockup_url') for m in res['mockups']}
+        own.setdefault('embroidery_front', own.get('embroidery_front_large'))   # Printful's mockup generator only has the large front for the 6277
         for v, pl in (('front', 'embroidery_front'), ('side', 'embroidery_left'), ('back', 'embroidery_back')):
             if not own.get(pl): print(f'{col}: no {pl} mockup'); continue
             name = f'hd-make-it-yours-cap-{col}-{v}.webp'; p = os.path.join(out, name); size = webp(fetch(own[pl]), p)
