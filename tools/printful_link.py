@@ -79,6 +79,10 @@ def targets(only):
                 t = dict(line='organic-' + p['kind'], ext='sku:' + v['sku'], variant_id=v['variant_id'], files=fix(p['files']))
                 if p.get('options'): t['options'] = p['options']
                 out[v['sku']] = t
+    if 'sidemark' in only:   # The Side Mark cap (printful_sidemark.py): DS mark on the left side, optional back, every 6277 colour — matched by SKU
+        for p in load('printful_sidemark').plan():
+            for v in p['variants']:
+                out[v['sku']] = dict(line='sidemark', ext='sku:' + v['sku'], variant_id=v['variant_id'], files=p['files'], options=p['options'])
     if 'aquatic' in only:   # Boat Banter S01–S20 only; the personalized Surface Interval tees are ordered by hand
         for p in load('printful_aquatic').plan('dtg'):
             for v in p['variants']:
@@ -121,7 +125,7 @@ if __name__ == '__main__':
     # only open the products whose name belongs to the lines asked for (a 295-product store took 20+ min opening all)
     NAMES = {'aquatic': ['aquatic comic', 'off-gassing', 'surface interval'], 'signature': ['signature series'], 'certifiedish': ['certified-ish'],
              'n73': ['1n73ll1g3nc3'], 'offworld': ['off-world'], 'stickers': ['sticker', 'achievement', 'seal', 'logo', 'bumper', 'kit'],
-             'caps': ['dark cap'], 'beanie': ['beanie'], 'organic': ['organic'], 'jackets': ['anorak', 'windbreaker']}
+             'caps': ['dark cap'], 'beanie': ['beanie'], 'organic': ['organic'], 'jackets': ['anorak', 'windbreaker'], 'sidemark': ['side mark']}
     keys = [k for l in only for k in NAMES.get(l, [])]
     if keys and '--all-products' not in sys.argv:
         picked = [sp for sp in items if any(k in (sp.get('name') or '').lower() for k in keys)]
