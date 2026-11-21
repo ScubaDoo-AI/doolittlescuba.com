@@ -81,7 +81,7 @@ def _post(path, body):
         return {'code': e.code, 'error': e.read().decode()[:400]}
 
 
-def mockup(spec):
+def mockup(spec, width=None, quiet=False):
     """mockup:<line>:<SKU> — render Printful's own mockups for one planned variant with the files and positions the
     printful_*.py plan would send (nothing is written to the product). Prints one image URL per placement."""
     import importlib.util, time
@@ -129,9 +129,11 @@ def mockup(spec):
                 w, h = struct.unpack('>II', r.read(32)[16:24])
             s = min(W / w, H / h); nw, nh = round(w * s), round(h * s)
             f['position'] = {'area_width': W, 'area_height': H, 'width': nw, 'height': nh, 'top': (H - nh) // 2, 'left': (W - nw) // 2}
-    print(f'\n== mockup {sku} → product {pid} variant {t["variant_id"]} ==')
-    for f in files: print('  ', f['placement'], f['image_url'].rsplit('/', 1)[-1], json.dumps(f.get('position')))
+    if not quiet:
+        print(f'\n== mockup {sku} → product {pid} variant {t["variant_id"]} ==')
+        for f in files: print('  ', f['placement'], f['image_url'].rsplit('/', 1)[-1], json.dumps(f.get('position')))
     body = {'variant_ids': [t['variant_id']], 'format': 'png', 'files': files}
+    if width: body['width'] = width   # mockup image width in px (Printful: max 2000, default 1000)
     if t.get('options'): body['product_options'] = {o['id']: o['value'] for o in t['options']}   # embroidery: thread colours and type
     r = post(f'/mockup-generator/create-task/{pid}', body)
     key = r.get('result', {}).get('task_key') or sys.exit(f'create-task failed: {json.dumps(r)[:400]}')
@@ -139,6 +141,7 @@ def mockup(spec):
         time.sleep(6)
         st = get(f'/mockup-generator/task?task_key={key}').get('result', {})
         if st.get('status') == 'completed':
+            if quiet: return dict(product=pid, variant=t['variant_id'], placements=[f['placement'] for f in files], mockups=st.get('mockups', []))
             for m in st.get('mockups', []):
                 print('  mockup', m.get('placement'), m.get('mockup_url'))
                 for e in m.get('extra', []): print('    extra', e.get('title'), e.get('url'))

@@ -1,0 +1,59 @@
+name: Mockups HD
+# Every shirt card's front / back / side mockup from Printful at 2000 px (tools/mockups_hd.py).
+# Read-only at Printful (mockup tasks only). With upload on, the WebPs go to Shopify Files; manifest.json (card → CDN
+# URLs) comes back as the run's artifact for `mockups_hd.py site` / `shopify`.
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: 'Groups: certifiedish,signature,offworld,n73,aquatic,organic (blank = all)'
+        type: string
+        default: ''
+      limit:
+        description: 'Cards at most (0 = all)'
+        type: string
+        default: '0'
+      upload:
+        description: 'Upload the WebPs to Shopify Files'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - run: pip install pillow numpy scipy scikit-image
+      - name: Render
+        env:
+          PRINTFUL_TOKEN: ${{ secrets.PRINTFUL_TOKEN }}
+          SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
+          SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
+          ONLY: ${{ inputs.only }}
+          LIMIT: ${{ inputs.limit }}
+          UPLOAD: ${{ inputs.upload }}
+        run: |
+          set -o pipefail
+          [[ "$ONLY" =~ ^[a-z0-9,]*$ ]] || { echo "::error::only: group names, comma-separated"; exit 1; }
+          [[ "$LIMIT" =~ ^[0-9]+$ ]] || { echo "::error::limit: a number"; exit 1; }
+          FLAG="--limit $LIMIT"
+          if [ -n "$ONLY" ]; then FLAG="$FLAG --only $ONLY"; fi
+          if [ "$UPLOAD" = "true" ]; then FLAG="$FLAG --upload"; fi
+          python tools/mockups_hd.py render --out mockups-hd $FLAG | tee run.log
+          { echo '## Mockups HD'; echo; echo '```'; tail -n 40 run.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mockups-hd-manifest
+          path: mockups-hd/manifest.json
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        if: ${{ inputs.limit != '0' }}
+        with:
+          name: mockups-hd-images
+          path: mockups-hd/*.webp
+          retention-days: 7
