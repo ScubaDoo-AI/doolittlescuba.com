@@ -7,6 +7,9 @@ Ground and placement were measured from the 19 Nov pair images (ground fitted pe
 
   tools/pairs_pf.py bali dampier-strait ...     # the given sites, both tees
   tools/pairs_pf.py all
+  tools/pairs_pf.py --views all                 # also the side and back views, for the shop deck's 360 turn (21 Nov):
+                                                #   img/pairs/<slug>-<line>-side.jpg  (tee side + cap left side)
+                                                #   img/pairs/<slug>-<line>-back.jpg  (tee back + cap back)
 """
 import io, os, re, sys, urllib.request
 import numpy as np
@@ -26,10 +29,13 @@ def ground():
     return Image.fromarray(np.clip(np.stack([sum(c * x for c, x in zip(k, X)) for k in COEF], -1), 0, 255).astype('uint8'))
 
 
-def tees():
-    s = open(f'{ROOT}/signature/index.html').read()
-    return {(m.group(2), 'light' if m.group(1) == 'plates' else 'dark'): m.group(3)
-            for m in re.finditer(r'<figure class="sh" data-line="(plates|dark)" data-slug="([a-z0-9-]+)".*?data-front="([^"]+)"', s, re.S)}
+def tees(view='front'):
+    attr = {'front': 'front', 'side': 'sleeve', 'back': 'back'}[view]
+    s = open(f'{ROOT}/signature/index.html').read(); out = {}
+    for m in re.finditer(r'<figure class="sh" data-line="(plates|dark)" data-slug="([a-z0-9-]+)".*?</figure>', s, re.S):
+        u = re.search(r'data-' + attr + r'="([^"]+)"', m.group(0))
+        if u: out[(m.group(2), 'light' if m.group(1) == 'plates' else 'dark')] = u.group(1)
+    return out
 
 
 def fetch(url):
@@ -37,16 +43,24 @@ def fetch(url):
     with urllib.request.urlopen(req, timeout=60) as r: return Image.open(io.BytesIO(r.read())).convert('RGBA')
 
 
-def build(slug, line, T, G):
+CAP_VIEW = {'front': 'front', 'side': 'left', 'back': 'back'}
+
+
+def build(slug, line, T, G, view='front'):
     out = G.copy().convert('RGBA')
     tee = fetch(T[(slug, line)]).resize((TEE[0], TEE[0]), Image.LANCZOS); out.alpha_composite(tee, (TEE[1], TEE[2]))
-    cap = Image.open(f'{ROOT}/img/hats/pf/cap-dark-{CAP_SLUG.get(slug, slug)}-front.webp').convert('RGBA').resize((CAP[0], CAP[0]), Image.LANCZOS)
+    cap = Image.open(f'{ROOT}/img/hats/pf/cap-dark-{CAP_SLUG.get(slug, slug)}-{CAP_VIEW[view]}.webp').convert('RGBA').resize((CAP[0], CAP[0]), Image.LANCZOS)
     out.alpha_composite(cap, (CAP[1], CAP[2]))
-    p = f'{ROOT}/img/pairs/{slug}-{line}.jpg'; out.convert('RGB').save(p, quality=90, optimize=True); return p
+    p = f'{ROOT}/img/pairs/{slug}-{line}' + ('' if view == 'front' else '-' + view) + '.jpg'
+    out.convert('RGB').save(p, quality=90, optimize=True); return p
 
 
 if __name__ == '__main__':
-    T, G = tees(), ground()
-    sites = sorted({s for s, _ in T}) if sys.argv[1:] == ['all'] else sys.argv[1:]
-    for s in sites:
-        for line in ('light', 'dark'): print(build(s, line, T, G))
+    a = sys.argv[1:]; views = ['side', 'back'] if '--views' in a else ['front']; a = [x for x in a if x != '--views']
+    G = ground()
+    for view in views:
+        T = tees(view)
+        sites = sorted({s for s, _ in T}) if a == ['all'] else a
+        for s in sites:
+            for line in ('light', 'dark'):
+                if (s, line) in T: print(build(s, line, T, G, view))
