@@ -4,7 +4,8 @@
 Printful stocks the 6277 in Black, Dark Navy, Dark Grey, Olive, Royal Blue (plus Grey, Khaki, Red, White, Multicam). Since 12 Nov
 every site cap is on one of those: the six that were going to the outside embroiderer moved to the nearest dark colour Printful
 carries — Blue Grotto Royal Blue, Bridge Span 14 / Somosomo Strait / Vuna Reef Olive, Rainbow River Black, The Thistlegorm Dark
-Grey (Eric: "correct this to be Printful stocked colors"). Home Port is custom-order (the buyer's own coordinates) and is not linked.
+Grey (Eric: "correct this to be Printful stocked colors").
+21 Nov: every cap recoloured for spread and to sit between its light and dark tee (see OVERRIDE below; Eric "go"). Home Port is custom-order (the buyer's own coordinates) and is not linked.
 
 Three placements, sized to the 6277's actual Printful templates (printfiles API, 11 Nov: front 5.90 x 2.00 in; left, right and
 back 2.00 x 1.00 in at 300 dpi). Files in Shopify Files, built by the Project's printful_caps_files.py from the embroiderer pack:
@@ -27,30 +28,46 @@ The Mark $19.46, The Stack $16.51, against $35 (site caps) / $40 (brand caps) in
 """
 CDN = 'https://cdn.shopify.com/s/files/1/0787/3350/8794/files/'
 BLANK, EXTRA = 16.51, 2.95
-PF = {'Black': (5276, 5277), 'Dark Navy': (5278, 5279), 'Dark Grey': (5280, 5281), 'Olive': (15901, 15902), 'Royal Blue': (5286, 5287)}   # (S/M, L/XL), catalog API 12 Nov
-WHITE, RED, ROYAL = '#FFFFFF', '#CC3333', '#005397'
+PF = {'Black': (5276, 5277), 'Dark Navy': (5278, 5279), 'Dark Grey': (5280, 5281), 'Olive': (15901, 15902), 'Royal Blue': (5286, 5287),
+      'Grey': (5282, 5283), 'Khaki': (5292, 5293), 'Red': (5288, 5289), 'White': (5274, 5275), 'Multicam Green': (15899, 15900)}   # (S/M, L/XL), catalog API 21 Nov, all US in stock
+WHITE, RED, ROYAL, NAVY = '#FFFFFF', '#CC3333', '#005397', '#333366'   # 1801 White, 1839 Red, 1842 Royal, 1966 Navy
+SITE = 'https://doolittlescuba.com/renders/caps/'   # the 21 Nov light/red-cap stitch files (tools/caps_light_threads.py), served by the site
+LIGHT_SIDE, LIGHT_BACK = SITE + 'DS_mark_HEAVY_PF-cap-left_FIT_0.92x1.00in_navy-red.png', SITE + 'DS_tagline_PF-cap-back_DO-A-LITTLE-over-SCUBA_2.00x0.67in_navy.png'
+RED_SIDE = SITE + 'DS_mark_HEAVY_PF-cap-left_FIT_0.92x1.00in_white-navy.png'
+# Cap recolour, 21 Nov 2026 (Eric: "go"): one colour per cap chosen between its light and dark tee, at most two caps per colour.
+# On White / Khaki / Grey the white thread becomes 1966 Navy (flag keeps its white centre inside a navy outline); on Red the
+# side mark's red S becomes navy. code -> (front url, front threads, side url, side threads, back url, back threads)
+OVERRIDE = {
+    'THD': (SITE + 'DS-THD_Thurmond_Dam_PF-cap-front_3.78x1.89in_navy-red.png', [WHITE, NAVY, RED]),
+    'BAL': (SITE + 'DS-BAL_Bali_PF-cap-front_2.46x1.88in_navy-blue.png', [WHITE, NAVY, ROYAL]),
+    'BGR': (SITE + 'DS-BGR_Blue_Grotto_PF-cap-front_2.68x1.88in_navy-red.png', [WHITE, NAVY, RED]),
+    'VUN': (SITE + 'DS-VUN_Vuna_Reef_PF-cap-front_2.46x1.97in_navy-blue.png', [WHITE, NAVY, ROYAL]),
+    'SOM': (SITE + 'DS-SOM_Somosomo_Strait_PF-cap-front_4.02x1.89in_navy-blue.png', [WHITE, NAVY, ROYAL]),
+    'WDM': (SITE + 'DS_PF-cap-front_the-wordmark_4.50x1.93in_navy-red.png', [NAVY, RED]),
+}
+LIGHT = {'White', 'Khaki', 'Grey'}
 SIDE_FILE = 'DS_mark_HEAVY_PF-cap-left_FIT_0.92x1.00in_white-red.png'
 BACK_FILE = 'DS_tagline_PF-cap-back_DO-A-LITTLE-over-SCUBA_2.00x0.67in_white.png'
 # code, handle, Printful colour, front file, front threads, side?, back?, price (15 Nov 2026 table: site caps $38, brand caps $36)
 CAPS = [
-    ('BAL', 'bali-dark-cap', 'Dark Navy', 'DS-BAL_Bali_PF-cap-front_2.46x1.88in_white-blue.png', [WHITE, ROYAL], True, True, 38),
-    ('DAM', 'dampier-strait-dark-cap', 'Dark Navy', 'DS-DAM_Dampier_Strait_PF-cap-front_3.57x1.99in_white-blue.png', [WHITE, ROYAL], True, True, 38),
+    ('BAL', 'bali-dark-cap', 'Khaki', 'DS-BAL_Bali_PF-cap-front_2.46x1.88in_white-blue.png', [WHITE, ROYAL], True, True, 38),
+    ('DAM', 'dampier-strait-dark-cap', 'Red', 'DS-DAM_Dampier_Strait_PF-cap-front_3.57x1.99in_white-blue.png', [WHITE, ROYAL], True, True, 38),
     ('NAV', 'navy-llcat-dark-cap', 'Dark Navy', 'DS-NAV_Navy_LLCAT_PF-cap-front_2.81x1.96in_white-red.png', [WHITE, RED], True, True, 38),
-    ('THD', 'thurmond-dam-dark-cap', 'Dark Navy', 'DS-THD_Thurmond_Dam_PF-cap-front_3.78x1.89in_white-red.png', [WHITE, RED], True, True, 38),
-    ('BBT', 'black-bart-dark-cap', 'Dark Grey', 'DS-BBT_Black_Bart_PF-cap-front_2.83x1.88in_white-red.png', [WHITE, RED], True, True, 38),
+    ('THD', 'thurmond-dam-dark-cap', 'Khaki', 'DS-THD_Thurmond_Dam_PF-cap-front_3.78x1.89in_white-red.png', [WHITE, RED], True, True, 38),
+    ('BBT', 'black-bart-dark-cap', 'Dark Navy', 'DS-BBT_Black_Bart_PF-cap-front_2.83x1.88in_white-red.png', [WHITE, RED], True, True, 38),
     ('DLP', 'dive-land-park-dark-cap', 'Dark Grey', 'DS-DLP_Dive_Land_Park_PF-cap-front_3.61x1.88in_white-red.png', [WHITE, RED], True, True, 38),
     ('BWP', 'blue-water-park-dark-cap', 'Black', 'DS-BWP_Blue_Water_Park_PF-cap-front_3.95x1.88in_white-red.png', [WHITE, RED], True, True, 38),
     ('RRF', 'rainbow-reef-dark-cap', 'Olive', 'DS-RRF_Rainbow_Reef_PF-cap-front_3.33x1.99in_white-blue.png', [WHITE, ROYAL], True, True, 38),
-    ('BGR', 'blue-grotto-dark-cap', 'Royal Blue', 'DS-BGR_Blue_Grotto_PF-cap-front_2.68x1.88in_white-red.png', [WHITE, RED], True, True, 38),
-    ('BSP', 'bridge-span-14-dark-cap', 'Olive', 'DS-BSP_Bridge_Span_14_PF-cap-front_3.44x1.99in_white-red.png', [WHITE, RED], True, True, 38),
-    ('RRV', 'rainbow-river-dark-cap', 'Black', 'DS-RRV_Rainbow_River_PF-cap-front_3.57x1.89in_white-red.png', [WHITE, RED], True, True, 38),
-    ('SOM', 'somosomo-strait-dark-cap', 'Olive', 'DS-SOM_Somosomo_Strait_PF-cap-front_4.02x1.89in_white-blue.png', [WHITE, ROYAL], True, True, 38),
-    ('THI', 'the-thistlegorm-dark-cap', 'Dark Grey', 'DS-THI_Thistlegorm_PF-cap-front_3.93x2.00in_white-blue.png', [WHITE, ROYAL], True, True, 38),
-    ('VUN', 'vuna-reef-dark-cap', 'Olive', 'DS-VUN_Vuna_Reef_PF-cap-front_2.46x1.97in_white-blue.png', [WHITE, ROYAL], True, True, 38),
+    ('BGR', 'blue-grotto-dark-cap', 'Grey', 'DS-BGR_Blue_Grotto_PF-cap-front_2.68x1.88in_white-red.png', [WHITE, RED], True, True, 38),
+    ('BSP', 'bridge-span-14-dark-cap', 'Royal Blue', 'DS-BSP_Bridge_Span_14_PF-cap-front_3.44x1.99in_white-red.png', [WHITE, RED], True, True, 38),
+    ('RRV', 'rainbow-river-dark-cap', 'Olive', 'DS-RRV_Rainbow_River_PF-cap-front_3.57x1.89in_white-red.png', [WHITE, RED], True, True, 38),
+    ('SOM', 'somosomo-strait-dark-cap', 'White', 'DS-SOM_Somosomo_Strait_PF-cap-front_4.02x1.89in_white-blue.png', [WHITE, ROYAL], True, True, 38),
+    ('THI', 'the-thistlegorm-dark-cap', 'Multicam Green', 'DS-THI_Thistlegorm_PF-cap-front_3.93x2.00in_white-blue.png', [WHITE, ROYAL], True, True, 38),
+    ('VUN', 'vuna-reef-dark-cap', 'Grey', 'DS-VUN_Vuna_Reef_PF-cap-front_2.46x1.97in_white-blue.png', [WHITE, ROYAL], True, True, 38),
     ('MRK', 'the-mark-dark-cap', 'Black', 'DS_PF-cap-front_the-mark_2.00in-tall_white-red.png', [WHITE, RED], False, True, 36),
-    ('SEA', 'the-seal-dark-cap', 'Black', 'DS_PF-cap-front_the-seal_A2-bezel-star_2.00in-tall_white-red.png', [WHITE, RED], True, True, 36),
-    ('STK', 'the-stack-dark-cap', 'Black', 'DS_PF-cap-front_the-stack_2.00in-tall_white-red.png', [WHITE, RED], False, False, 36),
-    ('WDM', 'the-wordmark-dark-cap', 'Black', 'DS_PF-cap-front_the-wordmark_4.50x1.93in_white-red.png', [WHITE, RED], True, True, 36),
+    ('SEA', 'the-seal-dark-cap', 'Dark Navy', 'DS_PF-cap-front_the-seal_A2-bezel-star_2.00in-tall_white-red.png', [WHITE, RED], True, True, 36),
+    ('STK', 'the-stack-dark-cap', 'Dark Grey', 'DS_PF-cap-front_the-stack_2.00in-tall_white-red.png', [WHITE, RED], False, False, 36),
+    ('WDM', 'the-wordmark-dark-cap', 'Khaki', 'DS_PF-cap-front_the-wordmark_4.50x1.93in_white-red.png', [WHITE, RED], True, True, 36),
 ]
 # Shopify variant ids (S/M, L/XL), from the store 11 Nov 2026 — the link also matches by SKU DS-<code>-CD-SM / -LXL
 SHOPIFY = {'BAL': (50823900659898, 50823900692666), 'DAM': (50823901020346, 50823901053114), 'NAV': (50823901216954, 50823901249722),
@@ -65,10 +82,15 @@ def plan():
     """files carry only type + url; the thread colours and the embroidery type are item-level options (Printful API, Common/Options)."""
     out = []
     for code, handle, colour, front, threads, side, back, price in CAPS:
-        files = [{'type': 'embroidery_front', 'url': CDN + front}]
+        front_url = CDN + front
+        if code in OVERRIDE: front_url, threads = OVERRIDE[code]
+        side_url, side_thr, back_url, back_thr = CDN + SIDE_FILE, [WHITE, RED], CDN + BACK_FILE, [WHITE]
+        if colour in LIGHT: side_url, side_thr, back_url, back_thr = LIGHT_SIDE, [NAVY, RED], LIGHT_BACK, [NAVY]
+        if colour == 'Red': side_url, side_thr = RED_SIDE, [WHITE, NAVY]
+        files = [{'type': 'embroidery_front', 'url': front_url}]
         options = [{'id': 'embroidery_type', 'value': 'flat'}, {'id': 'thread_colors', 'value': threads}]
-        if side: files.append({'type': 'embroidery_left', 'url': CDN + SIDE_FILE}); options.append({'id': 'thread_colors_left', 'value': [WHITE, RED]})
-        if back: files.append({'type': 'embroidery_back', 'url': CDN + BACK_FILE}); options.append({'id': 'thread_colors_back', 'value': [WHITE]})
+        if side: files.append({'type': 'embroidery_left', 'url': side_url}); options.append({'id': 'thread_colors_left', 'value': side_thr})
+        if back: files.append({'type': 'embroidery_back', 'url': back_url}); options.append({'id': 'thread_colors_back', 'value': back_thr})
         cost = round(BLANK + EXTRA*(len(files) - 1), 2)
         variants = [dict(sku=f'DS-{code}-CD-{z}', size=sz, variant_id=PF[colour][i], shopify_variant=SHOPIFY[code][i],
                          cost=cost, price=float(price), margin=round(price - cost, 2)) for i, (z, sz) in enumerate((('SM', 'S/M'), ('LXL', 'L/XL')))]
