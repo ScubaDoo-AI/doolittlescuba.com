@@ -61,9 +61,9 @@ CAP = {'Black': ('Black', 12689), 'Pacific': ('Pacific', 12693), 'Charcoal': ('C
 CAP_COLOUR = {'BAL': 'Pacific', 'DAM': 'Pacific', 'NAV': 'Pacific', 'THD': 'Pacific', 'BGR': 'Pacific', 'BBT': 'Charcoal', 'DLP': 'Charcoal',
               'THI': 'Charcoal', 'BWP': 'Black', 'RRV': 'Black', 'MRK': 'Black', 'SEA': 'Black', 'STK': 'Black', 'WDM': 'Black',
               'RRF': 'Jungle', 'BSP': 'Jungle', 'SOM': 'Jungle', 'VUN': 'Jungle'}
-CAP_COST, CAP6277 = 16.92, 16.51
+CAP_COST, CAP6277 = 18.50, 16.51   # EC7000 blank: Printful raised 16.92 -> 18.50 (21 Nov 2026); Eric kept prices
 BEANIE = [('BLK', 'Black', 11706), ('NVY', 'Oxford Navy', 11708)]
-BEANIE_COST = 17.94
+BEANIE_COST = 17.25   # Printful lowered 17.94 -> 17.25 (21 Nov 2026)
 
 
 def load(name):
