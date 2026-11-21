@@ -87,6 +87,10 @@ def mockup(spec, width=None, quiet=False):
     printful_*.py plan would send (nothing is written to the product). Prints one image URL per placement."""
     import importlib.util, time
     _, line, sku = spec.split(':', 2)
+    views = None   # mockup:<line>:<SKU>?g=Flat&o=Front,Back,Left — Printful's extra camera views (option groups / options), printed as "extra"
+    if '?' in sku:
+        sku, q = sku.split('?', 1); kv = dict(x.split('=', 1) for x in q.split('&'))
+        views = {'option_groups': kv['g'].split(',') if kv.get('g') else None, 'options': kv['o'].split(',') if kv.get('o') else None}
     lp = importlib.util.spec_from_file_location('printful_link', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'printful_link.py'))
     L = importlib.util.module_from_spec(lp); lp.loader.exec_module(L)
     if line == 'aquaticfamily':   # personalized Surface Interval tees, family sample names (tools/aquatic_family.py)
@@ -151,6 +155,8 @@ def mockup(spec, width=None, quiet=False):
         for f in files: print('  ', f['placement'], f['image_url'].rsplit('/', 1)[-1], json.dumps(f.get('position')))
     body = {'variant_ids': [t['variant_id']], 'format': 'png', 'files': files}
     if width: body['width'] = width   # mockup image width in px (Printful: max 2000, default 1000)
+    if views:
+        body.update({k: v for k, v in views.items() if v})
     if t.get('options'): body['product_options'] = {o['id']: o['value'] for o in t['options']}   # embroidery: thread colours and type
     r = post(f'/mockup-generator/create-task/{pid}', body)
     key = r.get('result', {}).get('task_key') or sys.exit(f'create-task failed: {json.dumps(r)[:400]}')
