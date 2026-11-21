@@ -11,6 +11,7 @@
 // Secrets (Worker settings → Variables, type Secret; never in this file or in chat):
 //   SHOPIFY_WEBHOOK_SECRET  the signing secret Shopify shows under Settings → Notifications → Webhooks
 //   GITHUB_TOKEN            a fine-grained PAT: repository ScubaDoo-AI/doolittlescuba.com only, permission Actions: Read and write
+//                           (a token without Actions write gets 403 "Resource not accessible by personal access token")
 // Plain variables: GITHUB_REPO = ScubaDoo-AI/doolittlescuba.com, WORKFLOW = custom-orders.yml, REF = main
 
 const CUSTOM_SKU = /^DS-(MY[AB]-[TC]|AC[A-Z]*\d+|DIGI|HMP)/;
