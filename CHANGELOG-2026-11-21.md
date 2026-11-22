@@ -166,3 +166,13 @@ Eric: *"Were these back and chests made in the post proof location lower at 2"?"
 Eric: *"Update the doolittlescuba.com site to reflect the updates."* What the site already matched: the organic page was already split by line (Signature 28, Certified-ish 40, Off-World 60, 1N73 36, Surface Interval 59, Caps & beanie 19); the caps deck already used each cap's own Flexfit shade; the uniform dark mockup background went live at 20:52.
 - **The bounce, site version:** on every deck the arrow keys did nothing to the cards and scrolled the page instead (up to ~1,000 px down). `js/deck.js`: Left/Right (and Up/Down, Home, End) on a focused card now step one card, focus moves without scrolling the page, and on a rolling (phone-width) deck the strip slides the card to the middle. Tested headless on /organic/, /surface-interval/ and the home page at 1440 and 390 px: 10 presses = 10 cards, back one with Left, page scroll unchanged, card on screen. `deck.js` version hash bumped on the 8 pages.
 - **Seen, not changed:** at 390 px the home collections deck is 16 px wider than the screen (the last collection card's tab runs off the right edge). Same before this change.
+
+## Shop: pair spines split on a diagonal (21:46–22:00 ET)
+Eric: *"Cap and shirt bundle tabs should have cap color on top and shirt on bottom"* and *"make the split diagonal"*.
+
+- **Tags:** each of the 28 pairs gained `tee-colour:<key>` (its Signature light or dark tee) and `cap-colour:<key>` (its site cap). These are separate tags so `colour:`-based tools such as `catalog_map.py` are unaffected.
+- **Deck (`ds-deck-cards.liquid`, `ds-deck.liquid`):**
+  - A pair's spine is `linear-gradient(155deg, cap shade, tee colour)`: cap on top, tee below, on a slant.
+  - The tag line reads e.g. "Khaki cap · denim tee".
+  - Spine lettering keeps the tee's ink and gets a soft shadow: dark on dark tees, a light glow on light ones.
+- **Theme:** saved on the live theme "Live 21 Nov + three-view turn" (published by Eric 21:28 ET with the three-view turn). The diagonal split waits on a publish. The repo `shopify-theme/` copy matches the Shopify files by md5.

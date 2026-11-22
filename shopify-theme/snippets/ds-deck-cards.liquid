@@ -73,6 +73,20 @@
           endif
         endfor
         assign key = colour | downcase | replace: ' ', '-'
+        # Cap-and-tee pairs (Eric, 21 Nov 2026): the spine is split on a diagonal, the cap's shade on top and the
+        # tee's colour below, from the pair's cap-colour: and tee-colour: tags.
+        assign cap_key = ''
+        if p.tags contains 'pair'
+          for t in p.tags
+            if t contains 'tee-colour:'
+              assign key = t | remove: 'tee-colour:'
+            elsif t contains 'cap-colour:'
+              assign cap_key = t | remove: 'cap-colour:'
+            endif
+          endfor
+          assign colour = cap_key | replace: '-', ' ' | capitalize | append: ' cap · ' | append: key | replace: '-', ' ' | append: ' tee'
+          assign colour = colour | capitalize
+        endif
         assign ink = '#F3F6F9'
         case key
           when 'aqua'
@@ -220,6 +234,30 @@
               assign hex = '#212327'
           endcase
         endif
+        assign spine = ''
+        if cap_key != blank
+          case cap_key
+            when 'navy'
+              assign cap_hex = '#1F2A43'
+            when 'royal-blue'
+              assign cap_hex = '#1E4597'
+            when 'grey'
+              assign cap_hex = '#7A7C7E'
+            when 'red'
+              assign cap_hex = '#B3262E'
+            when 'khaki'
+              assign cap_hex = '#BDAA97'
+            when 'olive'
+              assign cap_hex = '#4A4C33'
+            when 'dark-grey'
+              assign cap_hex = '#484A4B'
+            when 'white'
+              assign cap_hex = '#F4F4F2'
+            else
+              assign cap_hex = '#212327'
+          endcase
+          assign spine = 'linear-gradient(155deg, ' | append: cap_hex | append: ' calc(50% - .5px), ' | append: hex | append: ' calc(50% + .5px))'
+        endif
         # Three views per card, front then side then back (Eric, 21 Nov 2026: all cards should have 3 placements).
         # Picked by image alt text so photo order does not matter; no front in the alts: the featured image.
         # A close-up stands in when there is no side; watermarked art previews are skipped.
@@ -270,7 +308,7 @@
           endif
         endif
       -%}
-      <article class="dk"{% if sub != blank %} data-sub="{{ sub | escape }}"{% endif %} style="--hex: {{ hex }}; --ink: {{ ink }};">
+      <article class="dk"{% if sub != blank %} data-sub="{{ sub | escape }}"{% endif %} style="--hex: {{ hex }}; --ink: {{ ink }};{% if spine != blank %} --spine: {{ spine }};{% if ink == "#122A55" %} --spine-glow: rgba(255,255,255,.55);{% endif %}{% endif %}">
         <div class="dk-tag">
           <div class="ln">{{ ln | escape }}</div>
           <p class="t">{{ nm | escape }}</p>
