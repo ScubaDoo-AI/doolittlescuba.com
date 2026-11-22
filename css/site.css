@@ -506,3 +506,8 @@ section{padding-block:clamp(40px,7vw,72px);border-top:1px solid var(--rule)}
 
 /* Printful mockups (Shopify CDN, and the organic line in img/organic since 19 Nov): square shots with the whole shirt in frame, so no zoom-and-crop (19-20 Nov 2026) */
 .dk .dk-pic img[src*="cdn.shopify.com"],.dk .dk-pic img[src*="/img/organic/"]{object-fit:contain;transform:scale(1.25);transform-origin:50% 50%}
+
+/* Every product mockup on one uniform dark background, in light and dark theme alike (Eric, 21 Nov 2026: "All mockup images should be on uniform backgrounds dark") */
+:root{--mock:#0C1829}
+.sh-img,.dk-face,.dk-pic,.lb img{background:var(--mock)}
+.sh-img{border-color:var(--mock)}
