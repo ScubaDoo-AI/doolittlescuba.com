@@ -151,3 +151,13 @@ Eric: *"Check on this bundles action review other changes since or in other para
   - Make it yours cap on real photos (`61d5e47`).
   - Cart on the site (`e1b0b58`, behind the launch switch).
   - Price-watch cost records.
+
+## Shop deck: organic sub-tabs, no bounce, cap spines (21:07–21:25 ET)
+- Eric: *"organic tab needs some sub-dividing … using the arrow right … the tabs jumping back almost like a bounce back."* `sections/ds-deck.liquid` (now in the repo) + `snippets/ds-deck-cards.liquid`, live theme (runs after `5f5798a`):
+  - **Sub-tabs:** on the organic collection page the deck gets chips by line (Signature Series, Certified-ish, Surface Interval, Caps & beanie, 1N73LL1G3NC3, Off-World Hunt Club, All) with counts, from each card's `organic:<line>` tag (`data-sub`; the beanie joins the caps). Opens on Signature Series; `#<line>` in the URL opens on that line. On a shortened tab (home page, 16 cards + All →) the chips link to the organic page on that line.
+  - **Bounce:** the arrow key focused the next spine, the browser scrolled it in while it was still 44 px wide, then it widened to 300 px and the deck's `scroll-snap` pulled the strip back. Now: no snapping; focus without scrolling; the card is centred once, 0.4 s later, after it has widened; hover doesn't pull cards while the deck is scrolling.
+  - Card background on the deck follows the uniform dark mockup colour (`--ds-mock`).
+- Eric (screenshot): *"Cap tabs should match the caps."* Red (Dampier Strait) and Grey (Blue Grotto, Vuna Reef) weren't in the spine colour list and fell back to navy. Caps (Flexfit 6277) now take the cap's own shade, the same hexes as the website's caps deck (`97bc8f5`).
+
+## Surface Interval folder: backs at the post-proof 2 in (21:14–21:30 ET)
+Eric: *"Were these back and chests made in the post proof location lower at 2"?"* *"they should match the other 2 series."* Chests were already at 2.00 in (all 59). The folder's backs were the pre-proof files (ink top ~1.19 in): the Boat Banter files from the 3 Nov package and family renders copied from a repo snapshot taken before the afternoon's lowering. Printful was never affected (the plans use `_back2in`). All 59 backs in `Store › Apparel › Final Designs › Surface Interval` replaced with the files Printful prints: Boat Banter `AC-Sxx_back_back2in.png` (Shopify Files), personalized `renders/aquatic-family` (current). Each checked at ink top 2.00 in, 3600×4800. Previews and overview sheets redone. The Signature and Certified-ish files in the folder are iCloud cloud-only, so they could not be checked here.
