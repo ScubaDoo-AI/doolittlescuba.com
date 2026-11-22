@@ -193,5 +193,5 @@ Eric, with a screenshot of the Blue Grotto pair turning to a broken image: *"Sid
 
 - **Cause 1:** the three-view pick reset its picks with `assign … = blank`. In Liquid a `blank` assignment is truthy, so `{% if img3 %}` wrote a third `<img>` with an empty address on every card that had only two views. That was the broken picture in the turn.
 - **Cause 2:** a pair's front alt says the cap is "be**side**" the tee, so the front was taken as the side view and the real side picture was skipped.
-- **Fix (`snippets/ds-deck-cards.liquid`):** the picks start and reset as `nil`, and "beside" is removed from the alt before matching. Pairs now turn front → side → back; two-view cards turn between two pictures with no empty third. Saved to the live theme and the repo `shopify-theme/` copy; this waits on a publish.
+- **Fix (`snippets/ds-deck-cards.liquid`):** the picks start and reset as `nil`, and "beside" is removed from the alt before matching. Pairs now turn front → side → back; two-view cards turn between two pictures with no empty third. Published 11:55 ET 22 Nov (Eric: "publish"); the live file's md5 (`8e2079cb`) matches the repo `shopify-theme/` copy.
 - The images themselves were fine throughout (Shopify CDN 200 at full size and at 700 px).
