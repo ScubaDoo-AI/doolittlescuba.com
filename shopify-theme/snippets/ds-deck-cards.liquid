@@ -261,12 +261,12 @@
         # Three views per card, front then side then back (Eric, 21 Nov 2026: all cards should have 3 placements).
         # Picked by image alt text so photo order does not matter; no front in the alts: the featured image.
         # A close-up stands in when there is no side; watermarked art previews are skipped.
-        assign v_front = blank
-        assign v_side = blank
-        assign v_back = blank
-        assign v_close = blank
+        assign v_front = nil
+        assign v_side = nil
+        assign v_back = nil
+        assign v_close = nil
         for m in p.images limit: 24
-          assign a = m.alt | downcase
+          assign a = m.alt | downcase | remove: 'beside'
           if a contains 'watermark'
             continue
           endif
@@ -287,13 +287,13 @@
           assign v_side = v_close
         endif
         if v_side == v_front
-          assign v_side = blank
+          assign v_side = nil
         endif
         assign img2 = v_side
         assign img3 = v_back
         if img2 == blank
           assign img2 = img3
-          assign img3 = blank
+          assign img3 = nil
         endif
         assign sub = ''
         if organic_coll

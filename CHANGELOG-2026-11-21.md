@@ -187,3 +187,11 @@ Eric: *"Some side and back images are not loading and for example the side mark 
   - Plain fronts rendered at Printful for the other 8 colours (`?g=Flat&o=Front`), saved to `img/hats/pf/sidemark/<colour>-front.webp` and added to the product. Every colour now has a front, side and back image.
   - `snippets/product-media-gallery-content.liquid`: for products tagged `any-colour` (only The Side Mark), the gallery shows the selected colour's front, side and back in that order, picked by alt text (`, <Colour> —`). Other products are unchanged. Checked on Black (desktop) and Red (mobile). Published 23:15 ET (Eric: "Publish"); the live file's md5 matches the tested one.
 - **Not a fault:** the blank *You may also like* cards in the theme screenshots. The page loads them after it renders and the screenshot is taken before that; product cards elsewhere (search) show their images.
+
+## Fix: broken side/back image on deck cards (22 Nov, 11:50 ET)
+Eric, with a screenshot of the Blue Grotto pair turning to a broken image: *"Side images on the bundles appear as this."*
+
+- **Cause 1:** the three-view pick reset its picks with `assign … = blank`. In Liquid a `blank` assignment is truthy, so `{% if img3 %}` wrote a third `<img>` with an empty address on every card that had only two views. That was the broken picture in the turn.
+- **Cause 2:** a pair's front alt says the cap is "be**side**" the tee, so the front was taken as the side view and the real side picture was skipped.
+- **Fix (`snippets/ds-deck-cards.liquid`):** the picks start and reset as `nil`, and "beside" is removed from the alt before matching. Pairs now turn front → side → back; two-view cards turn between two pictures with no empty third. Saved to the live theme and the repo `shopify-theme/` copy; this waits on a publish.
+- The images themselves were fine throughout (Shopify CDN 200 at full size and at 700 px).
