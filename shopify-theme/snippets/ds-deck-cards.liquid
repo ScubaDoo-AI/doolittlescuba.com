@@ -1,4 +1,6 @@
 {%- doc -%}
+  Deck of product cards. On the organic collection each card carries data-sub (its line, from the organic:<line> tag;
+  the beanie joins the caps) so the section can split the deck into sub-tabs (Eric, 21 Nov 2026).
   Deck of product cards. Signature Series products first, off-topic lines last, organic editions hidden unless the collection is the organic one.
   Each card's spine (and its tag's top border) is the garment's own colour from the product's colour: tag (Eric, 20 Nov 2026:
   "These should match for every product"), with dark ink on light colours.
@@ -190,8 +192,20 @@
             assign hex = '#2a3a5c'
         endcase
         assign img2 = p.images[1]
+        assign sub = ''
+        if organic_coll
+          for t in p.tags
+            if t contains 'organic:'
+              assign sub = t | remove: 'organic:'
+              break
+            endif
+          endfor
+          if sub == 'beanie'
+            assign sub = 'caps'
+          endif
+        endif
       -%}
-      <article class="dk" style="--hex: {{ hex }}; --ink: {{ ink }};">
+      <article class="dk"{% if sub != blank %} data-sub="{{ sub | escape }}"{% endif %} style="--hex: {{ hex }}; --ink: {{ ink }};">
         <div class="dk-tag">
           <div class="ln">{{ ln | escape }}</div>
           <p class="t">{{ nm | escape }}</p>

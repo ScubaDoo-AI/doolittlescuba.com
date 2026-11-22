@@ -1,0 +1,304 @@
+{%- comment -%}
+  Collection deck. Tabs come from the section's blocks; with no blocks (section just added in the theme editor)
+  it uses the standard order: Signature Series first, the off-topic lines last.
+
+  21 Nov 2026 (Eric: "organic tab needs some sub-dividing", arrow-right "bounce back"):
+  - The organic deck splits into sub-tabs by line (cards carry data-sub from snippets/ds-deck-cards.liquid).
+    On a full collection page the chips filter in place; on a shortened tab (home page) they link to the
+    organic collection page with #<line>, which opens on that sub-tab.
+  - No scroll snapping. A card is centred only after it has finished widening, by the script, so the deck
+    no longer jumps back. Hover doesn't pull cards while the deck is scrolling.
+{%- endcomment -%}
+{%- liquid
+  assign use_default = false
+  if section.blocks.size == 0
+    assign use_default = true
+  endif
+  assign d_handles = 'signature-series|certified-ish|aquatic-comic|hats|pairs|organic|jackets|stickers|*|1n73ll1g3nc3|off-world-hunt-club' | split: '|'
+  assign d_labels = 'Signature Series|Certified-ish|Surface Interval|Caps & beanies|Cap & tee pairs|Organic|Jackets|Stickers|Off topic|1N73LL1G3NC3|Off-World Hunt Club' | split: '|'
+  if use_default
+    assign n = d_handles.size | minus: 1
+  else
+    assign n = section.blocks.size | minus: 1
+  endif
+
+  assign page_coll = blank
+  if section.settings.follow_page and collection and collection.handle != 'all'
+    assign page_coll = collection
+  endif
+  assign linked_tabs = false
+  if page_coll != blank
+    assign linked_tabs = true
+  endif
+  assign matched = false
+  assign page_label = page_coll.title
+  if linked_tabs
+    for i in (0..n)
+      if use_default
+        assign h = d_handles[i]
+        assign l = d_labels[i]
+      else
+        assign h = section.blocks[i].settings.collection.handle
+        assign l = section.blocks[i].settings.label
+      endif
+      if h == page_coll.handle
+        assign matched = true
+        if l != blank
+          assign page_label = l
+        endif
+      endif
+    endfor
+  endif
+  assign first_tab = -1
+-%}
+<div class="dsd section-{{ section.id }}" data-dsd style="--dsd-pad-top: {{ section.settings.padding_top }}px; --dsd-pad-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="dsd-inner">
+    <div class="dsd-head">
+      {%- if page_coll != blank -%}
+        <h1 class="dsd-h">{{ page_coll.title }}</h1>
+      {%- elsif section.settings.heading != blank -%}
+        <h2 class="dsd-h">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.text != blank and page_coll == blank -%}<div class="dsd-sub">{{ section.settings.text }}</div>{%- endif -%}
+    </div>
+
+    <nav class="dsd-tabs" aria-label="Collections" {% unless linked_tabs %}role="tablist"{% endunless %}>
+      {%- for i in (0..n) -%}
+        {%- liquid
+          if use_default
+            assign is_group = false
+            if d_handles[i] == '*'
+              assign is_group = true
+            endif
+            assign glabel = d_labels[i]
+            assign c = collections[d_handles[i]]
+            assign lbl = d_labels[i]
+            assign bid = 'd' | append: i
+            assign attrs = ''
+          else
+            assign b = section.blocks[i]
+            assign is_group = false
+            if b.type == 'group'
+              assign is_group = true
+            endif
+            assign glabel = b.settings.label
+            assign c = b.settings.collection
+            assign lbl = b.settings.label | default: c.title
+            assign bid = b.id
+            assign attrs = b.shopify_attributes
+          endif
+        -%}
+        {%- if is_group -%}<span class="dsd-group" {{ attrs }}>{{ glabel | escape }}</span>{%- continue -%}{%- endif -%}
+        {%- if c == blank or c.handle == blank -%}{%- continue -%}{%- endif -%}
+        {%- assign is_on = false -%}
+        {%- if linked_tabs -%}
+          {%- if c.handle == page_coll.handle -%}{%- assign is_on = true -%}{%- endif -%}
+          <a class="dsd-tab{% if is_on %} is-on{% endif %}" href="{{ c.url }}" {% if is_on %}aria-current="page"{% endif %} {{ attrs }}>{{ lbl }}</a>
+        {%- else -%}
+          {%- if first_tab == -1 -%}{%- assign first_tab = i -%}{%- assign is_on = true -%}{%- endif -%}
+          <button type="button" class="dsd-tab{% if is_on %} is-on{% endif %}" role="tab" id="dsd-t-{{ section.id }}-{{ bid }}" aria-controls="dsd-p-{{ section.id }}-{{ bid }}" aria-selected="{{ is_on }}" {{ attrs }}>{{ lbl }}</button>
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if linked_tabs and matched == false -%}
+        <a class="dsd-tab is-on" href="{{ page_coll.url }}" aria-current="page">{{ page_coll.title }}</a>
+      {%- endif -%}
+    </nav>
+
+    {%- if linked_tabs -%}
+      <div class="dsd-panel is-on">
+        {%- paginate page_coll.products by 250 -%}
+          {%- render 'ds-deck-cards', products: page_coll.products, coll: page_coll, label: page_label, limit: 250, hide_organic: section.settings.hide_organic, see_all: false -%}
+        {%- endpaginate -%}
+      </div>
+    {%- else -%}
+      {%- for i in (0..n) -%}
+        {%- liquid
+          if use_default
+            assign c = collections[d_handles[i]]
+            if d_handles[i] == '*'
+              assign c = blank
+            endif
+            assign lbl = d_labels[i]
+            assign bid = 'd' | append: i
+          else
+            assign b = section.blocks[i]
+            assign c = b.settings.collection
+            if b.type == 'group'
+              assign c = blank
+            endif
+            assign lbl = b.settings.label | default: c.title
+            assign bid = b.id
+          endif
+        -%}
+        {%- if c == blank or c.handle == blank -%}{%- continue -%}{%- endif -%}
+        <div class="dsd-panel{% if i == first_tab %} is-on{% endif %}" role="tabpanel" id="dsd-p-{{ section.id }}-{{ bid }}" aria-labelledby="dsd-t-{{ section.id }}-{{ bid }}" {% unless i == first_tab %}hidden{% endunless %}>
+          {%- render 'ds-deck-cards', products: c.products, coll: c, label: lbl, limit: section.settings.limit, hide_organic: section.settings.hide_organic, see_all: true -%}
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+(function(){
+  var root=document.currentScript.previousElementSibling;
+  if(!root||!root.matches('[data-dsd]')) return;
+  var SUBS=[['signature','Signature Series'],['certifiedish','Certified-ish'],['aquatic','Surface Interval'],['caps','Caps & beanie'],['n73','1N73LL1G3NC3'],['offworld','Off-World Hunt Club']];
+  var quietUntil=0, timer=0;
+  function now(){ return Date.now(); }
+  function visible(c){ return c && c.classList.contains('dk') && !c.hidden; }
+  function step(c,dir){ var n=dir>0?c.nextElementSibling:c.previousElementSibling; while(n && n.classList.contains('dk') && n.hidden) n=dir>0?n.nextElementSibling:n.previousElementSibling; return visible(n)?n:null; }
+  function pull(card){
+    var deck=card.closest('.dsd-deck'); if(!deck) return;
+    deck.querySelectorAll('.dk.on').forEach(function(x){ if(x!==card) x.classList.remove('on'); });
+    card.classList.add('on');
+    card.querySelectorAll('img[data-src]').forEach(function(i){ i.src=i.dataset.src; i.removeAttribute('data-src'); });
+  }
+  /* Centre a card once it has finished widening (.38s), so the deck moves once and doesn't jump back. */
+  function centre(card){
+    var deck=card.closest('.dsd-deck'); if(!deck) return;
+    clearTimeout(timer); quietUntil=now()+1000;
+    timer=setTimeout(function(){
+      var x=card.offsetLeft+card.offsetWidth/2-deck.clientWidth/2;
+      deck.scrollTo({left:Math.max(0,x),behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});
+    },400);
+  }
+  root.addEventListener('scroll',function(){ quietUntil=Math.max(quietUntil,now()+180); },true);
+  root.addEventListener('mouseover',function(e){
+    if(now()<quietUntil || !matchMedia('(hover:hover)').matches) return;
+    var c=e.target.closest('.dk'); if(c && !c.classList.contains('on')) pull(c);
+  });
+  root.addEventListener('focusin',function(e){ var c=e.target.closest('.dk'); if(c && !c.classList.contains('on')){ pull(c); centre(c); } });
+  root.addEventListener('click',function(e){
+    var c=e.target.closest('.dk'); if(c && !c.classList.contains('on')){ e.preventDefault(); pull(c); centre(c); }
+    var t=e.target.closest('button.dsd-tab'); if(!t) return;
+    root.querySelectorAll('button.dsd-tab').forEach(function(x){ var on=x===t; x.classList.toggle('is-on',on); x.setAttribute('aria-selected',on); });
+    root.querySelectorAll('.dsd-panel').forEach(function(p){ var on=p.id===t.getAttribute('aria-controls'); p.hidden=!on; p.classList.toggle('is-on',on); if(on){ var d=p.querySelector('.dsd-deck'); if(d) d.scrollLeft=0; var f=p.querySelector('.dk:not([hidden])'); if(f) pull(f); } });
+  });
+  root.addEventListener('keydown',function(e){
+    var c=e.target.closest('.dk'); if(!c || (e.key!=='ArrowRight' && e.key!=='ArrowLeft')) return;
+    e.preventDefault();
+    var n=step(c,e.key==='ArrowRight'?1:-1); if(!n) return;
+    pull(n); centre(n);
+    var a=n.querySelector('a'); if(a) a.focus({preventScroll:true});
+  });
+
+  /* Organic sub-tabs */
+  root.querySelectorAll('.dsd-deck').forEach(function(deck){
+    var cards=[].slice.call(deck.querySelectorAll('.dk[data-sub]'));
+    if(cards.length<2) return;
+    var more=deck.querySelector('.dk-more');
+    var hint=deck.nextElementSibling && deck.nextElementSibling.classList.contains('dsd-hint')?deck.nextElementSibling:null;
+    var nav=document.createElement('div'); nav.className='dsd-subs'; nav.setAttribute('role','group'); nav.setAttribute('aria-label','Organic lines');
+    if(more){
+      /* shortened tab (home page): the chips open the organic page on that line */
+      SUBS.forEach(function(s){ var a=document.createElement('a'); a.href=more.getAttribute('href')+'#'+s[0]; a.textContent=s[1]; nav.appendChild(a); });
+      deck.parentNode.insertBefore(nav,deck); return;
+    }
+    var count={}; cards.forEach(function(c){ count[c.dataset.sub]=(count[c.dataset.sub]||0)+1; });
+    var list=SUBS.filter(function(s){ return count[s[0]]; });
+    function show(key){
+      nav.querySelectorAll('button').forEach(function(b){ var on=b.dataset.k===key; b.classList.toggle('on',on); b.setAttribute('aria-pressed',on); });
+      var shown=0, first=null;
+      deck.querySelectorAll('.dk').forEach(function(c){ var on=key==='all'||c.dataset.sub===key; c.hidden=!on; if(on){ shown++; if(!first) first=c; } });
+      deck.scrollLeft=0; deck.querySelectorAll('.dk.on').forEach(function(x){ x.classList.remove('on'); });
+      if(first) pull(first);
+      if(hint) hint.textContent=shown+(shown===1?' design':' designs')+' · hover or tap a card · scroll for more';
+    }
+    function chip(key,label,n){ var b=document.createElement('button'); b.type='button'; b.dataset.k=key; b.innerHTML=''; b.appendChild(document.createTextNode(label)); var s=document.createElement('span'); s.className='n'; s.textContent=n; b.appendChild(s); b.addEventListener('click',function(){ show(key); if(history.replaceState) history.replaceState(null,'','#'+key); }); nav.appendChild(b); }
+    list.forEach(function(s){ chip(s[0],s[1],count[s[0]]); });
+    chip('all','All',cards.length);
+    deck.parentNode.insertBefore(nav,deck);
+    var h=(location.hash||'').slice(1);
+    show(count[h]||h==='all'?h:list[0][0]);
+  });
+
+  root.querySelectorAll('.dsd-panel.is-on .dk:not([hidden])').forEach(function(c){ if(!c.parentNode.querySelector('.dk.on')) pull(c); });
+})();
+</script>
+
+<style>
+.dsd{padding-block:var(--dsd-pad-top) var(--dsd-pad-bottom)}
+.dsd-inner{max-width:var(--page-width,1440px);margin-inline:auto;padding-inline:var(--page-margin,40px);box-sizing:border-box}
+.dsd-head{margin-bottom:18px}
+.dsd-h{margin:0;font-family:var(--font-heading--family);font-weight:700;font-size:clamp(28px,3.4vw,44px);line-height:1.05}
+.dsd-sub{margin-top:8px;max-width:62ch;opacity:.8}
+.dsd-tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;margin-bottom:8px;border-bottom:1px solid rgb(var(--color-foreground-rgb) / .14)}
+.dsd-tabs::-webkit-scrollbar{display:none}
+.dsd-tab{flex:0 0 auto;appearance:none;border:0;background:transparent;color:inherit;font:inherit;font-size:15px;padding:10px 14px 9px;cursor:pointer;text-decoration:none;white-space:nowrap;opacity:.72;border-bottom:3px solid transparent;margin-bottom:-5px}
+.dsd-tab:hover{opacity:1}
+.dsd-group{flex:0 0 auto;align-self:center;margin-left:14px;padding:4px 10px 4px 14px;border-left:1px solid rgb(var(--color-foreground-rgb) / .25);font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.55;white-space:nowrap}
+.dsd-tab.is-on{opacity:1;font-weight:600;border-bottom-color:#C8202A}
+.dsd-tab:focus-visible{outline:2px solid #C8202A;outline-offset:2px}
+.dsd-subs{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0}
+.dsd-subs button,.dsd-subs a{appearance:none;display:inline-flex;align-items:center;gap:6px;border:1px solid rgb(var(--color-foreground-rgb) / .25);background:transparent;color:inherit;font:inherit;font-size:13px;line-height:1;padding:7px 12px;border-radius:999px;cursor:pointer;text-decoration:none;opacity:.8;white-space:nowrap}
+.dsd-subs button:hover,.dsd-subs a:hover{opacity:1}
+.dsd-subs button.on{opacity:1;font-weight:600;border-color:#C8202A;background:rgb(200 32 42 / .14)}
+.dsd-subs .n{font-size:11px;opacity:.6}
+.dsd-subs :focus-visible{outline:2px solid #C8202A;outline-offset:2px}
+.dsd-deck{position:relative;display:flex;align-items:flex-end;overflow-x:auto;overscroll-behavior-x:contain;padding:200px 24px 22px 4px;scrollbar-width:thin}
+.dsd .dk{--step:44px;position:relative;flex:0 0 var(--step);width:var(--step);height:360px;border-radius:4px;transition:flex-basis .38s cubic-bezier(.2,.75,.25,1),width .38s cubic-bezier(.2,.75,.25,1),transform .38s cubic-bezier(.2,.75,.25,1),box-shadow .38s;box-shadow:0 6px 14px -10px rgba(0,0,0,.6)}
+.dsd .dk[hidden]{display:none}
+.dsd .dk.on{flex-basis:300px;width:300px;transform:translateY(-22px);z-index:5;box-shadow:0 26px 40px -20px rgba(0,0,0,.75)}
+.dsd .dk-face{display:flex;width:100%;height:100%;border-radius:4px;overflow:hidden;color:inherit;text-decoration:none;border:1px solid rgb(var(--color-foreground-rgb) / .14);background:var(--ds-mock,rgb(var(--color-foreground-rgb) / .04))}
+.dsd .dk-face:focus-visible{outline:2px solid #C8202A;outline-offset:3px}
+.dsd .dk-spine{flex:0 0 var(--step);width:var(--step);display:flex;align-items:flex-end;justify-content:center;padding:14px 0;background:var(--hex,#1d2b45);color:var(--ink,#F3F6F9)}
+.dsd .dk-spine span{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;font-family:var(--font-heading--family);font-weight:700;font-size:16px;line-height:1}
+.dsd .dk-pic{position:relative;flex:1 1 auto;min-width:0;background:var(--ds-mock,transparent)}
+.dsd .dk-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .9s ease}
+.dsd .dk-pic img:first-child{opacity:1}
+.dsd .dk.on .dk-pic{perspective:1100px}
+.dsd .dk.on .dk-pic.n2 img{animation:dsdturn 7s ease-in-out infinite both;backface-visibility:hidden}
+.dsd .dk.on .dk-pic.n2 img:nth-child(2){animation-delay:-3.5s}
+.dsd .dk.on .dk-pic.n1 img{animation:dsdsway 3.2s ease-in-out .4s infinite alternate}
+@keyframes dsdturn{0%{opacity:0;transform:rotateY(-75deg)}9%,41%{opacity:1;transform:rotateY(0)}50%,100%{opacity:0;transform:rotateY(75deg)}}
+@keyframes dsdsway{from{transform:rotateY(-14deg)}to{transform:rotateY(14deg)}}
+.dsd .dk-tag{display:none;position:absolute;left:50%;bottom:calc(100% + 16px);width:272px;margin-left:-136px;box-sizing:border-box;padding:10px 14px 8px;border-radius:4px;border-top:3px solid var(--hex,#C8202A);background:rgb(var(--color-background-rgb));border-left:1px solid rgb(var(--color-foreground-rgb) / .16);border-right:1px solid rgb(var(--color-foreground-rgb) / .16);border-bottom:1px solid rgb(var(--color-foreground-rgb) / .16);box-shadow:0 14px 28px -14px rgba(0,0,0,.7)}
+.dsd .dk.on .dk-tag{display:block}
+.dsd .dk-tag::after{content:"";position:absolute;left:50%;top:100%;width:1.5px;height:16px;background:rgb(var(--color-foreground-rgb) / .4)}
+.dsd .dk-tag .ln{font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+.dsd .dk-tag .t{margin:4px 0 2px;font-family:var(--font-heading--family);font-weight:700;font-size:20px;line-height:1.12}
+.dsd .dk-tag .s{margin:0;font-size:13px;opacity:.75}
+.dsd .dk-tag .r{display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:8px;border-top:1px solid rgb(var(--color-foreground-rgb) / .14)}
+.dsd .dk-tag .p{font-weight:600}
+.dsd .dk-tag a{color:#ff5a63;font-size:13px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;font-weight:600}
+.dsd .dk-tag a:hover{text-decoration:underline}
+.dsd .dk-more{flex:0 0 auto;align-self:stretch;display:flex;align-items:center;margin-left:18px;padding:0 18px;border:1px dashed rgb(var(--color-foreground-rgb) / .3);border-radius:4px;color:inherit;text-decoration:none;font-weight:600;white-space:nowrap;height:360px;box-sizing:border-box}
+.dsd .dk-more:hover{border-color:#C8202A}
+.dsd-hint{margin:6px 0 0;font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.55}
+@media (max-width:749px){.dsd .dk{--step:38px;height:300px}.dsd .dk.on{flex-basis:220px;width:220px}.dsd .dk-tag{width:240px;margin-left:-120px}.dsd-deck{padding-top:186px}.dsd .dk-more{height:300px}.dsd-subs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}}
+@media (prefers-reduced-motion:reduce){.dsd .dk,.dsd .dk-pic img{transition:none}.dsd .dk.on .dk-pic img{animation:none!important;transform:none}.dsd .dk.on .dk-pic.n2 img:first-child{opacity:1}}
+</style>
+
+{% schema %}
+{
+  "name": "Collection deck",
+  "tag": "section",
+  "class": "section-ds-deck",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The shirts" },
+    { "type": "richtext", "id": "text", "label": "Intro text" },
+    { "type": "checkbox", "id": "follow_page", "label": "On collection pages, show that collection", "info": "Tabs become links to each collection page.", "default": false },
+    { "type": "checkbox", "id": "hide_organic", "label": "Hide organic editions outside the organic tab", "default": true },
+    { "type": "range", "id": "limit", "label": "Cards per tab", "min": 6, "max": 50, "step": 2, "default": 16 },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "group",
+      "name": "Tab group label",
+      "settings": [ { "type": "text", "id": "label", "label": "Label", "default": "Off topic" } ]
+    },
+    {
+      "type": "tab",
+      "name": "Collection tab",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "label", "label": "Tab label" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Collection deck" } ]
+}
+{% endschema %}
