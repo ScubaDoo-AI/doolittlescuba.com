@@ -1,0 +1,21 @@
+{%- comment -%}
+  Doolittle Scuba: every product mockup on one uniform dark background (#0C1829, the website's dark navy),
+  wherever the shop shows a product image: product page gallery and zoom, collection and search cards,
+  the collection deck, the cart page and drawer. The Printful mockups are transparent, so this colour is
+  what shows around the shirt. (Eric, 21 Nov 2026: "All mockup images should be on uniform backgrounds dark.")
+  Loaded once in <head> from snippets/view-transition-opt-in.liquid.
+{%- endcomment -%}
+{% style %}
+  :root { --ds-mock: #0C1829; }
+  .card-gallery,
+  .card-gallery img,
+  .product-media-container,
+  .product-media,
+  .product-media img,
+  .cart-items__media-container,
+  .cart-items__media,
+  .dsd .dk-face,
+  .dsd .dk-pic {
+    background: var(--ds-mock);
+  }
+{% endstyle %}
