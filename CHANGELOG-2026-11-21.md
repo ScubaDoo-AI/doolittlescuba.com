@@ -177,3 +177,13 @@ Eric: *"Cap and shirt bundle tabs should have cap color on top and shirt on bott
   - The tag line reads e.g. "Khaki cap · denim tee".
   - Spine lettering keeps the tee's ink and gets a soft shadow: dark on dark tees, a light glow on light ones.
 - **Theme:** saved on the live theme "Live 21 Nov + three-view turn" (published by Eric 21:28 ET with the three-view turn). The diagonal split was published 22:18 ET (Eric: "yes"); the live files' md5 matches the repo. The repo `shopify-theme/` copy matches the Shopify files by md5.
+
+## Missing views fixed: The Side Mark (22:31–22:50 ET)
+Eric: *"Some side and back images are not loading and for example the side mark hat when entering it it only offers a front and side view."*
+
+- **Site check:** all 1,545 front, side and back image addresses on the site's cards answer 200 (the 6 "misses" are builder buttons on /custom/, not images). One file was missing: the deck turn loads `-t` thumbnails, and The Side Mark's back had none (`cap-dark-the-side-mark-back-t.webp`, added), so its back view was blank. Every other card's thumbnails exist.
+- **Shop media:** every product image checked is READY (none failed to process).
+- **The Side Mark product page:** with Horizon's *hide other variants' media*, the page showed only the selected variant's image (the side) and the one unattached image (the Black front). The backs are attached to the *Do A Little Scuba* variants, so they were hidden, and other colours fell back to the Black front. Fixes:
+  - Plain fronts rendered at Printful for the other 8 colours (`?g=Flat&o=Front`), saved to `img/hats/pf/sidemark/<colour>-front.webp` and added to the product. Every colour now has a front, side and back image.
+  - `snippets/product-media-gallery-content.liquid`: for products tagged `any-colour` (only The Side Mark), the gallery shows the selected colour's front, side and back in that order, picked by alt text (`, <Colour> —`). Other products are unchanged. Checked on Black (desktop) and Red (mobile). Saved to the live theme; this waits on a publish.
+- **Not a fault:** the blank *You may also like* cards in the theme screenshots. The page loads them after it renders and the screenshot is taken before that; product cards elsewhere (search) show their images.
