@@ -7,3 +7,6 @@
 - `cart.js?v=` bumped to `b81e8afc` on the 23 pages that load it.
 - Tested headless (Chrome, 1440 px, `?cart=preview`, catalog with the packs at 0): opened Reef Cuties pack → no picker, launch-news kept; Black Bart cap → *Add to cart*; the 12 achievement singles → *Add to cart*, "Ready to order"; no page errors.
 - `js/catalog.json` still shows the packs in stock (built 13:17 UTC, before the stock change); the catalog-map run after this commit refreshes it.
+
+## Banner updated (Eric 11:57 "Update banner", 12:03 "2")
+- Status flag id `2026-11-22-stickers-ready` (re-shows to anyone who dismissed the 16 Nov one), state still **Proofing**, dated 22 Nov: the Achievement Unlocked UV stickers (full set + 12 single badges) are in stock and ready on day one; last samples due Nov 26–28; everything else stays "Coming soon". Link unchanged. Applied with `tools/status_flag.py` on all 26 pages.

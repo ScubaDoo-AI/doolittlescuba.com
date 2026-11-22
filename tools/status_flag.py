@@ -12,13 +12,13 @@ visitors who dismissed the previous one.
 import html, pathlib, re, sys
 
 STATUS = {
-    "id": "2026-11-16-shop-address",
+    "id": "2026-11-22-stickers-ready",
     "label": "Shop status",
     "state": "Proofing",
-    "updated": "Updated 16 Nov 2026",
-    "message": ("Update: the shop now has its own address, shop.doolittlescuba.com, and a Cart link in the menu. "
-                "We're still spot-proofing physical samples before the shop opens; designs stay “Coming soon” "
-                "until the samples pass."),
+    "updated": "Updated 22 Nov 2026",
+    "message": ("Almost there: the Achievement Unlocked UV stickers (the full set and the 12 single badges) "
+                "are in stock and will be ready on day one. The last round of samples is due Nov 26–28; "
+                "until they pass, everything else stays “Coming soon”."),
     "link_text": "Get word when it opens",
     "link_href": "mailto:shop@doolittlescuba.com?subject=Tell%20me%20when%20the%20shop%20opens",
 }
