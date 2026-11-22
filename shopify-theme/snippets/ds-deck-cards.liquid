@@ -191,6 +191,37 @@
           else
             assign hex = '#2a3a5c'
         endcase
+        comment
+          Caps (Flexfit 6277) use the cap's own shade, the same hexes as the website's caps deck (Eric, 21 Nov 2026:
+          "Cap tabs should match the caps"). The Side Mark comes in any colour; its card shows it in black.
+        endcomment
+        if p.tags contains 'flexfit-6277'
+          assign ink = '#F3F6F9'
+          case key
+            when 'navy'
+              assign hex = '#1F2A43'
+            when 'royal-blue'
+              assign hex = '#1E4597'
+            when 'grey'
+              assign hex = '#7A7C7E'
+            when 'black'
+              assign hex = '#212327'
+            when 'red'
+              assign hex = '#B3262E'
+            when 'khaki'
+              assign hex = '#BDAA97'
+              assign ink = '#122A55'
+            when 'olive'
+              assign hex = '#4A4C33'
+            when 'dark-grey'
+              assign hex = '#484A4B'
+            when 'white'
+              assign hex = '#F4F4F2'
+              assign ink = '#122A55'
+            else
+              assign hex = '#212327'
+          endcase
+        endif
         assign img2 = p.images[1]
         assign sub = ''
         if organic_coll
