@@ -107,7 +107,7 @@ window.DS=(function(){
       var st=startFor(); if(state.active<0&&st!=null&&L[st]) state.active=st;
       foot.querySelector('.cnt').innerHTML=(cfg.count?cfg.count(state.line,L):L.length+' '+cfg.noun+(L.length>1?'s':''))+' &middot; '+(typeof cfg.footNote==='function'?cfg.footNote(state.line,L):cfg.footNote);
       Object.keys(chips).forEach(function(k){ var on=k===state.line; chips[k].classList.toggle('on',on); chips[k].setAttribute('aria-pressed',on); });
-      hintText(); paint(); if(state.active>=0) wake(cards[state.active]); if(rolls&&state.active>=0) shiftTo(state.active);
+      hintText(); paint(); placeTag(); if(state.active>=0) wake(cards[state.active]); if(rolls&&state.active>=0) shiftTo(state.active);
     }
     function touchLike(){ return lastPointer==='touch'||lastPointer==='pen'; }
     function startFor(){ var st=cfg.start; if(st!=null&&typeof st==='object') st=st[state.line]; return st==null?null:st; }   // the card a line opens on: one index for every line, or {line:index}
@@ -161,7 +161,21 @@ window.DS=(function(){
       dk.classList.toggle('live',state.active>=0);
       cards.forEach(function(c,i){ c.classList.toggle('on',i===state.active); c.classList.toggle('after',state.active>=0&&i>state.active); c.classList.toggle('before',state.active>=0&&i<state.active); c.style.zIndex=i===state.active?200:i+1; });
     }
-    function activate(i){ if(state.active!==i){ state.active=i; paint(); } wake(cards[i]); }
+    function activate(i){ if(state.active!==i){ state.active=i; paint(); placeTag(); } wake(cards[i]); }
+    // collections deck on phones: once the card has opened (.38s), slide its label so it stays 10px inside the screen
+    var tagT=0;
+    function placeTag(){
+      if(cfg.cls!=='deck-coll') return; clearTimeout(tagT);
+      cards.forEach(function(x){ var t=x.querySelector('.dk-tag'); if(t){ t.style.marginLeft=''; t.style.removeProperty('--tip'); t.style.opacity=''; } });
+      var c=cards[state.active], t=c&&c.querySelector('.dk-tag'); if(!t||!matchMedia('(max-width:620px)').matches) return;
+      t.style.opacity='0';
+      tagT=setTimeout(function(){
+        var r=t.getBoundingClientRect(), vw=document.documentElement.clientWidth, m=10, s=0;
+        if(r.left<m) s=m-r.left; else if(r.right>vw-m) s=vw-m-r.right;
+        if(s){ t.style.marginLeft=(parseFloat(getComputedStyle(t).marginLeft)+s)+'px'; t.style.setProperty('--tip',(-s)+'px'); }
+        t.style.opacity='';
+      },400);
+    }
     function setLine(l){ if(state.line===l){ if(state.open>=0) closeIt(); return; } state.line=l; state.active=-1; state.open=-1; open.hidden=true; dk.hidden=false; foot.hidden=false; build(); }
     dk.addEventListener('mouseleave',function(){ if(!rolls&&lastPointer==='mouse'&&state.active>=0){ var st=startFor(); state.active=st!=null?st:-1; paint(); } });
 

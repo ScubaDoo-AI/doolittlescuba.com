@@ -453,7 +453,7 @@ section{padding-block:clamp(40px,7vw,72px);border-top:1px solid var(--rule)}
 .deck-coll .dk-pic img{transform:scale(1.18);transform-origin:50% 30%}
 .deck-coll .dk-tag .s{min-height:2.6em}
 .deck-coll .dk-tag{animation:none;transition:opacity .25s;opacity:1}
-@media (max-width:620px){.deck-coll .deck-row,.deck-coll .dk{--step:36px!important}.deck-coll .deck-row{gap:4px}.deck-coll .dk{height:300px}.deck-coll .dk.on{flex-basis:190px;width:190px}.deck-coll .dk-tab .nm{font-size:15px}.deck-coll .dk-tag{width:236px;margin-left:-118px}.deck-coll.deck{padding-top:206px}.deck-coll .deck-hint{top:176px}}
+@media (max-width:620px){.deck-coll .deck-row,.deck-coll .dk{--step:36px!important}.deck-coll .deck-row{gap:4px}.deck-coll .dk{height:300px}.deck-coll .dk.on{flex-basis:var(--open-w);width:var(--open-w)}.deck-coll{--open-w:clamp(120px,calc(100vw - 2 * var(--gut,16px) - 200px),190px)}.deck-coll .dk-tab .nm{font-size:15px}.deck-coll .dk-tag{width:236px;margin-left:-118px}.deck-coll.deck{padding-top:206px}.deck-coll .deck-hint{top:176px}}
 /* Collection pages (built by tools/line_pages.py): the switcher under the header, swatches, pointer cards, the other-collections tiles, search */
 .coll{background:var(--panel);border-bottom:1px solid var(--rule);margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);position:relative;z-index:1}
 .coll .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:0 22px}
@@ -511,3 +511,8 @@ section{padding-block:clamp(40px,7vw,72px);border-top:1px solid var(--rule)}
 :root{--mock:#0C1829}
 .sh-img,.dk-face,.dk-pic,.lb img{background:var(--mock)}
 .sh-img{border-color:var(--mock)}
+
+/* Collections deck on phones (Eric, 21 Nov 2026: "tighten it"): the open card shrinks so the six tabs fit the screen, and the
+   script nudges the open card's label back inside the screen; --tip keeps its pointer on the card. */
+.deck-coll .dk-tag::after{left:calc(50% + var(--tip,0px))}
+@media (max-width:359px){.deck-coll .deck-row,.deck-coll .dk{--step:32px!important}.deck-coll .deck-row{gap:3px}.deck-coll{--open-w:calc(100vw - 2 * var(--gut,16px) - 175px)}.deck-coll .dk-tab .nm{font-size:14px}}
