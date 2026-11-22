@@ -191,10 +191,8 @@
           else
             assign hex = '#2a3a5c'
         endcase
-        comment
-          Caps (Flexfit 6277) use the cap's own shade, the same hexes as the website's caps deck (Eric, 21 Nov 2026:
-          "Cap tabs should match the caps"). The Side Mark comes in any colour; its card shows it in black.
-        endcomment
+        # Caps (Flexfit 6277): the cap's own shade, the same hexes as the website's caps deck (Eric, 21 Nov 2026,
+        # "Cap tabs should match the caps"). The Side Mark comes in any colour; its card shows black.
         if p.tags contains 'flexfit-6277'
           assign ink = '#F3F6F9'
           case key
