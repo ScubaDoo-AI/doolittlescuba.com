@@ -30,7 +30,7 @@ import printful_caps as PC
 Hold = T.Hold
 DPI = T.DPI
 COLOURS = {'navy': 'Dark Navy', 'black': 'Black', 'dark-grey': 'Dark Grey', 'olive': 'Olive', 'royal-blue': 'Royal Blue',
-           'grey': 'Grey', 'white': 'White', 'khaki': 'Khaki', 'red': 'Red', 'multicam-green': 'Multicam Green'}   # all ten Flexfit 6277 colours (Eric, 21 Nov: Make it yours takes any colour)
+           'grey': 'Grey', 'white': 'White', 'khaki': 'Khaki', 'red': 'Red'}   # nine Flexfit 6277 colours (Eric, 21 Nov: Make it yours takes any colour; Multicam Green dropped the same evening)
 SIZES = {'SM': 0, 'LXL': 1}
 # Printful order API (v2) areas: the standard front takes 4.00 in wide (it refused a 4.31 in line, 19 Nov 2026 test order 1005);
 # embroidery_front_large is the 5.90 x 2.00 in printfile, same $2.95 placement price (catalog 140, 20 Nov 2026).

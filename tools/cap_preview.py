@@ -68,7 +68,7 @@ def photos(index):
         im = knock_out(Image.open(io.BytesIO(fetch(s['url']))))
         name = f'{slug}-{m.group(1)}.webp'; im.save(os.path.join(OUT, name), 'WEBP', quality=90, method=6)
         out[slug][m.group(1)] = 'img/cap/' + name
-    for slug in CC.COLOURS:
+    for slug in CC.COLOURS:   # Multicam Green is no longer offered (21 Nov), so its photos are skipped
         missing = set(VIEWS) - set(out.get(slug, {}))
         if missing: sys.exit(f'{slug}: no photo for {sorted(missing)}')
     return out
