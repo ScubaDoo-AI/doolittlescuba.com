@@ -123,10 +123,10 @@
   /* ---------- buy widget ---------- */
   function variants(p,fixed){ return p.v.filter(function(v){ return Object.keys(fixed).every(function(k){ var i=p.o.indexOf(k); return i<0||v[1][i]===fixed[k]; }); }); }
   function widget(box,stem,optStr,label,mini){
-    catalog().then(function(cat){
+    return catalog().then(function(cat){
       var p=cat[stem]; if(!p){ box.innerHTML=''; return; }
       var fixed={}; (optStr||'').split('&').forEach(function(kv){ var q=kv.split('='); if(q[0]&&q[1]) fixed[q[0]]=q[1]; });
-      var vs=variants(p,fixed); if(!vs.length){ box.innerHTML=''; return; }
+      var vs=variants(p,fixed); if(!vs.length||!vs.some(function(v){ return v[3]; })){ box.innerHTML=''; return false; } /* nothing on sale yet (e.g. sticker packs): the card keeps its Coming soon */
       var open=p.o.map(function(n,i){ return n in fixed?null:i; }).filter(function(i){ return i!==null; });
       var sel={}; open.forEach(function(i){ var first=vs.filter(function(v){ return v[3]; })[0]||vs[0]; sel[i]=null; if(vs.every(function(v){ return v[1][i]===vs[0][1][i]; })) sel[i]=vs[0][1][i]; });
       function match(){ return vs.filter(function(v){ return open.every(function(i){ return sel[i]==null||v[1][i]===sel[i]; }); }); }
@@ -147,16 +147,16 @@
             box.querySelector('.dsc-see').addEventListener('click',function(e){ e.preventDefault(); openCart(); }); setTimeout(draw,2500); })
           .catch(function(err){ ad.disabled=false; ad.textContent='Add to cart'; box.querySelector('.dsc-msg').textContent='Could not add it: '+err.message; }); });
       }
-      if(mini) box.classList.add('dsc-mini'); draw();
-    }).catch(function(){ box.innerHTML=''; });
+      if(mini) box.classList.add('dsc-mini'); draw(); return true;
+    }).catch(function(){ box.innerHTML=''; return false; });
   }
 
   // opened deck card: the size picker goes in; "Coming soon" goes; "Add the pair" opens the pair picker here
   document.addEventListener('ds:open',function(e){
     var root=e.detail&&e.detail.el; if(!root) return;
     var box=root.querySelector('.ds-buy'); if(!box) return;
-    var news=root.querySelector('[data-umami-event="deck-launch-news"]'); if(news) news.remove();
-    widget(box,box.getAttribute('data-buy'),box.getAttribute('data-buy-opt'),'',false);
+    var news=root.querySelector('[data-umami-event="deck-launch-news"]');
+    widget(box,box.getAttribute('data-buy'),box.getAttribute('data-buy-opt'),'',false).then(function(ok){ if(ok&&news) news.remove(); });
     var pairStem=box.getAttribute('data-buy-pair'), pairBtn=root.querySelector('[data-umami-event="deck-pair"]');
     if(pairBtn&&pairStem){ pairBtn.addEventListener('click',function(ev){ ev.preventDefault(); var pb=root.querySelector('.ds-buy.pair');
       if(!pb){ pb=document.createElement('div'); pb.className='ds-buy pair'; box.after(pb); widget(pb,pairStem,'','The pair · cap + shirt',false); }
@@ -167,8 +167,8 @@
   function loose(){ document.querySelectorAll('figure[data-buy]').forEach(function(f){
       if(f.hidden||f.closest('[hidden]')||!f.getClientRects().length||f.querySelector('.ds-buy')) return;
       var cap=f.querySelector('figcaption')||f; var b=document.createElement('div'); b.className='ds-buy'; cap.appendChild(b);
-      widget(b,f.getAttribute('data-buy'),f.getAttribute('data-buy-opt'),'',true);
-      var pill=f.querySelector('.pill.available'); if(pill) pill.textContent='Ready to order'; }); }
+      widget(b,f.getAttribute('data-buy'),f.getAttribute('data-buy-opt'),'',true).then(function(ok){
+        var pill=f.querySelector('.pill.available'); if(ok&&pill) pill.textContent='Ready to order'; }); }); }
 
   load(); loose();
   if(PREVIEW) try{ console.info('[cart] preview mode (LIVE=false): only this browser sees the cart. ?cart=off to leave.'); }catch(e){}
