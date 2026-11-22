@@ -131,3 +131,10 @@ Eric: *"All cards or products should have at least 3 images with 3 placement des
 - **Not possible as three views:**
   - Stickers (52 products) are flat prints with one picture each.
   - The Mark beanie (Stanley/Stella) has only a front camera at Printful, so it shows front + close-up.
+
+## Mockups on one uniform dark background (20:52–21:05 ET)
+Eric: *"All mockup images should be on uniform backgrounds dark."* *"Update website and shop."* Colour: the site's dark navy **#0C1829**.
+
+- **Website (`11a7de5`):** every product image frame — shirt and cap cards (`.sh-img`), the decks (`.dk-face`, `.dk-pic`, the glow dropped) and the photo viewer (`.lb img`) — now uses `--mock:#0C1829` in light and dark theme alike. The Printful mockups are transparent, so the shirts now sit on the same dark navy everywhere. Watermarked design previews (art on paper) unchanged. Stylesheet hash bumped by hand: `tools/bust.py` would also have rewritten the home collection cards from an older `printful_images.json`, so it was not run.
+- **Shop (`73b7596`, Theme push run 44973706663, live theme "Deck + Pairs tab — hero B bluewater"):** new `snippets/ds-mock-bg.liquid`, loaded from `view-transition-opt-in.liquid`, gives the same background to product-page media and zoom, collection/search cards, the collection deck and the cart. Not covered (Shopify's own pages): checkout and order emails show the transparent images on their own white.
+- **Store folder (iCloud):** `Store › Apparel › Final Designs › Surface Interval` rebuilt today — 118 print files from Eric (Boat Banter) and `renders/aquatic-family`, flat previews, and `Mockups/` (177 Printful HD mockups, flattened onto #0C1829) with overview sheets.
