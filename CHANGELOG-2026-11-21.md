@@ -176,4 +176,4 @@ Eric: *"Cap and shirt bundle tabs should have cap color on top and shirt on bott
   - A pair's spine is `linear-gradient(155deg, cap shade, tee colour)`: cap on top, tee below, on a slant.
   - The tag line reads e.g. "Khaki cap · denim tee".
   - Spine lettering keeps the tee's ink and gets a soft shadow: dark on dark tees, a light glow on light ones.
-- **Theme:** saved on the live theme "Live 21 Nov + three-view turn" (published by Eric 21:28 ET with the three-view turn). The diagonal split waits on a publish. The repo `shopify-theme/` copy matches the Shopify files by md5.
+- **Theme:** saved on the live theme "Live 21 Nov + three-view turn" (published by Eric 21:28 ET with the three-view turn). The diagonal split was published 22:18 ET (Eric: "yes"); the live files' md5 matches the repo. The repo `shopify-theme/` copy matches the Shopify files by md5.
