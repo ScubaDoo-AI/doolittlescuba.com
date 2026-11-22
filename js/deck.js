@@ -92,8 +92,14 @@ window.DS=(function(){
         face.innerHTML='<span class="dk-tab'+(dark(it.hex)?' dark':'')+'" style="background:'+it.hex+'"><span class="nm">'+esc(it.name)+'</span>'+(step>=56&&it.code?'<span class="cd">No. '+esc(it.code)+'</span>':'')+'</span>'+spinPic(it,cfg)+'';
         var tag=h('div','dk-tag','<div class="r"><span class="ln">'+esc(cfg.eyebrow(it))+(it.code?' &middot; No. '+esc(it.code):'')+'</span>'+(it.status?'<span class="pill '+esc(it.statusClass)+'">'+esc(it.status)+'</span>':'')+'</div><p class="t">'+esc(it.name)+'</p><p class="s">'+esc(cfg.sub(it))+'</p><button type="button" class="dk-open"><span class="c"><i></i>'+esc(it.colour)+'</span><span class="g">'+(cfg.openLabel?esc(cfg.openLabel(it)):(it.price||(typeof cfg.price==='function'?cfg.price(it):cfg.price))+' &middot; Open')+'</span></button>');
         face.addEventListener('pointerdown',function(e){ lastPointer=e.pointerType||'mouse'; if(touchLike()&&!state.touch){ state.touch=true; hintText(); } });
-        face.addEventListener('keydown',function(){ lastPointer='key'; });
-        face.addEventListener('focus',function(){ if(rolls) dk.scrollLeft=0; if(!touchLike()) activate(i); else if(rolls) shiftTo(i); });
+        // arrow keys step one card at a time (Eric, 21 Nov 2026: arrow right made the page jump instead); the page itself never scrolls
+        face.addEventListener('keydown',function(e){
+          lastPointer='key';
+          var k=e.key, j=k==='ArrowRight'||k==='ArrowDown'?i+1:k==='ArrowLeft'||k==='ArrowUp'?i-1:k==='Home'?0:k==='End'?cards.length-1:-2;
+          if(j===-2) return; e.preventDefault(); j=clampI(j); if(j===i) return;
+          var f=cards[j].querySelector('.dk-face'); if(f) f.focus({preventScroll:true});
+        });
+        face.addEventListener('focus',function(){ if(rolls) dk.scrollLeft=0; if(!touchLike()) activate(i); if(rolls) shiftTo(i); });
         face.addEventListener('click',function(){ if(touchLike()&&state.active!==i){ activate(i); shiftTo(i); return; } openIt(i); });
         tag.querySelector('.dk-open').addEventListener('click',function(){ openIt(i); });
         card.appendChild(face); card.appendChild(tag); row.appendChild(card); cards.push(card);
