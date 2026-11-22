@@ -138,3 +138,16 @@ Eric: *"All mockup images should be on uniform backgrounds dark."* *"Update webs
 - **Website (`11a7de5`):** every product image frame — shirt and cap cards (`.sh-img`), the decks (`.dk-face`, `.dk-pic`, the glow dropped) and the photo viewer (`.lb img`) — now uses `--mock:#0C1829` in light and dark theme alike. The Printful mockups are transparent, so the shirts now sit on the same dark navy everywhere. Watermarked design previews (art on paper) unchanged. Stylesheet hash bumped by hand: `tools/bust.py` would also have rewritten the home collection cards from an older `printful_images.json`, so it was not run.
 - **Shop (`73b7596`, Theme push run 44973706663, live theme "Deck + Pairs tab — hero B bluewater"):** new `snippets/ds-mock-bg.liquid`, loaded from `view-transition-opt-in.liquid`, gives the same background to product-page media and zoom, collection/search cards, the collection deck and the cart. Not covered (Shopify's own pages): checkout and order emails show the transparent images on their own white.
 - **Store folder (iCloud):** `Store › Apparel › Final Designs › Surface Interval` rebuilt today — 118 print files from Eric (Boat Banter) and `renders/aquatic-family`, flat previews, and `Mockups/` (177 Printful HD mockups, flattened onto #0C1829) with overview sheets.
+
+## Parallel-session check and theme merge (21:20–21:45 ET)
+Eric: *"Check on this bundles action review other changes since or in other parallel versions."*
+
+- **Still in place:** the Hats collection (58 caps, pairs excluded), the Pairs collection (28), the Cap & tee pairs tab, and the side and back pictures on all 28 pairs.
+- **Conflict found:** at 21:13 ET another session published organic sub-tabs and the scroll fix (`5f5798a`) straight to the live theme, starting from the old card code. The three-view turn I had saved to the live theme earlier would have overwritten their work if published, so it was **not published, and must not be**.
+- **Merged:** new theme copy **"Live 21 Nov + three-view turn"** (`OnlineStoreTheme/161870381242`), duplicated from the live theme at 21:25, with the three-view pick and `n3` turn added on top of the organic sub-tabs and the dark background. The organic page and its sub-tabs were checked in a screenshot. The repo `shopify-theme/` copy carries the same change; md5 matches the Shopify files. **Waiting:** a publish from Shopify admin.
+- **Other parallel changes reviewed, no conflict:**
+  - Multicam Green removed from caps (`b76e3b6`): The Side Mark is down to 9 colours and 36 variants, and the builder and `custom_cap.py` drop camo.
+  - Uniform dark background behind product images (`11a7de5`, `73b7596`): CSS and a theme snippet only.
+  - Make it yours cap on real photos (`61d5e47`).
+  - Cart on the site (`e1b0b58`, behind the launch switch).
+  - Price-watch cost records.

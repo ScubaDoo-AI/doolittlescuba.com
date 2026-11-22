@@ -220,7 +220,43 @@
               assign hex = '#212327'
           endcase
         endif
-        assign img2 = p.images[1]
+        # Three views per card, front then side then back (Eric, 21 Nov 2026: all cards should have 3 placements).
+        # Picked by image alt text so photo order does not matter; no front in the alts: the featured image.
+        # A close-up stands in when there is no side; watermarked art previews are skipped.
+        assign v_front = blank
+        assign v_side = blank
+        assign v_back = blank
+        assign v_close = blank
+        for m in p.images limit: 24
+          assign a = m.alt | downcase
+          if a contains 'watermark'
+            continue
+          endif
+          if v_front == blank and a contains 'front'
+            assign v_front = m
+          elsif v_side == blank and a contains 'side'
+            assign v_side = m
+          elsif v_close == blank and a contains 'close-up'
+            assign v_close = m
+          elsif v_back == blank and a contains 'back'
+            assign v_back = m
+          endif
+        endfor
+        if v_front == blank
+          assign v_front = p.featured_image
+        endif
+        if v_side == blank
+          assign v_side = v_close
+        endif
+        if v_side == v_front
+          assign v_side = blank
+        endif
+        assign img2 = v_side
+        assign img3 = v_back
+        if img2 == blank
+          assign img2 = img3
+          assign img3 = blank
+        endif
         assign sub = ''
         if organic_coll
           for t in p.tags
@@ -243,11 +279,12 @@
         </div>
         <a class="dk-face" href="{{ p.url }}" aria-label="{{ p.title | escape }}, {{ p.price_min | money }}">
           <span class="dk-spine"><span>{{ nm | escape }}</span></span>
-          <span class="dk-pic{% if img2 %} n2{% else %} n1{% endif %}">
-            {%- if p.featured_image -%}
-              <img {% if shown <= 2 %}src{% else %}data-src{% endif %}="{{ p.featured_image | image_url: width: 700 }}" alt="" width="700" height="700" loading="lazy">
+          <span class="dk-pic{% if img3 %} n3{% elsif img2 %} n2{% else %} n1{% endif %}">
+            {%- if v_front -%}
+              <img {% if shown <= 2 %}src{% else %}data-src{% endif %}="{{ v_front | image_url: width: 700 }}" alt="" width="700" height="700" loading="lazy">
             {%- endif -%}
             {%- if img2 -%}<img data-src="{{ img2 | image_url: width: 700 }}" alt="" width="700" height="700" loading="lazy">{%- endif -%}
+            {%- if img3 -%}<img data-src="{{ img3 | image_url: width: 700 }}" alt="" width="700" height="700" loading="lazy">{%- endif -%}
           </span>
         </a>
       </article>
