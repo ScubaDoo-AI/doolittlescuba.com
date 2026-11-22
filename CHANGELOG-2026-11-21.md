@@ -104,3 +104,30 @@ Eric: *"Cart on the site."* Browse and add to cart on DoolittleScuba.com; pay at
 - **Cart (`js/cart.js`, on 23 pages):** an opened deck card gets size/colour buttons, the price and *Add to cart* (sold-out sizes struck through). *Add the pair* opens a cap size + tee size picker on the same card. Cards outside a deck (stickers, jackets, beanie) get a small *Add to cart* row. A red *Cart · n* button opens the drawer: quantities, remove, Shopify's automatic discounts (tee + cap: −$8 checked), total, *Checkout*. Links to the shop's cart or product pages open the drawer / picker on the site instead. A remembered partner `?src=` rides along as a cart attribute and on the checkout link.
 - **Launch switch:** `LIVE=false`. Visitors still see *Coming soon*. Preview in any browser with `?cart=preview` (remembered; `?cart=off` ends it). At launch: set `LIVE=true` (and the store password comes off).
 - **Tested (headless Chrome, desktop and phone):** Signature tee, cap, pair, sticker; drawer; checkout link goes to shop.doolittlescuba.com. No page errors.
+
+## Three views on every card (18:45–20:00 ET)
+Eric: *"All cards or products should have at least 3 images with 3 placement design."*
+
+- **Shop audit (569 active products):** every tee (Signature, Certified-ish, Off-World, 1N73, Surface Interval, organic) already had front, back and side. Missing views were on the 18 caps and 18 organic caps (front and back only), the anorak (no side or back), the beanies, the two Make it yours products and The Side Mark (no front).
+- **Printful renders:** `printful_read.py` gained two mockup modes.
+  - `plainside` puts a 0.03 in dot on the left so Printful draws a cap side with no embroidery (The Mark, organic Mark and Stack).
+  - `?g=<style>&o=<views>` asks for Printful's extra camera views. The anorak gets left side and back (Ghost style), the windbreaker its back, and The Side Mark its plain front.
+  - The read workflow now installs pillow and numpy, so the organic plans load.
+- **Shop pictures added:**
+  - A side view on all 36 caps, from the site files, plus the 3 new plain sides.
+  - Anorak side and back in black and navy.
+  - The Side Mark's plain front.
+  - A close-up of the cuff mark on both beanies.
+  - Make it yours tee: an example front, side and back (Black Bart on light blue).
+  - Make it yours cap: another session added navy and khaki views at the same time, so I removed my three duplicates.
+- **Site:**
+  - The Mark cap, the organic Mark and Stack caps, and the anorak now have a side view.
+  - The windbreaker turns worn → close-up → back; Printful has no side camera for it.
+  - The Side Mark turns front → side → back.
+  - The six home-page line covers now use the HD front, side and back sets.
+  - The beanies get the cuff close-up.
+  - Live check: 30 of 69 cards on the home page and 241 of 242 on /organic/ have all three. The rest are stickers and the beanie.
+- **Shop deck theme:** each card picks its front, side and back by the image alt text (front, side, then close-up, then back), so the photo order no longer matters, and turns through all three (`n3`). Saved to the live theme; this waits on a publish.
+- **Not possible as three views:**
+  - Stickers (52 products) are flat prints with one picture each.
+  - The Mark beanie (Stanley/Stella) has only a front camera at Printful, so it shows front + close-up.
