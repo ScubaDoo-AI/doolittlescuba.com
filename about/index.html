@@ -120,6 +120,15 @@ p{margin:0}
 .strip4 img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:3px;display:block}
 .strip4 figcaption{font-family:var(--f-data);font-size:var(--s-1);color:var(--muted);margin-top:6px}
 @media (max-width:820px){.together{grid-template-columns:minmax(0,1fr)}.strip4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* Between dives: uncropped photo album, masonry columns */
+.along{padding-block:clamp(36px,6vw,64px);border-top:1px solid var(--rule);scroll-margin-top:12px}
+.along h2{font-size:var(--s3);color:var(--ink);margin:6px 0 8px}
+.along > p:not(.eyebrow){color:var(--muted);max-width:60ch}
+.album{margin-top:22px;columns:3 200px;column-gap:10px}
+.album figure{margin:0 0 14px;break-inside:avoid}
+.album img,.album video{width:100%;height:auto;display:block;border-radius:3px;background:var(--panel)}
+.album figcaption{font-family:var(--f-data);font-size:var(--s-1);color:var(--muted);margin-top:6px}
+@media (max-width:640px){.album{columns:2}}
 </style>
 <!-- WIDE:START --><style>@media (min-width:1800px){html{zoom:1.15;--ds-z:1.15}}@media (min-width:2100px){html{zoom:1.3;--ds-z:1.3}}@media (min-width:2400px){html{zoom:1.5;--ds-z:1.5}}@media (min-width:3000px){html{zoom:1.75;--ds-z:1.75}}@media (min-width:3600px){html{zoom:2.0;--ds-z:2.0}}</style><!-- WIDE:END -->
 </head>
@@ -158,7 +167,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
 <p class="lede">Doolittle Scuba is Eric and Allie Doolittle, a husband and wife raised in Augusta, Georgia, now diving out of Newnan. Both hold the PADI Master Scuba Diver rating. Both plan their travel around what is under the water.</p>
 <p>The line is the logbook, drawn. Every plate on a Doolittle Scuba shirt is a site we have dived: the Gulf wrecks off Panama City Beach, the springs of north Florida, the quarries and lakes closer to home, and the far ones, the Red Sea, Raja Ampat, Bali and Fiji. Charts and park maps are reference only. The depths, the landmarks and the things worth labelling come from having been there.</p>
 </div>
-<img src="img/quarry.jpg?v=41fa9c7c" alt="Eric and Allie on the dock at a quarry dive site" style="object-position:50% 40%" width="1050" height="1400">
+<img src="img/quarry.jpg?v=a1f54eb5" alt="Eric and Allie on the dock at a quarry dive site" style="object-position:50% 40%" width="1050" height="1400">
 </div>
 </div></div>
 <div class="wrap">
@@ -166,7 +175,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
 <div>
 <p>It is a two-person operation, and we like it that way. Eric draws every plate and the shirts are printed to order in small runs. Allie runs everything that turns a drawing into a shirt at your door, and nothing goes to print until she has checked it. We are not instructors and we are not a dive shop. We are two divers with a drawing table and a small print setup at home.</p>
 <div class="strip4">
-<figure><img src="img/fiji-boat.jpg?v=da155660" alt="Eric and Allie on the dive boat deck, Fiji 2024" loading="lazy" width="1400" height="1050"><figcaption>Fiji, 2024</figcaption></figure>
+<figure><img src="img/fiji-boat.jpg?v=19be1995" alt="Eric and Allie on the dive boat deck, Fiji 2024" loading="lazy" width="1400" height="1050"><figcaption>Fiji, 2024</figcaption></figure>
 <figure><img src="../img/bula.webp?v=8ddc7563" alt="Eric and Allie in front of the mosaic Bula Taveuni sign, Fiji" loading="lazy" width="1400" height="1385"><figcaption>Taveuni, Fiji</figcaption></figure>
 <figure><img src="img/fiji-crowns.jpg?v=84a71632" alt="Eric and Allie in flower crowns in a Fijian village hall" loading="lazy" width="1400" height="1050"><figcaption>Village visit, Fiji</figcaption></figure>
 <figure><img src="img/giza.jpg?v=8aee87dd" alt="Eric and Allie with the pyramids of Giza behind them" loading="lazy" width="1400" height="1052"><figcaption>Giza, 2022</figcaption></figure>
@@ -174,7 +183,7 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
 </div>
 <dl class="facts"><dt>Home port</dt><dd>Newnan, Georgia</dd><dt>Raised</dt><dd>Augusta, Georgia</dd><dt>Ratings</dt><dd>PADI Master Scuba Diver, both</dd><dt>The line</dt><dd>15 dive-site plates, every one a site we have dived</dd><dt>Started</dt><dd>2026</dd></dl>
 </section>
-<nav class="jump" aria-label="People"><a href="#eric" data-umami-event="about-jump" data-umami-event-person="eric">Eric</a><a href="#allie" data-umami-event="about-jump" data-umami-event-person="allie">Allie</a></nav>
+<nav class="jump" aria-label="People"><a href="#eric" data-umami-event="about-jump" data-umami-event-person="eric">Eric</a><a href="#allie" data-umami-event="about-jump" data-umami-event-person="allie">Allie</a><a href="#along" data-umami-event="about-jump" data-umami-event-person="along">Between dives</a></nav>
 
 <section class="person" id="eric" aria-labelledby="eric-h">
 <div class="pics">
@@ -276,6 +285,29 @@ b.querySelector('.ds-status__x').addEventListener('click',function(){b.hidden=tr
 <p>If you meet her on a boat, she is the one with the business cards and the logbook stamp. Ask for both.</p>
 <dl class="facts"><dt>Rating</dt><dd>PADI Master Scuba Diver</dd><dt>Role</dt><dd>Operations Director</dd><dt>Checks</dt><dd>Every plate before it prints</dd><dt>By day</dt><dd>Accounts billing supervisor</dd><dt>Fins</dt><dd>Pink</dd><dt>Raised</dt><dd>Augusta, Georgia</dd><dt>Home port</dt><dd>Newnan, Georgia</dd></dl>
 </div>
+</section>
+
+<section class="along" id="along" aria-labelledby="along-h">
+<p class="eyebrow">Topside logbook</p>
+<h2 id="along-h">Between dives</h2>
+<p>Trips, side roads and the days in between.</p>
+<div class="album">
+<figure><img src="img/along/taveuni.webp?v=08b1f2ee" alt="Eric and Allie by the water at Paradise Taveuni, Eric giving a shaka" loading="lazy" width="1200" height="900"><figcaption>Paradise Taveuni, Fiji</figcaption></figure>
+<figure><img src="img/along/redsea-boat.webp?v=81375e45" alt="Eric and Allie on the top deck of a liveaboard, Eric in a Thistlegorm shirt" loading="lazy" width="1200" height="900"><figcaption>Liveaboard, Red Sea</figcaption></figure>
+<figure><img src="img/along/sphinx.webp?v=918e4fc8" alt="Eric and Allie in head scarves in front of the Sphinx" loading="lazy" width="900" height="1200"><figcaption>The Sphinx, Giza</figcaption></figure>
+<figure><video src="img/along/ruins.mp4?v=55077627" poster="img/along/ruins-poster.webp?v=43ed1d35" width="960" height="720" autoplay muted loop playsinline preload="metadata" aria-label="Eric and Allie smiling at the camera among desert ruins"></video><figcaption>Among the ruins, Egypt</figcaption></figure>
+<figure><img src="img/along/village.webp?v=0afe072a" alt="Eric and Allie in front of painted domed houses" loading="lazy" width="1200" height="900"><figcaption>Village visit, Egypt</figcaption></figure>
+<figure><img src="img/along/canyon-selfie.webp?v=cbabaf90" alt="Eric and Allie in head wraps in a red sandstone canyon" loading="lazy" width="900" height="1200"><figcaption>Desert canyon, Egypt</figcaption></figure>
+<figure><img src="img/along/desert.webp?v=16ebcf00" alt="Eric and Allie in sunglasses on a wide sandy desert plain" loading="lazy" width="1200" height="900"><figcaption>Desert crossing, Egypt</figcaption></figure>
+<figure><img src="img/along/canyon-wall.webp?v=22f4e4d7" alt="Eric and Allie against a carved sandstone canyon wall" loading="lazy" width="1200" height="900"><figcaption>Canyon hike, Egypt</figcaption></figure>
+<figure><img src="img/along/dress-up-night.webp?v=64a32340" alt="Eric and Allie in costume on a sofa for a dress-up night aboard" loading="lazy" width="900" height="1200"><figcaption>Dress-up night aboard</figcaption></figure>
+<figure><img src="img/along/dive-bench.webp?v=503b53cb" alt="Eric and Allie in wetsuits and BCDs on a bench between dives" loading="lazy" width="720" height="960"><figcaption>Between dives</figcaption></figure>
+<figure><img src="img/along/santa-monica.webp?v=c57873cc" alt="Eric and Allie on the pier under the Route 66 End of the Trail sign" loading="lazy" width="884" height="1200"><figcaption>Santa Monica Pier</figcaption></figure>
+<figure><img src="img/along/beach-ride-1.webp?v=bd0b1480" alt="Eric and Allie on horseback on a misty beach, a pier behind them" loading="lazy" width="1200" height="900"><figcaption>Beach ride</figcaption></figure>
+<figure><img src="img/along/beach-ride-2.webp?v=ae214acd" alt="Eric and Allie on horseback at the water's edge" loading="lazy" width="1200" height="900"><figcaption>Beach ride</figcaption></figure>
+<figure><img src="img/along/graduation.webp?v=6ffc7ce8" alt="Eric and Allie in caps and gowns at graduation" loading="lazy" width="1200" height="674"><figcaption>Graduation day</figcaption></figure>
+</div>
+<script>(function(){var v=document.querySelector('.along video');if(v&&matchMedia('(prefers-reduced-motion: reduce)').matches){v.removeAttribute('autoplay');v.pause();v.controls=true;}})();</script>
 </section>
 
 <div class="name-pun">
