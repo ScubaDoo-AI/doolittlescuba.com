@@ -31,7 +31,7 @@
       <path d="M238 104 L165 126 L54 208 L92 282 L170 250 L166 640 Q300 656 434 640 L430 250 L508 282 L546 208 L435 126 L362 104 Q300 112 238 104 Z" fill="url(#{{ uid }}-shade)"/>
       <defs><linearGradient id="{{ uid }}-shade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".14"/><stop offset=".3" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".14"/></linearGradient></defs>
       <path class="ds-sc__collar" d="M232 100 Q300 128 368 100"/>
-      <image class="ds-sc__art" x="182" y="118" width="236" height="315" preserveAspectRatio="xMidYMin meet" href=""/>
+      <image class="ds-sc__art" x="215" y="122" width="170" height="227" preserveAspectRatio="xMidYMin meet" href=""/>
     </svg>
     <p class="ds-sc__cap"><span data-sc-view>Back</span> · preview drawing, not a proof</p>
   </div>
@@ -100,7 +100,7 @@
   fetch(root.dataset.src).then(function(r){return r.json()}).then(function(data){
     D=data; var S=D.series[ser]; if(!S) return;
     $('[data-sc-view]').textContent=S.view==='front'?'Front':'Back';
-    if(S.view==='front') $('.ds-sc__art').setAttribute('y','128');
+    if(S.view==='front') $('.ds-sc__art').setAttribute('y','132');
     var g=$('[data-sc-designs]');
     S.designs.forEach(function(d){ var b=document.createElement('button'); b.type='button'; b.className='ds-sc__d'; b.dataset.slug=d.slug; b.setAttribute('role','radio');
       b.innerHTML='<img loading="lazy" alt="" src="'+art(d.slug)+'"><span></span>'; b.querySelector('span').textContent=d.name;
