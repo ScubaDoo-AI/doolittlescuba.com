@@ -51,4 +51,4 @@
 ## Custom tab (Eric 23:43 "Maybe all custom items should be under their own tab")
 - Answers: only in the Custom tab; contents = series custom tees, Make it yours tee + cap, Home Port cap, personalized name tees.
 - Shopify: smart collection **Custom** (`custom`, gid 494129774778): tag `series-custom` OR `personalized` OR `home-port` — 91 products (52 shown; the organic name tees stay hidden outside Organic, like every organic edition).
-- Theme: new deck tab "Custom" after Towels (home + collection templates); `ds-deck-cards.liquid` now skips those items in every other tab (they stay in Organic for the organic name tees). This replaces the "custom shirts at the end of the stacks" passes. Saved, awaiting publish.
+- Theme: new deck tab "Custom" after Towels (home + collection templates); `ds-deck-cards.liquid` now skips those items in every other tab (they stay in Organic for the organic name tees). This replaces the "custom shirts at the end of the stacks" passes. Published 23:49.
