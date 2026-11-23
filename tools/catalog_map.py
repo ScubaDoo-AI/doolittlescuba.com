@@ -23,7 +23,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TOKEN = 'b048eedb23178c86ccff32db1f44d1f8'     # public Storefront API token, Headless storefront "Doolittle Scuba Designs Headless"
 API = 'https://shop.doolittlescuba.com/api/2026-10/graphql.json'
 PAGES = ['index.html', 'signature/index.html', 'certified-ish/index.html', 'off-world/index.html', '1n73ll1g3nc3/index.html',
-         'surface-interval/index.html', 'organic/index.html', 'stickers/index.html']
+         'surface-interval/index.html', 'organic/index.html', 'stickers/index.html', 'towels/index.html']
 SUFFIX = {'plates': ['T'], 'dark': ['TD'], 'certifiedish': ['T'], 'certifiedish-dark': ['TD'], 'offworld': ['T'],
           'offworld-dark': ['TD'], 'n73': ['T'], 'aquatic-boat-banter': ['TD', 'T']}
 JACKET = {'champion-packable-anorak': 'the-mark-champion-packable-anorak', 'basic-windbreaker': 'the-mark-basic-windbreaker'}
