@@ -112,7 +112,7 @@ Regular (synced) shirts in the same order are left to Printful's own integration
 
 | Profile | Covers | Standard | Express |
 |---|---|---|---|
-| Custom tees (made to order, Printful rates) | 480 variants: 78 name tees + Make it yours tee | $4.95 | $9.99 |
+| Custom tees (made to order, Printful rates) | 540 variants: 78 name tees + Make it yours tee + the 10 series custom tees (22 Nov) | $4.95 | $9.99 |
 | Custom caps (made to order, Printful rates) | 4 variants: Make it yours cap | $4.69 | $11.99 |
 
 - **Re-run** the job after adding personalized products. It only moves what isn't in yet.
@@ -228,3 +228,21 @@ Shopify webhook **Order payment** (`orders/paid`) → `https://doolittle-relay.j
 **Verified 16 Nov 20:51 ET:** Shopify's "Send test notification" reached the Worker (user-agent Shopify-Captain-Hook, topic orders/paid), passed the signature check and got 200 "no custom lines". An unsigned call gets 401 "bad signature"; before both secrets are set it answers 503 "relay not configured".
 
 **Housekeeping.** A second Cloudflare account was created by mistake under the shop@ address, with a sample Worker `flat-glade-38f9`; it holds nothing and can be deleted. If the PAT expires (Nov 2027) the Worker's dispatch returns 502 and Shopify retries; regenerate the token, update `RELAY_GITHUB_TOKEN`, run Relay deploy.
+
+
+## Series custom tees (22 Nov 2026)
+
+Eric: *"Each product shirt series should offer a custom shirt option any shirt color any design from the series split light and dark."* Picker on the product page, the series price + $5, all five series.
+
+| Product (handle `…-make-it-yours-light-tee` / `-dark-tee`) | Designs | SKU | Price S–XL / 2XL–3XL |
+|---|---|---|---|
+| Signature Series | 14 | `DS-CU-SIG-<L/D>-<size>` | $47 / $50 |
+| Certified-ish | 20 | `DS-CU-CI-…` | $45 / $48 |
+| Off-World Hunt Club | 30 | `DS-CU-OW-…` | $43 / $46 |
+| 1N73LL1G3NC3 | 36 | `DS-CU-N73-…` | $41 / $44 |
+| Surface Interval · Boat Banter | 20 | `DS-CU-SIB-…` | $43 / $46 |
+
+- **Light** = the 17 light Make it yours colours with dark ink (the catalog light-line files); **Dark** = the 18 dark colours with white ink (the dark-line files). 1N73LL1G3NC3 and Boat Banter only exist as dark-shirt art: their light shirt is the same art recoloured (`series_custom.light_ink`: white/grey ink → navy, coloured ink a shade deeper, red kept), rendered and uploaded when the draft is made; the sleeve mark becomes the navy-and-red one.
+- **Product page:** theme block `ds-series-custom` on template `product.series-custom` (tags `series-custom`, `series-custom:<sig|ci|ow|n73|sib>`, `tone:light|dark`, plus the series tag so each sits in its series tab). Data `assets/ds-series-custom.json` (`tools/series_custom.py --data`), previews `img/custom-series/<slug>-<l|d>.webp` (`--previews`). Line properties: `Design`, `Shirt colour`, `_design`, `_colour`. `?design=<slug>&colour=<slug>` preselects.
+- **Job:** `custom_order.py` kind `ser` → `series_custom.resolve()` → one Printful catalog item: Comfort Colors 1717 in the chosen colour, the catalog print files at their catalog positions (DTG). Unknown design or colour → held, reason_kind `no-design`/`other`.
+- **Shipping:** all 60 variants are in the "Custom tees" profile. In the General profile they were unavailable to US buyers (the theme showed "Unavailable"); the profile fixed it.

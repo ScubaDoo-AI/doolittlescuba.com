@@ -28,3 +28,9 @@
 - Windbreaker: Printful flat-back mockups generated (Black, Navy) → `img/jackets/basic-windbreaker-<colour>-flat-back.webp`. Every jacket card now has Front / Back / Close-up (anorak back = its plain back view), all without models.
 - Shopify: the windbreaker now carries Printful's flat front and flat back per colour (Printful's mockup step pushed these four itself, replacing the earlier flats) plus the embroidery close-ups, in the order front, close-up, back per colour; variant images = the flat fronts. The six set-one Water Hazard towels gained the back mockup (the plain white back with grommet and ring, the same Printful back image set two has), so all twelve towels have front + back.
 - Theme published 22 Nov 21:46 (Eric: "Yes"): Towels tab live in the shop deck (home + collection pages); shopify-theme/snippets/ds-deck-cards.liquid mirrors the live snippet.
+
+
+## Custom shirt per series, light and dark (Eric 21:54)
+- Ten new shop products, one Light and one Dark per series (Signature, Certified-ish, Off-World Hunt Club, 1N73LL1G3NC3, Surface Interval · Boat Banter): any design of the series on any of 17 light / 18 dark Comfort Colors 1717 colours, the series price + $5. Picker with a live shirt preview on the product page; paid orders become Printful drafts through the custom-orders job. Details: `CUSTOM-ORDERS.md` → "Series custom tees"; code `tools/series_custom.py`.
+- Site: each series page's "Wear it your way" gains an **Any design, any colour** card with Light shirt / Dark shirt buttons to the shop (`tools/line_pages.py` `series_custom_card`).
+- Picker art: 240 previews in `img/custom-series/`; product images in `img/custom-series/product/`.

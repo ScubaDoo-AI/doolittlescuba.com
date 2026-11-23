@@ -10,6 +10,9 @@ Each run:
        Make it yours cap        SKU DS-MY[AB]-C-(SM|LXL), _design as above; embroidered (tools/custom_cap.py)
        digitization fee         SKU DS-DIGI-<n>, once per cap design with "Your line", and once per Home Port (the pages
                                 add it; a Home Port fee line carries the port's three properties): checked, not sent
+       series custom tee        SKU DS-CU-<SIG|CI|OW|N73|SIB>-<L|D>-<size>, the line properties "_design" / "_colour" (the
+                                product page's picker, theme block ds-series-custom): the catalog shirt's own print files on
+                                the chosen Comfort Colors colour (tools/series_custom.py, Eric 22 Nov 2026)
        Home Port cap            SKU DS-HMP-CD-(SM|LXL), the port in the line properties "Home Port name" / "Home Port
                                 coordinates" / "Home Port flag" (the map picker); front drawn by tools/homeport_cap.py
                                 (Eric, 20 Nov 2026: automate). Its Printful sync product is ignored, so only this draft is made.
@@ -39,6 +42,7 @@ import aquatic_order as AO
 import custom_tee as T
 import custom_cap as CAP
 import homeport_cap as HP
+import series_custom as SC
 
 MY_RE = re.compile(r'^DS-MY([AB])-T-(S|M|L|XL|2XL|3XL)$')
 CAP_RE = re.compile(r'^DS-MY([AB])-C-(SM|LXL)$')
@@ -96,6 +100,11 @@ def custom_lines(o):
             L.append(dict(kind='cap', tier=c.group(1), size=c.group(2), qty=li['quantity'], design=attrs.get('_design', ''),
                           mockup=attrs.get('Mockup', ''), price=li['originalUnitPriceSet']['shopMoney']['amount'],
                           line_id=li['id'].rsplit('/', 1)[-1], name=li['name'])); continue
+        sc = SC.SKU_RE.match(li['sku'] or '')
+        if sc:
+            L.append(dict(kind='ser', ser=sc.group(1), tone=sc.group(2), size=sc.group(3), qty=li['quantity'],
+                          design=attrs.get('_design', ''), colour=attrs.get('_colour', ''), mockup='',
+                          price=li['originalUnitPriceSet']['shopMoney']['amount'], line_id=li['id'].rsplit('/', 1)[-1], name=li['name'])); continue
         m = MY_RE.match(li['sku'] or '')
         if not m: continue
         L.append(dict(kind='myt', tier=m.group(1), size=m.group(2), qty=li['quantity'], design=attrs.get('_design', ''),
@@ -159,6 +168,18 @@ def handle(o, dry):
             except T.Hold as h:
                 holds.append(f'{l["name"]}: {h}'); rep['lines'].append(dict(size=l['size'], qty=l['qty'], hold=str(h), mockup=l['mockup']))
             continue
+        if l['kind'] == 'ser':
+            if not l['design'] or not l['colour']:
+                holds.append(f'{l["name"]}: no design on the line (bought without the product page picker?)')
+                rep['lines'].append(dict(size=l['size'], qty=l['qty'], hold='no design or colour on the line')); continue
+            try:
+                var, files = SC.resolve(l['ser'], l['tone'], l['design'], l['colour'], l['size'])
+                plans.append((l, dict(variant_id=var, files=files)))
+                rep['lines'].append(dict(size=l['size'], qty=l['qty'],
+                                         summary=f'{SC.SERIES[l["ser"]]["title"]} custom {SC.TONE[l["tone"]].lower()} · {l["design"]} on {l["colour"]} · {l["size"]}'))
+            except ValueError as e:
+                holds.append(f'{l["name"]}: {e}'); rep['lines'].append(dict(size=l['size'], qty=l['qty'], hold=str(e)))
+            continue
         if not l['design']: holds.append(f'{l["name"]}: no design on the line (bought without the custom page?)'); continue
         try:
             p = T.plan(l['design'], l['size']); plans.append((l, p))
@@ -205,6 +226,9 @@ def handle(o, dry):
             it = AO.item(dict(code=l['code'], size=l['size'], organic=l['organic'], qty=l['qty'], names=l['names'], external_id=l['line_id']), fu, bu)
             if l.get('edits'): it['name'] = '⚠ DESIGN EDIT · ' + it['name']   # seen in Printful while approving the draft
             it['retail_price'] = f'{float(l["price"]):.2f}'; items.append(it); continue
+        if l['kind'] == 'ser':
+            items.append(series_item(l, p, n, o, out, dry)); rep['lines'][n]['files'] = {f['placement']: f['layers'][0]['url'] for f in items[-1]['placements']}
+            continue
         files = T.render(p, os.path.join(out, f'line{n + 1}'))
         rep['lines'][n]['files'] = files
         urls = {k: 'file://' + v for k, v in files.items()} if dry else dict(zip(files, AO.upload(list(files.values()), f'{o["name"]} custom tee {n + 1}')))
@@ -223,6 +247,25 @@ def handle(o, dry):
         time.sleep(3)
     return dict(rep, status='draft', printful_id=oid, costs={k: c.get(k) for k in ('subtotal', 'shipping', 'tax', 'total', 'currency')},
                 dashboard=f'https://www.printful.com/dashboard/default/orders?search={oid}')
+
+
+def series_item(l, p, n, o, out, dry):
+    """A series custom line → one Printful catalog item: the catalog files (pixel positions on the plan's print area)
+    turned into v2 layers in inches; recoloured light-ink art is made and uploaded first."""
+    os.makedirs(out, exist_ok=True)
+    def up(data, name):
+        path = os.path.join(out, f'line{n + 1}_{name}'); open(path, 'wb').write(data)
+        return 'file://' + path if dry else AO.upload([path], f'{o["name"]} series custom {n + 1}')[0]
+    files = SC.materialise(p['files'], up)
+    pl = []
+    for f in files:
+        k = {'default': 'front'}.get(f['type'], f['type']); W, H = AREA[k]; ps = f['position']; s = W / ps['area_width']
+        pl.append({'placement': k, 'technique': 'dtg', 'layers': [{'type': 'file', 'url': f['url'], 'position': {
+            'top': round(ps['top'] * s, 3), 'left': round(ps['left'] * s, 3), 'width': round(ps['width'] * s, 3), 'height': round(ps['height'] * s, 3)}}]})
+    colour = next(c['name'] for c in SC.colours()[l['tone']] if c['slug'] == l['colour'])
+    return {'source': 'catalog', 'catalog_variant_id': p['variant_id'], 'quantity': l['qty'], 'external_id': l['line_id'],
+            'name': f'{SC.SERIES[l["ser"]]["title"]} custom · {l["design"]} · {colour} · {l["size"]}', 'retail_price': f'{float(l["price"]):.2f}',
+            'placements': pl}
 
 
 def main():

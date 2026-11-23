@@ -63,6 +63,7 @@ def designs():
     out = {k: [] for k in SERIES}
 
     def add(ser, slug, name, code, line, files, hero):
+        name = re.sub(r'\s+tee$', '', name.split(' — ')[-1])       # "Off-World Hunt Club — Cloaked tee" → "Cloaked"
         e = next((x for x in out[ser] if x['slug'] == slug), None)
         if not e:
             e = dict(slug=slug, name=name, code=code, files={'L': None, 'D': None}, hero=hero); out[ser].append(e)

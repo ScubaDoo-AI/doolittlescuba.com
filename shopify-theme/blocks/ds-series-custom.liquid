@@ -1,0 +1,126 @@
+{%- comment -%}
+  Doolittle Scuba — series custom shirt picker (Eric, 22 Nov 2026: "Each product shirt series should offer a custom
+  shirt option any shirt color any design from the series split light and dark").
+  Shows on products tagged series-custom; the series comes from the series-custom:<sig|ci|ow|n73|sib> tag and the
+  light/dark split from tone:light / tone:dark. Designs and colours come from assets/ds-series-custom.json (written by
+  tools/series_custom.py --data); the art previews from doolittlescuba.com/img/custom-series/.
+  The choice travels as line item properties on the buy-buttons form: "Design", "Shirt colour" (shown to the buyer,
+  in admin and on the Printful draft) and "_design", "_colour" (slugs for tools/custom_order.py). A link with
+  ?design=<slug>&colour=<slug> opens with that choice made.
+{%- endcomment -%}
+{%- liquid
+  assign product = closest.product
+  assign form_id = 'BuyButtons-ProductForm-' | append: section.id
+  assign uid = 'sc-' | append: block.id
+  assign ser = ''
+  assign tone = 'L'
+  for t in product.tags
+    if t contains 'series-custom:'
+      assign ser = t | remove: 'series-custom:' | upcase
+    endif
+    if t == 'tone:dark'
+      assign tone = 'D'
+    endif
+  endfor
+-%}
+{%- if ser != blank -%}
+<div class="ds-sc" id="{{ uid }}" data-form="{{ form_id }}" data-ser="{{ ser }}" data-tone="{{ tone }}" data-src="{{ 'ds-series-custom.json' | asset_url }}" {{ block.shopify_attributes }}>
+  <div class="ds-sc__stage">
+    <svg class="ds-sc__tee" viewBox="40 80 520 600" role="img" aria-label="Preview of your shirt">
+      <path class="ds-sc__body" d="M238 104 L165 126 L54 208 L92 282 L170 250 L166 640 Q300 656 434 640 L430 250 L508 282 L546 208 L435 126 L362 104 Q300 112 238 104 Z"/>
+      <path d="M238 104 L165 126 L54 208 L92 282 L170 250 L166 640 Q300 656 434 640 L430 250 L508 282 L546 208 L435 126 L362 104 Q300 112 238 104 Z" fill="url(#{{ uid }}-shade)"/>
+      <defs><linearGradient id="{{ uid }}-shade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".14"/><stop offset=".3" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".14"/></linearGradient></defs>
+      <path class="ds-sc__collar" d="M232 100 Q300 128 368 100"/>
+      <image class="ds-sc__art" x="182" y="118" width="236" height="315" preserveAspectRatio="xMidYMin meet" href=""/>
+    </svg>
+    <p class="ds-sc__cap"><span data-sc-view>Back</span> · preview drawing, not a proof</p>
+  </div>
+
+  <fieldset class="ds-sc__set">
+    <legend>Design <span class="ds-sc__chosen" data-sc-dname></span></legend>
+    <div class="ds-sc__designs" data-sc-designs role="radiogroup" aria-label="Design"></div>
+  </fieldset>
+
+  <fieldset class="ds-sc__set">
+    <legend>Shirt colour <span class="ds-sc__chosen" data-sc-cname></span></legend>
+    <div class="ds-sc__colours" data-sc-colours role="radiogroup" aria-label="Shirt colour"></div>
+    <p class="ds-sc__other">Want a {% if tone == 'L' %}dark{% else %}light{% endif %} shirt instead? <a data-sc-other href="#">The {% if tone == 'L' %}dark{% else %}light{% endif %} version</a>.</p>
+  </fieldset>
+
+  <input type="hidden" name="properties[Design]" form="{{ form_id }}" data-sc-p-design>
+  <input type="hidden" name="properties[Shirt colour]" form="{{ form_id }}" data-sc-p-colour>
+  <input type="hidden" name="properties[_design]" form="{{ form_id }}" data-sc-p-dslug>
+  <input type="hidden" name="properties[_colour]" form="{{ form_id }}" data-sc-p-cslug>
+  <p class="ds-sc__note">{{ block.settings.note }}</p>
+</div>
+
+<style>
+  .ds-sc{display:grid;gap:18px}
+  .ds-sc__stage{background:var(--color-background, #0f1f3a);border:1px solid rgba(127,127,127,.25);border-radius:10px;padding:10px 10px 6px}
+  .ds-sc__tee{display:block;width:100%;max-width:420px;margin:0 auto;height:auto}
+  .ds-sc__body{fill:var(--sc-hex,#ccc);transition:fill .25s}
+  .ds-sc__collar{fill:none;stroke:rgba(0,0,0,.25);stroke-width:4}
+  .ds-sc__cap{margin:4px 0 0;text-align:center;font-size:.8em;opacity:.7}
+  .ds-sc__set{border:0;margin:0;padding:0}
+  .ds-sc__set legend{font-weight:600;margin-bottom:8px;padding:0}
+  .ds-sc__chosen{font-weight:400;opacity:.8;margin-left:.4em}
+  .ds-sc__designs{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:8px;max-height:300px;overflow:auto;padding:2px}
+  .ds-sc__d{appearance:none;border:2px solid transparent;border-radius:8px;padding:4px;background:var(--sc-hex,#ccc);cursor:pointer;display:grid;gap:2px;text-align:center;color:var(--sc-ink,#102A54);font:inherit;font-size:.68em;line-height:1.15}
+  .ds-sc__d img{width:100%;aspect-ratio:3/4;object-fit:contain;display:block}
+  .ds-sc__d[aria-checked="true"]{border-color:#DA291C;box-shadow:0 0 0 2px rgba(218,41,28,.25)}
+  .ds-sc__d:focus-visible,.ds-sc__c:focus-visible{outline:2px solid #DA291C;outline-offset:2px}
+  .ds-sc__colours{display:flex;flex-wrap:wrap;gap:8px}
+  .ds-sc__c{appearance:none;width:34px;height:34px;border-radius:50%;border:2px solid rgba(127,127,127,.45);cursor:pointer;padding:0}
+  .ds-sc__c[aria-checked="true"]{border-color:#DA291C;box-shadow:0 0 0 3px rgba(218,41,28,.3)}
+  .ds-sc__other,.ds-sc__note{font-size:.85em;opacity:.8;margin:8px 0 0}
+</style>
+
+<script>
+(function(){
+  var root=document.getElementById('{{ uid }}'); if(!root) return;
+  var ser=root.dataset.ser, tone=root.dataset.tone, $=function(s){return root.querySelector(s)};
+  var q=new URLSearchParams(location.search), st={d:null,c:null}, D=null;
+  function lum(h){h=h.replace('#','');var r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16);return (r*299+g*587+b*114)/1000;}
+  function art(slug){return D.img+slug+'-'+(tone==='L'?'l':'d')+'.webp';}
+  function pick(kind,val,user){
+    var S=D.series[ser];
+    if(kind==='d'){ st.d=S.designs.filter(function(x){return x.slug===val})[0]||S.designs[0]; }
+    else { st.c=D.colours[tone].filter(function(x){return x.slug===val})[0]||D.colours[tone][0]; }
+    if(!st.d||!st.c) return;
+    root.style.setProperty('--sc-hex',st.c.hex); root.style.setProperty('--sc-ink',lum(st.c.hex)>140?'#102A54':'#F6F2E8');
+    $('.ds-sc__art').setAttribute('href',art(st.d.slug));
+    $('[data-sc-dname]').textContent=st.d.name; $('[data-sc-cname]').textContent=st.c.name;
+    $('[data-sc-p-design]').value=st.d.name; $('[data-sc-p-colour]').value=st.c.name+' (Comfort Colors '+st.c.cc+')';
+    $('[data-sc-p-dslug]').value=st.d.slug; $('[data-sc-p-cslug]').value=st.c.slug;
+    root.querySelectorAll('.ds-sc__d').forEach(function(b){b.setAttribute('aria-checked',b.dataset.slug===st.d.slug)});
+    root.querySelectorAll('.ds-sc__c').forEach(function(b){b.setAttribute('aria-checked',b.dataset.slug===st.c.slug)});
+    var other=$('[data-sc-other]'); other.href=location.pathname.replace(tone==='L'?'-light-tee':'-dark-tee',tone==='L'?'-dark-tee':'-light-tee')+'?design='+encodeURIComponent(st.d.slug);
+    if(user&&history.replaceState){ var u=new URL(location.href); u.searchParams.set('design',st.d.slug); u.searchParams.set('colour',st.c.slug); history.replaceState(null,'',u); }
+  }
+  fetch(root.dataset.src).then(function(r){return r.json()}).then(function(data){
+    D=data; var S=D.series[ser]; if(!S) return;
+    $('[data-sc-view]').textContent=S.view==='front'?'Front':'Back';
+    if(S.view==='front') $('.ds-sc__art').setAttribute('y','128');
+    var g=$('[data-sc-designs]');
+    S.designs.forEach(function(d){ var b=document.createElement('button'); b.type='button'; b.className='ds-sc__d'; b.dataset.slug=d.slug; b.setAttribute('role','radio');
+      b.innerHTML='<img loading="lazy" alt="" src="'+art(d.slug)+'"><span></span>'; b.querySelector('span').textContent=d.name;
+      b.addEventListener('click',function(){pick('d',d.slug,true)}); g.appendChild(b); });
+    var cw=$('[data-sc-colours]');
+    D.colours[tone].forEach(function(c){ var b=document.createElement('button'); b.type='button'; b.className='ds-sc__c'; b.dataset.slug=c.slug; b.style.background=c.hex;
+      b.setAttribute('role','radio'); b.setAttribute('aria-label',c.name); b.title=c.name; b.addEventListener('click',function(){pick('c',c.slug,true)}); cw.appendChild(b); });
+    st.c=null; pick('d',q.get('design')); pick('c',q.get('colour'));
+  });
+})();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Series custom picker",
+  "tag": null,
+  "settings": [
+    { "type": "textarea", "id": "note", "label": "Note", "default": "Printed to order from the series' own print files, at the catalog shirt's sizes and places. We check every custom shirt before it prints." }
+  ],
+  "presets": [ { "name": "Series custom picker", "category": "Product" } ]
+}
+{% endschema %}

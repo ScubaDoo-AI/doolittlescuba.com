@@ -349,6 +349,23 @@ def chips(dz_cards, line):
     return '\n        '.join(out), cnt
 
 
+SERIES_CUSTOM = {'signature': ('signature-series', 14, 'designs in this collection'), 'certified-ish': ('certified-ish', 20, 'designs in this collection'),
+                 'off-world': ('off-world-hunt-club', 30, 'designs in this collection'), 'n73': ('1n73ll1g3nc3', 36, 'designs in this collection'),
+                 'aquatic': ('surface-interval-boat-banter', 20, 'Boat Banter designs')}
+
+
+def series_custom_card(line):
+    """The series custom shirt (22 Nov 2026): any design of the series on any light or dark shirt, in the shop."""
+    if line['key'] not in SERIES_CUSTOM: return ''
+    h, n, noun = SERIES_CUSTOM[line['key']]; shop = 'https://shop.doolittlescuba.com/products/'
+    return (f'''        <div class="card" id="any-colour">
+          <h3>Any design, any colour</h3>
+          <p>Pick any of the {n} {noun} and put it on any shirt colour: seventeen light shirts with dark ink, or eighteen dark ones with white ink. The catalog print, your colour; $5 over the catalog shirt.</p>
+          <div class="cta"><a class="btn" href="{shop}{h}-make-it-yours-light-tee" data-umami-event="make-series-custom" data-umami-event-line="{line["key"]}" data-umami-event-tone="light">Light shirt</a><a class="btn ghost" href="{shop}{h}-make-it-yours-dark-tee" data-umami-event="make-series-custom" data-umami-event-line="{line["key"]}" data-umami-event-tone="dark">Dark shirt</a></div>
+        </div>
+''')
+
+
 def more_tiles(cur):
     out = []
     for l in LINES:
@@ -464,7 +481,7 @@ def page(line, sh, dz, home_src):
           <p>{line["make_copy"]}</p>
           <a class="btn ghost" href="{make_tab}" data-umami-event="make-custom" data-umami-event-line="{line["key"]}">Open Make it yours</a>
         </div>
-      </div>
+{series_custom_card(line)}      </div>
     </section>
 
     <section id="more" aria-labelledby="more-h">

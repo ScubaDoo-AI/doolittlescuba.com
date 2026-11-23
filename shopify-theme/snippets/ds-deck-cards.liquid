@@ -67,6 +67,11 @@
           assign nm = last_part
           assign ln = label
         endif
+        if p.tags contains 'series-custom'
+          # series custom shirts (22 Nov 2026): "Signature Series — Make it yours, light tee" → card "Make it yours, light", line "Signature Series"
+          assign nm = last_part
+          assign ln = first_part
+        endif
         assign colour = ''
         for t in p.tags
           if t contains 'colour:'
