@@ -23,3 +23,7 @@
 ## "Don't call them golf towels" (Eric 21:32)
 - Shopify: the twelve products are now "<Design> — Water Hazard Towel", handles `<design>-water-hazard-towel` (Shopify redirects the old `-golf-towel` handles; Today's Departures is now `todays-departures-water-hazard-towel`), product type "Towel", SEO titles and descriptions without "golf", descriptions say "for the boat rail or BC" and "hang towels for the dive boat". Collection description likewise. Shop deck tab renamed "Towels".
 - Site: /towels/ copy has no golf in it (new headline "Hang one on the boat rail."), card lines rewritten from the product copy, shop links on the new handles, catalog map rebuilt.
+
+## Complete mockups (Eric 21:36 "Make all mockups complete")
+- Windbreaker: Printful flat-back mockups generated (Black, Navy) → `img/jackets/basic-windbreaker-<colour>-flat-back.webp`. Every jacket card now has Front / Back / Close-up (anorak back = its plain back view), all without models.
+- Shopify: the windbreaker now carries Printful's flat front and flat back per colour (Printful's mockup step pushed these four itself, replacing the earlier flats) plus the embroidery close-ups, in the order front, close-up, back per colour; variant images = the flat fronts. The six set-one Water Hazard towels gained the back mockup (the plain white back with grommet and ring, the same Printful back image set two has), so all twelve towels have front + back.
