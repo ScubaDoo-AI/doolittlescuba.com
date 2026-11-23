@@ -11,7 +11,7 @@
 ## Banner updated (Eric 11:57 "Update banner", 12:03 "2")
 - Status flag id `2026-11-22-stickers-ready` (re-shows to anyone who dismissed the 16 Nov one), state still **Proofing**, dated 22 Nov: the Achievement Unlocked UV stickers (full set + 12 single badges) are in stock and ready on day one; last samples due Nov 26–28; everything else stays "Coming soon". Link unchanged. Applied with `tools/status_flag.py` on all 26 pages.
 
-## Water Hazard golf towels on the site (evening)
+## Water Hazard towels on the site (evening)
 - New page **/towels/**: the twelve Water Hazard golf towels (WH01–WH12) in two sets of six, $28, each card with the Printful mockup and an *Artwork* flip, a link to its product in the shop, and the towel's specs (16 × 24 in, 80/20 poly/polyamide, sublimated front, brass grommet and clip, printed to order). Built by `tools/towels_page.py` from the stickers page shell; images in `img/towels/`, OG image `img/og/towels.jpg`.
 - Cards carry `data-sku` = the Printful variant SKU, so `tools/catalog_map.py` (towels page added to its PAGES) stamps `data-buy` and the cart can add them: 12 of 12 linked. The twelve products were also published to the Headless storefront channel so the catalog map can see them.
 - "Towels" added to the nav on every page (and to `tools/line_pages.py`), to `tools/status_flag.py` / `tools/wide_screen.py` page lists, and to `sitemap.xml`.
@@ -19,3 +19,7 @@
 ## Jackets without models (Eric 21:29 "Rerender the jackets however remove the models")
 - The four jacket cards on the home page now show Printful's flat mockups (no people): Front = `<jacket>-<colour>-flat.webp`, Close-up = a new 1200 px crop of the embroidered mark from the flat mockup (`-closeup.webp`), and the anorak keeps its plain back view. The worn (`-model`, `-men`, `-women`) and model close-up (`-detail`) shots are no longer used on the site; the files stay in `img/jackets/`.
 - The Shopify product images for both jackets were changed the same way (see the store record).
+
+## "Don't call them golf towels" (Eric 21:32)
+- Shopify: the twelve products are now "<Design> — Water Hazard Towel", handles `<design>-water-hazard-towel` (Shopify redirects the old `-golf-towel` handles; Today's Departures is now `todays-departures-water-hazard-towel`), product type "Towel", SEO titles and descriptions without "golf", descriptions say "for the boat rail or BC" and "hang towels for the dive boat". Collection description likewise. Shop deck tab renamed "Towels".
+- Site: /towels/ copy has no golf in it (new headline "Hang one on the boat rail."), card lines rewritten from the product copy, shop links on the new handles, catalog map rebuilt.
