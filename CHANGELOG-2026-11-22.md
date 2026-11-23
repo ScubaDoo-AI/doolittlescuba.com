@@ -15,3 +15,7 @@
 - New page **/towels/**: the twelve Water Hazard golf towels (WH01–WH12) in two sets of six, $28, each card with the Printful mockup and an *Artwork* flip, a link to its product in the shop, and the towel's specs (16 × 24 in, 80/20 poly/polyamide, sublimated front, brass grommet and clip, printed to order). Built by `tools/towels_page.py` from the stickers page shell; images in `img/towels/`, OG image `img/og/towels.jpg`.
 - Cards carry `data-sku` = the Printful variant SKU, so `tools/catalog_map.py` (towels page added to its PAGES) stamps `data-buy` and the cart can add them: 12 of 12 linked. The twelve products were also published to the Headless storefront channel so the catalog map can see them.
 - "Towels" added to the nav on every page (and to `tools/line_pages.py`), to `tools/status_flag.py` / `tools/wide_screen.py` page lists, and to `sitemap.xml`.
+
+## Jackets without models (Eric 21:29 "Rerender the jackets however remove the models")
+- The four jacket cards on the home page now show Printful's flat mockups (no people): Front = `<jacket>-<colour>-flat.webp`, Close-up = a new 1200 px crop of the embroidered mark from the flat mockup (`-closeup.webp`), and the anorak keeps its plain back view. The worn (`-model`, `-men`, `-women`) and model close-up (`-detail`) shots are no longer used on the site; the files stay in `img/jackets/`.
+- The Shopify product images for both jackets were changed the same way (see the store record).
