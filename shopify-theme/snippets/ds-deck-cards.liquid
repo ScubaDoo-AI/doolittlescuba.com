@@ -1,7 +1,7 @@
 {%- doc -%}
   Deck of product cards. On the organic collection each card carries data-sub (its line, from the organic:<line> tag;
   the beanie joins the caps) so the section can split the deck into sub-tabs (Eric, 21 Nov 2026).
-  Deck of product cards. Signature Series products first, off-topic lines last, organic editions hidden unless the collection is the organic one.
+  Deck of product cards. Signature Series products first, off-topic lines last, the series custom shirts at the very end, organic editions hidden unless the collection is the organic one.
   Each card's spine (and its tag's top border) is the garment's own colour from the product's colour: tag (Eric, 20 Nov 2026:
   "These should match for every product"), with dark ink on light colours.
   @param {product[]} products
@@ -20,12 +20,31 @@
   assign total = 0
 -%}
 <div class="dsd-deck">
-  {%- for pass in (1..3) -%}
+  {%- for pass in (1..5) -%}
     {%- for p in products -%}
       {%- liquid
         assign is_sig = false
         if p.tags contains 'signature-series' or p.tags contains 'signature-series-dark'
           assign is_sig = true
+        endif
+        # series custom shirts always close the stack (Eric, 22 Nov 2026: "Custom shirts always at the end of the stacks"),
+        # in a fourth pass, and never cut by the tab's card limit
+        assign is_custom = false
+        if p.tags contains 'series-custom'
+          assign is_custom = true
+        endif
+        if pass >= 4 and is_custom == false
+          continue
+        endif
+        # light custom shirt (pass 4) before the dark one (pass 5)
+        if pass == 4 and p.tags contains 'tone:dark'
+          continue
+        endif
+        if pass == 5 and p.tags contains 'tone:light'
+          continue
+        endif
+        if pass < 4 and is_custom
+          continue
         endif
         if pass == 1 and is_sig == false
           continue
@@ -44,7 +63,7 @@
           continue
         endif
         assign total = total | plus: 1
-        if shown >= limit
+        if shown >= limit and is_custom == false
           continue
         endif
         assign shown = shown | plus: 1

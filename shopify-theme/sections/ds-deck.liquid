@@ -132,7 +132,10 @@
         -%}
         {%- if c == blank or c.handle == blank -%}{%- continue -%}{%- endif -%}
         <div class="dsd-panel{% if i == first_tab %} is-on{% endif %}" role="tabpanel" id="dsd-p-{{ section.id }}-{{ bid }}" aria-labelledby="dsd-t-{{ section.id }}-{{ bid }}" {% unless i == first_tab %}hidden{% endunless %}>
+          {%- comment -%} paginate lifts Shopify's 50-product cap, so the newest products (the series custom shirts that close each stack) are not cut off {%- endcomment -%}
+          {%- paginate c.products by 250 -%}
           {%- render 'ds-deck-cards', products: c.products, coll: c, label: lbl, limit: section.settings.limit, hide_organic: section.settings.hide_organic, see_all: true -%}
+          {%- endpaginate -%}
         </div>
       {%- endfor -%}
     {%- endif -%}

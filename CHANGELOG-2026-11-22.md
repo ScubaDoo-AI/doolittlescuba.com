@@ -34,3 +34,8 @@
 - Ten new shop products, one Light and one Dark per series (Signature, Certified-ish, Off-World Hunt Club, 1N73LL1G3NC3, Surface Interval · Boat Banter): any design of the series on any of 17 light / 18 dark Comfort Colors 1717 colours, the series price + $5. Picker with a live shirt preview on the product page; paid orders become Printful drafts through the custom-orders job. Details: `CUSTOM-ORDERS.md` → "Series custom tees"; code `tools/series_custom.py`.
 - Site: each series page's "Wear it your way" gains an **Any design, any colour** card with Light shirt / Dark shirt buttons to the shop (`tools/line_pages.py` `series_custom_card`).
 - Picker art: 240 previews in `img/custom-series/`; product images in `img/custom-series/product/`.
+
+## Custom shirts at the end of the stacks (Eric 22:57)
+- Shop deck (`snippets/ds-deck-cards.liquid`): series custom shirts are dealt in their own last passes — light, then dark — after every catalog card, and the tab's card limit never cuts them.
+- `sections/ds-deck.liquid`: each tab paginates its collection by 250. Shopify gives a section only the first 50 products of a collection, and Signature Series has 58 with the hidden organic editions, so the custom shirts (the newest) were missing from the home page tab.
+- Theme published on Eric's go-ahead.
