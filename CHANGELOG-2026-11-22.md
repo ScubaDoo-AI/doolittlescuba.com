@@ -45,3 +45,4 @@
 - 23:23 "Still too large": a quarter smaller again — art box 128 × 171 at x 236, y 132 back / 144 front, on the picker and the product images (now `<ser>-<l|d>-3.jpg`).
 - 23:26 "This view appears too small" (the product photo): the three shirts now fill the image — drawings cropped to the shirt, 1800 × 1080, tighter title and footer (`<ser>-<l|d>-4.jpg`).
 - 23:31 "Make the designs a bit larger": art box 150 × 200 at x 225, y 127 back / 139 front (picker and product photos `-5.jpg`).
+- 23:33 "Another 15%": art box 172 × 230 at x 214, y 122 back / 134 front (`-6.jpg`).
