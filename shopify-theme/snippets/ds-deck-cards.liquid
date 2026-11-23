@@ -52,7 +52,9 @@
         assign first_part = parts.first | strip
         assign last_part = parts.last | strip | remove: ' organic tee' | remove: ' organic cap' | remove: ' organic beanie' | remove: ' Dark tee' | remove: ' tee' | remove: ' Dark cap' | remove: ' cap'
         assign line_first = false
-        if first_part contains '1N73' or first_part contains 'Certified-ish' or first_part contains 'Off-World' or first_part contains 'Surface Interval'
+        if last_part contains 'Water Hazard'
+          # Water Hazard towels (22 Nov 2026): "Surface Interval — Water Hazard Towel" is a towel, not the shirt line
+        elsif first_part contains '1N73' or first_part contains 'Certified-ish' or first_part contains 'Off-World' or first_part contains 'Surface Interval'
           assign line_first = true
         endif
         if parts.size > 1 and line_first
@@ -316,7 +318,7 @@
           <div class="r"><span class="p">{{ p.price_min | money }}{% if p.price_varies %}+{% endif %}</span><a href="{{ p.url }}">View &rarr;</a></div>
         </div>
         <a class="dk-face" href="{{ p.url }}" aria-label="{{ p.title | escape }}, {{ p.price_min | money }}">
-          <span class="dk-spine"><span>{{ nm | escape }}</span></span>
+          <span class="dk-spine"><span>{{ nm | replace: '’', "'" | escape }}</span></span>
           <span class="dk-pic{% if img3 %} n3{% elsif img2 %} n2{% else %} n1{% endif %}">
             {%- if v_front -%}
               <img {% if shown <= 2 %}src{% else %}data-src{% endif %}="{{ v_front | image_url: width: 700 }}" alt="" width="700" height="700" loading="lazy">

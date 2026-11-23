@@ -27,3 +27,4 @@
 ## Complete mockups (Eric 21:36 "Make all mockups complete")
 - Windbreaker: Printful flat-back mockups generated (Black, Navy) → `img/jackets/basic-windbreaker-<colour>-flat-back.webp`. Every jacket card now has Front / Back / Close-up (anorak back = its plain back view), all without models.
 - Shopify: the windbreaker now carries Printful's flat front and flat back per colour (Printful's mockup step pushed these four itself, replacing the earlier flats) plus the embroidery close-ups, in the order front, close-up, back per colour; variant images = the flat fronts. The six set-one Water Hazard towels gained the back mockup (the plain white back with grommet and ring, the same Printful back image set two has), so all twelve towels have front + back.
+- Theme published 22 Nov 21:46 (Eric: "Yes"): Towels tab live in the shop deck (home + collection pages); shopify-theme/snippets/ds-deck-cards.liquid mirrors the live snippet.
