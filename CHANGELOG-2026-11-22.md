@@ -38,7 +38,7 @@
 ## Custom shirts at the end of the stacks (Eric 22:57)
 - Shop deck (`snippets/ds-deck-cards.liquid`): series custom shirts are dealt in their own last passes — light, then dark — after every catalog card, and the tab's card limit never cuts them.
 - `sections/ds-deck.liquid`: each tab paginates its collection by 250. Shopify gives a section only the first 50 products of a collection, and Signature Series has 58 with the hidden organic editions, so the custom shirts (the newest) were missing from the home page tab.
-- Saved in the live theme; waiting for Eric's go-ahead to publish (with the series custom picker).
+- Published with the series custom picker (Eric 23:36 "Publish").
 
 ## Custom shirt renders at true scale (Eric 23:04 "Designs look oversized in all these renders")
 - The picker preview and the ten product images drew the 12 × 16 in print area across nearly the whole drawn shirt. Now at shirt proportions (≈14 px per inch on the 600 px drawing: art box 170 × 227 at x 215, y 122 back / 132 front). Product images re-rendered as `img/custom-series/product/<ser>-<l|d>-2.jpg` and swapped in Shopify.
@@ -46,3 +46,4 @@
 - 23:26 "This view appears too small" (the product photo): the three shirts now fill the image — drawings cropped to the shirt, 1800 × 1080, tighter title and footer (`<ser>-<l|d>-4.jpg`).
 - 23:31 "Make the designs a bit larger": art box 150 × 200 at x 225, y 127 back / 139 front (picker and product photos `-5.jpg`).
 - 23:33 "Another 15%": art box 172 × 230 at x 214, y 122 back / 134 front (`-6.jpg`).
+- 23:36 Theme published (Eric: "Publish"): picker, custom shirts at the end of the stacks, preview at 172 × 230.
