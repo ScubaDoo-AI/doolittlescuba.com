@@ -47,3 +47,8 @@
 - 23:31 "Make the designs a bit larger": art box 150 × 200 at x 225, y 127 back / 139 front (picker and product photos `-5.jpg`).
 - 23:33 "Another 15%": art box 172 × 230 at x 214, y 122 back / 134 front (`-6.jpg`).
 - 23:36 Theme published (Eric: "Publish"): picker, custom shirts at the end of the stacks, preview at 172 × 230.
+
+## Custom tab (Eric 23:43 "Maybe all custom items should be under their own tab")
+- Answers: only in the Custom tab; contents = series custom tees, Make it yours tee + cap, Home Port cap, personalized name tees.
+- Shopify: smart collection **Custom** (`custom`, gid 494129774778): tag `series-custom` OR `personalized` OR `home-port` — 91 products (52 shown; the organic name tees stay hidden outside Organic, like every organic edition).
+- Theme: new deck tab "Custom" after Towels (home + collection templates); `ds-deck-cards.liquid` now skips those items in every other tab (they stay in Organic for the organic name tees). This replaces the "custom shirts at the end of the stacks" passes. Saved, awaiting publish.
