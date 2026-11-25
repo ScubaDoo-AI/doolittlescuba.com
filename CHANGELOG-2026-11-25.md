@@ -51,6 +51,19 @@
 - **Rotating photos:** each card turns through its photos, front then back then side, with a fade. The cards are staggered so they don't change together. A card pauses while the pointer is on it, and turning stops for visitors who ask for reduced motion.
 - Saved as theme commit `773a247`, not yet published. The file lives in the theme only and is not mirrored in `shopify-theme/`.
 
+## "Page not found" check (Eric 10:07: "Bigger issue above is the page not found error")
+- **The two 404 screenshots this morning were test addresses typed into the preview tool, not links on the site or in the shop:** `/products/surface-interval-boat-banter-nitrogen-tee` was a wrong guess (the real handle is `aquatic-comic-boat-banter-nitrogen-tee`), and `/products/no-such-thing` was made up to show the Discover section.
+- **Audit run after:**
+  - All 51 product links on doolittlescuba.com resolve to active products published on the Online Store. These are the 28 cap & tee pairs, the 12 hand towels, the 10 series custom tees and the Side Mark cap.
+  - Both collection links resolve (`water-hazard`, `pairs`).
+  - Every link the theme writes is generated from live collections (`collections/all` and the deck/tab handles).
+  - Every internal link and image on the site exists, except the four below.
+- **Fixed, live now:**
+  - `policies/terms.html` linked to Shopify-style addresses that don't exist on the static site (`/policies/shipping-policy`, `/refund-policy`, `/privacy-policy`). It now links to `/policies/shipping.html`, `refund.html` and `privacy.html`.
+  - `policies/privacy.html` linked to `/pages/data-sharing-opt-out` on the site. It now goes to that page in the shop.
+  - The 12 old `-golf-towel` redirects pointed at the `-water-hazard-towel` addresses, which redirect again. They now go straight to the `-hand-towel` pages (one hop).
+  - Shop main menu: the "Off topic" entry under Shop was a dead `#` link. The Shop menu now matches the deck tabs: Signature Series, Certified-ish, Surface Interval, Caps & beanies, Cap & tee pairs (new), Organic, Jackets, Stickers, Hand towels (new), Custom (new), 1N73LL1G3NC3 (off topic), Off-World Hunt Club (off topic), Everything.
+
 ## Found in the review, not changed (needs Eric's call)
 - **Gallery order:** Signature Series and the caps open on the front. Certified-ish (light and dark) and Surface Interval open on the back, while their deck cards show the front.
 - **Site cap titles:** the light site caps are titled "<Site> — Dark cap" (for example "Bali — Dark cap" is a khaki cap), which reads oddly to a shopper.
