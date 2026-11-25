@@ -53,7 +53,7 @@
 - Pool size, the collections drawn from, cards shown (4 on desktop, 4 on mobile) and seconds per photo (3.5) are settings in the theme editor.
 - **Random picks:** the browser deals a fresh set on every page view. Each card in a set comes from a different line where possible. Shopify caches the page, so the pick has to run in the browser. A **Shuffle** button deals a new set and never repeats the set just shown.
 - **Rotating photos:** each card turns through its photos, front then back then side, with a fade. The cards are staggered so they don't change together. A card pauses while the pointer is on it, and turning stops for visitors who ask for reduced motion.
-- Saved as theme commit `773a247`, not yet published. The file lives in the theme only and is not mirrored in `shopify-theme/`.
+- Published 10:58 with the rest. The file lives in the theme only and is not mirrored in `shopify-theme/`.
 
 ## "Page not found" check (Eric 10:07: "Bigger issue above is the page not found error")
 - **The two 404 screenshots this morning were test addresses typed into the preview tool, not links on the site or in the shop:** `/products/surface-interval-boat-banter-nitrogen-tee` was a wrong guess (the real handle is `aquatic-comic-boat-banter-nitrogen-tee`), and `/products/no-such-thing` was made up to show the Discover section.
