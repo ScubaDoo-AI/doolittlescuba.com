@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Home Port cap (Shopify "Home Port — Dark cap", SKU DS-HMP-CD-SM / DS-HMP-CD-LXL) → Printful embroidery placements.
+"""Home Port cap (Shopify "Home Port — Custom cap", titled "Dark cap" before 25 Nov 2026, SKU DS-HMP-CD-SM / DS-HMP-CD-LXL) → Printful embroidery placements.
 
 The product page's map picker (shopify-theme/blocks/home-port-picker.liquid) puts three line properties on the order:
   Home Port name          the buyer's port, up to 16 characters ("Lake Lanier")
