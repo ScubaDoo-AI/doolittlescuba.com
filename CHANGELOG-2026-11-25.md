@@ -71,4 +71,10 @@
 ## Found in the review, not changed (needs Eric's call)
 - **Gallery order:** Signature Series and the caps open on the front. Certified-ish (light and dark) and Surface Interval open on the back, while their deck cards show the front.
 - **Site cap titles:** the light site caps are titled "<Site> — Dark cap" (for example "Bali — Dark cap" is a khaki cap), which reads oddly to a shopper.
-- **"You may also like":** on product pages it renders empty in the theme preview tool. It loads by script, so check it on a real browser.
+
+## "You may also like" on product pages fixed (Eric 11:00: "Fixit")
+- **Cause:** the stock section uses Shopify's automatic "related products". These learn from shop traffic and orders, so before launch they return nothing, and the section showed empty placeholder boxes.
+- **Fix:** the Discover section (`sections/ds-discover.liquid`) has a new setting, "related". On a product page it draws a random set from the product's own collections (its series and parts) and leaves out the product itself. A product with fewer than 8 related items to choose from also draws from the standard lines. Organic products get organic suggestions.
+- `templates/product.json`: the section, headed "You may also like", replaces Shopify's recommendations. The old section stays in the template, disabled.
+- Checked on the Boat Banter Nitrogen tee: four other Boat Banter tees, with rotating photos and the Shuffle button.
+- Saved as theme commit `bbea6d9`; waiting for Eric's yes to publish.
