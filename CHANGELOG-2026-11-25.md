@@ -43,6 +43,14 @@
 - Until it is published, the live deck still says "Towels". One live card, "Surface Interval — Hanging Hand Towel", shows the series name as its line.
 - Mirrors updated in `shopify-theme/` (`sections/ds-deck.liquid` and `snippets/ds-deck-cards.liquid` md5-match the theme; new `sections/ds-series-tabs.liquid`; Home Port template).
 
+## "Discover something new" picks at random and turns its photos (Eric 08:56)
+- New theme section `sections/ds-discover.liquid` ("Discover (random)"). It replaces the stock product list on the 404 page ("Discover something new"). On the cart page, the same section replaces "You may also like" under that heading. The stock product lists stay in both templates, disabled, so they can be switched back in the theme editor.
+- The section writes a pool of about 16 products from each line: Signature Series, Certified-ish, Surface Interval, caps, jackets, stickers, hand towels, 1N73LL1G3NC3 and Off-World. It leaves out organic editions, custom and personalized items, sold-out items and the digitization fee.
+- Pool size, the collections drawn from, cards shown (4 on desktop, 4 on mobile) and seconds per photo (3.5) are settings in the theme editor.
+- **Random picks:** the browser deals a fresh set on every page view. Each card in a set comes from a different line where possible. Shopify caches the page, so the pick has to run in the browser. A **Shuffle** button deals a new set and never repeats the set just shown.
+- **Rotating photos:** each card turns through its photos, front then back then side, with a fade. The cards are staggered so they don't change together. A card pauses while the pointer is on it, and turning stops for visitors who ask for reduced motion.
+- Saved as theme commit `773a247`, not yet published. The file lives in the theme only and is not mirrored in `shopify-theme/`.
+
 ## Found in the review, not changed (needs Eric's call)
 - **Gallery order:** Signature Series and the caps open on the front. Certified-ish (light and dark) and Surface Interval open on the back, while their deck cards show the front.
 - **Site cap titles:** the light site caps are titled "<Site> — Dark cap" (for example "Bali — Dark cap" is a khaki cap), which reads oddly to a shopper.
