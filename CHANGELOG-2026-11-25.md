@@ -91,5 +91,5 @@
 ## Last "Dark cap" names (Eric 12:51: "Rename")
 - **Renamed:** "Home Port — Dark cap" → **"Home Port — Custom cap"**; The Mark, The Seal, The Stack and The Wordmark "— Dark cap" → **"— Brand cap"**.
 - **Unchanged:** the handles (`…-dark-cap`), so links and redirects are unaffected. The order tools match by SKU, not title.
-- **Card labels:** `snippets/ds-deck-cards.liquid` maps "Brand" → "Brand cap" and "Custom" → "Custom cap", so the cards read the same as before. This is saved as theme commit `9c5a6db`, waiting for Eric's yes to publish. Until it goes live, those five cards read "Brand" / "Custom".
+- **Card labels:** `snippets/ds-deck-cards.liquid` maps "Brand" → "Brand cap" and "Custom" → "Custom cap", so the cards read the same as before. Published 12:52 (Eric: "Publish").
 - No product in the shop is titled "Dark cap" any more.
