@@ -79,11 +79,11 @@
   - Card labels read "Dive Site cap" / "Dive Site organic cap". The brand caps' "Dark" label now reads "Brand cap", and Home Port's reads "Custom cap".
 - **Pair descriptions:** the 28 cap & tee pairs link to "<Site> Dive Site cap". The two Thistlegorm pairs' "The The Thistlegorm" typo is fixed.
 - **Tools:** `tools/pairs.py` and `tools/organic_shopify.py` now write the new names.
-- **Theme:** saved as commit `832b861` with the "You may also like" fix; waiting for Eric's yes to publish. The photo order on the product pages and the new names are already live, since they are product data.
+- **Theme:** published 11:59 with the "You may also like" fix (Eric: "Publish changes but ensure designs changes are included"); a check of the live theme found every design change in place. The photo order on the product pages and the new names are already live, since they are product data.
 
 ## "You may also like" on product pages fixed (Eric 11:00: "Fixit")
 - **Cause:** the stock section uses Shopify's automatic "related products". These learn from shop traffic and orders, so before launch they return nothing, and the section showed empty placeholder boxes.
 - **Fix:** the Discover section (`sections/ds-discover.liquid`) has a new setting, "related". On a product page it draws a random set from the product's own collections (its series and parts) and leaves out the product itself. A product with fewer than 8 related items to choose from also draws from the standard lines. Organic products get organic suggestions.
 - `templates/product.json`: the section, headed "You may also like", replaces Shopify's recommendations. The old section stays in the template, disabled.
 - Checked on the Boat Banter Nitrogen tee: four other Boat Banter tees, with rotating photos and the Shuffle button.
-- Saved as theme commit `bbea6d9`; waiting for Eric's yes to publish.
+- Published 11:59.
