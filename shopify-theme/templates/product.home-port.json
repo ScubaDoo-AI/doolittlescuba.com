@@ -162,9 +162,17 @@
         "enable_sticky_add_to_cart": true,
         "background_color": "{{ settings.color_palette.background }}"
       }
+    },
+    "ds_series_tabs": {
+      "type": "ds-series-tabs",
+      "settings": {
+        "padding_top": 16,
+        "padding_bottom": 4
+      }
     }
   },
   "order": [
+    "ds_series_tabs",
     "main"
   ]
 }

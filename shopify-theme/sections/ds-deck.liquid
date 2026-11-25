@@ -16,6 +16,10 @@
   endif
   assign d_handles = 'signature-series|certified-ish|aquatic-comic|hats|pairs|organic|jackets|stickers|*|1n73ll1g3nc3|off-world-hunt-club' | split: '|'
   assign d_labels = 'Signature Series|Certified-ish|Surface Interval|Caps & beanies|Cap & tee pairs|Organic|Jackets|Stickers|Off topic|1N73LL1G3NC3|Off-World Hunt Club' | split: '|'
+  # Series sub-collections (Eric, 25 Nov 2026: "All collections must use the scrolling tabs when viewing a series"):
+  # a sub-collection page lights up its series tab and gets a row of linked chips for the series' other parts.
+  assign ds_parent_map = 'aquatic-comic-boat-banter:aquatic-comic|aquatic-comic-self-logged:aquatic-comic|aquatic-comic-buddy-check:aquatic-comic|aquatic-comic-buddy-system:aquatic-comic|aquatic-comic-till-surface:aquatic-comic|aquatic-comic-master-class:aquatic-comic|site-caps:hats|brand-caps:hats|achievement-unlocked:stickers|sticker-packs:stickers|die-cut-stickers:stickers|brand-stickers:stickers|eco:organic' | split: '|'
+  assign ds_children = 'aquatic-comic:aquatic-comic-boat-banter,aquatic-comic-self-logged,aquatic-comic-buddy-check,aquatic-comic-buddy-system,aquatic-comic-till-surface,aquatic-comic-master-class|hats:site-caps,brand-caps|stickers:achievement-unlocked,sticker-packs,die-cut-stickers,brand-stickers' | split: '|'
   if use_default
     assign n = d_handles.size | minus: 1
   else
@@ -32,6 +36,17 @@
   endif
   assign matched = false
   assign page_label = page_coll.title
+  assign parent_h = ''
+  assign active_h = blank
+  assign active_l = ''
+  if linked_tabs
+    for pair in ds_parent_map
+      assign kv = pair | split: ':'
+      if kv[0] == page_coll.handle
+        assign parent_h = kv[1]
+      endif
+    endfor
+  endif
   if linked_tabs
     for i in (0..n)
       if use_default
@@ -41,8 +56,15 @@
         assign h = section.blocks[i].settings.collection.handle
         assign l = section.blocks[i].settings.label
       endif
+      if parent_h != '' and h == parent_h
+        assign matched = true
+        assign active_h = h
+        assign active_l = l
+      endif
       if h == page_coll.handle
         assign matched = true
+        assign active_h = h
+        assign active_l = l
         if l != blank
           assign page_label = l
         endif
@@ -63,6 +85,9 @@
     </div>
 
     <nav class="dsd-tabs" aria-label="Collections" {% unless linked_tabs %}role="tablist"{% endunless %}>
+      {%- if linked_tabs and matched == false -%}
+        <a class="dsd-tab is-on" href="{{ page_coll.url }}" aria-current="page">{{ page_coll.title }}</a>
+      {%- endif -%}
       {%- for i in (0..n) -%}
         {%- liquid
           if use_default
@@ -92,17 +117,31 @@
         {%- if c == blank or c.handle == blank -%}{%- continue -%}{%- endif -%}
         {%- assign is_on = false -%}
         {%- if linked_tabs -%}
-          {%- if c.handle == page_coll.handle -%}{%- assign is_on = true -%}{%- endif -%}
+          {%- if c.handle == page_coll.handle or c.handle == parent_h -%}{%- assign is_on = true -%}{%- endif -%}
           <a class="dsd-tab{% if is_on %} is-on{% endif %}" href="{{ c.url }}" {% if is_on %}aria-current="page"{% endif %} {{ attrs }}>{{ lbl }}</a>
         {%- else -%}
           {%- if first_tab == -1 -%}{%- assign first_tab = i -%}{%- assign is_on = true -%}{%- endif -%}
           <button type="button" class="dsd-tab{% if is_on %} is-on{% endif %}" role="tab" id="dsd-t-{{ section.id }}-{{ bid }}" aria-controls="dsd-p-{{ section.id }}-{{ bid }}" aria-selected="{{ is_on }}" {{ attrs }}>{{ lbl }}</button>
         {%- endif -%}
       {%- endfor -%}
-      {%- if linked_tabs and matched == false -%}
-        <a class="dsd-tab is-on" href="{{ page_coll.url }}" aria-current="page">{{ page_coll.title }}</a>
-      {%- endif -%}
     </nav>
+    {%- if linked_tabs and active_h != blank -%}
+      {%- for pair in ds_children -%}
+        {%- assign kv = pair | split: ':' -%}
+        {%- if kv[0] == active_h -%}
+          {%- assign kids = kv[1] | split: ',' -%}
+          {%- assign pc = collections[active_h] -%}
+          <div class="dsd-subs dsd-links" role="group" aria-label="{{ active_l | default: pc.title | escape }}: parts of the series">
+            <a href="{{ pc.url }}"{% if page_coll.handle == active_h %} class="on" aria-current="page"{% endif %}>All</a>
+            {%- for k in kids -%}
+              {%- assign kc = collections[k] -%}
+              {%- if kc == blank or kc.products_count == 0 -%}{%- continue -%}{%- endif -%}
+              <a href="{{ kc.url }}"{% if page_coll.handle == k %} class="on" aria-current="page"{% endif %}>{{ kc.title | split: ' · ' | last }}</a>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
 
     {%- if linked_tabs -%}
       <div class="dsd-panel is-on">
@@ -133,6 +172,20 @@
         {%- if c == blank or c.handle == blank -%}{%- continue -%}{%- endif -%}
         <div class="dsd-panel{% if i == first_tab %} is-on{% endif %}" role="tabpanel" id="dsd-p-{{ section.id }}-{{ bid }}" aria-labelledby="dsd-t-{{ section.id }}-{{ bid }}" {% unless i == first_tab %}hidden{% endunless %}>
           {%- comment -%} paginate lifts Shopify's 50-product cap, so the newest products (the series custom shirts that close each stack) are not cut off {%- endcomment -%}
+          {%- for pair in ds_children -%}
+            {%- assign kv = pair | split: ':' -%}
+            {%- if kv[0] == c.handle -%}
+              {%- assign kids = kv[1] | split: ',' -%}
+              <div class="dsd-subs dsd-links" role="group" aria-label="{{ lbl | escape }}: parts of the series">
+                <a href="{{ c.url }}">All {{ lbl }}</a>
+                {%- for k in kids -%}
+                  {%- assign kc = collections[k] -%}
+                  {%- if kc == blank or kc.products_count == 0 -%}{%- continue -%}{%- endif -%}
+                  <a href="{{ kc.url }}">{{ kc.title | split: ' · ' | last }}</a>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
           {%- paginate c.products by 250 -%}
           {%- render 'ds-deck-cards', products: c.products, coll: c, label: lbl, limit: section.settings.limit, hide_organic: section.settings.hide_organic, see_all: true -%}
           {%- endpaginate -%}
@@ -146,6 +199,19 @@
 (function(){
   var root=document.currentScript.previousElementSibling;
   if(!root||!root.matches('[data-dsd]')) return;
+  /* Scrolling tab bars (25 Nov 2026): the current tab is brought into view, a fade shows there is more to scroll,
+     and a mouse wheel scrolls the bar sideways. */
+  root.querySelectorAll('.dsd-tabs,.dsd-links').forEach(function(bar){
+    function edge(){ var l=bar.scrollLeft>4, r=bar.scrollLeft+bar.clientWidth<bar.scrollWidth-4; bar.classList.toggle('fade-l',l&&!r); bar.classList.toggle('fade-r',r&&!l); bar.classList.toggle('fade-lr',l&&r); }
+    var on=bar.querySelector('.is-on,.on');
+    /* the section style sits below this script, so the bar is centred again once the page has its styles */
+    function centre(){ if(!on) return; var x=on.offsetLeft-(bar.clientWidth-on.offsetWidth)/2; bar.style.scrollBehavior='auto'; bar.scrollLeft=Math.max(0,x); bar.style.scrollBehavior=''; edge(); }
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',centre); else requestAnimationFrame(centre);
+    addEventListener('load',centre);
+    bar.addEventListener('scroll',edge,{passive:true});
+    bar.addEventListener('wheel',function(e){ if(bar.scrollWidth<=bar.clientWidth||Math.abs(e.deltaX)>Math.abs(e.deltaY)) return; e.preventDefault(); bar.scrollLeft+=e.deltaY; },{passive:false});
+    addEventListener('resize',edge); edge();
+  });
   var SUBS=[['signature','Signature Series'],['certifiedish','Certified-ish'],['aquatic','Surface Interval'],['caps','Caps & beanie'],['n73','1N73LL1G3NC3'],['offworld','Off-World Hunt Club']];
   var quietUntil=0, timer=0;
   function now(){ return Date.now(); }
@@ -176,6 +242,7 @@
     var c=e.target.closest('.dk'); if(c && !c.classList.contains('on')){ e.preventDefault(); pull(c); centre(c); }
     var t=e.target.closest('button.dsd-tab'); if(!t) return;
     root.querySelectorAll('button.dsd-tab').forEach(function(x){ var on=x===t; x.classList.toggle('is-on',on); x.setAttribute('aria-selected',on); });
+    var bar=t.parentNode; bar.scrollTo({left:Math.max(0,t.offsetLeft-(bar.clientWidth-t.offsetWidth)/2)});
     root.querySelectorAll('.dsd-panel').forEach(function(p){ var on=p.id===t.getAttribute('aria-controls'); p.hidden=!on; p.classList.toggle('is-on',on); if(on){ var d=p.querySelector('.dsd-deck'); if(d) d.scrollLeft=0; var f=p.querySelector('.dk:not([hidden])'); if(f) pull(f); } });
   });
   root.addEventListener('keydown',function(e){
@@ -239,6 +306,13 @@
 .dsd-subs button.on{opacity:1;font-weight:600;border-color:#C8202A;background:rgb(200 32 42 / .14)}
 .dsd-subs .n{font-size:11px;opacity:.6}
 .dsd-subs :focus-visible{outline:2px solid #C8202A;outline-offset:2px}
+.dsd-subs a.on{opacity:1;font-weight:600;border-color:#C8202A;background:rgb(200 32 42 / .14)}
+.dsd-links{margin:4px 0 10px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.dsd-links::-webkit-scrollbar{display:none}
+.dsd-tabs,.dsd-links{position:relative;scroll-behavior:smooth}
+.dsd-tabs.fade-r,.dsd-links.fade-r{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent)}
+.dsd-tabs.fade-l,.dsd-links.fade-l{-webkit-mask-image:linear-gradient(90deg,transparent,#000 56px);mask-image:linear-gradient(90deg,transparent,#000 56px)}
+.dsd-tabs.fade-lr,.dsd-links.fade-lr{-webkit-mask-image:linear-gradient(90deg,transparent,#000 56px,#000 calc(100% - 56px),transparent);mask-image:linear-gradient(90deg,transparent,#000 56px,#000 calc(100% - 56px),transparent)}
 .dsd-deck{position:relative;display:flex;align-items:flex-end;overflow-x:auto;overscroll-behavior-x:contain;padding:200px 24px 22px 4px;scrollbar-width:thin}
 .dsd .dk{--step:44px;position:relative;flex:0 0 var(--step);width:var(--step);height:360px;border-radius:4px;transition:flex-basis .38s cubic-bezier(.2,.75,.25,1),width .38s cubic-bezier(.2,.75,.25,1),transform .38s cubic-bezier(.2,.75,.25,1),box-shadow .38s;box-shadow:0 6px 14px -10px rgba(0,0,0,.6)}
 .dsd .dk[hidden]{display:none}
@@ -249,6 +323,7 @@
 .dsd .dk-spine span{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;font-family:var(--font-heading--family);font-weight:700;font-size:16px;line-height:1}
 .dsd .dk[style*="--spine"] .dk-spine span{text-shadow:0 1px 3px var(--spine-glow,rgba(0,0,0,.6))}
 .dsd .dk-pic{position:relative;flex:1 1 auto;min-width:0;background:var(--ds-mock,transparent)}
+.dsd .dk--light .dk-pic{background:#fff}
 .dsd .dk-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .9s ease}
 .dsd .dk-pic img:first-child{opacity:1}
 .dsd .dk.on .dk-pic{perspective:1100px}

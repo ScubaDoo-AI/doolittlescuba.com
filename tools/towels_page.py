@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """The Water Hazard towels page, /towels/ (Eric, 22 Nov 2026: "Add towels to the website and shop").
 
-Twelve 16 x 24 in sublimated hang towels in two sets of six, printed to order by Printful (product 1423), $28 each.
+Twelve 16 x 24 in sublimated hanging hand towels (Eric, 25 Nov: "Change the current 12 towels to hanging hand towels, beach towels line is in progress") in two sets of six, printed to order by Printful (product 1423), $28 each.
 The shell (head, status banner, nav, footer, scripts) is copied from stickers/index.html so the shared tools keep it in
 step; the main block is written from TOWELS below. Each card carries data-sku = the Printful variant SKU, which
 tools/catalog_map.py turns into data-buy for the cart.
@@ -16,7 +16,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SHOP = 'https://shop.doolittlescuba.com'
 PRICE = '$28'
 
-# code, title, slug, handle stem (handle = stem + -water-hazard-towel; renamed from -golf-towel 22 Nov, Shopify redirects the old ones), Printful SKU, one line about it
+# code, title, slug, handle stem (handle = stem + -hand-towel since 25 Nov; earlier -water-hazard-towel and -golf-towel, Shopify redirects the old ones), Printful SKU, one line about it
 TOWELS = [
     ('WH01', 'Dive Boat Bingo', 'dive-boat-bingo', 'dive-boat-bingo', '4057324_44137', 'A five-by-five SCUBA card of things every dive boat sees. Free square: neoprene smell.'),
     ('WH02', 'Mood Gauge', 'mood-gauge', 'mood-gauge', '5291045_44137', 'How I’m feeling, in psi: a tank gauge, mood-rated, from marine-biology career at 3000 to “a little tight at the end.”'),
@@ -46,11 +46,11 @@ def ver(rel):
 def card(t):
     code, title, slug, handle, sku, line = t
     img = lambda n: f'/img/towels/{n}.webp?v={ver(f"img/towels/{n}.webp")}'
-    url = f'{SHOP}/products/{handle}-water-hazard-towel'
+    url = f'{SHOP}/products/{handle}-hand-towel'
     return (f'<figure class="sh tw" id="t-{slug}" data-kind="towel" data-line="water-hazard" data-slug="{slug}" data-code="{code}" data-sku="{sku}" data-price="{PRICE}" data-colour="Navy" data-hex="#102A54">'
             f'<button type="button" class="sh-img" data-front="{img(slug)}" data-back="{img(slug + "-art")}" '
-            f'data-cap="{E(title)} — Water Hazard towel · 16 × 24 in · {PRICE}" data-umami-event="towel-open" data-umami-event-towel="{code}">'
-            f'<img src="{img(slug + "-t")}" width="480" height="700" loading="lazy" decoding="async" draggable="false" alt="{E(title)} Water Hazard towel: Printful mockup"></button>'
+            f'data-cap="{E(title)} — Water Hazard hanging hand towel · 16 × 24 in · {PRICE}" data-umami-event="towel-open" data-umami-event-towel="{code}">'
+            f'<img src="{img(slug + "-t")}" width="480" height="700" loading="lazy" decoding="async" draggable="false" alt="{E(title)} Water Hazard hanging hand towel: Printful mockup"></button>'
             f'<figcaption><span class="dz-row"><span class="dz-t">{E(title)}</span><span class="mono tw-code">{code}</span></span>'
             f'<span class="dz-s">{E(line)}</span>'
             f'<span class="tw-buy"><span class="price">{PRICE}</span><a class="txt" href="{url}" data-umami-event="towel-shop" data-umami-event-towel="{code}">In the shop &rarr;</a></span>'
@@ -75,6 +75,7 @@ STYLE = '''<style>
 .tw-specs{display:grid;grid-template-columns:max-content 1fr;gap:6px 18px;margin:0;max-width:72ch}
 .tw-specs dt{font-family:var(--f-data,ui-monospace,monospace);font-size:var(--s-1);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .tw-specs dd{margin:0}
+.tw-next{margin:18px 0 0;padding:12px 16px;border-left:3px solid #B8862B;background:rgba(184,134,43,.08);max-width:72ch}
 </style>'''
 
 
@@ -88,14 +89,14 @@ def main_block():
       <div class="hero-copy">
         <p class="eyebrow">Doolittle Scuba &middot; Water Hazard</p>
         <h1>Hang one on the boat rail.</h1>
-        <p class="lede">Twelve hang towels for the dive boat: the briefing translated, where the air went, dive boat bingo and nine more. 16 &times; 24 in microfiber, printed edge to edge on navy, with a gold grommet and ring. {PRICE} each.</p>
+        <p class="lede">Twelve hanging hand towels for the dive boat: the briefing translated, where the air went, dive boat bingo and nine more. 16 &times; 24 in microfiber, printed edge to edge on navy, with a gold grommet and ring. {PRICE} each.</p>
         <div class="cta">
-          <a class="btn" data-umami-event="hero-towels" href="#towels">The towels</a>
+          <a class="btn" data-umami-event="hero-towels" href="#towels">The hand towels</a>
           <a class="btn ghost" data-umami-event="hero-towels-shop" href="{SHOP}/collections/water-hazard">Shop the set</a>
         </div>
       </div>
       <figure class="sheet" style="margin:0">
-        <div class="coord mono" aria-label="12 towels, 16 by 24 inches, $28 each">12 TOWELS &nbsp;&middot;&nbsp; 16 &times; 24 IN &nbsp;&middot;&nbsp; {PRICE}</div>
+        <div class="coord mono" aria-label="12 hanging hand towels, 16 by 24 inches, $28 each">12 HAND TOWELS &nbsp;&middot;&nbsp; 16 &times; 24 IN &nbsp;&middot;&nbsp; {PRICE}</div>
         <img src="{hero}" alt="Three Water Hazard towels side by side: Dive Briefing Translated, Dive Boat Bingo and Signal Flags" width="1800" height="900">
       </figure>
     </div>
@@ -104,7 +105,7 @@ def main_block():
 
     <section id="towels" aria-labelledby="towels-h">
       <div class="head">
-        <h2 id="towels-h">The towels</h2>
+        <h2 id="towels-h">The hanging hand towels</h2>
         <p>Two sets of six, {PRICE} each. Tap a towel to see it large; switch a card to <em>Artwork</em> for the print itself.</p>
       </div>
 {sets}
@@ -112,7 +113,7 @@ def main_block():
     </section>
 
     <section id="towel-specs" aria-labelledby="specs-h">
-      <div class="head"><h2 id="specs-h">The towel</h2></div>
+      <div class="head"><h2 id="specs-h">The hand towel</h2></div>
       <dl class="tw-specs">
         <dt>Size</dt><dd>16 &times; 24 in</dd>
         <dt>Fabric</dt><dd>Microfiber, 80% polyester, 20% polyamide; absorbent and quick-drying, about 4 oz</dd>
@@ -121,6 +122,7 @@ def main_block():
         <dt>Made</dt><dd>Printed to order by Printful &middot; machine wash cold</dd>
         <dt>Price</dt><dd>{PRICE}</dd>
       </dl>
+      <p class="tw-next"><strong>Beach towels are in the works.</strong> A full-size Water Hazard beach towel line is being drawn now; <a href="/#contact" data-umami-event="towels-beach-news">get word when it lands</a>.</p>
     </section>
 
     <section id="make" aria-labelledby="make-h">
@@ -143,8 +145,8 @@ def main_block():
 </main>'''
 
 
-HEAD_TITLE = 'Water Hazard towels · Doolittle Scuba'
-DESC = 'Water Hazard: twelve 16 × 24 in hang towels for the dive boat — Dive Briefing Translated, Where the Air Went, Dive Boat Bingo and more. Printed edge to edge on navy, gold grommet and ring, $28.'
+HEAD_TITLE = 'Water Hazard hanging hand towels · Doolittle Scuba'
+DESC = 'Water Hazard: twelve 16 × 24 in hanging hand towels for the dive boat — Dive Briefing Translated, Where the Air Went, Dive Boat Bingo and more. Printed edge to edge on navy, gold grommet and ring, $28. Beach towels coming soon.'
 
 
 def build():
@@ -155,11 +157,11 @@ def build():
     head = re.sub(r'<title>.*?</title>', f'<title>{E(HEAD_TITLE)}</title>', head)
     head = re.sub(r'(<meta (?:name|property)="(?:og:)?description" content=")[^"]*', lambda m: m.group(1) + E(DESC), head)
     head = head.replace('https://doolittlescuba.com/stickers/', 'https://doolittlescuba.com/towels/')
-    head = re.sub(r'(<meta property="og:title" content=")[^"]*', r'\1Water Hazard · towels for the dive boat', head)
+    head = re.sub(r'(<meta property="og:title" content=")[^"]*', r'\1Water Hazard · hanging hand towels for the dive boat', head)
     head = re.sub(r'(<meta property="og:image" content=")[^"]*', r'\1https://doolittlescuba.com/img/og/towels.jpg', head)
     head = re.sub(r'(<meta property="og:image:alt" content=")[^"]*', r'\1Three Water Hazard towels on navy', head)
     head = re.sub(r'<script type="application/ld\+json">.*?</script>',
-                  '<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Water Hazard towels · Doolittle Scuba", '
+                  '<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Water Hazard hanging hand towels · Doolittle Scuba", '
                   '"url": "https://doolittlescuba.com/towels/", "description": "' + DESC.replace('"', '\\"') + '"}</script>', head, flags=re.S)
     head = re.sub(r'<style>\n/\* Stickers:.*?</style>', lambda m: STYLE, head, flags=re.S)
     tail = re.sub(r"<script>DS\.lightbox\(\);.*?</script>", '<script>DS.lightbox();</script>', tail)

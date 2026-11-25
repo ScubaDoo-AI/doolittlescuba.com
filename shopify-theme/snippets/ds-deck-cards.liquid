@@ -62,8 +62,8 @@
         assign first_part = parts.first | strip
         assign last_part = parts.last | strip | remove: ' organic tee' | remove: ' organic cap' | remove: ' organic beanie' | remove: ' Dark tee' | remove: ' tee' | remove: ' Dark cap' | remove: ' cap'
         assign line_first = false
-        if last_part contains 'Water Hazard'
-          # Water Hazard towels (22 Nov 2026): "Surface Interval — Water Hazard Towel" is a towel, not the shirt line
+        if last_part contains 'Water Hazard' or p.tags contains 'towel'
+          # Water Hazard towels (22 Nov 2026; hanging hand towels since 25 Nov): "Surface Interval — Hanging Hand Towel" is a towel, not the shirt line
         elsif first_part contains '1N73' or first_part contains 'Certified-ish' or first_part contains 'Off-World' or first_part contains 'Surface Interval'
           assign line_first = true
         endif
@@ -81,6 +81,32 @@
           # series custom shirts (22 Nov 2026): "Signature Series — Make it yours, light tee" → card "Make it yours, light", line "Signature Series"
           assign nm = last_part
           assign ln = first_part
+        endif
+        # Line labels that came out as a bare word from the title (25 Nov 2026 review): "Bali — Dark cap" read "Dark",
+        # "Bali — organic cap" read "organic", "The Side Mark — cap" read "cap".
+        assign is_capish = false
+        if p.title contains ' cap' or p.title contains 'eanie'
+          assign is_capish = true
+        endif
+        case ln
+          when 'Dark'
+            if is_capish
+              assign ln = 'Site cap'
+            endif
+          when 'organic'
+            assign ln = 'Organic cap'
+          when 'organic beanie'
+            assign ln = 'Organic beanie'
+          when 'cap'
+            assign ln = 'Brand cap'
+          when 'Beanie'
+            assign ln = 'Brand beanie'
+          when 'personalized'
+            assign ln = 'Personalized tee'
+        endcase
+        assign light_pic = false
+        if p.tags contains 'towel'
+          assign light_pic = true
         endif
         assign colour = ''
         for t in p.tags
@@ -325,7 +351,7 @@
           endif
         endif
       -%}
-      <article class="dk"{% if sub != blank %} data-sub="{{ sub | escape }}"{% endif %} style="--hex: {{ hex }}; --ink: {{ ink }};{% if spine != blank %} --spine: {{ spine }};{% if ink == "#122A55" %} --spine-glow: rgba(255,255,255,.55);{% endif %}{% endif %}">
+      <article class="dk{% if light_pic %} dk--light{% endif %}"{% if sub != blank %} data-sub="{{ sub | escape }}"{% endif %} style="--hex: {{ hex }}; --ink: {{ ink }};{% if spine != blank %} --spine: {{ spine }};{% if ink == "#122A55" %} --spine-glow: rgba(255,255,255,.55);{% endif %}{% endif %}">
         <div class="dk-tag">
           <div class="ln">{{ ln | escape }}</div>
           <p class="t">{{ nm | escape }}</p>
