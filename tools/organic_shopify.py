@@ -73,7 +73,7 @@ def describe(p):
         extra += 'Front: the DS mark over the slogan. Back: the joke, the punch words in red.'
     elif line == 'caps':
         site = OM.CAPS[code]; brand = code in ('MRK', 'SEA', 'STK', 'WDM')
-        title = f'{name} — organic cap'
+        title = f'{name} — organic cap' if brand else f'{name} — Dive Site organic cap'   # site caps renamed 25 Nov 2026
         tags = ['cap', 'hat', 'embroidered', 'front:embroidered'] + (['brand', 'brand-cap'] if brand else ['site-cap', f'site:{site.replace("the-thistlegorm", "thistlegorm")}'])
         extra = 'Embroidered in the same threads and placements as the Flexfit cap: the front design, the DS mark on the side and the tagline on the back where the regular cap has them.'
     else:

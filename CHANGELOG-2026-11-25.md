@@ -68,9 +68,18 @@
   - The 12 old `-golf-towel` redirects pointed at the `-water-hazard-towel` addresses, which redirect again. They now go straight to the `-hand-towel` pages (one hop).
   - Shop main menu: the "Off topic" entry under Shop was a dead `#` link. The Shop menu now matches the deck tabs: Signature Series, Certified-ish, Surface Interval, Caps & beanies, Cap & tee pairs (new), Organic, Jackets, Stickers, Hand towels (new), Custom (new), 1N73LL1G3NC3 (off topic), Off-World Hunt Club (off topic), Everything.
 
-## Found in the review, not changed (needs Eric's call)
-- **Gallery order:** Signature Series and the caps open on the front. Certified-ish (light and dark) and Surface Interval open on the back, while their deck cards show the front.
-- **Site cap titles:** the light site caps are titled "<Site> — Dark cap" (for example "Bali — Dark cap" is a khaki cap), which reads oddly to a shopper.
+## Photo order and cap names (Eric 11:22: "Certified ish should open on the back, Surface interval should open on the fronts as the joke setup is on the front. Signature series is good same for caps. 2. Use suggested")
+- **Surface Interval:** the 59 regular Surface Interval tees (Boat Banter, Self-Logged, Buddy Check, Buddy System, Till Surface Do Us Part, Master Class) now open on the front, where the setup line is. The front photo was moved to first place (`productReorderMedia`). The organic editions already led with the front; the custom tees have one image. Their deck cards already showed the front.
+- **Certified-ish:** the product pages already opened on the back. The deck cards and the Discover/You may also like cards now lead with the back too (theme: `snippets/ds-deck-cards.liquid`, `sections/ds-discover.liquid`), so the card matches the page.
+- **Signature Series and caps:** front first, unchanged.
+- **Cap names:**
+  - The 14 site caps are now "<Site> — Dive Site cap" and their 14 organic editions "<Site> — Dive Site organic cap". These were "Dark cap" and "organic cap".
+  - Handles are unchanged (`<site>-dark-cap`), so no links moved.
+  - Home Port ("Home Port — Dark cap") and the brand caps (The Mark, The Seal, The Stack, The Wordmark) keep their names.
+  - Card labels read "Dive Site cap" / "Dive Site organic cap". The brand caps' "Dark" label now reads "Brand cap", and Home Port's reads "Custom cap".
+- **Pair descriptions:** the 28 cap & tee pairs link to "<Site> Dive Site cap". The two Thistlegorm pairs' "The The Thistlegorm" typo is fixed.
+- **Tools:** `tools/pairs.py` and `tools/organic_shopify.py` now write the new names.
+- **Theme:** saved as commit `832b861` with the "You may also like" fix; waiting for Eric's yes to publish. The photo order on the product pages and the new names are already live, since they are product data.
 
 ## "You may also like" on product pages fixed (Eric 11:00: "Fixit")
 - **Cause:** the stock section uses Shopify's automatic "related products". These learn from shop traffic and orders, so before launch they return nothing, and the section showed empty placeholder boxes.

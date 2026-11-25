@@ -90,8 +90,16 @@
         endif
         case ln
           when 'Dark'
-            if is_capish
-              assign ln = 'Site cap'
+            if p.title contains 'Home Port'
+              assign ln = 'Custom cap'
+            elsif is_capish
+              assign ln = 'Brand cap'
+            endif
+          when 'Dive Site'
+            if p.title contains 'organic'
+              assign ln = 'Dive Site organic cap'
+            else
+              assign ln = 'Dive Site cap'
             endif
           when 'organic'
             assign ln = 'Organic cap'
@@ -328,6 +336,13 @@
         endif
         if v_side == blank
           assign v_side = v_close
+        endif
+        # Certified-ish opens on the back, where the course design is (Eric, 25 Nov 2026: "Certified ish should open on
+        # the back"); the card leads with the back so it matches the product page. Surface Interval and the rest lead with the front.
+        if p.title contains 'Certified-ish' and v_back != blank
+          assign v_tmp = v_front
+          assign v_front = v_back
+          assign v_back = v_tmp
         endif
         if v_side == v_front
           assign v_side = nil

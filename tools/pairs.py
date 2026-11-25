@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The pairs (12 Nov 2026): one set product per site and tee line — the site's Dark cap with its Signature Series tee,
+"""The pairs (12 Nov 2026): one set product per site and tee line — the site's Dive Site cap (titled "Dark cap" before 25 Nov 2026) with its Signature Series tee,
 light or dark — sold as a Shopify fixed bundle (productBundleCreate; the components stay the cap and tee products, so
 Printful and the embroiderer see ordinary cap and tee line items on an order).
 
@@ -50,7 +50,7 @@ def description(slug, code, name, line, cap_col, tee_col):
     cap_url = f"{SHOP}/products/{CAP_SLUG.get(slug, slug)}-dark-cap"
     tee_url = f"{SHOP}/products/{CAP_SLUG.get(slug, slug)}-signature-series-{'dark-' if line == 'dark' else ''}tee"
     return (f"<p><strong>The pair</strong> — {n} cap and {n} tee together, $8 under the two apart.</p>"
-            f"<p>The <a href=\"{cap_url}\">{name} Dark cap</a> — Flexfit 6277 in {cap_col}, embroidered on three sides: the site front across the front panels, "
+            f"<p>The <a href=\"{cap_url}\">{name} Dive Site cap</a> — Flexfit 6277 in {cap_col}, embroidered on three sides: the site front across the front panels, "
             f"the DS mark on the left side, “Do - A - Little Scuba” arched over the back — with the <a href=\"{tee_url}\">{tee}</a> in {tee_col}: "
             f"the full {name.replace('The ', '')} plate on the back, the site block on the chest, the shark mark on the sleeve.</p>"
             f"<ul>\n<li>\n<strong>Cap:</strong> Flexfit 6277 structured fitted cap, {cap_col}. S/M (6¾–7¼) or L/XL (7⅛–7⅝).</li>\n"
