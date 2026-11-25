@@ -39,8 +39,12 @@
   - "Make it yours — personalized tee" → **Personalized tee**
 
 ## Theme state
-- Saved as theme commit `781fd95` on the live theme; **not yet published** (waiting for Eric's yes).
-- Until it is published, the live deck still says "Towels". One live card, "Surface Interval — Hanging Hand Towel", shows the series name as its line.
+- **Published 10:58 (Eric: "Publish ensuring all updates are present").** Everything in this file is live. A check of the live theme after publishing found every change in place.
+- **Publish hiccup:**
+  - Shopify's publish check kept refusing `templates/product.home-port.json` and `templates/product.personalized.json` as "changed on Shopify". Shopify had added its auto-generated header comment to both.
+  - Both are now left exactly as Shopify has them.
+  - The series tab bar now comes from `layout/theme.liquid` (`{% section 'ds-series-tabs' %}` when the template is a product page) instead of from each product template. One place covers all four product page types, with no duplicates.
+  - Custom items (Home Port, personalized, series custom) link back to Custom rather than to a sub-collection such as Site Caps.
 - Mirrors updated in `shopify-theme/` (`sections/ds-deck.liquid` and `snippets/ds-deck-cards.liquid` md5-match the theme; new `sections/ds-series-tabs.liquid`; Home Port template).
 
 ## "Discover something new" picks at random and turns its photos (Eric 08:56)

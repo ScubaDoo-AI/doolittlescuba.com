@@ -1,4 +1,5 @@
 {%- comment -%}
+  Rendered from layout/theme.liquid on every product template (not placed in the product templates).
   Series tab bar on product pages (Eric, 25 Nov 2026: "All collections must use the scrolling tabs when viewing a series").
   The same scrolling tabs as the collection deck, linked to each collection page, with the product's own series lit.
   A product in a series sub-collection (Boat Banter, Site Caps, Sticker Packs ...) also gets a "Back to" chip for it.
@@ -33,12 +34,14 @@
     endif
   endif
   assign sub_c = blank
+  if is_custom == false
   for h in subs
     if p_handles contains h
       assign sub_c = collections[h]
       break
     endif
   endfor
+  endif
 -%}
 {%- if active != '' -%}
 <div class="dss section-{{ section.id }}">
