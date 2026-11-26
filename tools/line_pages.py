@@ -453,19 +453,6 @@ def page(line, sh, dz, home_src):
       <p class="dz-note">{line["shirts_note"]}</p>
     </section>
 
-    <section id="designs" aria-labelledby="designs-h">
-      <div class="head">
-        <h2 id="designs-h">The designs</h2>
-        <p>{line["designs_intro"]}</p>
-      </div>
-      <div class="dz-bar" role="group" aria-label="Filter designs">
-        {bar}
-      </div>
-      <div class="dz-grid" id="dz-grid">{"".join(dz)}<!-- DZ:END --></div>
-      <p class="dz-none" hidden>No design matches that. Try a shorter word, or <a href="/#lines">search every collection</a>.</p>
-      <p class="dz-note">All artwork &copy; 2026 Doolittle Scuba L.L.C. Copying, printing or reuse of any design without written permission is prohibited. Shops interested in a design: <a href="/#contact" data-umami-event="designs-contact">get in touch</a>.</p>
-    </section>
-
     <section id="make" aria-labelledby="make-h">
       <div class="head">
         <h2 id="make-h">Wear it your way</h2>
@@ -483,6 +470,19 @@ def page(line, sh, dz, home_src):
           <a class="btn ghost" href="{make_tab}" data-umami-event="make-custom" data-umami-event-line="{line["key"]}">Open Make it yours</a>
         </div>
 {series_custom_card(line)}      </div>
+    </section>
+
+    <section id="designs" aria-labelledby="designs-h">
+      <div class="head">
+        <h2 id="designs-h">The art</h2>
+        <p>{line["designs_intro"]}</p>
+      </div>
+      <div class="dz-bar" role="group" aria-label="Filter designs">
+        {bar}
+      </div>
+      <div class="dz-grid" id="dz-grid">{"".join(dz)}<!-- DZ:END --></div>
+      <p class="dz-none" hidden>No design matches that. Try a shorter word, or <a href="/#lines">search every collection</a>.</p>
+      <p class="dz-note">All artwork &copy; 2026 Doolittle Scuba L.L.C. Copying, printing or reuse of any design without written permission is prohibited. Shops interested in a design: <a href="/#contact" data-umami-event="designs-contact">get in touch</a>.</p>
     </section>
 
     <section id="more" aria-labelledby="more-h">
