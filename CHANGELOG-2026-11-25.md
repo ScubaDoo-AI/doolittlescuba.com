@@ -130,3 +130,13 @@
 - Checked before publishing: `/collections/rash-guards` (desktop), `/collections/signature-series` and a rash guard product page (phone).
 - Not mirrored to `shopify-theme/` this time. The theme holds the current copies of these five files.
 - **Not changed:** the Shop main menu (store data) has no Rash guards entry yet.
+
+## Shop theme: rash guard sleeve and cut picker (Eric 22:08: "can the differentiator be long or short sleeve and the cut chosen before size is picked?")
+- **New block `blocks/ds-rg-picker.liquid`**, "Rash guard sleeve and cut", added to `templates/product.json` just above the size picker. It shows only on products tagged `rash-guard`.
+- **Sleeve:** Long sleeve / Short sleeve. **Cut:** Men's, Women's, Youth or Kids, each with its price. Then the existing **Size** picker.
+- Each choice links to the sibling product (`<site>-signature-series[-dark]-rash-guard-<cut>`), so the size list always belongs to the chosen cut. The 140 products and their Printful links are unchanged.
+- **Short sleeve:** men's is the only cut, with the note "The short sleeve comes in men's sizes, 2XS to 6XL."
+- Every label and the note are block settings, editable in the theme editor.
+- Checked a women's long sleeve (desktop) and a men's short sleeve (phone).
+- Committed `a54e35bf` on the live theme; **not yet published**.
+- During the edit, `product.json` (which has no auto-generated header) was briefly written twice over. Product pages went blank in the preview. It was fixed before the commit, so nothing broken was saved.
