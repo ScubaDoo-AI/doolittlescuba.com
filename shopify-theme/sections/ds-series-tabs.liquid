@@ -1,15 +1,14 @@
 {%- comment -%}
-  Rendered from layout/theme.liquid on every product template (not placed in the product templates).
   Series tab bar on product pages (Eric, 25 Nov 2026: "All collections must use the scrolling tabs when viewing a series").
   The same scrolling tabs as the collection deck, linked to each collection page, with the product's own series lit.
   A product in a series sub-collection (Boat Banter, Site Caps, Sticker Packs ...) also gets a "Back to" chip for it.
   The tab list mirrors the deck tabs in templates/collection.json; keep the two in step when a tab is added.
 {%- endcomment -%}
 {%- liquid
-  assign t_handles = 'signature-series|certified-ish|aquatic-comic|hats|pairs|organic|jackets|stickers|water-hazard|custom|*|1n73ll1g3nc3|off-world-hunt-club' | split: '|'
-  assign t_labels = 'Signature Series|Certified-ish|Surface Interval|Caps & beanies|Cap & tee pairs|Organic|Jackets|Stickers|Hand towels|Custom|Off topic|1N73LL1G3NC3|Off-World Hunt Club' | split: '|'
+  assign t_handles = 'signature-series|certified-ish|aquatic-comic|hats|pairs|organic|jackets|rash-guards|stickers|water-hazard|custom|*|1n73ll1g3nc3|off-world-hunt-club' | split: '|'
+  assign t_labels = 'Signature Series|Certified-ish|Surface Interval|Caps & beanies|Cap & tee pairs|Organic|Jackets|Rash guards|Stickers|Hand towels|Custom|Off topic|1N73LL1G3NC3|Off-World Hunt Club' | split: '|'
   # which tab a product belongs to, most specific first
-  assign priority = 'custom|water-hazard|pairs|organic|jackets|stickers|hats|1n73ll1g3nc3|off-world-hunt-club|certified-ish|aquatic-comic|signature-series' | split: '|'
+  assign priority = 'custom|water-hazard|rash-guards|pairs|organic|jackets|stickers|hats|1n73ll1g3nc3|off-world-hunt-club|certified-ish|aquatic-comic|signature-series' | split: '|'
   assign subs = 'aquatic-comic-boat-banter|aquatic-comic-self-logged|aquatic-comic-buddy-check|aquatic-comic-buddy-system|aquatic-comic-till-surface|aquatic-comic-master-class|site-caps|brand-caps|achievement-unlocked|sticker-packs|die-cut-stickers|brand-stickers' | split: '|'
   assign p_handles = product.collections | map: 'handle'
   assign is_custom = false
@@ -59,6 +58,21 @@
     {%- assign ac = collections[active] -%}
     <div class="dss-back"><a href="{{ ac.url }}">&larr; All {{ ac.title }}</a></div>
   {%- endif -%}
+  {%- comment -%} 26 Nov 2026: a product made for a dive site links to that site's guide on DoolittleScuba.com, which shows everything made for the site. {%- endcomment -%}
+  {%- liquid
+    assign site_slug = ''
+    for tg in product.tags
+      assign pre = tg | slice: 0, 5
+      if pre == 'site:'
+        assign site_slug = tg | remove_first: 'site:'
+        break
+      endif
+    endfor
+  -%}
+  {%- if site_slug != '' and section.settings.site_link_base != blank and section.settings.site_link_label != blank -%}
+    {%- assign site_name = product.title | split: ' — ' | first | strip -%}
+    <div class="dss-site"><a href="{{ section.settings.site_link_base }}{{ site_slug }}/">{{ section.settings.site_link_label | replace: '[site]', site_name }} &rarr;</a></div>
+  {%- endif -%}
 </div>
 <script>
 (function(){
@@ -87,6 +101,9 @@
 .dss-back{margin-top:10px;font-size:14px}
 .dss-back a{color:inherit;opacity:.8;text-decoration:none}
 .dss-back a:hover{opacity:1;text-decoration:underline}
+.dss-site{margin-top:6px;font-size:14px}
+.dss-site a{color:inherit;font-weight:600;text-decoration:underline;text-decoration-color:#C8202A;text-underline-offset:3px}
+.dss-site a:hover{color:#C8202A}
 </style>
 {%- endif -%}
 
@@ -97,7 +114,10 @@
   "class": "section-ds-series-tabs",
   "settings": [
     { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 16 },
-    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 4 }
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 4 },
+    { "type": "header", "content": "Dive-site link" },
+    { "type": "text", "id": "site_link_label", "label": "Link text", "info": "Shown on products tagged site:<slug>. [site] becomes the site name.", "default": "Everything for [site] on DoolittleScuba.com" },
+    { "type": "text", "id": "site_link_base", "label": "Site guides address", "info": "The guide is this address plus the site slug.", "default": "https://doolittlescuba.com/sites/" }
   ],
   "presets": [ { "name": "Series tabs" } ]
 }

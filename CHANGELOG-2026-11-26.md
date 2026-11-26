@@ -39,3 +39,14 @@
 ## Real photos: ready to swap in (review item #5)
 - Samples are due 26–28 Nov. When photos arrive, save them as `img/real/<SKU stem>.webp` (e.g. `DS-BBT-T.webp`) and run `tools/site_shop.py`, `tools/home_layout.py`, `tools/bust.py`. The guide "Wear" strips and the Start here picks then use the real photo instead of the mockup. Details in README, "Real photos".
 - The collection tiles, decks and the Shopify product photos are not covered yet; they still need their own swap.
+
+## The store (shop.doolittlescuba.com) brought in line (Eric 15:31: "Update the shop page to be in alignment with these moves")
+- **Main menu** (store data, `main-menu`, live immediately). It was Home · Shop (13 links) · Contact; it now matches the site:
+  - **Shop** ▸ *By collection:* Signature Series, Certified-ish, Off-World Hunt Club, 1N73LL1G3NC3, Surface Interval, Organic, Everything ▸ *By gear:* Rash guards, Caps & beanies, Cap & tee pairs, Jackets, Stickers, Hand towels
+  - **Dive sites** → doolittlescuba.com/#map
+  - **Custom** → /collections/custom
+  - **Our story** ▸ About us, Logbook, Workshop (all on doolittlescuba.com) and Contact (/pages/contact)
+  - The theme's cart icon is the Cart. "Home" is gone; the logo goes home. "(off topic)" is dropped from the 1N73LL1G3NC3 and Off-World labels, as on the site.
+- **Product pages** (theme "Live 21 Nov + three-view turn", `sections/ds-series-tabs.liquid`): every product tagged `site:<slug>` now shows **"Everything for <site> on DoolittleScuba.com →"** under the back link. It opens that site's guide, where the new Wear strip holds all its products. The text and address are section settings ("Dive-site link"), and the site name is the product title before " — ". Committed 26 Nov; **waiting for theme_publish**.
+- No workshop status words were found in the theme. The deck and series tabs already had rash guards.
+- Repo mirror `shopify-theme/sections/ds-series-tabs.liquid` now matches the theme byte for byte. It had been missing the 25 Nov rash-guards tab, and it carried one comment line the theme does not have.
