@@ -20,6 +20,7 @@ Source of the Doolittle Scuba L.L.C. website, published by Porkbun static hostin
 - After changing any asset: `python3 tools/bust.py` (cache-busting `?v=` on every reference; the CDN caches by URL for 30 days). **Never fetch a new `?v=` URL before the publish has landed**: the CDN would cache the old file under the new URL for 30 days. Probe live only with an extra `?probe=<random>` on the URL (`…/js/deck.js?v=abc&probe=123`), and if a canonical URL did get poisoned, change the file (a comment line is enough), bust again and push.
 - The shop-status banner on every page: edit `STATUS` in `tools/status_flag.py`, run it.
 - Wide-screen scaling block on every page: `tools/wide_screen.py`.
+- The header menu (Shop ▾, Dive sites, Custom, Our story ▾, Cart) lives in `tools/site_nav.py`, with `css/nav.css` and `js/nav.js`. Edit the link lists there, run it, then `tools/bust.py`. Re-run it after any page generator, since generators copy their shell from other pages.
 
 Change log: `CHANGELOG-2026-10-18.md`, `CHANGELOG-2026-10-20.md`, … `CHANGELOG-2026-11-09.md`, `CHANGELOG-2026-11-10.md`, then the commit history. Status report: `STATUS-2026-11-04.md`.
 

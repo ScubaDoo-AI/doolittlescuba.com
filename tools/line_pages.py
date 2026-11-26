@@ -319,12 +319,11 @@ def swatches(sh_cards):
 
 # -------------------------------------------------------------------------------------------------------------- the page
 def nav(line_dir):
-    return ('<nav aria-label="Site"><a href="/#lines" data-umami-event="nav-collections">Collections</a><a href="/#hats" data-umami-event="nav-hats">Hats</a><a href="/#jackets" data-umami-event="nav-jackets">Jackets</a><a href="/rash-guards/" data-umami-event="nav-rashguards">Rash guards</a>'
-            '<a href="/stickers/" data-umami-event="nav-stickers">Stickers</a><a href="/towels/" data-umami-event="nav-towels">Towels</a><a href="/custom/" data-umami-event="nav-custom">Custom</a>'
-            '<a href="/#map" data-umami-event="nav-map">Dive map</a><a href="/#logbook" data-umami-event="nav-logbook">Logbook</a>'
-            '<a href="/about/" data-umami-event="nav-about">About us</a><a href="/workshop/" data-umami-event="nav-workshop">Workshop</a>'
-            '<a href="/#contact" data-umami-event="nav-contact">Contact</a>'
-            '<a href="https://shop.doolittlescuba.com/cart" data-umami-event="nav-cart">Cart</a></nav>')
+    """The header menu; one source for every page (tools/site_nav.py)."""
+    import importlib.util as _u, os as _o
+    _s = _u.spec_from_file_location('site_nav', _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), 'site_nav.py'))
+    _m = _u.module_from_spec(_s); _s.loader.exec_module(_m)
+    return _m.html(f'/{line_dir}/')
 
 
 def switcher(cur):

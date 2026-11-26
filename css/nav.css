@@ -1,0 +1,27 @@
+/* The site menu (tools/site_nav.py): Shop and Our story drop-downs. Shared by every page with a header menu. */
+.deep:has(> .wrap > .top){z-index:30}
+.top nav{align-items:baseline}
+.top nav a[aria-current]{color:var(--on-deep)}
+.top nav .dd{position:relative}
+.top nav summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-data);font-size:var(--s-1);letter-spacing:.06em;text-transform:uppercase;color:var(--on-deep-muted);user-select:none}
+.top nav summary::-webkit-details-marker{display:none}
+.top nav summary::after{content:"";width:.4em;height:.4em;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-.18em) rotate(45deg);transition:transform .15s}
+.top nav details[open]>summary::after{transform:translateY(.12em) rotate(-135deg)}
+.top nav summary:hover,.top nav summary.cur,.top nav details[open]>summary{color:var(--on-deep)}
+.top nav summary:focus-visible{outline:2px solid var(--on-deep);outline-offset:3px;border-radius:2px}
+.dd-panel{position:absolute;top:calc(100% + 12px);left:-18px;z-index:40;display:grid;min-width:200px;padding:14px 18px 12px;background:var(--deep);border:1px solid rgba(255,255,255,.18);border-radius:10px;box-shadow:0 16px 36px rgba(0,0,0,.38)}
+.dd-two{grid-template-columns:repeat(2,minmax(170px,auto));gap:0 30px}
+.dd-r .dd-panel{left:auto;right:-18px}
+.dd-col{display:grid;align-content:start}
+.dd-h{margin:0 0 6px;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,.14);font-family:var(--f-data);font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;color:var(--on-deep-muted)}
+.top nav .dd-panel a{display:block;padding:7px 0;font-family:var(--f-body);font-size:1rem;letter-spacing:0;text-transform:none;color:var(--on-deep);white-space:nowrap}
+.top nav .dd-panel a:hover,.top nav .dd-panel a:focus-visible{text-decoration:underline;text-underline-offset:3px}
+.top nav .dd-panel a[aria-current]{font-weight:700}
+@media (max-width:640px){
+  .top nav{position:relative;width:100%;gap:12px 16px}
+  .top nav .dd{position:static}
+  .dd-panel,.dd-r .dd-panel{left:0;right:0;min-width:0}
+  .dd-two{grid-template-columns:1fr 1fr;gap:0 16px}
+  .top nav .dd-panel a{white-space:normal}
+}
+@media (max-width:420px){.top nav{gap:10px 11px}.top nav>a,.top nav summary{letter-spacing:.02em}}
