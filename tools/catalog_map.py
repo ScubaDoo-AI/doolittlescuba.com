@@ -23,7 +23,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TOKEN = 'b048eedb23178c86ccff32db1f44d1f8'     # public Storefront API token, Headless storefront "Doolittle Scuba Designs Headless"
 API = 'https://shop.doolittlescuba.com/api/2026-10/graphql.json'
 PAGES = ['index.html', 'signature/index.html', 'certified-ish/index.html', 'off-world/index.html', '1n73ll1g3nc3/index.html',
-         'surface-interval/index.html', 'organic/index.html', 'stickers/index.html', 'towels/index.html']
+         'surface-interval/index.html', 'organic/index.html', 'stickers/index.html', 'towels/index.html', 'rash-guards/index.html']
 SUFFIX = {'plates': ['T'], 'dark': ['TD'], 'certifiedish': ['T'], 'certifiedish-dark': ['TD'], 'offworld': ['T'],
           'offworld-dark': ['TD'], 'n73': ['T'], 'aquatic-boat-banter': ['TD', 'T']}
 JACKET = {'champion-packable-anorak': 'the-mark-champion-packable-anorak', 'basic-windbreaker': 'the-mark-basic-windbreaker'}
@@ -54,7 +54,7 @@ def stem(skus):
 def build(products):
     cat, by_h, by_sku = {}, {}, {}
     for p in products:
-        vs = p['variants']['nodes']; st = stem([v['sku'] for v in vs])
+        vs = p['variants']['nodes']; st = stem([v['sku'] for v in vs]) or ('H-' + p['handle'])   # Printful-made SKUs share no stem (the jackets): key by handle
         if not st or st in cat: continue
         num = lambda gid: int(gid.rsplit('/', 1)[1])
         names = [o['name'] for o in p['options']]
@@ -74,9 +74,14 @@ def card_stem(a, cat, by_sku):
     code, line, kind, slug = a.get('code', ''), a.get('line', ''), a.get('kind', ''), a.get('slug', '')
     if re.match(r'DS-AC[A-RT-Z]\d', code): return None, None      # personalized Surface Interval (names on the shirt): own flow
     if code.startswith('DS-'): return (code if code in cat else by_sku.get(code)), None
+    if line in ('rg-light', 'rg-dark') and code:   # rash guards: the card opens on the men's long sleeve; deck.js swaps the stem with the style picker
+        c = f"DS-{code}-RGMLS-{'L' if line == 'rg-light' else 'D'}"
+        return (c if c in cat else None), None
     if kind == 'jacket':
         for k, h in JACKET.items():
-            if k in slug: return cat['_h'].get(h), 'Colour=' + a.get('colour', '')
+            if k in slug:
+                st = cat['_h'].get(h); on = 'Color' if st and 'Color' in cat[st]['o'] else 'Colour'   # Printful-made products name it Color
+                return st, on + '=' + a.get('colour', '')
     if slug.startswith('beanie-'): return cat['_h'].get('the-mark-beanie'), 'Colour=' + a.get('colour', '')
     if kind in ('site', 'brand') and code:
         for c in (f'DS-{code}-CD', f'DS-{code}'):

@@ -264,6 +264,7 @@ window.DS=(function(){
   DS.RG_PRICE={mls:[69,'$69 · $72 in 2XL · $75 in 3XL'],wls:[69,'$69 · $72 in 2XL · $75 in 3XL'],mss:[62,'$62 · $2 more for each size above XL, up to $72'],yth:[45,'$45'],kid:[39,'$39']};
   DS.RG_STYLES=[['mls','Men’s long sleeve','men-s-long-sleeve','XS–3XL'],['wls','Women’s long sleeve','women-s-long-sleeve','XS–3XL'],['mss','Men’s short sleeve','men-s-short-sleeve','2XS–6XL'],['yth','Youth long sleeve','youth-long-sleeve','8–20'],['kid','Kids long sleeve','kids-long-sleeve','2T–7']];
   DS.rgStyle='mls';
+  DS.RG_SKU={mls:'RGMLS',wls:'RGWLS',mss:'RGMSS',yth:'RGYTH',kid:'RGKID'};   // SKU part of each cut: DS-<site>-RGMLS-L-XS
   DS.rashCfg=function(o){ o=o||{}; var media=o.media||{}, shop='https://shop.doolittlescuba.com/products/';
    function tone(it){ return it.line==='rg-dark'?'dark':'light'; }
    function st(k){ return DS.RG_STYLES.filter(function(s){ return s[0]===k; })[0]||DS.RG_STYLES[0]; }
@@ -272,6 +273,7 @@ window.DS=(function(){
    function pic(it,k,v){ var m=(media[it.slug+'|'+tone(it)]||{})[k]; if(!m||!m.length) return null; if(m.length<3) return v==='back'?m[1]:m[0]; return v==='back'?m[1]:v==='side'?m[2]:m[0]; }
    function apply(panel){
      var box=panel.querySelector('.rg-st'); if(!box) return; var k=DS.rgStyle, it={slug:box.dataset.slug,line:box.dataset.line}, s=st(k);
+     var buy=panel.querySelector('.ds-buy'); if(buy) buy.setAttribute('data-buy',(buy.getAttribute('data-buy')||'').replace(/-RG[A-Z]{3}-/,'-'+DS.RG_SKU[k]+'-'));   // the site cart sells the chosen cut
      box.querySelectorAll('button').forEach(function(b){ var on=b.dataset.st===k; b.classList.toggle('on',on); b.setAttribute('aria-pressed',on); });
      var p=panel.querySelector('.rg-price'); if(p) p.textContent=DS.RG_PRICE[k][1]+' · sizes '+s[3];
      var sl=panel.querySelector('.rg-sleeve'); if(sl) sl.textContent=k==='mss'?'The flag on the sleeve':'The coordinates down one sleeve · the site name and flag down the other';
@@ -281,7 +283,7 @@ window.DS=(function(){
      var cap=panel.querySelector('.sh-view .cap'); if(cap) cap.textContent=s[1]+' · '+(v==='back'?'back':v==='side'?'worn':'front')+' · Printful mockup, not a photograph';
    }
    document.addEventListener('ds:open',function(e){ apply(e.detail.el); });
-   document.addEventListener('click',function(e){ var b=e.target.closest('.rg-st button'); if(!b) return; DS.rgStyle=b.dataset.st; track('rg-style',{style:b.dataset.st}); apply(b.closest('.sh-open')); });
+   document.addEventListener('click',function(e){ var b=e.target.closest('.rg-st button'); if(!b) return; DS.rgStyle=b.dataset.st; track('rg-style',{style:b.dataset.st}); var pn=b.closest('.sh-open'); apply(pn); if(pn.querySelector('.ds-buy')) try{ document.dispatchEvent(new CustomEvent('ds:open',{detail:{el:pn}})); }catch(_){} });   // re-opens the card's cart picker on the new cut
    // the full-size viewer shows the chosen cut's photo, not the long sleeve the panel was built with
    document.addEventListener('click',function(e){ var big=e.target.closest('.sh-open .big'); if(!big||!big.closest('.sh-open').querySelector('.rg-st')) return;
      var lb=document.getElementById('sh-lb'), im=document.getElementById('sh-lb-img'), c=document.getElementById('sh-lb-cap'), img=big.querySelector('img'), cap=big.closest('.sh-view').querySelector('.cap'); if(!lb||!img) return;
