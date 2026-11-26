@@ -12,3 +12,9 @@
 - **One source:** `tools/site_nav.py` (new). `tools/line_pages.py` `nav()` now calls it. `css/nav.css` and `js/nav.js` (new) are linked from all 28 pages with a header menu. The home page menu's label changed from "Sections" to "Site", like every other page.
 - Checked locally, in Chrome at 1280 px and 390 px: home, Signature, Black Bart guide and About.
 - **Not changed:** the Shopify theme's own header on shop.doolittlescuba.com; the home page sections and their order (that is item #3 of the 26 Nov review).
+
+## Each site guide is now the place to shop that site (review item #2)
+- New **"Wear <site>"** strip on all 14 site guides, right under the intro and above "The site". It shows 8 cards: light tee, dark tee, cap, rash guard (light), rash guard (dark), organic tee, organic dark tee, organic cap.
+- Each card: photo, kind, name, price ("from $42", "$38", "from $39 · 5 cuts"), "Coming soon". The photo and name link to the product in the store; the rash guards link to `/rash-guards/` for the five cuts. Each card carries `data-buy`, so the site cart gives it a size picker on the page once `LIVE=true`.
+- Prices come from `js/catalog.json` (Shopify, daily); photos come from the cards already on the site. Nothing is typed by hand. Tool: `tools/site_shop.py` (markers `WEAR:START/END`). Kioa Island has a guide but no products, so it has no strip.
+- Umami: `guide-wear` with `item` = the SKU stem.
