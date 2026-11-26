@@ -47,6 +47,6 @@
   - **Custom** → /collections/custom
   - **Our story** ▸ About us, Logbook, Workshop (all on doolittlescuba.com) and Contact (/pages/contact)
   - The theme's cart icon is the Cart. "Home" is gone; the logo goes home. "(off topic)" is dropped from the 1N73LL1G3NC3 and Off-World labels, as on the site.
-- **Product pages** (theme "Live 21 Nov + three-view turn", `sections/ds-series-tabs.liquid`): every product tagged `site:<slug>` now shows **"Everything for <site> on DoolittleScuba.com →"** under the back link. It opens that site's guide, where the new Wear strip holds all its products. The text and address are section settings ("Dive-site link"), and the site name is the product title before " — ". Committed 26 Nov; **waiting for theme_publish**.
+- **Product pages** (theme "Live 21 Nov + three-view turn", `sections/ds-series-tabs.liquid`): every product tagged `site:<slug>` now shows **"Everything for <site> on DoolittleScuba.com →"** under the back link. It opens that site's guide, where the new Wear strip holds all its products. The text and address are section settings ("Dive-site link"), and the site name is the product title before " — ". Committed and **published 26 Nov 15:38** (Eric: "Publish").
 - No workshop status words were found in the theme. The deck and series tabs already had rash guards.
 - Repo mirror `shopify-theme/sections/ds-series-tabs.liquid` now matches the theme byte for byte. It had been missing the 25 Nov rash-guards tab, and it carried one comment line the theme does not have.
