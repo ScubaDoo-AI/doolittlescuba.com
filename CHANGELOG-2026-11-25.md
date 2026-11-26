@@ -138,5 +138,12 @@
 - **Short sleeve:** men's is the only cut, with the note "The short sleeve comes in men's sizes, 2XS to 6XL."
 - Every label and the note are block settings, editable in the theme editor.
 - Checked a women's long sleeve (desktop) and a men's short sleeve (phone).
-- Committed `a54e35bf` on the live theme; **not yet published**.
+- Committed `a54e35bf`; **published 22:16** together with the deck change below (Eric 22:14: "Publish and complete the natural follow up").
 - During the edit, `product.json` (which has no auto-generated header) was briefly written twice over. Product pages went blank in the preview. It was fixed before the commit, so nothing broken was saved.
+
+## Shop theme: one rash guard card per design (Eric 22:14: "Publish and complete the natural follow up")
+- `snippets/ds-deck-cards.liquid`: the Rash guards deck shows **28 cards**, one per site and tone, instead of 140.
+  - The men's long sleeve stands for all five cuts. Its card opens that product, where the sleeve and cut picker takes over.
+  - The card line reads "Light rash guard · 5 cuts" / "Dark rash guard · 5 cuts".
+  - The price reads "From $39.00", the lowest rash guard price in the collection (the kids cut).
+- Checked on desktop and phone (28 designs). Commit `0e828928`, **published 22:16** with the picker.
