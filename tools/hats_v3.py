@@ -24,7 +24,7 @@ def swap(h, old, new, count=1):
     return h.replace(old, new)
 
 
-p = os.path.join(ROOT, 'index.html'); h = open(p, encoding='utf-8').read(); n0 = len(h)
+p = os.path.join(ROOT, 'caps', 'index.html')   # caps moved to /caps/ on 26 Nov; h = open(p, encoding='utf-8').read(); n0 = len(h)
 # intro
 h = swap(h, "Every cap comes embroidered — the DS mark small on the left side, “Do - A - Little Scuba” across the back — and the site caps get their chest block printed in white on the front when you order. Home Port is made with your own port and coordinates; the four brand caps are embroidered front, side and back.",
          "Every cap is embroidered on three sides — the site front (dive flag, name and coordinates) across the front panels, the DS mark small on the left side, “Do - A - Little Scuba” arched across the back. Nothing is printed. Home Port is made to order with your own port and coordinates; the four brand caps carry the marks instead of a site.")

@@ -310,7 +310,8 @@ def main():
     os.makedirs(f'{SITE}/stickers', exist_ok=True)
     open(p, 'w', encoding='utf-8').write(page(home_src, page_src))
     print(f'/stickers/  {len(P["packs"])} packs')
-    open(f'{SITE}/index.html', 'w', encoding='utf-8').write(home_section(home_src)); print('index.html: #stickers = the packs deck')
+    if '<section id="stickers"' in home_src:   # the home page dropped its sticker strip on 26 Nov (tools/home_layout.py)
+        open(f'{SITE}/index.html', 'w', encoding='utf-8').write(home_section(home_src)); print('index.html: #stickers = the packs deck')
     og(); print('img/og/stickers.jpg')
     # sitemap
     sp = f'{SITE}/sitemap.xml'; s = open(sp, encoding='utf-8').read()

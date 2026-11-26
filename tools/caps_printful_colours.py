@@ -30,7 +30,7 @@ for f in sorted(glob.glob(os.path.join(src, 'cap-dark-*.jpg'))) if src else []:
 print(n, 'renders ->', 2 * n, 'images in img/hats/dark/')
 
 # 2. index.html
-p = f'{ROOT}/index.html'; h = h0 = open(p, encoding='utf-8').read()
+p = f'{ROOT}/caps/index.html'; h = h0 = open(p, encoding='utf-8').read()
 for slug, (name, hx, _) in NEW.items():
     m = re.search(rf'(data-slug="cap-dark-{slug}"[^>]*?)data-colour="[^"]*" data-hex="[^"]*"', h); assert m, slug
     h = h[:m.start()] + m.group(1) + f'data-colour="{name}" data-hex="{hx}"' + h[m.end():]

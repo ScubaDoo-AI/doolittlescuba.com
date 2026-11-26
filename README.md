@@ -4,7 +4,8 @@ Source of the Doolittle Scuba L.L.C. website, published by Porkbun static hostin
 
 ## Pages
 
-- `index.html` — the home page: hero, the five collection tiles with a search across every design, dive map, hats, stickers, the craft, about, logbook, contact.
+- `index.html` — the home page, as a short path (since 26 Nov 2026, `tools/home_layout.py`): hero, Start here (8 picks), the collection tiles with a search across every design, Shop by dive site (the map), Make it yours, the craft, about, logbook, contact.
+- `/caps/` (the hats deck) and `/jackets/` (since 26 Nov 2026): moved off the home page. Tools that edit the cap figures (`pairs_site.py`, `caps_printful_colours.py`, `hats_v2/3.py`, `site_shop.py`) now read `caps/index.html`.
 - The collections, one themed page per line (since 9 Nov 2026), each holding that line's shirt cards, its designs grid and its story:
   `/signature/` (Signature Series, light + dark), `/certified-ish/` (light + dark), `/off-world/` (Off-World Hunt Club, light + dark), `/1n73ll1g3nc3/`, `/surface-interval/` (six subsets).
   `tools/line_pages.py` rebuilds their shells and themes around the cards they already hold; the cards are patched in place by the line tools (`tools/offworld.py`, `tools/n73.py`, `tools/aquatic.py`) between the `<!-- SH:END -->` and `<!-- DZ:END -->` markers.

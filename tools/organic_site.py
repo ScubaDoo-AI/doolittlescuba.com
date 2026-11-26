@@ -146,7 +146,7 @@ def page():
     <section id="more" aria-labelledby="more-h">
       <div class="head">
         <h2 id="more-h">The regular collections</h2>
-        <p>The same designs on the Comfort Colors 1717 garment-dyed tee and the Flexfit 6277 cap: <a href="/signature/">Signature Series</a>, <a href="/certified-ish/">Certified-ish</a>, <a href="/off-world/">Off-World Hunt Club</a>, <a href="/1n73ll1g3nc3/">1N73LL1G3NC3</a>, <a href="/surface-interval/">Surface Interval</a>, and the <a href="/#hats">hats</a>.</p>
+        <p>The same designs on the Comfort Colors 1717 garment-dyed tee and the Flexfit 6277 cap: <a href="/signature/">Signature Series</a>, <a href="/certified-ish/">Certified-ish</a>, <a href="/off-world/">Off-World Hunt Club</a>, <a href="/1n73ll1g3nc3/">1N73LL1G3NC3</a>, <a href="/surface-interval/">Surface Interval</a>, and the <a href="/caps/">hats</a>.</p>
       </div>
     </section>
   </div>

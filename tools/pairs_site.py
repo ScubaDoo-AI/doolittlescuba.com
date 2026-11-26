@@ -42,13 +42,13 @@ for slug, code, name, *_ in SITES:
     n += save(p, s, s0)
 print(n, 'site guides changed')
 
-p = f'{ROOT}/index.html'; s = s0 = open(p, encoding='utf-8').read(); k = 0
+p = f'{ROOT}/caps/index.html'; s = s0 = open(p, encoding='utf-8').read(); k = 0   # the caps left the home page for /caps/ (26 Nov)
 for slug, *_ in SITES:
     h = CAP_SLUG.get(slug, slug); key = f'data-slug="cap-dark-{h}"'
     assert s.count(key) == 1, key
     if f'data-pair="{SHOP}/products/{h}-pair-dark"' in s: continue
     s = s.replace(key, f'{key} data-pair="{SHOP}/products/{h}-pair-dark"'); k += 1
-save(p, s, s0); print(k, 'cap figures on the home page')
+save(p, s, s0); print(k, 'cap figures on /caps/')
 
 p = f'{ROOT}/signature/index.html'; s = s0 = open(p, encoding='utf-8').read(); k = 0
 for slug, *_ in SITES:

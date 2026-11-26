@@ -26,8 +26,8 @@ COLLECTIONS = [('/#lines', 'All collections', 'nav-collections'),
                ('/surface-interval/', 'Surface Interval', 'nav-surface-interval'),
                ('/organic/', 'Organic', 'nav-organic')]
 GEAR = [('/rash-guards/', 'Rash guards', 'nav-rashguards'),
-        ('/#hats', 'Caps', 'nav-hats'),
-        ('/#jackets', 'Jackets', 'nav-jackets'),
+        ('/caps/', 'Caps', 'nav-hats'),
+        ('/jackets/', 'Jackets', 'nav-jackets'),
         ('/stickers/', 'Stickers', 'nav-stickers'),
         ('/towels/', 'Towels', 'nav-towels')]
 STORY = [('/about/', 'About us', 'nav-about'),

@@ -8,7 +8,7 @@ live (js/cart.js LIVE=true) it gets a size picker on the page, like every other 
 
 Sources (nothing is typed by hand):
   products, handles, prices   js/catalog.json   (rebuilt daily from Shopify by tools/catalog_map.py)
-  photos                      the cards already on signature/index.html (tees), index.html #hats (caps),
+  photos                      the cards already on signature/index.html (tees), caps/index.html (caps),
                               organic/index.html (organic), tools/rashguards.json (rash guards, flat lay front)
   sites                       tools/pairs.py SITES
 
@@ -26,7 +26,7 @@ read = lambda p: open(os.path.join(ROOT, p), encoding='utf-8').read()
 
 CAT = json.load(open(os.path.join(ROOT, 'js/catalog.json')))
 RG = json.load(open(os.path.join(ROOT, 'tools/rashguards.json')))['items']
-SIG, HOME, ORG = read('signature/index.html'), read('index.html'), read('organic/index.html')
+SIG, HOME, ORG = read('signature/index.html'), read('caps/index.html'), read('organic/index.html')   # caps moved to /caps/ on 26 Nov
 
 CSS = ('<style>'
        '.wear{margin-top:0}.wear .lede2{max-width:62ch;color:var(--muted,#5A6B7D);margin:-6px 0 18px}'

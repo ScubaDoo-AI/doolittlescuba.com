@@ -14,7 +14,7 @@ for f in sorted(glob.glob(os.path.join(src, 'cap-dark-*.jpg'))):
     im.resize((600, 600), Image.LANCZOS).save(os.path.join(out, stem + '-t.webp'), quality=82, method=6)
 print('images written')
 
-p = os.path.join(ROOT, 'index.html'); h = open(p, encoding='utf-8').read(); n0 = len(h)
+p = os.path.join(ROOT, 'caps', 'index.html')   # caps moved to /caps/ on 26 Nov; h = open(p, encoding='utf-8').read(); n0 = len(h)
 # intro
 h = h.replace("Every site gets its chest block in white across the front, the DS mark on the side and the tagline across the back; Home Port carries Newnan; four brand caps are embroidered.",
               "Every cap comes embroidered — the DS mark small on the left side, “Do - A - Little Scuba” across the back — and the site caps get their chest block printed in white on the front when you order. Home Port is made with your own port and coordinates; the four brand caps are embroidered front, side and back.")

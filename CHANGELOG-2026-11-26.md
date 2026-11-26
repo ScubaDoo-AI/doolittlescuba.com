@@ -18,3 +18,13 @@
 - Each card: photo, kind, name, price ("from $42", "$38", "from $39 · 5 cuts"), "Coming soon". The photo and name link to the product in the store; the rash guards link to `/rash-guards/` for the five cuts. Each card carries `data-buy`, so the site cart gives it a size picker on the page once `LIVE=true`.
 - Prices come from `js/catalog.json` (Shopify, daily); photos come from the cards already on the site. Nothing is typed by hand. Tool: `tools/site_shop.py` (markers `WEAR:START/END`). Kioa Island has a guide but no products, so it has no strip.
 - Umami: `guide-wear` with `item` = the SKU stem.
+
+## Home page as a short guided path (review item #3)
+- **New order:** hero → **Start here** → The collections + search → **Shop by dive site** (the map) → **Make it yours** → Every mark by hand → About → Logbook → Wear it where you dove → Topside.
+- **Start here** (new): eight picks, one per line: Black Bart tee, Night Diver tee, Cloaked tee, Trust But Test tee, Current tee, Thistlegorm rash guard (dark), Vuna Reef cap, and the Achievement Unlocked set. Each card shows photo, line (linked to its page), name, price and "Coming soon", and links to the store product. `data-buy` is on each card, so the site cart adds pickers when live. Umami: `home-pick`, `home-pick-line`. To change a pick, edit `PICKS` in `tools/home_layout.py` and re-run.
+- **Make it yours** (new): a short pitch, the Home Port cap photo, buttons to /custom/ and the Home Port cap ($48, from the catalog). Umami: `home-make`, `home-homeport`.
+- **The dive map** is retitled **Shop by dive site**. Its line now says a site's guide holds everything made for that site.
+- Hero second button: "See the collections" → **"Start shopping"** (to #start).
+- **Moved off the home page:** the hats deck → **/caps/**, the jackets → **/jackets/**. Each new page has its own hero with the same cards and deck config. The sticker strip is gone (all of it is on /stickers/; the Achievement set is a Start here pick). Menu: Shop → Caps / Jackets now go to the new pages. Both new pages are in the sitemap.
+- **Tools re-pointed to caps/index.html:** `pairs_site.py`, `caps_printful_colours.py`, `hats_v2.py`, `hats_v3.py`, `site_shop.py`. `stickers_page.py` skips the home page when it has no #stickers section. The organic page's link to the caps → /caps/.
+- Checked locally: no script errors on /, /caps/, /jackets/, a guide and /stickers/; the caps deck builds on /caps/.
