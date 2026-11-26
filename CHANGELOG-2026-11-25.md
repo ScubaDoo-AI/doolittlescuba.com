@@ -93,3 +93,22 @@
 - **Unchanged:** the handles (`…-dark-cap`), so links and redirects are unaffected. The order tools match by SKU, not title.
 - **Card labels:** `snippets/ds-deck-cards.liquid` maps "Brand" → "Brand cap" and "Custom" → "Custom cap", so the cards read the same as before. Published 12:52 (Eric: "Publish").
 - No product in the shop is titled "Dark cap" any more.
+
+## Rash guards on the website (Design & Production handoff, 25 Nov; Eric 21:06: "Retry")
+- **Shopify:** new smart collection **Rash Guards** (`/collections/rash-guards`, gid 494356463802), rule `tag = series:rg-sig`, sorted A–Z. It holds all 140 rash guards (14 sites × Light/Dark × 5 cuts), all Active. They stay in Signature Series too. Created 12:35. No style or tone sub-collections yet (the `style:*` and `tone:*` tags are in place if wanted).
+- **Faire:** Eric took the rash guards off the Faire channel (15:30).
+- **New page `/rash-guards/`**, built by `tools/rashguards_page.py` from `tools/rashguards.json` (handles, cdn.shopify.com media, colour names, body hex sampled from each flat lay):
+  - Hero: "The dive site, worn in the water." Copy follows the rules: the plates are "drawn by hand", the rash guards are "printed to order"; no screen printing, no UPF claim.
+  - Deck of 28 cards, one per site and tone, with **Light / Dark** tabs. Each card turns flat lay front → worn → back. Status "Coming soon", like the rest of the site.
+  - The open card has a **style picker**: men's long sleeve $69, women's long sleeve $69, men's short sleeve $62, youth $45, kids $39. The price line (2XL/3XL and short-sleeve steps), sizes, photos, sleeve note and "Shop the …" link follow the chosen cut. The site's place, flag and coordinates come from the sites data.
+  - "Five cuts" (prices and sizes), the spec, and links to the Signature tees and launch news.
+  - Share image `img/og/rash-guards.jpg`; hero `img/rash-guards/hero.webp`.
+- **Prices in the data:** `DS.RG_PRICE` / `DS.RG_STYLES` / `DS.rashCfg` in `js/deck.js`; `PRICES` in `tools/rashguards_page.py`. Change both together.
+- **Nav:** "Rash guards" after Jackets on every page (28 pages) and in `tools/line_pages.py` `nav()`.
+- **Home page:** a Rash guards tile in the collections deck, after Signature Series (7 collections now).
+- **Signature Series page:** an "On a rash guard →" chip in the designs bar (also in `line_pages.py` `chips()`).
+- **Search:** 14 entries (`rg-<site>`) in `js/designs.json`; "rash guard bali" finds Bali. `line_pages.py` now adds them on its rebuild through `rashguards_page.index_entries()`.
+- **Sitemap:** `/rash-guards/` added.
+- **Checked** in headless Chrome, desktop and phone: deck tabs, opening a card, switching cut (price, photo, back view, shop link), no script errors. Home, Signature, Towels and Custom load with no errors. All 140 shop links match real Shopify handles.
+- **Not run:** a full `tools/line_pages.py` rebuild. It would undo hand edits on the five collection pages (for example the Signature hero photo), so the new nav link and chip were patched into those pages directly.
+- **Still open:** real sample photos replace the Printful mockups when samples arrive (none ordered yet). Eric revokes the Printful token "Claude rash guard setup Nov 2026" (expires 30 Nov). The Shopify theme has no Rash guards deck tab yet.

@@ -1,4 +1,4 @@
-// deck.js · 19 Nov 2026: the pulled card turns its garment (front, sleeve, back); 11 Nov: rolling decks drag-rolled, tabs fitted
+// deck.js · 25 Nov 2026: DS.rashCfg, the rash guards deck with its style picker and prices; 19 Nov 2026: the pulled card turns its garment (front, sleeve, back); 11 Nov: rolling decks drag-rolled, tabs fitted
 /* Doolittle Scuba — the shared page scripts: the photo viewer, the shirts/hats as a deck of cards, and the designs grid filter.
    Used by the home page and the collection pages. Each page calls what it has:
      DS.lightbox()                               every .sh-grid on the page opens its photos in #sh-lb
@@ -255,6 +255,50 @@ window.DS=(function(){
     defaultView:function(it){ return it.line==='org-signature'||it.line==='org-hats'||it.line==='org-n73'?'front':'back'; },
     caption:function(it,v){ return esc(it.cap)+(v==='back'?' · back':''); },
     specs:function(it){ return [['Blank',esc(it.text)],['Colour','<span class="sw"></span>'+esc(it.colour)],['Art','The same files as the regular edition'],['Price',esc(it.price||'')]]; }
+   };
+  };
+
+  // The Signature Series rash guards (/rash-guards/, 25 Nov 2026): one card per site and tone, the Light and Dark tabs as the
+  // deck's lines. The open card carries a style picker: five cuts, each its own Shopify product, with its price and its photos.
+  // Prices are Shopify's (tools/rashguards_page.py keeps the same table): [base, the price line].
+  DS.RG_PRICE={mls:[69,'$69 · $72 in 2XL · $75 in 3XL'],wls:[69,'$69 · $72 in 2XL · $75 in 3XL'],mss:[62,'$62 · $2 more for each size above XL, up to $72'],yth:[45,'$45'],kid:[39,'$39']};
+  DS.RG_STYLES=[['mls','Men’s long sleeve','men-s-long-sleeve','XS–3XL'],['wls','Women’s long sleeve','women-s-long-sleeve','XS–3XL'],['mss','Men’s short sleeve','men-s-short-sleeve','2XS–6XL'],['yth','Youth long sleeve','youth-long-sleeve','8–20'],['kid','Kids long sleeve','kids-long-sleeve','2T–7']];
+  DS.rgStyle='mls';
+  DS.rashCfg=function(o){ o=o||{}; var media=o.media||{}, shop='https://shop.doolittlescuba.com/products/';
+   function tone(it){ return it.line==='rg-dark'?'dark':'light'; }
+   function st(k){ return DS.RG_STYLES.filter(function(s){ return s[0]===k; })[0]||DS.RG_STYLES[0]; }
+   function url(it,k){ return shop+it.slug+'-signature-series'+(tone(it)==='dark'?'-dark':'')+'-rash-guard-'+st(k)[2]; }
+   // the photo of the chosen cut for a view: long sleeves have flat lay front/back + worn; the short sleeve has front and back only
+   function pic(it,k,v){ var m=(media[it.slug+'|'+tone(it)]||{})[k]; if(!m||!m.length) return null; if(m.length<3) return v==='back'?m[1]:m[0]; return v==='back'?m[1]:v==='side'?m[2]:m[0]; }
+   function apply(panel){
+     var box=panel.querySelector('.rg-st'); if(!box) return; var k=DS.rgStyle, it={slug:box.dataset.slug,line:box.dataset.line}, s=st(k);
+     box.querySelectorAll('button').forEach(function(b){ var on=b.dataset.st===k; b.classList.toggle('on',on); b.setAttribute('aria-pressed',on); });
+     var p=panel.querySelector('.rg-price'); if(p) p.textContent=DS.RG_PRICE[k][1]+' · sizes '+s[3];
+     var sl=panel.querySelector('.rg-sleeve'); if(sl) sl.textContent=k==='mss'?'The flag on the sleeve':'The coordinates down one sleeve · the site name and flag down the other';
+     var a=panel.querySelector('.rg-shop'); if(a){ a.href=url(it,k); a.textContent='Shop the '+s[1].toLowerCase()+' →'; }
+     var on=panel.querySelector('.sh-flip .on'), v=on?on.dataset.v:'front', src=pic(it,k,v), img=panel.querySelector('.big img');
+     if(img&&src){ img.src=src; img.alt=img.alt.replace(/ · .*$/,'')+' · '+s[1].toLowerCase(); }
+     var cap=panel.querySelector('.sh-view .cap'); if(cap) cap.textContent=s[1]+' · '+(v==='back'?'back':v==='side'?'worn':'front')+' · Printful mockup, not a photograph';
+   }
+   document.addEventListener('ds:open',function(e){ apply(e.detail.el); });
+   document.addEventListener('click',function(e){ var b=e.target.closest('.rg-st button'); if(!b) return; DS.rgStyle=b.dataset.st; track('rg-style',{style:b.dataset.st}); apply(b.closest('.sh-open')); });
+   // the full-size viewer shows the chosen cut's photo, not the long sleeve the panel was built with
+   document.addEventListener('click',function(e){ var big=e.target.closest('.sh-open .big'); if(!big||!big.closest('.sh-open').querySelector('.rg-st')) return;
+     var lb=document.getElementById('sh-lb'), im=document.getElementById('sh-lb-img'), c=document.getElementById('sh-lb-cap'), img=big.querySelector('img'), cap=big.closest('.sh-view').querySelector('.cap'); if(!lb||!img) return;
+     e.stopPropagation(); im.src=img.src; im.alt=img.alt; c.textContent=cap?cap.textContent:''; if(lb.showModal) lb.showModal(); else window.open(img.src,'_blank'); },true);
+   return {
+    lines:o.lines||[['rg-light','Light'],['rg-dark','Dark']], step:{'rg-light':64,'rg-dark':64}, noun:'rash guard', price:'From $39', openEvent:'rashguard-open', contact:o.contact||'/#contact', custom:false, facts:true,
+    count:function(line,L){ return L.length+' sites'; },
+    footNote:function(line){ return (line==='rg-dark'?'deep body, pastel sleeves':'pastel body, deeper sleeves')+' &middot; five cuts, $39&ndash;$75'; },
+    eyebrow:function(it){ return 'Rash guard · '+(tone(it)==='dark'?'Dark':'Light'); },
+    sub:function(it){ return it.site?it.site.place:''; },
+    blurb:function(it){ return 'The site plate across the chest, its coordinates down the sleeve.'; },
+    views:function(){ return [['front','Front'],['side','Worn'],['back','Back']]; },
+    defaultView:function(){ return 'front'; },
+    caption:function(it,v){ return st(DS.rgStyle)[1]+' · '+(v==='back'?'back':v==='side'?'worn':'front')+' · Printful mockup, not a photograph'; },
+    specs:function(it){
+      var chips='<span class="rg-st" role="group" aria-label="Choose a style" data-slug="'+esc(it.slug)+'" data-line="'+esc(it.line)+'">'+DS.RG_STYLES.map(function(s){ return '<button type="button" data-st="'+s[0]+'" aria-pressed="false">'+esc(s[1])+' <span class="mono">$'+DS.RG_PRICE[s[0]][0]+'</span></button>'; }).join('')+'</span>';
+      return [['Style',chips],['Price','<span class="rg-price"></span>'],['Front','The site plate, drawn by hand, across the chest'],['Sleeves','<span class="rg-sleeve"></span>'],['Back','The Doolittle Scuba lockup between the shoulders'],['Colour','<span class="sw"></span>'+esc(it.colour)+(tone(it)==='dark'?' body, pastel sleeves':' body, deeper sleeves')],['Made','All-over print, printed to order'],['Shop','<a class="txt rg-shop" href="'+esc(url(it,DS.rgStyle))+'" data-umami-event="rashguard-shop">In the shop &rarr;</a>']]; }
    };
   };
 

@@ -1,0 +1,1713 @@
+{
+ "note": "Signature Series rash guards (series:rg-sig), pulled from Shopify 25 Nov 2026. Media are cdn.shopify.com URLs in product order: long sleeve = flat lay front, flat lay back, front view, back view, left side, right side; men's short sleeve = front view, back view. hex/sleeve sampled from the men's long sleeve flat lay.",
+ "items": [
+  {
+   "site": "bali",
+   "tone": "dark",
+   "code": "BAL",
+   "colour": "deep-terracotta",
+   "hex": "#603115",
+   "sleeve": "#C8876B",
+   "styles": {
+    "kid": {
+     "handle": "bali-signature-series-dark-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fb63ba5fc.jpg?v=1795620470",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fb63ba72d.jpg?v=1795620470",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ee5226df2.jpg?v=1795617136",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ee5226ef7.jpg?v=1795617136",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ee5226f41.jpg?v=1795617136",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ee5226f82.jpg?v=1795617136"
+     ]
+    },
+    "mls": {
+     "handle": "bali-signature-series-dark-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fb19a27ad.jpg?v=1795620470",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fb19a28a4.jpg?v=1795620471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ee3ea0e0e.jpg?v=1795617136",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ee3ea0fb4.jpg?v=1795617136",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ee3ea1000.jpg?v=1795617136",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ee3ea1040.jpg?v=1795617136"
+     ]
+    },
+    "mss": {
+     "handle": "bali-signature-series-dark-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b0648a528e96.jpg?v=1795574131",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b0648a528ff2.jpg?v=1795574131"
+     ]
+    },
+    "wls": {
+     "handle": "bali-signature-series-dark-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fb574f924.jpg?v=1795620471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fb574fb8e.jpg?v=1795620471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ee469fbac.jpg?v=1795617136",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ee469fc9a.jpg?v=1795617136",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ee469fce5.jpg?v=1795617136",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ee469fd29.jpg?v=1795617136"
+     ]
+    },
+    "yth": {
+     "handle": "bali-signature-series-dark-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fb5d74fa0.jpg?v=1795620471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fb5d750e6.jpg?v=1795620471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ee4c35427.jpg?v=1795617136",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ee4c3551e.jpg?v=1795617136",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ee4c3556e.jpg?v=1795617136",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ee4c355b2.jpg?v=1795617136"
+     ]
+    }
+   }
+  },
+  {
+   "site": "black-bart",
+   "tone": "dark",
+   "code": "BBT",
+   "colour": "deep-chambray",
+   "hex": "#3C4F67",
+   "sleeve": "#9EB0C8",
+   "styles": {
+    "kid": {
+     "handle": "black-bart-signature-series-dark-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fb7e7a14c.jpg?v=1795620471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fb7e7a38c.jpg?v=1795620471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ee6db391a.jpg?v=1795617136",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ee6db3a39.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ee6db3a85.jpg?v=1795617136",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ee6db3ac6.jpg?v=1795617137"
+     ]
+    },
+    "mls": {
+     "handle": "black-bart-signature-series-dark-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fb6a3cede.jpg?v=1795620471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fb6a3d01f.jpg?v=1795620471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ee5a2a34e.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ee5a2a427.jpg?v=1795617136",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ee5a2a46e.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ee5a2a4af.jpg?v=1795617136"
+     ]
+    },
+    "mss": {
+     "handle": "black-bart-signature-series-dark-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b0648ac909d0.jpg?v=1795574131",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b0648ac90ae6.jpg?v=1795574130"
+     ]
+    },
+    "wls": {
+     "handle": "black-bart-signature-series-dark-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fb713a674.jpg?v=1795620471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fb713a8b8.jpg?v=1795620471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ee608533c.jpg?v=1795617136",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ee608553f.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ee6085590.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ee60855d2.jpg?v=1795617137"
+     ]
+    },
+    "yth": {
+     "handle": "black-bart-signature-series-dark-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fb781fb61.jpg?v=1795620471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fb781fcc9.jpg?v=1795620472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ee676f99c.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ee676fae0.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ee676fb31.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ee676fb87.jpg?v=1795617137"
+     ]
+    }
+   }
+  },
+  {
+   "site": "blue-grotto",
+   "tone": "dark",
+   "code": "BGR",
+   "colour": "deep-grotto-aqua",
+   "hex": "#16555A",
+   "sleeve": "#95C7CB",
+   "styles": {
+    "kid": {
+     "handle": "blue-grotto-signature-series-dark-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fb9a03966.jpg?v=1795620472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fb9a03a67.jpg?v=1795620471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ee88c8d7f.jpg?v=1795617138",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ee88c8ee2.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ee88c8f5b.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ee88c8fd2.jpg?v=1795617137"
+     ]
+    },
+    "mls": {
+     "handle": "blue-grotto-signature-series-dark-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fb85ab47a.jpg?v=1795620472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fb85ab554.jpg?v=1795620472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ee7517499.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ee75175d2.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ee751761e.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ee7517670.jpg?v=1795617137"
+     ]
+    },
+    "mss": {
+     "handle": "blue-grotto-signature-series-dark-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b0648b2df8f2.jpg?v=1795574131",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b0648b2df9e9.jpg?v=1795574131"
+     ]
+    },
+    "wls": {
+     "handle": "blue-grotto-signature-series-dark-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fb8bf2400.jpg?v=1795620472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fb8bf24d1.jpg?v=1795620472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ee7bc7c86.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ee7bc7e22.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ee7bc7eb6.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ee7bc7f34.jpg?v=1795617137"
+     ]
+    },
+    "yth": {
+     "handle": "blue-grotto-signature-series-dark-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fb92532b6.jpg?v=1795620472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fb92533f1.jpg?v=1795620472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ee828adf0.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ee828af44.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ee828af96.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ee828afde.jpg?v=1795617137"
+     ]
+    }
+   }
+  },
+  {
+   "site": "blue-water-park",
+   "tone": "dark",
+   "code": "BWP",
+   "colour": "deep-seafoam",
+   "hex": "#2D5648",
+   "sleeve": "#AFD1C3",
+   "styles": {
+    "kid": {
+     "handle": "blue-water-park-signature-series-dark-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fbce35cf3.jpg?v=1795620472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fbce35f2d.jpg?v=1795620472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06eec01264b.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06eec01273b.jpg?v=1795617138",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06eec012785.jpg?v=1795617138",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06eec0127c9.jpg?v=1795617138"
+     ]
+    },
+    "mls": {
+     "handle": "blue-water-park-signature-series-dark-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fbba5b7a9.jpg?v=1795620472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fbba5b9f0.jpg?v=1795620473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06eeabaf871.jpg?v=1795617138",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06eeabaf925.jpg?v=1795617138",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06eeabaf96e.jpg?v=1795617138",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06eeabaf9ac.jpg?v=1795617138"
+     ]
+    },
+    "mss": {
+     "handle": "blue-water-park-signature-series-dark-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b0648c0e2193.jpg?v=1795574131",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b0648c0e2292.jpg?v=1795574131"
+     ]
+    },
+    "wls": {
+     "handle": "blue-water-park-signature-series-dark-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fbc0ec3a0.jpg?v=1795620473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fbc0ec65e.jpg?v=1795620473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06eeb1efd0e.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06eeb1eff26.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06eeb1eff85.jpg?v=1795617138",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06eeb1effc9.jpg?v=1795617138"
+     ]
+    },
+    "yth": {
+     "handle": "blue-water-park-signature-series-dark-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fbc8b47ac.jpg?v=1795620473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fbc8b4947.jpg?v=1795620473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06eeb83a69e.jpg?v=1795617138",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06eeb83a7aa.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06eeb83a7f9.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06eeb83a83f.jpg?v=1795617139"
+     ]
+    }
+   }
+  },
+  {
+   "site": "bridge-span-14",
+   "tone": "dark",
+   "code": "BSP",
+   "colour": "deep-cornflower",
+   "hex": "#1E4471",
+   "sleeve": "#7E9ECA",
+   "styles": {
+    "kid": {
+     "handle": "bridge-span-14-signature-series-dark-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fbb405b66.jpg?v=1795620472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fbb405d86.jpg?v=1795620472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06eea5ee834.jpg?v=1795617138",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06eea5ee95e.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06eea5ee9b3.jpg?v=1795617137",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06eea5eea06.jpg?v=1795617138"
+     ]
+    },
+    "mls": {
+     "handle": "bridge-span-14-signature-series-dark-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fba061b7b.jpg?v=1795620472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fba061db0.jpg?v=1795620472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ee91723b2.jpg?v=1795617138",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ee91724e8.jpg?v=1795617138",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ee9172534.jpg?v=1795617138",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ee9172589.jpg?v=1795617138"
+     ]
+    },
+    "mss": {
+     "handle": "bridge-span-14-signature-series-dark-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b0648ba4703f.jpg?v=1795574131",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b0648ba4717d.jpg?v=1795574131"
+     ]
+    },
+    "wls": {
+     "handle": "bridge-span-14-signature-series-dark-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fba6b80e3.jpg?v=1795620472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fba6b81ed.jpg?v=1795620472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ee96e982a.jpg?v=1795617138",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ee96e992d.jpg?v=1795617138",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ee96e9981.jpg?v=1795617138",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ee96e99c5.jpg?v=1795617138"
+     ]
+    },
+    "yth": {
+     "handle": "bridge-span-14-signature-series-dark-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fbad22eb5.jpg?v=1795620472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fbad22f6b.jpg?v=1795620472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ee9defd5c.jpg?v=1795617138",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ee9deff36.jpg?v=1795617138",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ee9deff97.jpg?v=1795617138",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ee9deffea.jpg?v=1795617138"
+     ]
+    }
+   }
+  },
+  {
+   "site": "dampier-strait",
+   "tone": "dark",
+   "code": "DAM",
+   "colour": "olive",
+   "hex": "#584D16",
+   "sleeve": "#DECF96",
+   "styles": {
+    "kid": {
+     "handle": "dampier-strait-signature-series-dark-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fbe8b8011.jpg?v=1795620473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fbe8b8237.jpg?v=1795620473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06eeda201b3.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06eeda202fd.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06eeda2034a.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06eeda2038c.jpg?v=1795617139"
+     ]
+    },
+    "mls": {
+     "handle": "dampier-strait-signature-series-dark-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fbd4a3210.jpg?v=1795620473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fbd4a337a.jpg?v=1795620473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06eec59c309.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06eec59c449.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06eec59c495.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06eec59c4d7.jpg?v=1795617139"
+     ]
+    },
+    "mss": {
+     "handle": "dampier-strait-signature-series-dark-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b0648c79113a.jpg?v=1795574131",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b0648c791294.jpg?v=1795574131"
+     ]
+    },
+    "wls": {
+     "handle": "dampier-strait-signature-series-dark-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fbdb6d695.jpg?v=1795620473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fbdb6d768.jpg?v=1795620473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06eecd0160d.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06eecd01719.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06eecd01763.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06eecd017a5.jpg?v=1795617139"
+     ]
+    },
+    "yth": {
+     "handle": "dampier-strait-signature-series-dark-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fbe2a0957.jpg?v=1795620474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fbe2a0aa9.jpg?v=1795620473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06eed35586f.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06eed355993.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06eed3559e2.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06eed355a28.jpg?v=1795617139"
+     ]
+    }
+   }
+  },
+  {
+   "site": "dive-land-park",
+   "tone": "dark",
+   "code": "DLP",
+   "colour": "pine",
+   "hex": "#395445",
+   "sleeve": "#C0D4C8",
+   "styles": {
+    "kid": {
+     "handle": "dive-land-park-signature-series-dark-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fc03e7536.jpg?v=1795620473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fc03e7672.jpg?v=1795620473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06eef4e1ef7.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06eef4e203d.jpg?v=1795617139",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06eef4e208a.jpg?v=1795617140",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06eef4e20cd.jpg?v=1795617139"
+     ]
+    },
+    "mls": {
+     "handle": "dive-land-park-signature-series-dark-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fbef60e8c.jpg?v=1795620473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fbef610d7.jpg?v=1795620474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06eee089afd.jpg?v=1795617140",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06eee089be5.jpg?v=1795617140",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06eee089c2d.jpg?v=1795617140",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06eee089c86.jpg?v=1795617140"
+     ]
+    },
+    "mss": {
+     "handle": "dive-land-park-signature-series-dark-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b0648cec7677.jpg?v=1795574132",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b0648cec77b7.jpg?v=1795574132"
+     ]
+    },
+    "wls": {
+     "handle": "dive-land-park-signature-series-dark-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fbf60ee67.jpg?v=1795620474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fbf60ef4d.jpg?v=1795620474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06eee81418a.jpg?v=1795617140",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06eee8142d9.jpg?v=1795617140",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06eee81432a.jpg?v=1795617140",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06eee81436e.jpg?v=1795617140"
+     ]
+    },
+    "yth": {
+     "handle": "dive-land-park-signature-series-dark-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fbfcbb70c.jpg?v=1795620474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fbfcbb83d.jpg?v=1795620474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06eeee5e85d.jpg?v=1795617140",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06eeee5ea95.jpg?v=1795617140",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06eeee5eaee.jpg?v=1795617141",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06eeee5eb37.jpg?v=1795617140"
+     ]
+    }
+   }
+  },
+  {
+   "site": "navy-llcat",
+   "tone": "dark",
+   "code": "NAV",
+   "colour": "olive-drab",
+   "hex": "#514F14",
+   "sleeve": "#D1CE7D",
+   "styles": {
+    "kid": {
+     "handle": "navy-llcat-signature-series-dark-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fc54f02dd.jpg?v=1795620535",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fc54f0402.jpg?v=1795620534",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ef10f1fe5.jpg?v=1795617254",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ef10f2210.jpg?v=1795617254",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ef10f2265.jpg?v=1795617254",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ef10f22a7.jpg?v=1795617254"
+     ]
+    },
+    "mls": {
+     "handle": "navy-llcat-signature-series-dark-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fc09f144e.jpg?v=1795620535",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fc09f1568.jpg?v=1795620535",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06eefc2925b.jpg?v=1795617254",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06eefc293a2.jpg?v=1795617254",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06eefc293ef.jpg?v=1795617254",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06eefc29432.jpg?v=1795617254"
+     ]
+    },
+    "mss": {
+     "handle": "navy-llcat-signature-series-dark-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b0648d56f7a5.jpg?v=1795574132",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b0648d56f8a6.jpg?v=1795574132"
+     ]
+    },
+    "wls": {
+     "handle": "navy-llcat-signature-series-dark-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fc46e06cc.jpg?v=1795620535",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fc46e0875.jpg?v=1795620535",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ef0324ee1.jpg?v=1795617254",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ef03250ea.jpg?v=1795617254",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ef032513f.jpg?v=1795617254",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ef0325182.jpg?v=1795617254"
+     ]
+    },
+    "yth": {
+     "handle": "navy-llcat-signature-series-dark-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fc4d7161a.jpg?v=1795620535",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fc4d717bf.jpg?v=1795620535",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ef09405b0.jpg?v=1795617254",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ef094067b.jpg?v=1795617254",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ef09406c8.jpg?v=1795617254",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ef094070e.jpg?v=1795617255"
+     ]
+    }
+   }
+  },
+  {
+   "site": "rainbow-reef",
+   "tone": "dark",
+   "code": "RRF",
+   "colour": "aubergine",
+   "hex": "#5B4164",
+   "sleeve": "#C8AED1",
+   "styles": {
+    "kid": {
+     "handle": "rainbow-reef-signature-series-dark-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fc6f035d9.jpg?v=1795620535",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fc6f03712.jpg?v=1795620535",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ef2b1b173.jpg?v=1795617255",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ef2b1b2b7.jpg?v=1795617255",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ef2b1b303.jpg?v=1795617255",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ef2b1b345.jpg?v=1795617255"
+     ]
+    },
+    "mls": {
+     "handle": "rainbow-reef-signature-series-dark-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fc5aa5e8a.jpg?v=1795620535",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fc5aa5f46.jpg?v=1795620536",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ef17895ec.jpg?v=1795617255",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ef1789824.jpg?v=1795617255",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ef1789875.jpg?v=1795617255",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ef17898d1.jpg?v=1795617255"
+     ]
+    },
+    "mss": {
+     "handle": "rainbow-reef-signature-series-dark-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b0648dc587c9.jpg?v=1795574132",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b0648dc588cc.jpg?v=1795574132"
+     ]
+    },
+    "wls": {
+     "handle": "rainbow-reef-signature-series-dark-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fc613c789.jpg?v=1795620536",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fc613c874.jpg?v=1795620536",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ef1d86f16.jpg?v=1795617255",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ef1d86fbe.jpg?v=1795617255",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ef1d87005.jpg?v=1795617255",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ef1d87044.jpg?v=1795617255"
+     ]
+    },
+    "yth": {
+     "handle": "rainbow-reef-signature-series-dark-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fc693e352.jpg?v=1795620536",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fc693e46c.jpg?v=1795620536",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ef244208f.jpg?v=1795617255",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ef24421bb.jpg?v=1795617255",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ef2442218.jpg?v=1795617255",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ef244225f.jpg?v=1795617255"
+     ]
+    }
+   }
+  },
+  {
+   "site": "rainbow-river",
+   "tone": "dark",
+   "code": "RRV",
+   "colour": "hunter-green",
+   "hex": "#385446",
+   "sleeve": "#AEC2B7",
+   "styles": {
+    "kid": {
+     "handle": "rainbow-river-signature-series-dark-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fcc02adeb.jpg?v=1795620536",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fcc02b013.jpg?v=1795620536",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ef45f1ceb.jpg?v=1795617255",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ef45f1fa4.jpg?v=1795617255",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ef45f2044.jpg?v=1795617255",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ef45f20cf.jpg?v=1795617256"
+     ]
+    },
+    "mls": {
+     "handle": "rainbow-river-signature-series-dark-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fc75718a1.jpg?v=1795620536",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fc7571ac7.jpg?v=1795620537",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ef320cfd3.jpg?v=1795617256",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ef320d0c6.jpg?v=1795617256",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ef320d110.jpg?v=1795617256",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ef320d151.jpg?v=1795617256"
+     ]
+    },
+    "mss": {
+     "handle": "rainbow-river-signature-series-dark-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b0648e3b19d7.jpg?v=1795574132",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b0648e3b1ae0.jpg?v=1795574132"
+     ]
+    },
+    "wls": {
+     "handle": "rainbow-river-signature-series-dark-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fc7ba4949.jpg?v=1795620537",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fc7ba4a5a.jpg?v=1795620537",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ef38b361f.jpg?v=1795617256",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ef38b3753.jpg?v=1795617256",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ef38b37a2.jpg?v=1795617256",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ef38b37e4.jpg?v=1795617256"
+     ]
+    },
+    "yth": {
+     "handle": "rainbow-river-signature-series-dark-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fc835da46.jpg?v=1795620537",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fc835db42.jpg?v=1795620537",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ef3f44075.jpg?v=1795617256",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ef3f441ce.jpg?v=1795617256",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ef3f44225.jpg?v=1795617256",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ef3f44270.jpg?v=1795617256"
+     ]
+    }
+   }
+  },
+  {
+   "site": "somosomo-strait",
+   "tone": "dark",
+   "code": "SOM",
+   "colour": "garnet",
+   "hex": "#731522",
+   "sleeve": "#DB827C",
+   "styles": {
+    "kid": {
+     "handle": "somosomo-strait-signature-series-dark-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fcda2acd6.jpg?v=1795620537",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fcda2af32.jpg?v=1795620537",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ef614cd74.jpg?v=1795617257",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ef614ce80.jpg?v=1795617256",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ef614ceca.jpg?v=1795617256",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ef614cf0b.jpg?v=1795617256"
+     ]
+    },
+    "mls": {
+     "handle": "somosomo-strait-signature-series-dark-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fcc63ab2c.jpg?v=1795620537",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fcc63ac84.jpg?v=1795620537",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ef4c595da.jpg?v=1795617257",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ef4c59693.jpg?v=1795617256",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ef4c596dc.jpg?v=1795617256",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ef4c5971d.jpg?v=1795617256"
+     ]
+    },
+    "mss": {
+     "handle": "somosomo-strait-signature-series-dark-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b0648ea12413.jpg?v=1795574132",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b0648ea1250a.jpg?v=1795574132"
+     ]
+    },
+    "wls": {
+     "handle": "somosomo-strait-signature-series-dark-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fccd21d43.jpg?v=1795620537",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fccd21ea5.jpg?v=1795620537",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ef53ae7bf.jpg?v=1795617257",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ef53ae925.jpg?v=1795617256",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ef53ae985.jpg?v=1795617256",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ef53ae9ca.jpg?v=1795617256"
+     ]
+    },
+    "yth": {
+     "handle": "somosomo-strait-signature-series-dark-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fcd3ce377.jpg?v=1795620538",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fcd3ceed8.jpg?v=1795620538",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ef5a23305.jpg?v=1795617256",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ef5a2345d.jpg?v=1795617257",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ef5a234f4.jpg?v=1795617257",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ef5a23564.jpg?v=1795617257"
+     ]
+    }
+   }
+  },
+  {
+   "site": "thistlegorm",
+   "tone": "dark",
+   "code": "THI",
+   "colour": "mulberry",
+   "hex": "#711440",
+   "sleeve": "#D78299",
+   "styles": {
+    "kid": {
+     "handle": "thistlegorm-signature-series-dark-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fd0fa2be7.jpg?v=1795620539",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fd0fa2c87.jpg?v=1795620539",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ef96e6adc.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ef96e6d1e.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ef96e6d77.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ef96e6db8.jpg?v=1795617258"
+     ]
+    },
+    "mls": {
+     "handle": "thistlegorm-signature-series-dark-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fcfb2e0a0.jpg?v=1795620539",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fcfb2e186.jpg?v=1795620539",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ef82ac8cc.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ef82ac9b5.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ef82ac9fc.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ef82aca3d.jpg?v=1795617258"
+     ]
+    },
+    "mss": {
+     "handle": "thistlegorm-signature-series-dark-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b0648f7eb597.jpg?v=1795574132",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b0648f7eb69a.jpg?v=1795574133"
+     ]
+    },
+    "wls": {
+     "handle": "thistlegorm-signature-series-dark-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fd01f0516.jpg?v=1795620539",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fd01f073c.jpg?v=1795620539",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ef8a9233c.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ef8a92436.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ef8a92481.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ef8a924c7.jpg?v=1795617258"
+     ]
+    },
+    "yth": {
+     "handle": "thistlegorm-signature-series-dark-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fd0852483.jpg?v=1795620539",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fd0852558.jpg?v=1795620539",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ef902a471.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ef902a58e.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ef902a5dd.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ef902a626.jpg?v=1795617258"
+     ]
+    }
+   }
+  },
+  {
+   "site": "thurmond-dam",
+   "tone": "dark",
+   "code": "THD",
+   "colour": "mocha",
+   "hex": "#594B30",
+   "sleeve": "#D5C8AE",
+   "styles": {
+    "kid": {
+     "handle": "thurmond-dam-signature-series-dark-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fcf49256e.jpg?v=1795620538",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fcf492763.jpg?v=1795620538",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ef7bacfc4.jpg?v=1795617257",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ef7bad0a8.jpg?v=1795617257",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ef7bad0ef.jpg?v=1795617257",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ef7bad12f.jpg?v=1795617257"
+     ]
+    },
+    "mls": {
+     "handle": "thurmond-dam-signature-series-dark-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fce35140d.jpg?v=1795620538",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fce3516d0.jpg?v=1795620538",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ef67ad039.jpg?v=1795617257",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ef67ad25a.jpg?v=1795617257",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ef67ad2c0.jpg?v=1795617257",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ef67ad303.jpg?v=1795617257"
+     ]
+    },
+    "mss": {
+     "handle": "thurmond-dam-signature-series-dark-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b0648f11c267.jpg?v=1795574132",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b0648f11c377.jpg?v=1795574132"
+     ]
+    },
+    "wls": {
+     "handle": "thurmond-dam-signature-series-dark-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fce834e44.jpg?v=1795620538",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fce83515f.jpg?v=1795620538",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ef6eae938.jpg?v=1795617257",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ef6eaea5e.jpg?v=1795617257",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ef6eaeaa7.jpg?v=1795617257",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ef6eaeaf7.jpg?v=1795617257"
+     ]
+    },
+    "yth": {
+     "handle": "thurmond-dam-signature-series-dark-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fcee2ea4f.jpg?v=1795620538",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fcee2ecc6.jpg?v=1795620539",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ef75b2034.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ef75b2199.jpg?v=1795617257",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ef75b21ed.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ef75b2234.jpg?v=1795617257"
+     ]
+    }
+   }
+  },
+  {
+   "site": "vuna-reef",
+   "tone": "dark",
+   "code": "VUN",
+   "colour": "rosewood",
+   "hex": "#654248",
+   "sleeve": "#E0BCC0",
+   "styles": {
+    "kid": {
+     "handle": "vuna-reef-signature-series-dark-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fd298378d.jpg?v=1795620539",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fd29838a8.jpg?v=1795620539",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06efb2413d9.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06efb241517.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06efb241563.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06efb2415a7.jpg?v=1795617258"
+     ]
+    },
+    "mls": {
+     "handle": "vuna-reef-signature-series-dark-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fd15e3134.jpg?v=1795620539",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fd15e3262.jpg?v=1795620540",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ef9d75030.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ef9d75284.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ef9d752dc.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ef9d75329.jpg?v=1795617259"
+     ]
+    },
+    "mss": {
+     "handle": "vuna-reef-signature-series-dark-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b0648fec79fd.jpg?v=1795574133",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b0648fec7b3d.jpg?v=1795574132"
+     ]
+    },
+    "wls": {
+     "handle": "vuna-reef-signature-series-dark-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fd1c459f7.jpg?v=1795620540",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fd1c45c21.jpg?v=1795620540",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06efa487502.jpg?v=1795617259",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06efa487714.jpg?v=1795617259",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06efa487764.jpg?v=1795617258",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06efa4877a5.jpg?v=1795617259"
+     ]
+    },
+    "yth": {
+     "handle": "vuna-reef-signature-series-dark-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fd22b8b88.jpg?v=1795620540",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fd22b8ca4.jpg?v=1795620540",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06efab820aa.jpg?v=1795617259",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06efab8229e.jpg?v=1795617259",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06efab822f8.jpg?v=1795617259",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06efab82355.jpg?v=1795617259"
+     ]
+    }
+   }
+  },
+  {
+   "site": "bali",
+   "tone": "light",
+   "code": "BAL",
+   "colour": "terracotta",
+   "hex": "#C9896D",
+   "sleeve": "#5E3013",
+   "styles": {
+    "kid": {
+     "handle": "bali-signature-series-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06f94e56624.jpg?v=1795620600",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06f94e56840.jpg?v=1795620600",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ec3c3fac2.jpg?v=1795617361",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ec3c3fbab.jpg?v=1795617361",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ec3c3fbfd.jpg?v=1795617361",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ec3c3fc45.jpg?v=1795617361"
+     ]
+    },
+    "mls": {
+     "handle": "bali-signature-series-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06f93a1075f.jpg?v=1795620600",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06f93a1089e.jpg?v=1795620600",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ec28d76cc.jpg?v=1795617361",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ec28d7794.jpg?v=1795617361",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ec28d77d9.jpg?v=1795617361",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ec28d7816.jpg?v=1795617361"
+     ]
+    },
+    "mss": {
+     "handle": "bali-signature-series-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b064845c5552.jpg?v=1795574132",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b064845c569a.jpg?v=1795574132"
+     ]
+    },
+    "wls": {
+     "handle": "bali-signature-series-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06f940954fa.jpg?v=1795620600",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06f940955f2.jpg?v=1795620600",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ec2f85270.jpg?v=1795617361",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ec2f85352.jpg?v=1795617361",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ec2f853d0.jpg?v=1795617361",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ec2f8542f.jpg?v=1795617361"
+     ]
+    },
+    "yth": {
+     "handle": "bali-signature-series-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06f94776e88.jpg?v=1795620600",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06f94776fbc.jpg?v=1795620600",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ec35ad0bd.jpg?v=1795617361",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ec35ad1c3.jpg?v=1795617361",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ec35ad211.jpg?v=1795617361",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ec35ad257.jpg?v=1795617361"
+     ]
+    }
+   }
+  },
+  {
+   "site": "black-bart",
+   "tone": "light",
+   "code": "BBT",
+   "colour": "chambray",
+   "hex": "#9FB1C9",
+   "sleeve": "#3A4D65",
+   "styles": {
+    "kid": {
+     "handle": "black-bart-signature-series-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06f968bdc3a.jpg?v=1795620600",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06f968bddab.jpg?v=1795620600",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ec56d132e.jpg?v=1795617361",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ec56d1480.jpg?v=1795617361",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ec56d14cd.jpg?v=1795617361",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ec56d1522.jpg?v=1795617362"
+     ]
+    },
+    "mls": {
+     "handle": "black-bart-signature-series-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06f954d3154.jpg?v=1795620601",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06f954d3288.jpg?v=1795620600",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ec426b502.jpg?v=1795617362",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ec426b6a1.jpg?v=1795617362",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ec426b729.jpg?v=1795617362",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ec426b797.jpg?v=1795617362"
+     ]
+    },
+    "mss": {
+     "handle": "black-bart-signature-series-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b06484c0680f.jpg?v=1795574133",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b06484c06940.jpg?v=1795574133"
+     ]
+    },
+    "wls": {
+     "handle": "black-bart-signature-series-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06f95b20976.jpg?v=1795620600",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06f95b20ac8.jpg?v=1795620600",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ec4985534.jpg?v=1795617362",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ec498567f.jpg?v=1795617362",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ec49856db.jpg?v=1795617362",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ec4985726.jpg?v=1795617362"
+     ]
+    },
+    "yth": {
+     "handle": "black-bart-signature-series-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06f961ed168.jpg?v=1795620601",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06f961ed2e6.jpg?v=1795620600",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ec5000422.jpg?v=1795617362",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ec500056f.jpg?v=1795617362",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ec50005bf.jpg?v=1795617362",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ec500061a.jpg?v=1795617362"
+     ]
+    }
+   }
+  },
+  {
+   "site": "blue-grotto",
+   "tone": "light",
+   "code": "BGR",
+   "colour": "grotto-aqua",
+   "hex": "#97C8CC",
+   "sleeve": "#155459",
+   "styles": {
+    "kid": {
+     "handle": "blue-grotto-signature-series-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06f9b94a2d8.jpg?v=1795620600",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06f9b94a4d9.jpg?v=1795620601",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ec71165e1.jpg?v=1795617362",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ec71166c8.jpg?v=1795617362",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ec7116711.jpg?v=1795617362",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ec7116752.jpg?v=1795617362"
+     ]
+    },
+    "mls": {
+     "handle": "blue-grotto-signature-series-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06f96f9f1d0.jpg?v=1795620601",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06f96f9f30b.jpg?v=1795620601",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ec5e21474.jpg?v=1795617362",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ec5e215ef.jpg?v=1795617362",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ec5e21649.jpg?v=1795617363",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ec5e2168c.jpg?v=1795617362"
+     ]
+    },
+    "mss": {
+     "handle": "blue-grotto-signature-series-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b0648527a3fd.jpg?v=1795574133",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b0648527a61e.jpg?v=1795574133"
+     ]
+    },
+    "wls": {
+     "handle": "blue-grotto-signature-series-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06f9758c637.jpg?v=1795620601",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06f9758c6fa.jpg?v=1795620601",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ec6412e81.jpg?v=1795617363",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ec64130ed.jpg?v=1795617362",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ec641316d.jpg?v=1795617363",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ec64131ea.jpg?v=1795617362"
+     ]
+    },
+    "yth": {
+     "handle": "blue-grotto-signature-series-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06f9b2a5a02.jpg?v=1795620601",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06f9b2a5b5a.jpg?v=1795620601",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ec6a5bce3.jpg?v=1795617362",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ec6a5be53.jpg?v=1795617363",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ec6a5bea9.jpg?v=1795617363",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ec6a5bef2.jpg?v=1795617363"
+     ]
+    }
+   }
+  },
+  {
+   "site": "blue-water-park",
+   "tone": "light",
+   "code": "BWP",
+   "colour": "seafoam",
+   "hex": "#B0D2C4",
+   "sleeve": "#2B5446",
+   "styles": {
+    "kid": {
+     "handle": "blue-water-park-signature-series-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06f9ee0391c.jpg?v=1795620602",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06f9ee03a4e.jpg?v=1795620601",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06eca5a3397.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06eca5a347b.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06eca5a34c3.jpg?v=1795617363",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06eca5a3504.jpg?v=1795617364"
+     ]
+    },
+    "mls": {
+     "handle": "blue-water-park-signature-series-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06f9dad8703.jpg?v=1795620602",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06f9dad883d.jpg?v=1795620601",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ec933cf65.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ec933d094.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ec933d0e0.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ec933d122.jpg?v=1795617364"
+     ]
+    },
+    "mss": {
+     "handle": "blue-water-park-signature-series-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b064860a787a.jpg?v=1795574133",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b064860a7aee.jpg?v=1795574133"
+     ]
+    },
+    "wls": {
+     "handle": "blue-water-park-signature-series-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06f9e0e86ff.jpg?v=1795620602",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06f9e0e8859.jpg?v=1795620602",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ec98afbda.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ec98afd1f.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ec98afd6c.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ec98afdb0.jpg?v=1795617364"
+     ]
+    },
+    "yth": {
+     "handle": "blue-water-park-signature-series-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06f9e780e00.jpg?v=1795620602",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06f9e781042.jpg?v=1795620602",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ec9fe3168.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ec9fe32c5.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ec9fe3319.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ec9fe3361.jpg?v=1795617364"
+     ]
+    }
+   }
+  },
+  {
+   "site": "bridge-span-14",
+   "tone": "light",
+   "code": "BSP",
+   "colour": "cornflower",
+   "hex": "#809FCB",
+   "sleeve": "#1C426F",
+   "styles": {
+    "kid": {
+     "handle": "bridge-span-14-signature-series-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06f9d3a8755.jpg?v=1795620601",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06f9d3a8848.jpg?v=1795620601",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ec8b338ae.jpg?v=1795617363",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ec8b33a10.jpg?v=1795617363",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ec8b33a9a.jpg?v=1795617363",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ec8b33b0e.jpg?v=1795617363"
+     ]
+    },
+    "mls": {
+     "handle": "bridge-span-14-signature-series-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06f9c050761.jpg?v=1795620601",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06f9c05084e.jpg?v=1795620601",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ec77c98ce.jpg?v=1795617363",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ec77c9a20.jpg?v=1795617363",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ec77c9a94.jpg?v=1795617363",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ec77c9af9.jpg?v=1795617363"
+     ]
+    },
+    "mss": {
+     "handle": "bridge-span-14-signature-series-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b0648592f016.jpg?v=1795574133",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b0648592f123.jpg?v=1795574133"
+     ]
+    },
+    "wls": {
+     "handle": "bridge-span-14-signature-series-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06f9c716d20.jpg?v=1795620602",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06f9c716e3b.jpg?v=1795620601",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ec7e989a5.jpg?v=1795617363",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ec7e98af5.jpg?v=1795617363",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ec7e98b3f.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ec7e98b80.jpg?v=1795617363"
+     ]
+    },
+    "yth": {
+     "handle": "bridge-span-14-signature-series-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06f9cd28e20.jpg?v=1795620601",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06f9cd29086.jpg?v=1795620601",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ec847c31b.jpg?v=1795617363",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ec847c473.jpg?v=1795617363",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ec847c4c6.jpg?v=1795617363",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ec847c50e.jpg?v=1795617363"
+     ]
+    }
+   }
+  },
+  {
+   "site": "dampier-strait",
+   "tone": "light",
+   "code": "DAM",
+   "colour": "butter",
+   "hex": "#DFD097",
+   "sleeve": "#564B14",
+   "styles": {
+    "kid": {
+     "handle": "dampier-strait-signature-series-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fa087d526.jpg?v=1795620602",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fa087d63f.jpg?v=1795620602",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ecf66b4cf.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ecf66b61f.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ecf66b671.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ecf66b6b5.jpg?v=1795617365"
+     ]
+    },
+    "mls": {
+     "handle": "dampier-strait-signature-series-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06f9f4e3b17.jpg?v=1795620602",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06f9f4e3d25.jpg?v=1795620602",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ecac6e234.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ecac6e30c.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ecac6e365.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ecac6e3a6.jpg?v=1795617364"
+     ]
+    },
+    "mss": {
+     "handle": "dampier-strait-signature-series-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b0648672cebb.jpg?v=1795574133",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b0648672d13d.jpg?v=1795574133"
+     ]
+    },
+    "wls": {
+     "handle": "dampier-strait-signature-series-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06f9fb42044.jpg?v=1795620602",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06f9fb421bb.jpg?v=1795620602",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ece9167b4.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ece916982.jpg?v=1795617365",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ece916a25.jpg?v=1795617364",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ece916a97.jpg?v=1795617364"
+     ]
+    },
+    "yth": {
+     "handle": "dampier-strait-signature-series-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fa01ea58e.jpg?v=1795620602",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fa01ea685.jpg?v=1795620602",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ecefa28b3.jpg?v=1795617365",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ecefa29f5.jpg?v=1795617365",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ecefa2a45.jpg?v=1795617365",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ecefa2a8b.jpg?v=1795617365"
+     ]
+    }
+   }
+  },
+  {
+   "site": "dive-land-park",
+   "tone": "light",
+   "code": "DLP",
+   "colour": "chalky-mint",
+   "hex": "#C1D5C9",
+   "sleeve": "#385344",
+   "styles": {
+    "kid": {
+     "handle": "dive-land-park-signature-series-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fa22e7b2e.jpg?v=1795620602",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fa22e7c42.jpg?v=1795620603",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ed1090068.jpg?v=1795617365",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ed10901a1.jpg?v=1795617365",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ed10901ec.jpg?v=1795617365",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ed109022e.jpg?v=1795617365"
+     ]
+    },
+    "mls": {
+     "handle": "dive-land-park-signature-series-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fa0f11864.jpg?v=1795620603",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fa0f119ac.jpg?v=1795620602",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ecfd265a3.jpg?v=1795617365",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ecfd266d4.jpg?v=1795617365",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ecfd2671f.jpg?v=1795617365",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ecfd2675f.jpg?v=1795617365"
+     ]
+    },
+    "mss": {
+     "handle": "dive-land-park-signature-series-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b06486e68c43.jpg?v=1795574134",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b06486e68cf7.jpg?v=1795574134"
+     ]
+    },
+    "wls": {
+     "handle": "dive-land-park-signature-series-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fa16199c9.jpg?v=1795620603",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fa1619b27.jpg?v=1795620603",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ed044ffb6.jpg?v=1795617365",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ed045014e.jpg?v=1795617365",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ed04501b1.jpg?v=1795617365",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ed0450228.jpg?v=1795617365"
+     ]
+    },
+    "yth": {
+     "handle": "dive-land-park-signature-series-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fa1c8aeb4.jpg?v=1795620603",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fa1c8af5d.jpg?v=1795620602",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ed09df9f4.jpg?v=1795617366",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ed09dfb2a.jpg?v=1795617365",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ed09dfb88.jpg?v=1795617365",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ed09dfbd0.jpg?v=1795617365"
+     ]
+    }
+   }
+  },
+  {
+   "site": "navy-llcat",
+   "tone": "light",
+   "code": "NAV",
+   "colour": "citrus",
+   "hex": "#D1CE7D",
+   "sleeve": "#504E13",
+   "styles": {
+    "kid": {
+     "handle": "navy-llcat-signature-series-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fa741c45f.jpg?v=1795620664",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fa741c591.jpg?v=1795620664",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ed619d469.jpg?v=1795617470",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ed619d5b9.jpg?v=1795617470",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ed619d62e.jpg?v=1795617470",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ed619d670.jpg?v=1795617470"
+     ]
+    },
+    "mls": {
+     "handle": "navy-llcat-signature-series-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fa29cff86.jpg?v=1795620664",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fa29d007b.jpg?v=1795620664",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ed179b93d.jpg?v=1795617470",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ed179ba90.jpg?v=1795617470",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ed179badf.jpg?v=1795617470",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ed179bb20.jpg?v=1795617470"
+     ]
+    },
+    "mss": {
+     "handle": "navy-llcat-signature-series-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b064874e72e2.jpg?v=1795574134",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b064874e7449.jpg?v=1795574134"
+     ]
+    },
+    "wls": {
+     "handle": "navy-llcat-signature-series-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fa66dedd0.jpg?v=1795620665",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fa66df071.jpg?v=1795620664",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ed1e518be.jpg?v=1795617470",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ed1e51a15.jpg?v=1795617471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ed1e51a60.jpg?v=1795617470",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ed1e51aa3.jpg?v=1795617470"
+     ]
+    },
+    "yth": {
+     "handle": "navy-llcat-signature-series-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fa6d7549a.jpg?v=1795620664",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fa6d756b9.jpg?v=1795620664",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ed24549b7.jpg?v=1795617471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ed2454b81.jpg?v=1795617471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ed2454c1b.jpg?v=1795617471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ed2454cb3.jpg?v=1795617470"
+     ]
+    }
+   }
+  },
+  {
+   "site": "rainbow-reef",
+   "tone": "light",
+   "code": "RRF",
+   "colour": "orchid",
+   "hex": "#C8AFD1",
+   "sleeve": "#5A4063",
+   "styles": {
+    "kid": {
+     "handle": "rainbow-reef-signature-series-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fa8e75607.jpg?v=1795620664",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fa8e75752.jpg?v=1795620664",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ed7c10578.jpg?v=1795617471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ed7c106ab.jpg?v=1795617471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ed7c106f6.jpg?v=1795617471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ed7c10737.jpg?v=1795617471"
+     ]
+    },
+    "mls": {
+     "handle": "rainbow-reef-signature-series-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fa7aed10b.jpg?v=1795620665",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fa7aed1ef.jpg?v=1795620664",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ed6877b89.jpg?v=1795617471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ed6877d8d.jpg?v=1795617471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ed6877de7.jpg?v=1795617471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ed6877e29.jpg?v=1795617471"
+     ]
+    },
+    "mss": {
+     "handle": "rainbow-reef-signature-series-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b06487bc49b3.jpg?v=1795574134",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b06487bc4cb8.jpg?v=1795574134"
+     ]
+    },
+    "wls": {
+     "handle": "rainbow-reef-signature-series-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fa812c1f8.jpg?v=1795620665",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fa812c406.jpg?v=1795620665",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ed6fc29a8.jpg?v=1795617472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ed6fc2aa1.jpg?v=1795617471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ed6fc2aeb.jpg?v=1795617471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ed6fc2b3f.jpg?v=1795617471"
+     ]
+    },
+    "yth": {
+     "handle": "rainbow-reef-signature-series-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fa87e966b.jpg?v=1795620665",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fa87e97b3.jpg?v=1795620665",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ed75437d6.jpg?v=1795617471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ed7543a06.jpg?v=1795617471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ed7543a5e.jpg?v=1795617471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ed7543aa6.jpg?v=1795617471"
+     ]
+    }
+   }
+  },
+  {
+   "site": "rainbow-river",
+   "tone": "light",
+   "code": "RRV",
+   "colour": "bay-sage",
+   "hex": "#AFC3B8",
+   "sleeve": "#375345",
+   "styles": {
+    "kid": {
+     "handle": "rainbow-river-signature-series-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06faa914fb0.jpg?v=1795620665",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06faa9151e6.jpg?v=1795620665",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ed9686624.jpg?v=1795617472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ed968682f.jpg?v=1795617471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ed9686881.jpg?v=1795617471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ed96868c0.jpg?v=1795617471"
+     ]
+    },
+    "mls": {
+     "handle": "rainbow-river-signature-series-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fa953694e.jpg?v=1795620665",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fa9536bac.jpg?v=1795620665",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ed8388e3e.jpg?v=1795617472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ed8388f76.jpg?v=1795617472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ed8388fc1.jpg?v=1795617471",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ed8389003.jpg?v=1795617472"
+     ]
+    },
+    "mss": {
+     "handle": "rainbow-river-signature-series-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b06488361d8d.jpg?v=1795574134",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b06488361fcc.jpg?v=1795574134"
+     ]
+    },
+    "wls": {
+     "handle": "rainbow-river-signature-series-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fa9bc3471.jpg?v=1795620666",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fa9bc3576.jpg?v=1795620665",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ed8a2518a.jpg?v=1795617472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ed8a253c5.jpg?v=1795617472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ed8a25419.jpg?v=1795617472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ed8a25459.jpg?v=1795617472"
+     ]
+    },
+    "yth": {
+     "handle": "rainbow-river-signature-series-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06faa23ccd8.jpg?v=1795620666",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06faa23ce6a.jpg?v=1795620666",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ed90029ae.jpg?v=1795617472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ed9002ac0.jpg?v=1795617472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ed9002b17.jpg?v=1795617472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ed9002b5e.jpg?v=1795617472"
+     ]
+    }
+   }
+  },
+  {
+   "site": "somosomo-strait",
+   "tone": "light",
+   "code": "SOM",
+   "colour": "watermelon",
+   "hex": "#DC837E",
+   "sleeve": "#711421",
+   "styles": {
+    "kid": {
+     "handle": "somosomo-strait-signature-series-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fac3120c0.jpg?v=1795620666",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fac3121b7.jpg?v=1795620666",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06edb111689.jpg?v=1795617472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06edb11175d.jpg?v=1795617472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06edb1117a3.jpg?v=1795617472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06edb1117e2.jpg?v=1795617472"
+     ]
+    },
+    "mls": {
+     "handle": "somosomo-strait-signature-series-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fab0084bd.jpg?v=1795620666",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fab0085b9.jpg?v=1795620667",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ed9d43e1b.jpg?v=1795617472",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ed9d43f48.jpg?v=1795617473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ed9d43f92.jpg?v=1795617473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ed9d43fd2.jpg?v=1795617473"
+     ]
+    },
+    "mss": {
+     "handle": "somosomo-strait-signature-series-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b064889cff38.jpg?v=1795574134",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b064889d018c.jpg?v=1795574134"
+     ]
+    },
+    "wls": {
+     "handle": "somosomo-strait-signature-series-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fab60453e.jpg?v=1795620667",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fab604646.jpg?v=1795620666",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06eda3e9146.jpg?v=1795617473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06eda3e9276.jpg?v=1795617473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06eda3e92c3.jpg?v=1795617473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06eda3e9306.jpg?v=1795617473"
+     ]
+    },
+    "yth": {
+     "handle": "somosomo-strait-signature-series-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fabdab56c.jpg?v=1795620666",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fabdab663.jpg?v=1795620666",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06edaac24b8.jpg?v=1795617473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06edaac277e.jpg?v=1795617473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06edaac2827.jpg?v=1795617473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06edaac289f.jpg?v=1795617473"
+     ]
+    }
+   }
+  },
+  {
+   "site": "thistlegorm",
+   "tone": "light",
+   "code": "THI",
+   "colour": "crunchberry",
+   "hex": "#D7839A",
+   "sleeve": "#6F133E",
+   "styles": {
+    "kid": {
+     "handle": "thistlegorm-signature-series-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06faf91de0e.jpg?v=1795620667",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06faf91df92.jpg?v=1795620668",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ee1d8eb72.jpg?v=1795617474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ee1d8ed9a.jpg?v=1795617474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ee1d8edec.jpg?v=1795617474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ee1d8ee2e.jpg?v=1795617474"
+     ]
+    },
+    "mls": {
+     "handle": "thistlegorm-signature-series-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06fae498c49.jpg?v=1795620667",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06fae498d64.jpg?v=1795620667",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06edcfe5c85.jpg?v=1795617474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06edcfe5ddc.jpg?v=1795617474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06edcfe5e2a.jpg?v=1795617475",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06edcfe5e76.jpg?v=1795617474"
+     ]
+    },
+    "mss": {
+     "handle": "thistlegorm-signature-series-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b064897c3ee6.jpg?v=1795574134",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b064897c4037.jpg?v=1795574134"
+     ]
+    },
+    "wls": {
+     "handle": "thistlegorm-signature-series-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06faeb5c889.jpg?v=1795620668",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06faeb5c975.jpg?v=1795620668",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06edd8c5cb3.jpg?v=1795617475",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06edd8c5dab.jpg?v=1795617475",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06edd8c5dfa.jpg?v=1795617474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06edd8c5e3b.jpg?v=1795617475"
+     ]
+    },
+    "yth": {
+     "handle": "thistlegorm-signature-series-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06faf1e297d.jpg?v=1795620668",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06faf1e2bd4.jpg?v=1795620668",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ee16594cc.jpg?v=1795617475",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ee165960a.jpg?v=1795617475",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ee1659662.jpg?v=1795617475",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ee16596aa.jpg?v=1795617475"
+     ]
+    }
+   }
+  },
+  {
+   "site": "thurmond-dam",
+   "tone": "light",
+   "code": "THD",
+   "colour": "sandstone",
+   "hex": "#D5C8AE",
+   "sleeve": "#584A2F",
+   "styles": {
+    "kid": {
+     "handle": "thurmond-dam-signature-series-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06faddee997.jpg?v=1795620666",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06faddeeade.jpg?v=1795620667",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06edcc0757c.jpg?v=1795617473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06edcc076a2.jpg?v=1795617473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06edcc07721.jpg?v=1795617473",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06edcc07784.jpg?v=1795617473"
+     ]
+    },
+    "mls": {
+     "handle": "thurmond-dam-signature-series-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06faca3385c.jpg?v=1795620667",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06faca3397f.jpg?v=1795620667",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06edb881a87.jpg?v=1795617474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06edb881b96.jpg?v=1795617474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06edb881bf6.jpg?v=1795617474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06edb881c3a.jpg?v=1795617474"
+     ]
+    },
+    "mss": {
+     "handle": "thurmond-dam-signature-series-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b0648907673f.jpg?v=1795574134",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b064890769d4.jpg?v=1795574134"
+     ]
+    },
+    "wls": {
+     "handle": "thurmond-dam-signature-series-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fad15a223.jpg?v=1795620667",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fad15a31a.jpg?v=1795620667",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06edbe9806b.jpg?v=1795617474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06edbe981a0.jpg?v=1795617474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06edbe981e9.jpg?v=1795617474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06edbe9822b.jpg?v=1795617474"
+     ]
+    },
+    "yth": {
+     "handle": "thurmond-dam-signature-series-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fad810fc9.jpg?v=1795620668",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fad8111ab.jpg?v=1795620668",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06edc5b1e05.jpg?v=1795617474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06edc5b1ed3.jpg?v=1795617474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06edc5b1f23.jpg?v=1795617474",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06edc5b1f6a.jpg?v=1795617474"
+     ]
+    }
+   }
+  },
+  {
+   "site": "vuna-reef",
+   "tone": "light",
+   "code": "VUN",
+   "colour": "blossom",
+   "hex": "#E0BCC0",
+   "sleeve": "#634046",
+   "styles": {
+    "kid": {
+     "handle": "vuna-reef-signature-series-rash-guard-kids-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06fb1318a14.jpg?v=1795620668",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06fb1318b2f.jpg?v=1795620668",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-front-6b06ee3730114.jpg?v=1795617475",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-back-6b06ee3730248.jpg?v=1795617475",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-left-6b06ee3730295.jpg?v=1795617475",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-kids-rash-guard-white-right-6b06ee37302d8.jpg?v=1795617475"
+     ]
+    },
+    "mls": {
+     "handle": "vuna-reef-signature-series-rash-guard-men-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06faff03c02.jpg?v=1795620668",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06faff03d22.jpg?v=1795620668",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-front-6b06ee23671b0.jpg?v=1795617475",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-back-6b06ee23672fd.jpg?v=1795617475",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-left-6b06ee2367347.jpg?v=1795617475",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-rash-guard-white-right-6b06ee2367389.jpg?v=1795617475"
+     ]
+    },
+    "mss": {
+     "handle": "vuna-reef-signature-series-rash-guard-men-s-short-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-front-6b06489e6d743.jpg?v=1795574135",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-mens-short-sleeve-rash-guard-white-back-6b06489e6d890.jpg?v=1795574135"
+     ]
+    },
+    "wls": {
+     "handle": "vuna-reef-signature-series-rash-guard-women-s-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06fb05a093e.jpg?v=1795620668",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06fb05a0b3a.jpg?v=1795620669",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-front-6b06ee2a44b8e.jpg?v=1795617475",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-back-6b06ee2a44ccd.jpg?v=1795617475",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-left-6b06ee2a44d1a.jpg?v=1795617475",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-womens-rash-guard-white-right-6b06ee2a44d5c.jpg?v=1795617475"
+     ]
+    },
+    "yth": {
+     "handle": "vuna-reef-signature-series-rash-guard-youth-long-sleeve",
+     "media": [
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06fb0c75a5f.jpg?v=1795620668",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06fb0c75bd1.jpg?v=1795620669",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-front-6b06ee308facb.jpg?v=1795617475",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-back-6b06ee308fb73.jpg?v=1795617476",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-left-6b06ee308fbc0.jpg?v=1795617476",
+      "https://cdn.shopify.com/s/files/1/0787/3350/8794/files/all-over-print-youth-rash-guard-white-right-6b06ee308fc05.jpg?v=1795617475"
+     ]
+    }
+   }
+  }
+ ]
+}

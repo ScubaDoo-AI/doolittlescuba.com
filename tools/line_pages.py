@@ -319,7 +319,7 @@ def swatches(sh_cards):
 
 # -------------------------------------------------------------------------------------------------------------- the page
 def nav(line_dir):
-    return ('<nav aria-label="Site"><a href="/#lines" data-umami-event="nav-collections">Collections</a><a href="/#hats" data-umami-event="nav-hats">Hats</a><a href="/#jackets" data-umami-event="nav-jackets">Jackets</a>'
+    return ('<nav aria-label="Site"><a href="/#lines" data-umami-event="nav-collections">Collections</a><a href="/#hats" data-umami-event="nav-hats">Hats</a><a href="/#jackets" data-umami-event="nav-jackets">Jackets</a><a href="/rash-guards/" data-umami-event="nav-rashguards">Rash guards</a>'
             '<a href="/stickers/" data-umami-event="nav-stickers">Stickers</a><a href="/towels/" data-umami-event="nav-towels">Towels</a><a href="/custom/" data-umami-event="nav-custom">Custom</a>'
             '<a href="/#map" data-umami-event="nav-map">Dive map</a><a href="/#logbook" data-umami-event="nav-logbook">Logbook</a>'
             '<a href="/about/" data-umami-event="nav-about">About us</a><a href="/workshop/" data-umami-event="nav-workshop">Workshop</a>'
@@ -345,6 +345,8 @@ def chips(dz_cards, line):
         for key, name in line['deck']:
             s = key[len('aquatic-'):]; n = sum(1 for c in dz_cards if f'data-sub="{s}"' in c)
             out.append(f'<button type="button" class="chip" data-s="{s}" data-umami-event="designs-subset" data-umami-event-subset="{s}" aria-pressed="false">{H.escape(name)} <span class="mono">{n}</span></button>')
+    if line['key'] == 'signature':   # the same plates on rash guards (25 Nov 2026), a chip that goes to their page
+        out.append('<a class="chip" href="/rash-guards/" data-umami-event="designs-rashguards">On a rash guard <span class="mono">&rarr;</span></a>')
     out.append('<input type="search" class="dz-q" placeholder="Search these designs" aria-label="Search the designs by word: a subject, a site, a line of the joke" autocomplete="off">')
     return '\n        '.join(out), cnt
 
@@ -624,6 +626,9 @@ def main():
         open(f'{SITE}/{line["dir"]}/index.html', 'w', encoding='utf-8').write(page(line, sh, dz, home_src))
         if '--og' in sys.argv or not os.path.exists(f'{SITE}/img/og/{line["dir"]}.jpg'): og_image(line)
         print(f'/{line["dir"]}/  {len(sh)} shirt cards, {len(dz)} designs')
+    try:   # the rash guards' search entries (tools/rashguards_page.py)
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import rashguards_page; index += rashguards_page.index_entries()
+    except Exception as e: print('rash guard entries not added:', e)
     json.dump(index, open(f'{SITE}/js/designs.json', 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
     print('js/designs.json', len(index), 'designs'); sitemap(); print('sitemap.xml')
 
