@@ -117,3 +117,16 @@
 - **Rash guards (`/rash-guards/`):** the 28 cards (14 sites × Light/Dark) now carry `data-buy` (`DS-<site>-RGMLS-<L|D>`, added to `tools/catalog_map.py` PAGES and `card_stem`). In `js/deck.js` the style picker swaps the card's stem to the chosen cut (`DS.RG_SKU`: RGMLS, RGWLS, RGMSS, RGYTH, RGKID) and re-opens the cart picker, so all 140 products (5 cuts per card) are reachable. Tested headless with `?cart=preview` on Black Bart: men's LS XS–3XL, women's LS XS–3XL, men's SS 2XS–6XL, kids 2T–7, each with Add to cart; the shop link follows the cut; no page errors.
 - **Jackets:** their SKUs are Printful-made (`7384798_11008`…) and share no stem, so `build()` skipped them. Products with no stem are now keyed `H-<handle>`; the four jacket cards on the home page carry `data-buy="H-the-mark-…"` and `data-buy-opt="Color=Black|Navy"` (their option is named Color). Tested: anorak and windbreaker, Black and Navy, S–2XL + Add to cart.
 - `catalog.json` rebuilt (730 products); `deck.js?v=` bumped on the 10 pages that load it. Visitors see no change until launch (`LIVE=false`).
+## Shop theme: Rash guards tab (Eric 21:50: "add one and publish the theme")
+- **Live theme "Live 21 Nov + three-view turn"**, commit `addd75bb`, **published 21:55**.
+- **Deck tab "Rash guards"** after Jackets on the home page and every collection page (`templates/index.json` and `templates/collection.json`, block `t_rg` → collection `rash-guards`). It's also in the default tab list in `sections/ds-deck.liquid`.
+- **Product pages:** `sections/ds-series-tabs.liquid` has the tab too, and a rash guard page lights it, with "← All Rash Guards" (`rash-guards` comes before `signature-series` in the priority list).
+- **Cards** (`snippets/ds-deck-cards.liquid`):
+  - The line reads "Light rash guard · Men’s long sleeve" / "Dark rash guard · Kids long sleeve", and the card name is the site.
+  - Each spine is the body colour sampled from the flat lay (28 colours), with navy ink on the light tones.
+  - Cards use the towels' white photo panel, so the Printful flat lays don't sit in a white square on a dark card.
+  - Each card turns flat lay front → left side (worn) → flat lay back, picked by alt text.
+- **Signature Series deck:** the rash guards stay in the Signature Series *collection*, but its deck now skips them, so the tab shows its 28 tees again. Before, the 140 rash guards were mixed into it.
+- Checked before publishing: `/collections/rash-guards` (desktop), `/collections/signature-series` and a rash guard product page (phone).
+- Not mirrored to `shopify-theme/` this time. The theme holds the current copies of these five files.
+- **Not changed:** the Shop main menu (store data) has no Rash guards entry yet.
