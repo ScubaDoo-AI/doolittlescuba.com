@@ -44,6 +44,14 @@ CSS = ('<style>'
        '</style>')
 
 
+def real_photo(stem):
+    """A real photo beats a mockup: img/real/<SKU stem>.webp|.jpg|.png, if one has been dropped in (README "Real photos")."""
+    for ext in ('webp', 'jpg', 'jpeg', 'png'):
+        if os.path.isfile(os.path.join(ROOT, 'img', 'real', f'{stem}.{ext}')):
+            return f'/img/real/{stem}.{ext}'
+    return None
+
+
 def card_img(page, attr_pat):
     """The first <img src> inside the card whose opening tag matches attr_pat."""
     m = re.search(r'<figure class="sh"[^>]*' + attr_pat + r'[^>]*>.*?<img src="([^"]+)"', page, re.S)
@@ -60,6 +68,7 @@ def price(stems):
 
 
 def card(kind, name, stem, img, alt, href=None, stems=None, note=''):
+    img = real_photo(stem) or img
     if stem not in CAT or not img: return ''
     href = href or f'{SHOP}/products/{CAT[stem]["h"]}'
     pr = price(stems or [stem])

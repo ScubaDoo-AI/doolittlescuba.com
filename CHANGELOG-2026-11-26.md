@@ -35,3 +35,7 @@
 - **Signature shirts:** the 8 shirt cards that said "Sample print" say **Coming soon**. The open card's button in `js/deck.js` no longer switches to "Sample print".
 - **Collection pages** (Signature, Certified-ish, Off-World, 1N73LL1G3NC3, Surface Interval): "The designs" is now **"The art"** and sits after "Wear it your way". Order: The shirts → Wear it your way → The art → The other collections. The art grid keeps its status filter (Art finished / In progress). Search links (`#d-<slug>`) are unchanged.
 - Tool: `tools/shop_status.py` (new, idempotent). `tools/line_pages.py`'s template has the new order and heading too. **Note:** re-running `line_pages.py` on today's pages is not a no-op; it rewrites the five pages (drift from later hand edits). Check its diff before committing a rebuild.
+
+## Real photos: ready to swap in (review item #5)
+- Samples are due 26–28 Nov. When photos arrive, save them as `img/real/<SKU stem>.webp` (e.g. `DS-BBT-T.webp`) and run `tools/site_shop.py`, `tools/home_layout.py`, `tools/bust.py`. The guide "Wear" strips and the Start here picks then use the real photo instead of the mockup. Details in README, "Real photos".
+- The collection tiles, decks and the Shopify product photos are not covered yet; they still need their own swap.

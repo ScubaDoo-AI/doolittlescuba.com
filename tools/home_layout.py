@@ -143,6 +143,14 @@ PICKS = [('Signature Series', '/signature/', 'Black Bart tee', 'DS-BBT-T', 'sign
          ('Stickers', '/stickers/', 'Achievement Unlocked set', 'DS-STK-A-SET12', 'stickers/index.html', 'data-buy="DS-STK-A-SET12"')]
 
 
+def real_photo(stem):
+    """A real photo beats a mockup: img/real/<SKU stem>.webp|.jpg|.png, if one has been dropped in (README "Real photos")."""
+    for ext in ('webp', 'jpg', 'jpeg', 'png'):
+        if os.path.isfile(os.path.join(ROOT, 'img', 'real', f'{stem}.{ext}')):
+            return f'/img/real/{stem}.{ext}'
+    return None
+
+
 def img_from(page, pat):
     m = re.search(r'<figure class="sh[^"]*"[^>]*' + pat + r'[^>]*>.*?<img src="([^"]+)"', rd(page), re.S)
     if not m: return None
@@ -162,6 +170,7 @@ def picks():
         else:
             it = next((x for x in RG if (x['site'], x['tone']) == pat), None)
             img = it and it['styles']['mls']['media'][0] + '&width=600'
+        img = real_photo(stem) or img
         if stem not in CAT or not img: print('pick skipped:', name); continue
         stems = [f'{stem[:-6]}RG{c}-D' for c in ('MLS', 'WLS', 'MSS', 'YTH', 'KID')] if 'RGMLS' in stem else [stem]
         href = f'{SHOP}/products/{CAT[stem]["h"]}'
