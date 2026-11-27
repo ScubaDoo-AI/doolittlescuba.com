@@ -90,6 +90,17 @@ def done_already(im):
     return hits >= len(pts) - 2
 
 
+def thin(alpha):
+    """True when the cut-out is mostly thin strokes (line art, lettering): shrinking the outline by 1 % of the
+    image width removes most of it. A garment with spread-out sleeves keeps most of its area."""
+    import numpy as np
+    from scipy.ndimage import binary_erosion
+    m = np.array(alpha) > 128
+    k = max(2, int(alpha.size[0] * 0.01))
+    kept = binary_erosion(m, iterations=k).sum() / max(1, m.sum())
+    return kept < 0.5
+
+
 def border_kind(im):
     """'white' or 'plain' (one flat ground: cut it out) or 'photo' (a varied border: a close-up or a photo)."""
     rgb = im.convert('RGB'); w, h = rgb.size
@@ -146,7 +157,7 @@ def transform(im, tags):
         density = cover / max(1e-6, (bw * bh) / float(w * h))
         if density > 0.93 and bw * bh > 0.8 * w * h:
             return card(im, w, h), 'card'                      # the item is a rectangle: an art preview or a sheet
-        if density < 0.45:
+        if density < 0.45 and thin(a):
             return card(im, w, h), 'card-art'                  # line art or lettering (a design preview): keep it whole
     return place(cut, w, h), 'cutout'
 
