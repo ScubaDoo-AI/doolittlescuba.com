@@ -18,6 +18,15 @@
   endif
   assign shown = 0
   assign total = 0
+  # the lowest rash guard price (the kids cut), shown as "From" on the one card per design
+  assign rg_min = 0
+  for p in products
+    if p.tags contains 'rash-guard' and coll.handle == 'rash-guards'
+      if rg_min == 0 or p.price_min < rg_min
+        assign rg_min = p.price_min
+      endif
+    endif
+  endfor
 -%}
 <div class="dsd-deck">
   {%- for pass in (1..3) -%}
@@ -49,6 +58,18 @@
         endif
         if pass == 3 and is_sig or pass == 3 and off_topic == false
           continue
+        endif
+        # Rash guards (25 Nov 2026) have their own tab; they stay in the Signature Series collection but not in its deck.
+        # The Start here picks (26 Nov 2026) show the one rash guard they hold, at its own price.
+        if p.tags contains 'rash-guard' and coll.handle != 'rash-guards' and coll.handle != 'start-here'
+          continue
+        endif
+        # One card per rash guard design and tone (Eric, 25 Nov 2026): the men's long sleeve stands for all five cuts;
+        # its product page has the sleeve and cut picker
+        if p.tags contains 'rash-guard'
+          unless p.tags contains 'style:mls'
+            continue
+          endunless
         endif
         if hide_organic and organic_coll == false and p.tags contains 'organic-line'
           continue
@@ -116,8 +137,17 @@
           when 'personalized'
             assign ln = 'Personalized tee'
         endcase
+        # Rash guards (25 Nov 2026): "Bali — Signature Series Dark rash guard · Kids long sleeve" → card "Bali", line "Dark rash guard · Kids long sleeve"
+        if p.tags contains 'rash-guard'
+          assign rg_style = p.title | split: '·' | last | strip
+          if p.tags contains 'tone:dark'
+            assign ln = 'Dark rash guard · 5 cuts'
+          else
+            assign ln = 'Light rash guard · 5 cuts'
+          endif
+        endif
         assign light_pic = false
-        if p.tags contains 'towel'
+        if p.tags contains 'towel' or p.tags contains 'rash-guard'
           assign light_pic = true
         endif
         assign colour = ''
@@ -289,6 +319,71 @@
               assign hex = '#212327'
           endcase
         endif
+        # Rash guards (25 Nov 2026): the body colour sampled from each Printful flat lay; dark ink on the light tones
+        if p.tags contains 'rash-guard'
+          assign ink = '#F3F6F9'
+          if p.tags contains 'tone:light'
+            assign ink = '#122A55'
+          endif
+          case key
+            when 'terracotta'
+              assign hex = '#C9896D'
+            when 'deep-terracotta'
+              assign hex = '#603115'
+            when 'chambray'
+              assign hex = '#9FB1C9'
+            when 'deep-chambray'
+              assign hex = '#3C4F67'
+            when 'grotto-aqua'
+              assign hex = '#97C8CC'
+            when 'deep-grotto-aqua'
+              assign hex = '#16555A'
+            when 'seafoam'
+              assign hex = '#B0D2C4'
+            when 'deep-seafoam'
+              assign hex = '#2D5648'
+            when 'cornflower'
+              assign hex = '#809FCB'
+            when 'deep-cornflower'
+              assign hex = '#1E4471'
+            when 'butter'
+              assign hex = '#DFD097'
+            when 'olive'
+              assign hex = '#584D16'
+            when 'chalky-mint'
+              assign hex = '#C1D5C9'
+            when 'pine'
+              assign hex = '#395445'
+            when 'citrus'
+              assign hex = '#D1CE7D'
+            when 'olive-drab'
+              assign hex = '#514F14'
+            when 'orchid'
+              assign hex = '#C8AFD1'
+            when 'aubergine'
+              assign hex = '#5B4164'
+            when 'bay-sage'
+              assign hex = '#AFC3B8'
+            when 'hunter-green'
+              assign hex = '#385446'
+            when 'watermelon'
+              assign hex = '#DC837E'
+            when 'garnet'
+              assign hex = '#731522'
+            when 'crunchberry'
+              assign hex = '#D7839A'
+            when 'mulberry'
+              assign hex = '#711440'
+            when 'sandstone'
+              assign hex = '#D5C8AE'
+            when 'mocha'
+              assign hex = '#594B30'
+            when 'blossom'
+              assign hex = '#E0BCC0'
+            when 'rosewood'
+              assign hex = '#654248'
+          endcase
+        endif
         assign spine = ''
         if cap_key != blank
           case cap_key
@@ -375,7 +470,7 @@
           <div class="ln">{{ ln | escape }}</div>
           <p class="t">{{ nm | escape }}</p>
           {%- if colour != blank -%}<p class="s">{{ colour | escape }}</p>{%- endif -%}
-          <div class="r"><span class="p">{{ p.price_min | money }}{% if p.price_varies %}+{% endif %}</span><a href="{{ p.url }}">View &rarr;</a></div>
+          <div class="r"><span class="p">{% if p.tags contains 'rash-guard' and rg_min > 0 %}From {{ rg_min | money }}{% else %}{{ p.price_min | money }}{% if p.price_varies %}+{% endif %}{% endif %}</span><a href="{{ p.url }}">View &rarr;</a></div>
         </div>
         <a class="dk-face" href="{{ p.url }}" aria-label="{{ p.title | escape }}, {{ p.price_min | money }}">
           <span class="dk-spine"><span>{{ nm | replace: '’', "'" | escape }}</span></span>
