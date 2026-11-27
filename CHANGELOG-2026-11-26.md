@@ -81,3 +81,13 @@
 - **Store homepage** (`templates/index.json`): order is hero → **Start here** (the old, disabled product-list section re-enabled, pointed at `start-here`, 4 across, heading in the same style as "The shirts", no View all button) → The shirts deck. The hero gets a second button, **Shop by dive site** (white) → `doolittlescuba.com/#map`, set beside "See the shirts" (hero alignment flex-start).
 - **Store footer** (`sections/footer-group.json`): "Surface interval" → "Get launch news" was **not published**. Every publish that carried the footer file was refused as "changed on Shopify outside this tool". Shopify's copy (updated 22 Nov) still reads "Surface interval", and the cause of the mismatch wasn't visible, so it was not forced. **Eric:** change it in the theme editor (Customize → Footer → the "Surface interval" text block). The tool's copy was put back to "Surface interval"; it may still be listed as waiting to publish.
 - **Published 22:1x** (Eric 22:11 "Yes"): the homepage (Start here + Shop by dive site button). The first try was refused because the unused "View all" button block was still in the file but not in its block order; the block was deleted. Checked by screenshot at 1440 and 390 px before publishing.
+
+## Kioa Island: logbook only (Eric 22:15 "Hide Kioa for now"; 22:18 "Leave photos intact only remove references to the art")
+- The first pass hid the whole site (commit a0f2045). It was **reverted** (13cdfca), and then only the art came off (14de958). Kioa stays a dive site with its photos: the guide page (photo, The site, From our logbook), map pin, home site list row, guide pager and sitemap are all kept.
+- **Art removed:**
+  - its card in the Signature art grid ("The art")
+  - its design search entry (`js/designs.json`)
+  - on its guide: the "In progress" pill, the "Tell me when it's finished" button and its line about the release, the "On the shirt" section, and "drawn for the Doolittle Scuba line" in the page description (now "Photos and field notes from our logbook.")
+- **New status "logbook"** in the sites data (home, Signature, rash-guard and Kioa pages). The map popup says **Logbook** (`js/divemap.js`), and the home site list row is tagged **Logbook** in the muted colour (`.tag.logbook` in `css/site.css`), not "In progress".
+- **Tool:** `tools/logbook_sites.py` (new, idempotent; `LOGBOOK = {'kioa-island': 'Kioa Island'}`). To bring the art back, take the slug out and revert its commit. Re-run it after `tools/line_pages.py`.
+- Checked locally: no script errors on /, /signature/, /rash-guards/, the Vuna Reef and Kioa guides; the Kioa guide checked by screenshot.

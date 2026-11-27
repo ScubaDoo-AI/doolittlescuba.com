@@ -3,7 +3,7 @@
 
 Rule: anything a visitor can buy says "Coming soon" now (and the cart's own label once live). "Art finished",
 "In progress" and "Sample print" are workshop words: they stay on the art grids (the dz cards under each collection's
-"the art") and on a site that has nothing for sale yet (Kioa Island), and come off everything else.
+"the art") and on a site that has nothing for sale yet (Kioa Island is logbook-only since 26 Nov: tools/logbook_sites.py), and come off everything else.
 
   sites with products (a DS-<code>-T in js/catalog.json)   "finished" → "available" in every sites-data block, the home
                                                            page site list, each guide's header pill and its map pin
