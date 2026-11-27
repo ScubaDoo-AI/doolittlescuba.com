@@ -50,8 +50,8 @@ jobs:
           if [ "$UPLOAD" = "true" ]; then FLAG="$FLAG --upload"; fi
           case "${{ inputs.mode }}" in
             render) python tools/mockups_hd.py render --out mockups-hd $FLAG | tee run.log ;;
-            shopify-dry) mkdir -p mockups-hd; python tools/mockups_hd.py shopify tools/mockups_hd_manifest.json | tee run.log ;;
-            shopify) mkdir -p mockups-hd; python tools/mockups_hd.py shopify tools/mockups_hd_manifest.json --apply | tee run.log ;;
+            shopify-dry) mkdir -p mockups-hd; python tools/mockups_hd.py shopify tools/mockups_hd_manifest.json ${ONLY:+--only $ONLY} | tee run.log ;;
+            shopify) mkdir -p mockups-hd; python tools/mockups_hd.py shopify tools/mockups_hd_manifest.json ${ONLY:+--only $ONLY} --apply | tee run.log ;;
             cap-dry) python tools/mockups_hd.py cap --out mockups-hd ${ONLY:+--colours $ONLY} | tee run.log ;;
             cap) python tools/mockups_hd.py cap --out mockups-hd ${ONLY:+--colours $ONLY} --apply | tee run.log ;;
           esac

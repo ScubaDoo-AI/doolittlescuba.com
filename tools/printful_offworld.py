@@ -90,7 +90,7 @@ BY_SLUG = {d['slug']: d for d in D['designs']}
 def files(code, line, route):
     n = code[2:]; tag = 'light' if line == 'light' else 'dark'
     area = {'area_width': 1800, 'area_height': 2400}
-    return [{'type': 'back' if route == 'dtg' else 'back_dtf', 'url': BP.url(f'{CDN}OW-{n}_back_{tag}.png'),
+    return [{'type': 'back' if route == 'dtg' else 'back_dtf', 'url': f'{CDN}OW-{n}_back_{tag}.png',   # as proofed (Wormhole S sample, Eric 27 Nov 2026): Off-World keeps its original back height, not back_place's 2 in
              'position': dict(area, width=1800, height=2400, top=0, left=0)},
             # front: the chest mark already placed on a full 12 x 16 in master (tools/offworld_chest_fullarea.py, left 8 in /
             # top 2 in = wearer's left chest). Printful's v1 sync variants dropped the old 525 x 600 @ (1200, 300) offset and

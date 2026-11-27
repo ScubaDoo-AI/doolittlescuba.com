@@ -277,9 +277,9 @@ def render(p, out):
             for ly in layers:
                 if ly[0] == 'master': im.alpha_composite(fetch(ly[1]))
                 else: place(im, ly[1], ly[2], ly[3])
-        if k == 'back':
+        if k == 'back' and not any(ly[0] == 'master' and '/OW-' in ly[1] for ly in layers):   # Off-World backs stay as proofed (27 Nov)
             import back_place as BP
-            im, _ = BP.normalize(im)   # every back: ink top 2 in, fit above 15.75 in (Eric, 21 Nov 2026)
+            im, _ = BP.normalize(im)   # every other back: ink top 2 in, fit above 15.75 in (Eric, 21 Nov 2026)
         path = os.path.join(out, f'{k}.png'); im.save(path, dpi=(DPI, DPI), optimize=True); files[k] = path
     return files
 

@@ -31,7 +31,8 @@ VIEWS = ('front', 'back', 'side')
 GROUPS = {'certifiedish': ('certifiedish', 'certifiedish-dark'), 'signature': ('plates', 'dark'), 'offworld': ('offworld', 'offworld-dark'),
           'n73': ('n73',), 'aquatic': ('aquatic-boat-banter', 'aquatic-self-logged', 'aquatic-buddy-check', 'aquatic-buddy-system',
                                        'aquatic-till-surface', 'aquatic-master-class'),
-          'organic': ('org-signature', 'org-certifiedish', 'org-offworld', 'org-n73', 'org-aquatic')}
+          'organic': ('org-signature', 'org-certifiedish', 'org-offworld', 'org-n73', 'org-aquatic'),
+          'org-offworld': ('org-offworld',)}
 
 
 def cards(only=None):
@@ -176,14 +177,16 @@ PROD_Q = '''query($q: String!) { productVariants(first: 1, query: $q) { nodes { 
 FILES_Q = '''query($q: String!) { files(first: 10, query: $q) { nodes { id alt ... on MediaImage { fileStatus image { url } } } } }'''
 UPD_M = '''mutation($files: [FileUpdateInput!]!) { fileUpdate(files: $files) { files { id } userErrors { field message code } } }'''
 REORDER_M = '''mutation($id: ID!, $moves: [MoveInput!]!) { productReorderMedia(id: $id, moves: $moves) { job { id } mediaUserErrors { field message } } }'''
-VIEW_RE = re.compile(r'/files/[^/?]*?-(front|back)(?:_[0-9a-f-]{36})?\.(?:webp|png|jpe?g)', re.I)
+VIEW_RE = re.compile(r'/files/[^/?]*?-(front|back|side)(?:_[0-9a-f-]{36})?\.(?:webp|png|jpe?g)', re.I)
 
 
-def shopify(mpath, apply):
+def shopify(mpath, apply, only=None):
     """Each card's store product: the old front/back mockup photos are swapped for the 2000 px ones in the same places,
     the side view goes in right after them, everything else (the watermarked art preview) keeps its place."""
     import aquatic_order as AO
     man = json.load(open(mpath)); done = skipped = 0
+    if only:
+        keep = {l for g in only for l in GROUPS[g]}; man = {k: e for k, e in man.items() if k.split('|')[1] in keep}
     for key, e in man.items():
         cdn = e.get('cdn') or {}
         sku = e['spec'].split(':')[2]
@@ -206,7 +209,7 @@ def shopify(mpath, apply):
                 if new[v.lower()] not in order: order.append(new[v.lower()]); alts[v.lower()] = m.get('alt') or ''
                 removed.append(m['id'])   # a second old photo of the same view just goes
             else: order.append(m['id'])
-            if i == last_mock and 'side' in new: order.append(new['side'])
+            if i == last_mock and 'side' in new and new['side'] not in order: order.append(new['side'])
         for v in ('back', 'front'):   # a product with no mockup of that view yet: put it first
             if new[v] not in order: order.insert(0, new[v])
         if 'side' in new and new['side'] not in order: order.insert(2, new['side'])
@@ -271,6 +274,6 @@ if __name__ == '__main__':
         print(len(C), 'cards')
     elif a[0] == 'render': render(opt('--out', 'mockups-hd'), only, int(opt('--limit', 0)), '--upload' in a)
     elif a[0] == 'site': site(a[1])
-    elif a[0] == 'shopify': shopify(a[1], '--apply' in a)
+    elif a[0] == 'shopify': shopify(a[1], '--apply' in a, only)
     elif a[0] == 'cap': cap(opt('--out', 'mockups-hd'), (opt('--colours') or 'navy,khaki').split(','), '--apply' in a)
     else: sys.exit(__doc__)
