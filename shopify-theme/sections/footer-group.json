@@ -56,11 +56,11 @@
             "text_LWt8Pz": {
               "type": "text",
               "settings": {
-                "text": "<h2>Get launch news</h2>",
+                "text": "<h2><strong>Get launch news</strong></h2>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "h2",
+                "type_preset": "h3",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
                 "line_height": "normal",
