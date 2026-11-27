@@ -51,6 +51,20 @@
 - No workshop status words were found in the theme. The deck and series tabs already had rash guards.
 - Repo mirror `shopify-theme/sections/ds-series-tabs.liquid` now matches the theme byte for byte. It had been missing the 25 Nov rash-guards tab, and it carried one comment line the theme does not have.
 
+## Gooten added as a second fulfilment provider (Eric 16:34 / 19:14–19:19: "complete the setup", "Setup all branding options allowed", "Need a red garment label")
+- **Store connected:** Gooten account (login orders@doolittlescuba.com) linked to x00ytr-y9.myshopify.com through the Gooten Shopify app, Gooten store id 102736. **Import Products was unticked**, so none of the Printful products were pulled into Gooten. Shopify now lists three fulfilment services: Manual (Shop location), Printful, **Gooten** (location "Gooten", active).
+- **Order hold:** Gooten has no merchant manual-approval switch (new partners' first orders are reviewed by Gooten's own team as "Needs Manual Approval"). Set **Pending Time = 12 hours** (Settings → Fulfillment), matching the 12-hour typo window in the store policies. "Hold items for personalization" left off. Return address: business address (default).
+- **Branding (Settings → Add-ons):**
+  - Packing slip: store name *Doolittle Scuba*, DS mark navy + red logo (348 px square, trimmed from `DS_mark_PF-sleeve-right_3.5x4in_NAVYRED.png`), message *"Thanks for diving in with us. Do a little scuba!"*, website doolittlescuba.com, help contact **sales@doolittlescuba.com** (after-sale address, per the 17 Nov email split).
+  - Neck labels (2.5 × 1 in, 750 × 300 px), built from the Shopify Files DS mark and the cap wordmark; pick the matching one per garment colour when creating Gooten apparel:
+    - **DS Neck Label - Light garments**: navy + red.
+    - **DS Neck Label - Dark garments**: white + red.
+    - **DS Neck Label - Red garments**: all white (the red would vanish on a red shirt).
+  - Profile company logo: same DS mark.
+  - **Not installed:** Gooten's automated order and shipping confirmation emails. Shopify already sends both, so turning these on would send customers duplicates.
+- **Still Eric's:** add a billing card in Gooten (Settings → Billing) before any order can be produced. No Gooten products created yet; the product lines for Gooten are still to be decided.
+- **Note:** existing automations (`custom_fulfil.py`, the custom shipping profiles) are Printful-only. A Gooten product needs its own shipping profile at the Gooten location before it goes on sale.
+
 ## Review re-run, evening (Eric 21:13 "Rerun the overall review"; 21:18 "Go with 2-5 skip linkedin")
 **Findings:**
 1. Plain `doolittlescuba.com/` fetched as the old homepage (old menu, hats/jackets/stickers). With `?probe=` it is current, and guides and `/caps/` are current. So it is a cache on the root URL; Eric to check in a private window and clear Porkbun's cache if needed.
