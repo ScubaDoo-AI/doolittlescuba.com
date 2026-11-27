@@ -34,6 +34,9 @@ jobs:
         run: python tools/store_check.py --max-pages "${{ inputs.max_pages || '60' }}" --check-links "${{ inputs.check_links || '1' }}"
       - uses: actions/upload-artifact@v4
         if: always()
-        with: { name: store-check, path: |
+        with:
+          name: store-check
+          path: |
             store-check.*
-            store-seo-audit.*, retention-days: 30 }
+            store-seo-audit.*
+          retention-days: 30
