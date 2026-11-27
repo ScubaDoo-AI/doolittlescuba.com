@@ -12,6 +12,8 @@ How each image is treated
   sticker products (tag sticker/stickers)                      → kept whole as a card (the sheet is the product)
   everything else (white-background Printful mockups)         → cut out with rembg (isnet-general-use), then placed.
         If the cut-out is basically the whole rectangle (art previews, sheets) it is kept whole as a card instead.
+        If the cut-out is mostly empty space inside its outline (line art, lettering: a design preview) it is kept
+        whole as a card too.
         If the cut-out is near empty (< 2 % of the image) the image is left alone and listed in the report.
   already done (corner pixels match the background)            → skipped, so a re-run never processes an image twice
 
@@ -22,7 +24,8 @@ Modes (run in Actions, .github/workflows/dark-bg.yml; the Shopify app credential
         the original in place (fileUpdate originalSource): same file, same products, same position, same alt text.
         Every original is saved under backups/ first (the run's artifact). previews/ holds before|after pairs and
         report.json the outcome of every image.
-Undo: fileUpdate each file again with its original from the backup artifact (file names are the MediaImage ids).
+Undo: put originals from a run's backup artifact in tools/dark_bg_restore/ (file names are the MediaImage ids) and run
+      mode restore; it fileUpdates each one back in place.
 """
 import argparse, io, json, os, sys, time, urllib.request
 
@@ -109,8 +112,11 @@ def transform(im, tags):
     bb = a.point(lambda v: 255 if v > 128 else 0).getbbox()
     if bb:
         bw, bh = bb[2] - bb[0], bb[3] - bb[1]
-        if cover / max(1e-6, (bw * bh) / float(w * h)) > 0.93 and bw * bh > 0.5 * w * h:
+        density = cover / max(1e-6, (bw * bh) / float(w * h))
+        if density > 0.93 and bw * bh > 0.5 * w * h:
             return card(im, w, h), 'card'                      # the item is a rectangle: an art preview or a sheet
+        if density < 0.45:
+            return card(im, w, h), 'card-art'                  # line art or lettering (a design preview): keep it whole
     return place(cut, w, h), 'cutout'
 
 
@@ -236,12 +242,21 @@ def run(ao, rows, apply, out):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('mode', choices=['inventory', 'run'])
+    ap.add_argument('mode', choices=['inventory', 'run', 'restore'])
+    ap.add_argument('--dir', default=os.path.join(HERE, 'dark_bg_restore'), help='restore: originals named <MediaImage id>.<ext>')
     ap.add_argument('--apply', action='store_true'); ap.add_argument('--offset', type=int, default=0)
     ap.add_argument('--limit', type=int, default=0); ap.add_argument('--shard', default='0/1')
     ap.add_argument('--only', default='', help='comma-separated product handles'); ap.add_argument('--out', default='dark-bg-out')
     a = ap.parse_args()
     ao = AO()
+    if a.mode == 'restore':
+        mimes = {'.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp'}
+        for f in sorted(os.listdir(a.dir)):
+            stem, e = os.path.splitext(f)
+            if e.lower() not in mimes: continue
+            replace(ao, [(f'gid://shopify/MediaImage/{stem}', f, open(os.path.join(a.dir, f), 'rb').read(), mimes[e.lower()])])
+            print('restored', f)
+        return
     rows = inventory(ao)
     os.makedirs(a.out, exist_ok=True)
     json.dump(rows, open(os.path.join(a.out, 'inventory.json'), 'w'), indent=1)

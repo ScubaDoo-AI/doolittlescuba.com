@@ -1,12 +1,13 @@
 name: Dark backgrounds
 # Every product image on the store navy with the DS mark wallpaper (tools/dark_bg.py; Eric, 26 Nov 2026).
-# inventory = list the images · dry = make previews only · apply = replace each image in place (originals in the artifact).
+# inventory = list the images · dry = make previews only · apply = replace each image in place (originals in the artifact)
+# restore = put back the originals in tools/dark_bg_restore/ (named <MediaImage id>.<ext>).
 on:
   workflow_dispatch:
     inputs:
       mode:
         type: choice
-        options: [inventory, dry, apply]
+        options: [inventory, dry, apply, restore]
         default: dry
       only:
         description: 'Product handles, comma-separated (blank = all products)'
@@ -48,6 +49,7 @@ jobs:
             inventory) python tools/dark_bg.py inventory ;;
             dry)       python tools/dark_bg.py run "${A[@]}" ;;
             apply)     python tools/dark_bg.py run --apply "${A[@]}" ;;
+            restore)   python tools/dark_bg.py restore ;;
           esac
       - uses: actions/upload-artifact@v4
         if: always()
