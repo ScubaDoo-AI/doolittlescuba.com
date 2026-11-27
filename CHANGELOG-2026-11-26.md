@@ -97,3 +97,29 @@
 - **Footer heading tag:** Eric's 22:23 editor save stored the heading as `<h1><strong>Get launch news</strong></h1>`, a second h1 on every store page. Recommended fix: theme editor → Footer → that text block → Heading 2, bold off. The publish tool refuses every footer edit, because the file changed on Shopify (Eric's save) after the tool loaded the theme, so this one is Eric's to make in the editor.
 - To keep the footer from blocking other publishes, the tool's queued footer copy was set back to the exact copy it loaded (md5 b3833a74, the same as the 22:1x publish that went through). The tool refuses rather than overwrite a file changed on Shopify, so Eric's live footer is safe either way.
 - Repo mirror `shopify-theme/snippets/ds-deck-cards.liquid` is stale (it predates the 25 Nov rash-guard deck work) and was not patched. A full re-sync from the theme is due.
+
+## Start here fix published; every product image on the dark DS wallpaper (Eric 22:47 "Publish and update the printful images with the new backgrounds")
+**Start here page live (22:50).** The publish tool still refused the whole theme over the footer file. So `snippets/ds-deck-cards.liquid` went out alone through **Actions → Theme push** (dry run, then apply; the old copy is in that run's artifact). Shopify's file now has md5 5fc02055, the fixed version. The repo mirror `shopify-theme/snippets/ds-deck-cards.liquid` was synced to it, and is no longer stale.
+
+**Dark backgrounds** (samples approved 22:33–22:47: every product image, subtle tile, samples first):
+- **Look:**
+  - store navy #0E1B33 (the theme palette background)
+  - DS marks tiled at about 7.5% of the image width in #1B2C4C, every other row offset
+  - a soft light pool behind the product, so dark garments separate
+  - a soft shadow under the product
+  - same pixel size and file type as the original
+- **How each image is treated:**
+  - transparent mockups (the hd- tees, the caps): placed directly
+  - sticker products: kept whole as a card
+  - white-background mockups (rash guards, towels, polos): cut out with rembg (isnet-general-use)
+  - design previews (line art, lettering) and flat sheets: kept whole as a card
+  - already converted (wallpaper all round the border): skipped
+- **Tool:** `tools/dark_bg.py` + `tools/dark_bg_mark.png`. **Job:** Actions → Dark backgrounds (`dark-bg.yml`), with modes inventory / dry / apply / restore, `only`, `shard i/n` and `limit`.
+- **In place:** `fileUpdate(originalSource)` on each MediaImage, so the file, the products using it, its position and alt text stay the same.
+- **Backups:** every original is in that run's artifact (`dark-bg-apply-…`, `backups/<MediaImage id>.<ext>`), kept 90 days, with before|after previews and `report.json`. **Undo:** put originals in `tools/dark_bg_restore/` and run mode restore.
+- **Inventory:** 2,814 images on ACTIVE + DRAFT products: 1,557 tee, 728 rash guard, 260 cap, 158 other (mostly draft polos), 87 sticker, 24 towel.
+- **Pilot** (8 products, 31 images, applied 22:58): all good except three design previews (the Black Bart and Boat Diver plate close-ups, and the Current lettering). They were cut out as line art, which was hard to read on navy. They were restored from backup (byte-identical), the rule was fixed (low-density cut-outs are kept whole as a card), and they were redone as cards.
+- **Full run:** four parallel jobs (shards 0/4 to 3/4) started 23:04.
+- **Caveats:**
+  - Printful can push its own mockups again if a product is re-synced or edited there, and new products arrive on white. Re-run the job (it skips what is done).
+  - The site's own local copies (e.g. the cap thumbnails under `img/hats/pf/`, the shirt deck images) are separate files. The CDN-hosted ones follow automatically.
