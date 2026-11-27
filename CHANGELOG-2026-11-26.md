@@ -123,3 +123,10 @@
 - **Caveats:**
   - Printful can push its own mockups again if a product is re-synced or edited there, and new products arrive on white. Re-run the job (it skips what is done).
   - The site's own local copies (e.g. the cap thumbnails under `img/hats/pf/`, the shirt deck images) are separate files. The CDN-hosted ones follow automatically.
+- **Full run result:** 2,814 images, 0 errors. Transparent 1,475 · cut out 908 · card-art 295 · card 74 · already done 49 · skipped (no product found) 13.
+
+## Site copies, and the rash guard fix (27 Nov, early)
+- **Site pass** (`tools/dark_bg_site.py`, commit f8c5609): the local images in `img/hats/pf`, `img/organic/caps`, `img/organic/beanie`, `img/jackets`, `img/towels`, `img/stickers` and `img/packs` are on the wallpaper too. Heroes, banners, tiles, og- images and sheet backgrounds are skipped. Rules found along the way: a close-up photo that fills the frame is left alone; a dark product on a plain dark ground is cut out (not left as a square); a sticker is a card only if it fills over 80% of the frame; large holes in a cut-out are filled (the seal centre), small rings stay see-through. **Note:** the site's jacket photos still show models (only the store's were removed).
+- **Rash guard problem:** in the store run, 74 rash guard flat lays (44 products) were wrongly kept as white cards. A rembg re-run then lost the pale torso panels (wallpaper showed through), so all 74 were put back to their originals (run 45943341309).
+- **Fix:** white-ground mockups are now keyed by a **flood fill from the image edges** (near-white pixels connected to the border become transparent, 1.2 px soft edge). Pale panels survive because the garment outline encloses them. rembg is kept for plain non-white grounds. Plates and design previews stay cards (new tests: many separate pieces, or mostly white paper).
+- **Re-applied** (run 45943769018, `only` = the 44 products): 74 keyed, 190 already done, 0 errors. Checked from the before/after previews. The 74 restore originals were removed from `tools/dark_bg_restore/` (commit 4e5013d); backups remain in the run artifacts for 90 days.
