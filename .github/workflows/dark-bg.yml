@@ -1,0 +1,54 @@
+name: Dark backgrounds
+# Every product image on the store navy with the DS mark wallpaper (tools/dark_bg.py; Eric, 26 Nov 2026).
+# inventory = list the images · dry = make previews only · apply = replace each image in place (originals in the artifact).
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        options: [inventory, dry, apply]
+        default: dry
+      only:
+        description: 'Product handles, comma-separated (blank = all products)'
+        type: string
+        default: ''
+      shard:
+        description: 'This run takes every n-th image: i/n (0/1 = all)'
+        type: string
+        default: '0/1'
+      limit:
+        description: 'Images at most (0 = all)'
+        type: string
+        default: '0'
+permissions:
+  contents: read
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - run: pip install pillow numpy scipy "rembg[cpu]"
+      - name: Run
+        env:
+          SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
+          SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
+          PRINTFUL_TOKEN: ${{ secrets.PRINTFUL_TOKEN }}
+          MODE: ${{ inputs.mode }}
+          ONLY: ${{ inputs.only }}
+          SHARD: ${{ inputs.shard }}
+          LIMIT: ${{ inputs.limit }}
+        run: |
+          set -o pipefail
+          [[ "$ONLY" =~ ^[a-z0-9,-]*$ && "$SHARD" =~ ^[0-9]+/[0-9]+$ && "$LIMIT" =~ ^[0-9]+$ ]] || { echo "::error::bad input"; exit 1; }
+          A=(--shard "$SHARD" --limit "$LIMIT"); [ -n "$ONLY" ] && A+=(--only "$ONLY")
+          case "$MODE" in
+            inventory) python tools/dark_bg.py inventory ;;
+            dry)       python tools/dark_bg.py run "${A[@]}" ;;
+            apply)     python tools/dark_bg.py run --apply "${A[@]}" ;;
+          esac
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: 'dark-bg-${{ inputs.mode }}-${{ strategy.job-index }}-${{ github.run_id }}', path: dark-bg-out, if-no-files-found: ignore, retention-days: 90 }
