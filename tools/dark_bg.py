@@ -12,7 +12,8 @@ How each image is treated
   sticker products (tag sticker/stickers)                      → kept whole as a card (the sheet is the product)
   a photo or close-up that fills the frame (varied border)    → left alone
   a product or design on a plain ground (white or one flat colour) → cut out, then as below
-  everything else (white-background Printful mockups)         → cut out with rembg (isnet-general-use), then placed.
+  white-background Printful mockups                            → flood-fill key from the edges (keeps pale panels)
+  plain non-white grounds, or a white product on white        → cut out with rembg (isnet-general-use), then placed.
         If the cut-out is basically the whole rectangle (art previews, sheets) it is kept whole as a card instead.
         If the cut-out is mostly empty space inside its outline (line art, lettering: a design preview) it is kept
         whole as a card too.
@@ -101,6 +102,28 @@ def thin(alpha):
     return kept < 0.5
 
 
+def scattered(alpha):
+    """True when the foreground is many separate pieces (a plate, lettering, a sheet of stickers): the largest piece
+    is under 60 % of it, or there are 30+ real pieces and none is 85 %. A garment, a cap or a towel is one piece."""
+    import numpy as np
+    from scipy.ndimage import label
+    m = np.array(alpha) > 128
+    lab, n = label(m)
+    if n < 2: return False
+    sizes = np.bincount(lab.ravel())[1:]
+    share = sizes.max() / sizes.sum()
+    real = int((sizes > 20).sum())                              # pieces bigger than a speck
+    return share < 0.6 or (real >= 30 and share < 0.85)
+
+
+def papery(im, alpha):
+    """True when most of the keyed foreground is white paper (a plate or a design preview printed on white)."""
+    import numpy as np
+    m = np.array(alpha) > 128
+    rgb = np.array(im.convert('RGB'))[m]
+    return len(rgb) > 0 and (rgb.min(axis=1) >= 230).mean() > 0.55
+
+
 def border_kind(im):
     """'white' or 'plain' (one flat ground: cut it out) or 'photo' (a varied border: a close-up or a photo)."""
     rgb = im.convert('RGB'); w, h = rgb.size
@@ -110,6 +133,21 @@ def border_kind(im):
     mean = [sum(p[i] for p in px) / len(px) for i in range(3)]
     spread = max((sum((p[i] - mean[i]) ** 2 for p in px) / len(px)) ** 0.5 for i in range(3))
     return 'plain' if spread < 12 else 'photo'
+
+
+def white_key(im, thr=238):
+    """Cut a product off a pure-white ground by flood-filling the white from the image edges inward. Pale parts of
+    the product (a light body panel) survive because they are enclosed by the product's outline. → (RGBA, share of
+    the image that was background)."""
+    import numpy as np
+    from scipy.ndimage import label, binary_dilation
+    rgb = np.array(im.convert('RGB')).astype(int)
+    lab, n = label(rgb.min(axis=2) >= thr)
+    edge = set(np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))) - {0}
+    bg = binary_dilation(np.isin(lab, list(edge)), iterations=1)        # one pixel into the edge: no white fringe
+    a = Image.fromarray(np.where(bg, 0, 255).astype('uint8')).filter(ImageFilter.GaussianBlur(1.2))
+    out = im.convert('RGBA'); out.putalpha(a)
+    return out, float(bg.mean())
 
 
 _SESSION = {}
@@ -144,7 +182,11 @@ def transform(im, tags):
             return place(rgba, w, h), 'transparent'
     kind = border_kind(im)
     if kind == 'photo': return None, 'skip-fullbleed'          # a close-up or a photo that fills the frame: leave it
-    cut = cutout(im)
+    cut = None
+    if kind == 'white':                                         # pure-white ground: flood-fill key (keeps pale panels)
+        keyed, bgshare = white_key(im)
+        if 0.05 < bgshare < 0.9: cut, how = keyed, 'keyed'
+    if cut is None: cut, how = cutout(im), 'cutout'             # plain non-white ground, or a white product on white
     a = cut.split()[-1]
     hist = a.histogram(); cover = sum(hist[128:]) / float(w * h)
     if cover < 0.02: return None, 'skip-empty-cutout'
@@ -157,9 +199,9 @@ def transform(im, tags):
         density = cover / max(1e-6, (bw * bh) / float(w * h))
         if density > 0.93 and bw * bh > 0.8 * w * h:
             return card(im, w, h), 'card'                      # the item is a rectangle: an art preview or a sheet
-        if density < 0.45 and thin(a):
+        if (density < 0.45 and thin(a)) or scattered(a) or (how == 'keyed' and papery(im, a)):
             return card(im, w, h), 'card-art'                  # line art or lettering (a design preview): keep it whole
-    return place(cut, w, h), 'cutout'
+    return place(cut, w, h), how
 
 
 # ---------- store ----------
