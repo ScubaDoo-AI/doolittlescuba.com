@@ -34,7 +34,8 @@ def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else 'dry'
     prods = inventory()
     if mode == 'inventory': return
-    from seo_rules import plan
+    from seo_rules import plan, prime
+    prime(prods)
     only = set()
     if '--only' in sys.argv: only = set(sys.argv[sys.argv.index('--only') + 1].split(','))
     changes, skipped = [], []
