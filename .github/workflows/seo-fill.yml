@@ -1,0 +1,30 @@
+# Fill Shopify product search descriptions / fix long search titles. Modes: inventory, dry, apply.
+name: SEO fill
+on:
+  workflow_dispatch:
+    inputs:
+      mode: { description: 'inventory | dry | apply', default: 'dry' }
+      only: { description: 'Optional comma-separated handles', default: '' }
+permissions:
+  contents: read
+concurrency: seo-fill
+jobs:
+  fill:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - name: Run
+        env:
+          SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
+          SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
+        run: |
+          if [ -n "${{ inputs.only }}" ]; then python tools/seo_fill.py "${{ inputs.mode }}" --only "${{ inputs.only }}"; else python tools/seo_fill.py "${{ inputs.mode }}"; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: seo-fill-${{ inputs.mode }}
+          path: seo-*.json
+          retention-days: 90
