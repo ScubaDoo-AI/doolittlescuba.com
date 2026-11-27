@@ -10,10 +10,13 @@ file type as the original.
 How each image is treated
   transparent already (the hd- tee mockups, the cap mockups)  → placed straight on the wallpaper
   sticker products (tag sticker/stickers)                      → kept whole as a card (the sheet is the product)
+  a photo or close-up that fills the frame (varied border)    → left alone
+  a product or design on a plain ground (white or one flat colour) → cut out, then as below
   everything else (white-background Printful mockups)         → cut out with rembg (isnet-general-use), then placed.
         If the cut-out is basically the whole rectangle (art previews, sheets) it is kept whole as a card instead.
         If the cut-out is mostly empty space inside its outline (line art, lettering: a design preview) it is kept
         whole as a card too.
+        If the item fills the frame (touches 3+ edges: a close-up) the image is left alone.
         If the cut-out is near empty (< 2 % of the image) the image is left alone and listed in the report.
   already done (corner pixels match the background)            → skipped, so a re-run never processes an image twice
 
@@ -87,13 +90,36 @@ def done_already(im):
     return hits >= len(pts) - 2
 
 
+def border_kind(im):
+    """'white' or 'plain' (one flat ground: cut it out) or 'photo' (a varied border: a close-up or a photo)."""
+    rgb = im.convert('RGB'); w, h = rgb.size
+    pts = [(int(w * f / 20), y) for f in range(1, 20) for y in (1, h - 2)] + [(x, int(h * f / 20)) for f in range(1, 20) for x in (1, w - 2)]
+    px = [rgb.getpixel(q) for q in pts]
+    if sum(1 for p in px if min(p) >= 225) >= 0.5 * len(px): return 'white'
+    mean = [sum(p[i] for p in px) / len(px) for i in range(3)]
+    spread = max((sum((p[i] - mean[i]) ** 2 for p in px) / len(px)) ** 0.5 for i in range(3))
+    return 'plain' if spread < 12 else 'photo'
+
+
 _SESSION = {}
 
 
 def cutout(im):
     from rembg import remove, new_session
     if 's' not in _SESSION: _SESSION['s'] = new_session('isnet-general-use')
-    return remove(im.convert('RGB'), session=_SESSION['s']).convert('RGBA')
+    cut = remove(im.convert('RGB'), session=_SESSION['s']).convert('RGBA')
+    # fill enclosed holes (a white sticker centre, the inside of a collar): a physical product has none
+    # (only large ones: a towel's hanging ring or a grommet stays see-through)
+    import numpy as np
+    from scipy.ndimage import binary_fill_holes, label
+    a = np.array(cut.split()[-1]); holes = binary_fill_holes(a > 128) & (a <= 128)
+    lab, n = label(holes)
+    if n:
+        sizes = np.bincount(lab.ravel()); big = [i for i in range(1, n + 1) if sizes[i] > 0.015 * a.size]
+        if big:
+            a = np.where(np.isin(lab, big), 255, a).astype('uint8')
+        rgb = np.array(im.convert('RGB')); cut = Image.fromarray(np.dstack([rgb, a]), 'RGBA')
+    return cut
 
 
 def transform(im, tags):
@@ -105,15 +131,20 @@ def transform(im, tags):
         rgba = im.convert('RGBA')
         if rgba.split()[-1].getextrema()[0] < 20:            # real transparency around the item
             return place(rgba, w, h), 'transparent'
+    kind = border_kind(im)
+    if kind == 'photo': return None, 'skip-fullbleed'          # a close-up or a photo that fills the frame: leave it
     cut = cutout(im)
     a = cut.split()[-1]
     hist = a.histogram(); cover = sum(hist[128:]) / float(w * h)
     if cover < 0.02: return None, 'skip-empty-cutout'
     bb = a.point(lambda v: 255 if v > 128 else 0).getbbox()
     if bb:
+        edges = sum((bb[0] <= 2, bb[1] <= 2, bb[2] >= w - 3, bb[3] >= h - 3))
+        if edges >= 3 and cover > 0.6:
+            return None, 'skip-fullbleed'                      # a close-up that fills the frame: leave it as it is
         bw, bh = bb[2] - bb[0], bb[3] - bb[1]
         density = cover / max(1e-6, (bw * bh) / float(w * h))
-        if density > 0.93 and bw * bh > 0.5 * w * h:
+        if density > 0.93 and bw * bh > 0.8 * w * h:
             return card(im, w, h), 'card'                      # the item is a rectangle: an art preview or a sheet
         if density < 0.45:
             return card(im, w, h), 'card-art'                  # line art or lettering (a design preview): keep it whole
