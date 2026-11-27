@@ -50,3 +50,20 @@
 - **Product pages** (theme "Live 21 Nov + three-view turn", `sections/ds-series-tabs.liquid`): every product tagged `site:<slug>` now shows **"Everything for <site> on DoolittleScuba.com →"** under the back link. It opens that site's guide, where the new Wear strip holds all its products. The text and address are section settings ("Dive-site link"), and the site name is the product title before " — ". Committed and **published 26 Nov 15:38** (Eric: "Publish").
 - No workshop status words were found in the theme. The deck and series tabs already had rash guards.
 - Repo mirror `shopify-theme/sections/ds-series-tabs.liquid` now matches the theme byte for byte. It had been missing the 25 Nov rash-guards tab, and it carried one comment line the theme does not have.
+
+## Review re-run, evening (Eric 21:13 "Rerun the overall review"; 21:18 "Go with 2-5 skip linkedin")
+**Findings:**
+1. Plain `doolittlescuba.com/` fetched as the old homepage (old menu, hats/jackets/stickers). With `?probe=` it is current, and guides and `/caps/` are current. So it is a cache on the root URL; Eric to check in a private window and clear Porkbun's cache if needed.
+2. The store's homepage had no starting point.
+3. The store's footer signup was headed "Surface interval", the same as the line.
+4. Pairs were in the store menu but not on the site.
+5. LinkedIn is not set up yet (skipped).
+6. Kioa Island is the only dead end under Shop by dive site.
+7. Real photos and the line_pages drift carry over.
+
+**Done (2–4):**
+- **Site menu:** Shop ▸ By gear now has **Cap & tee pairs** → `shop.doolittlescuba.com/collections/pairs` (Umami `nav-pairs`). Applied to all 30 menu pages via `tools/site_nav.py`.
+- **Store collection "Start here"** (new, `start-here`, gid 494422327482): manual order, published to the Online Store. It holds the site's eight picks in the same order: Black Bart tee, Night Diver tee, Cloaked tee, Trust But Test tee, Current tee, Thistlegorm dark rash guard (men's LS), Vuna Reef cap, Achievement Unlocked set. Change the picks in admin under Collections → Start here.
+- **Store homepage** (`templates/index.json`): order is hero → **Start here** (the old, disabled product-list section re-enabled, pointed at `start-here`, 4 across, heading in the same style as "The shirts", no View all button) → The shirts deck. The hero gets a second button, **Shop by dive site** (white) → `doolittlescuba.com/#map`, set beside "See the shirts" (hero alignment flex-start).
+- **Store footer** (`sections/footer-group.json`): "Surface interval" → **"Get launch news"**.
+- Theme committed 21:3x; **waiting for publish**. Checked by screenshot at 1440 and 390 px.
