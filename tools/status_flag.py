@@ -12,20 +12,20 @@ visitors who dismissed the previous one.
 import html, pathlib, re, sys
 
 STATUS = {
-    "id": "2026-11-22-stickers-ready",
+    "id": "2026-11-27-samples-en-route",
     "label": "Shop status",
     "state": "Proofing",
-    "updated": "Updated 22 Nov 2026",
-    "message": ("Almost there: the Achievement Unlocked UV stickers (the full set and the 12 single badges) "
-                "are in stock and will be ready on day one. The last round of samples is due Nov 26–28; "
-                "until they pass, everything else stays “Coming soon”."),
+    "updated": "Updated 27 Nov 2026",
+    "message": ("New: Signature Series rash guards, the Water Hazard golf towels, and a guide for every dive site "
+                "showing everything made for it. The last samples reach us by early December; until they pass, "
+                "items stay “Coming soon”. The Achievement Unlocked UV stickers are in stock for day one."),
     "link_text": "Get word when it opens",
     "link_href": "mailto:shop@doolittlescuba.com?subject=Tell%20me%20when%20the%20shop%20opens",
 }
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PAGES = ["index.html", "about/index.html", "workshop/index.html", "custom/index.html",
-         "signature/index.html", "certified-ish/index.html", "off-world/index.html", "1n73ll1g3nc3/index.html", "stickers/index.html", "towels/index.html", "organic/index.html", "surface-interval/index.html",
+         "signature/index.html", "certified-ish/index.html", "off-world/index.html", "1n73ll1g3nc3/index.html", "stickers/index.html", "towels/index.html", "caps/index.html", "jackets/index.html", "rash-guards/index.html", "organic/index.html", "surface-interval/index.html",
          *sorted(str(p.relative_to(ROOT)) for p in ROOT.glob("sites/*/index.html"))]
 BLOCK_RE = re.compile(r"\n?<!-- STATUS:START -->.*?<!-- STATUS:END -->\n?", re.S)
 
