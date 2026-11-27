@@ -6,7 +6,7 @@
     us:'<svg viewBox="0 0 26 18" aria-hidden="true"><rect width="26" height="18" fill="#C8202A"/><path d="M0 0h4.5L26 14.5V18h-4.5L0 3.5z" fill="#fff"/></svg>',
     intl:'<svg viewBox="0 0 26 18" aria-hidden="true"><path d="M0 0h13v18H0z" fill="#fff"/><path d="M13 0h13l-6 9 6 9H13z" fill="#1F4FA3"/></svg>'
   };
-  var STATUS={available:'Coming soon',finished:'Art finished',progress:'In progress'};
+  var STATUS={available:'Coming soon',finished:'Art finished',progress:'In progress',logbook:'Logbook'};
   var REGIONS=[
     {name:'Southeast US',test:function(s){return s.lng<-60&&s.lat>15;}},
     {name:'Red Sea',test:function(s){return s.lng>30&&s.lng<45;}},

@@ -240,7 +240,7 @@ section{padding-block:clamp(40px,7vw,72px);border-top:1px solid var(--rule)}
 .index a:hover .n,.index a:focus-visible .n{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 .index .tag.finished{color:var(--muted)}
 .index .tag.available{color:#1E7A4C}
-.index .tag.progress{color:var(--red)}
+.index .tag.progress{color:var(--red)}.tag.logbook{color:var(--muted)}
 .index .where{display:block;font-family:var(--f-body);font-size:var(--s-1);color:var(--muted);letter-spacing:0;text-transform:none}
 .index .nm{display:flex;flex-direction:column;gap:1px;min-width:0}
 #map .index{grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
