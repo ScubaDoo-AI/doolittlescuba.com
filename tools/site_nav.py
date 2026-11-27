@@ -3,7 +3,7 @@
 
 Shop and Our story open a drop-down (<details>, so it works without JavaScript):
   Shop       By collection: All collections, the five lines, Organic
-             By gear:       Rash guards, Caps, Jackets, Stickers, Towels
+             By gear:       Rash guards, Caps, Cap & tee pairs (the store's pairs collection), Jackets, Stickers, Towels
   Our story  About us, Logbook, Workshop, Contact
 
 The inner links keep their old Umami event names (nav-collections, nav-hats, ...) so the numbers carry on.
@@ -27,6 +27,7 @@ COLLECTIONS = [('/#lines', 'All collections', 'nav-collections'),
                ('/organic/', 'Organic', 'nav-organic')]
 GEAR = [('/rash-guards/', 'Rash guards', 'nav-rashguards'),
         ('/caps/', 'Caps', 'nav-hats'),
+        ('https://shop.doolittlescuba.com/collections/pairs', 'Cap &amp; tee pairs', 'nav-pairs'),
         ('/jackets/', 'Jackets', 'nav-jackets'),
         ('/stickers/', 'Stickers', 'nav-stickers'),
         ('/towels/', 'Towels', 'nav-towels')]
