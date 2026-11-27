@@ -1,0 +1,39 @@
+# Store check: (1) admin SEO audit of every active product and collection, (2) crawl shop.doolittlescuba.com for SEO and page problems (titles, descriptions, h1,
+# alt text, og:image, canonical, broken links). Daily and on demand. While the store is behind its
+# password it reports "private" and passes. Signed with the Shopify crawler signature in the secrets
+# SHOPIFY_CRAWL_SIGNATURE and SHOPIFY_CRAWL_SIGNATURE_INPUT (Online Store -> Preferences -> Crawler access;
+# renew before it expires). Report: the run summary and the store-check artifact.
+name: Store check
+on:
+  schedule:
+    - cron: '41 12 * * *'
+  workflow_dispatch:
+    inputs:
+      max_pages: { description: 'Pages to crawl', default: '60' }
+      check_links: { description: 'Check every link (1/0)', default: '1' }
+permissions:
+  contents: read
+concurrency: store-check
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - name: Admin SEO audit (alt text, search titles and descriptions)
+        env:
+          SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
+          SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
+        run: python tools/store_seo_audit.py
+      - name: Crawl the store
+        env:
+          SHOPIFY_CRAWL_SIGNATURE: ${{ secrets.SHOPIFY_CRAWL_SIGNATURE }}
+          SHOPIFY_CRAWL_SIGNATURE_INPUT: ${{ secrets.SHOPIFY_CRAWL_SIGNATURE_INPUT }}
+        run: python tools/store_check.py --max-pages "${{ inputs.max_pages || '60' }}" --check-links "${{ inputs.check_links || '1' }}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: store-check, path: |
+            store-check.*
+            store-seo-audit.*, retention-days: 30 }
