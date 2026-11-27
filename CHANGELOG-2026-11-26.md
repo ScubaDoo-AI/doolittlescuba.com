@@ -81,3 +81,16 @@
 - **Store homepage** (`templates/index.json`): order is hero → **Start here** (the old, disabled product-list section re-enabled, pointed at `start-here`, 4 across, heading in the same style as "The shirts", no View all button) → The shirts deck. The hero gets a second button, **Shop by dive site** (white) → `doolittlescuba.com/#map`, set beside "See the shirts" (hero alignment flex-start).
 - **Store footer** (`sections/footer-group.json`): "Surface interval" → "Get launch news" was **not published**. Every publish that carried the footer file was refused as "changed on Shopify outside this tool". Shopify's copy (updated 22 Nov) still reads "Surface interval", and the cause of the mismatch wasn't visible, so it was not forced. **Eric:** change it in the theme editor (Customize → Footer → the "Surface interval" text block). The tool's copy was put back to "Surface interval"; it may still be listed as waiting to publish.
 - **Published 22:1x** (Eric 22:11 "Yes"): the homepage (Start here + Shop by dive site button). The first try was refused because the unused "View all" button block was still in the file but not in its block order; the block was deleted. Checked by screenshot at 1440 and 390 px before publishing.
+
+## Kioa Island hidden (Eric 22:15: "Hide Kioa for now")
+- Kioa Island is the one dive site with nothing for sale, so it is hidden from the shop paths. The guide page stays at `/sites/kioa-island/`, now with `noindex`. Nothing links to it.
+- **Removed from:**
+  - the sites data on the home, Signature and rash-guard pages (map pins)
+  - the home page site list under Shop by dive site (14 rows, all "Coming soon")
+  - the Signature art grid
+  - the design search index
+  - `sitemap.xml`
+- **Guide pager:** Vuna Reef → next is now Black Bart; Black Bart → previous is now Vuna Reef.
+- **Kept:** the logbook photo "Surface interval · Kioa Island" (a trip photo, not a listing), and the word "Kioa" in the Somosomo Strait design's search text (it is written on that artwork).
+- **Tool:** `tools/hide_sites.py` (new, idempotent; `HIDDEN = {'kioa-island': 'Kioa Island'}`). To un-hide, take the slug out of HIDDEN and revert this commit. Re-run it after `tools/line_pages.py`, which regenerates the art grid and `js/designs.json`.
+- Checked locally: no script errors on /, /signature/, /rash-guards/, the Vuna Reef guide and the Kioa guide (its own map still draws).
